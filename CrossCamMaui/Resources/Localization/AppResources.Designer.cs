@@ -863,7 +863,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CrossCam was made to help you make 3D photos. The photos are 3D just like VR or 3D movies, but you don&apos;t need any special equipment or glasses - just your phone (but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). The \&quot;free viewing\&quot; technique that uses just your phone and your eyes takes some practice to learn. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?.
+        ///   Looks up a localized string similar to CrossCam was made to help you make 3D photos. The photos are 3D just like VR or 3D movies, but you don&apos;t need any special equipment or glasses - just your phone (but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). The &quot;free viewing&quot; technique that uses just your phone and your eyes takes some practice to learn. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?.
         /// </summary>
         internal static string Page_Camera_WelcomeExplain {
             get {
@@ -1264,7 +1264,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CrossView Subreddit.
+        ///   Looks up a localized string similar to Cross View Subreddit.
         /// </summary>
         internal static string Page_MorePictures_CrossViewSubreddit {
             get {
@@ -1309,7 +1309,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ParallelView Subreddit.
+        ///   Looks up a localized string similar to Parallel View Subreddit.
         /// </summary>
         internal static string Page_MorePictures_ParallelViewSubreddit {
             get {
@@ -2853,7 +2853,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save into dedicated &quot;CrossCam_{ViewMethod}&quot; subfolders/albums.
+        ///   Looks up a localized string similar to Save into dedicated &quot;CrossCam {View Method}&quot; subfolders/albums.
         /// </summary>
         internal static string Settings_Saving_Subfolder {
             get {

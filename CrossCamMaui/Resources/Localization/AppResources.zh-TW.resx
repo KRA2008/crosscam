@@ -124,7 +124,7 @@
     <value>學習交叉</value>
   </data>
   <data name="Button.LearnParallel" xml:space="preserve">
-    <value>學習平行</value>
+    <value>學習並行</value>
   </data>
   <data name="Button.MorePictures" xml:space="preserve">
     <value>看更多圖片</value>
@@ -154,7 +154,7 @@
     <value>2) 開始浮雕查看第一張圖片及其旁邊出現的預覽。</value>
   </data>
   <data name="Page.HowToUse.2cardboard" xml:space="preserve">
-    <value>2) 開始用紙板查看第一張圖片及其旁邊出現的預覽。</value>
+    <value>2) 開始使用 Cardboard 查看第一張圖片及其旁邊出現的預覽。</value>
   </data>
   <data name="Page.HowToUse.2cross" xml:space="preserve">
     <value>2) 開始交叉查看第一張圖片及其旁邊出現的預覽。</value>
@@ -172,7 +172,7 @@
     <value>小心地鬆開雙眼，使每對內側的圖片開始重疊。它會開始看起來只有 3 張圖片而不是 4 張。</value>
   </data>
   <data name="Page.Technique.Cross3" xml:space="preserve">
-    <value>一旦中間重疊起作用，您只需放鬆眼睛並讓它們聚焦圖片。此時，您將在中間看到一張清晰的 3D 圖片，每一側都有一張漂浮的透明圖片，如下所示（除了中間是 3D 之外）：</value>
+    <value>一旦你完成了中間重疊的工作，你只需要放鬆你的眼睛，讓它們聚焦在圖片上。此時，您將在中間看到一張清晰的 3D 圖片，每一側都有一張漂浮的透明圖片，如下所示（除了中間是 3D 之外）：</value>
   </data>
   <data name="Page.Technique.Cross4" xml:space="preserve">
     <value>如果您的眼睛有困難，您也可以嘗試將手指放在眼睛和螢幕之間，盯著手指看。您應該會看到圖片開始在手指後面分開和重疊。</value>
@@ -185,7 +185,7 @@
 
 要在 CrossCam 中觀看 3D（稱為「立體圖」），您可以使用紅色/青色 3D 眼鏡、Google Cardboard 檢視器，也可以僅使用眼睛和螢幕進行「自由觀看」。免費觀看的方式有兩種，CrossCam 可以幫助您學習這兩種方式。您需要告訴 CrossCam 您將如何查看圖片，否則它將無法正常工作。不用擔心，您隨時可以在“設定”中再次更改此設定。
 
-如果您能夠輕鬆地交叉眼睛，則應先嘗試交叉法，否則應嘗試平行法。如果您習慣了 Magic Eye™ 書籍，您可能已經能夠執行平行方法，但您也可能能夠執行交叉方法。點擊下面的方法來了解它，並確保透過按下對應的「選擇」按鈕告訴 CrossCam 哪種方法適合您。
+如果您能夠輕鬆地交叉眼睛，則應先嘗試交叉方法，否則應嘗試平行方法。如果您習慣了 Magic Eye™ 書籍，您可能已經能夠執行平行方法，但您也可能能夠執行交叉方法。點擊下面的方法來了解它，並確保透過按下對應的「選擇」按鈕告訴 CrossCam 哪種方法適合您。
 
 如果您更喜歡使用 3D 眼鏡或 Cardboard 檢視器，您可以在「設定」頁面上將 CrossCam 設定為使用這些眼鏡。</value>
   </data>
@@ -419,7 +419,7 @@
     <value>視場校正</value>
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
-    <value>不同的設備型號可以有不同的視野。 CrossCam 將在您完成第一次捕獲後幫助您糾正此問題。構圖並捕捉畫面頂部和底部附近具有獨特點的內容，確保這些點在兩台裝置上都可見。</value>
+    <value>不同的設備型號可以有不同的視野。 CrossCam 將在您完成第一次捕獲後幫助您糾正此問題。取景並捕捉畫面頂部和底部附近具有獨特點的內容，確保這些點在兩台裝置上都可見。</value>
   </data>
   <data name="Page.Technique.ParallelLink1" xml:space="preserve">
     <value>不錯的文字教程</value>
@@ -439,8 +439,8 @@
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>如果您仍然遇到問題，請嘗試將手機帶到黑暗的房間，以便您的眼睛唯一能看清並聚焦的就是影像。
 
-您可以嘗試的另一件事是使用衛生紙管或您的雙手來製作它，這樣每隻眼睛只能看到它應該看到的圖像的一側。
- • 對於交叉視圖：將一根管子靠在鼻樑上（兩眼之間的中心），同時將其指向您前方影像的中心。慢慢地將管子移向螢幕，同時試著用雙眼向下看管子。當您使用管子到達正確位置時，影像應該卡入到位。集中精力觀察管子遠端的內部可能會有所幫助。如果找不到正確的位置，請嘗試使用更大的圖像或更小的管。
+您可以嘗試的另一件事是使用衛生紙管或您的手來製作它，這樣每隻眼睛只能看到它應該看到的圖像的一側。
+ • 對於交叉視圖：將一根管子靠在鼻樑上（兩眼之間的中心），同時將其指向您前方影像的中心。慢慢地將管子移向螢幕，同時試著用雙眼向下看管子。當您使用管子到達正確位置時，影像應該卡入到位。集中精力觀察管子遠端的內部可能會有所幫助。如果找不到正確的位置，請嘗試使用較大的影像或較小的管。
  • 對於平行視圖：將一根管子放在每隻眼睛前面，但將它們指向側面，這樣您就幾乎看不到任何東西。同時慢慢地將管子向內轉動，這樣您就可以開始看到更多的影像。當您可以看到大部分圖像（每隻眼睛幾乎一半）時，請嘗試放鬆眼睛並將兩半放在一起。使用更大或更小的圖像可能會有所幫助。
 
 您可以做一個簡單的練習來練習交叉或平行觀察的融合。拿一支記號筆，在每個縮圖（或一對冰棒棒或壓舌板）上畫出笑臉的一部分。例如，在一側畫一隻眼睛和一張嘴，在另一側畫一隻眼睛和鼻子。然後，您可以將它們舉在您面前，練習將兩個圖像融合在一起以完成笑臉。
@@ -492,7 +492,7 @@
     <value>CrossCam 旨在協助您製作 3D 照片。這些照片是 3D，就像 VR 或 3D 電影一樣，但您不需要任何特殊設備或眼鏡 - 只需您的手機（但如果您有一副紅/青色 3D 眼鏡或 Google Cardboard 檢視器，您可以使用這些也可使用CrossCam）。僅使用手機和眼睛的「自由觀看」技術需要一些練習才能學會。在我告訴您如何使用 CrossCam 之前，您是否想先了解更多有關查看技術的資訊？</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
-    <value>歡迎來到 CrossCam！</value>
+    <value>歡迎來到十字相機！</value>
   </data>
   <data name="Page.Camera.Directions" xml:space="preserve">
     <value>跳至路線</value>
@@ -547,7 +547,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>關於聚散調節衝突的維基百科連結。</value>
   </data>
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
-    <value>如果您使用鬥雞眼方法，這種感覺也可能是由於您的眼睛不習慣指向，就好像它們長時間注視如此近的東西一樣。交叉觀看時，您的眼睛會聚集在眼睛和螢幕之間大約中間的一點上。如果長時間看近處的東西也會讓您感到不適，我們有我們的解釋。
+    <value>如果您使用鬥雞眼方法，這種感覺也可能是由於您的眼睛不習慣指向，就好像它們長時間注視如此近的物體一樣。交叉觀看時，您的眼睛會聚集在眼睛和螢幕之間大約中間的一點上。如果長時間看近處的東西也會讓您感到不適，我們有我們的解釋。
 
 我對此的看法是，你的眼睛不會做任何超出其日常能力的事情，但你結合了兩種通常不以這種方式使用的不同能力。您將鏡片聚焦在通常可以舒適聚焦的某個位置上，並將您的眼睛指向通常可以舒適地指向的某個位置，但鏡片聚焦的位置以及您的眼睛會聚的位置只是不是同一點。只要您的視力尚未發育，我不認為這對您有什麼壞處。</value>
   </data>
@@ -561,7 +561,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
 
 您也可以使用您想要的任何其他方法進行捕獲，然後將預覽檢視方法切換為 Cardboard 並將手機放入檢視器中。
 
-有許多不同的觀看者俱有不同的屬性。您可能需要更改紙板間隔距離（在「設定」頁面上）以使您的體驗更舒適。您可能還需要先確保您擅長捕捉高品質的立體圖，然後再將它們製作得巨大且身臨其境。</value>
+有許多不同的觀看者俱有不同的屬性。您可能需要更改紙板間隔距離（在「設定」頁面上）以使您的體驗更舒適。您可能還需要先確保自己擅長捕捉高品質的立體圖，然後再將它們製作得巨大而身臨其境。</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>這是如何運作的？</value>
@@ -609,21 +609,21 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>如何進行「單鏡鏡像」方法？</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>使用鏡子拍攝方法將畫面分成兩半並進行所需的轉換，這樣您就可以使用一部手機和常規手持鏡同時拍攝兩側。若要在擷取時使用鏡像方法，請在「設定」頁面上開啟鏡像模式開關（點擊齒輪圖示即可到達）。打開鏡子模式後，CrossCam 會告訴您將鏡子放在哪一邊。將鏡子放在那一側，然後注意手機、鏡子和拍攝主體之間的對齊情況。只要有耐心，您就可以將它們全部排列起來，以便鏡子顯示其中一側的正確視角。由於使用鏡像方法會將影像垂直分成兩半，因此通常最好使用鏡像方法拍攝風景。
+    <value>使用鏡子拍攝方法將畫面分成兩半並進行所需的轉換，這樣您就可以使用一部手機和常規手持鏡同時拍攝兩側。若要在捕捉時使用鏡像方法，請在「設定」頁面上開啟鏡像模式開關（點擊齒輪圖示即可到達）。打開鏡子模式後，CrossCam 會告訴您將鏡子放在哪一邊。將鏡子放在那一側，然後注意手機、鏡子和拍攝主體之間的對齊情況。只要有耐心，您就可以將它們全部排列起來，以便鏡子顯示其中一側的正確視角。由於使用鏡像方法會將影像垂直分成兩半，因此通常最好使用鏡像方法拍攝風景。
 
-此方法也適用於乾淨的大窗戶以及靜止的湖泊或水坑中的反射（當手機鎖定為縱向並側向翻轉時）。</value>
+此方法也適用於大而乾淨的窗戶以及靜止的湖泊或水坑中的反射（當手機鎖定為縱向並側向翻轉時）。</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>為了使用鏡像方法，需要做出一些妥協/編輯。這些都可以在 CrossCam 中手動完成，但自動對齊也會嘗試為您完成這些操作：
  • 因為反射視圖比正常視圖傳播的距離更長，所以鏡像側需要稍微放大。
- • 當使用鏡像方法時，您可能最終會內傾，而不是保持透視平行 - 這可能會導致透視看起來像是不良的垂直對齊。要消除這種情況，可以進行梯形校正，這意味著垂直縮小每個影像的一側。
+ • 當使用鏡像方法時，您可能最終會內傾，而不是保持透視平行 - 這可能會導致透視縮短看起來像是糟糕的垂直對齊。要消除這種情況，可以進行梯形校正，這意味著垂直縮小每個影像的一側。
  • 前傾也會使立體視窗向您移動。您可以撤銷該操作並透過裁剪側面將其放置在您想要的位置。
  • 鏡子可能不會完全覆蓋一側的視圖，因此可能需要進行一些裁剪以去除未反射的部分。
 
 最好的鏡子是薄玻璃。一方面，它們很輕，因此更容易長時間握持。另一件重要的事情是，當使用鏡子時，您可能會將鏡子瞄準側面，而不是像通常使用鏡子那樣直視鏡子。當這樣定向時，帶有厚玻璃的鏡子可能會有些模糊。玻璃越薄，這種模糊現象就越不明顯。這類鏡子在其他方面也可能品質較低，因此找到一個良好的平衡點很重要。
 
 使用鏡像捕捉時還必須接受其他一些妥協，這些妥協無法在 CrossCam 的編輯中修復：
- • 由於兩側的視野行進距離略有不同，因此兩側所需的焦距也會略有不同，因此一側總是會稍微模糊。根據到拍攝主體的距離和鏡頭的景深，這種效果或多或少會明顯。
+ • 由於兩側的視野移動距離略有不同，因此兩側所需的焦距也會略有不同，因此一側總是會稍微模糊。根據到拍攝主體的距離和鏡頭的景深，這種效果或多或少會明顯。
  • 沒有鏡子真正100% 有效，因此使用鏡子的一側可能會稍微暗一些。這會因鏡子的品質而異。</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
@@ -648,10 +648,10 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
   <data name="Page.Faq.Why.Body" xml:space="preserve">
     <value>當我開始對立體視覺產生興趣時，我碰巧去了一趟黃石公園。當我在那裡時，我意識到嘗試使用 3D 相機移動應用程式以 3D 形式捕捉那裡的事物可能會很有趣。我對現有的選擇感到非常失望。我發現它們都要求你拍攝兩次，然後再看看它們是否有用。它們通常不是，因為我必須反覆對我的間隔距離以及拍攝對象的品質進行完整的猜測。
 
-在接下來的幾周里，我內心的挫敗感讓我想到，只需在第一個捕獲的同時提供第二個捕獲的即時預覽。我已經有了行動開發的背景，所以只需投入時間即可。 CrossCam 對我來說非常棒，可以用來保存記憶，我也很高興與您分享。</value>
+在接下來的幾周里，我內心的挫敗感讓我想到，只需在第一個捕獲的同時提供第二個捕獲的即時預覽。我已經有了行動開發的背景，所以只需投入時間即可。 CrossCam 對我來說非常棒，可以用來保存我自己的記憶，我也很高興與您分享。</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
-    <value>什麼是擺動圖？</value>
+    <value>什麼是扭動圖？</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
     <value>擺動圖是一種不依賴雙眼視覺來查看立體圖的方法。它們通常是在兩個視角之間來回翻轉的 gif，在同一位置完整地顯示每個視角。 CrossCam 目前不支援製作它們，但如果您真的對它們​​感興趣，請給我發電子郵件，我會製作。</value>
@@ -672,7 +672,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>甜甜圈指南可以幫助您的窗戶。</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>您可以開啟「設定」頁面上的實驗指南甜甜圈，它可以幫助您保留立體窗口，同時最大化可用寬度。透過向左和向右旋轉，甜甜圈上的深度將相對於場景的其餘部分發生變化 - 設定甜甜圈的深度，使其位於場景中最遠的點之上或之後。請小心，在較小的場景中使用它可能會讓事情變得痛苦（請參閱上面的梯形提示）。</value>
+    <value>您可以開啟「設定」頁面上的實驗指南甜甜圈，它可以幫助您保留立體窗口，同時最大化可用寬度。透過左右旋轉，甜甜圈上的深度將相對於場景的其餘部分發生變化 - 設定甜甜圈的深度，使其位於場景中最遠的點之上或之後。請小心，在較小的場景中使用它可能會讓事情變得痛苦（請參閱上面的梯形提示）。</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>如果您前束，則需要進行梯形校正。</value>
@@ -684,7 +684,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>向內轉動稱為前束。它可能會導致透視縮短效果，從而難以融合影像的角點。透視效果在現實生活中始終存在，因為平行線在遠離您的距離時似乎會聚，但人為的視角會使它變得奇怪。</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
-    <value>你可以傾斜。</value>
+    <value>你可以傾斜一下。</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
     <value>有時，無需完全向左或向右移動雙腳來拍照，只需將雙腳分開站立並向各個方向傾斜會更容易，但請注意保持手機水平和相同高度。僅傾斜而不是移動可以幫助您避免移動得太遠，並且可以更輕鬆地保持目標正確。</value>
@@ -705,13 +705,13 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>與他人在一起時開啟快速模式。</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>如果您正在與其他人一起探索，最好透過關閉自動對齊和邊框來進入快速模式，並在捕獲後立即儲存而不進行任何編輯。您可以隨時載入、自動對齊和編輯圖片。這樣，您的同伴就不必等待您當場完善您的照片，但您仍然可以確信您想要的深度確實存在。只是要小心，不要在第一次保存之前進行任何倉促的編輯！您還可以打開單獨的側面保存，這將忽略您所做的任何編輯。</value>
+    <value>如果您正在與其他人一起探索，最好進入快速模式，關閉自動對齊和邊框，然後在捕獲後立即保存而不進行任何編輯。您可以隨時載入、自動對齊和編輯圖片。這樣，您的同伴就不必等待您當場完善您的照片，但您仍然可以確信您想要的深度確實存在。只是要小心，不要在第一次保存之前進行任何倉促的編輯！您還可以打開單獨的側面保存，這將忽略您所做的任何編輯。</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>如果這個動作讓你感到不適，請保持不動。</value>
   </data>
   <data name="Page.Tips.Sick.Body" xml:space="preserve">
-    <value>如果所有的移動都讓您感到噁心或難以以 3D 方式觀看，那麼在移動了一點點之前不要開始嘗試以 3D 方式觀看。然後將圖片相互比較並使用水平線對齊圖片而不進行 3D 查看，然後在對齊並保持靜止後開始 3D 查看。</value>
+    <value>如果所有的移動都讓您感到噁心或難以以 3D 方式觀看，那麼在稍微移動一點之前，不要開始嘗試以 3D 方式觀看。然後將圖片相互比較並使用水平線對齊圖片而不進行 3D 查看，然後在對齊並保持靜止後開始 3D 查看。</value>
   </data>
   <data name="Page.Tips.Space" xml:space="preserve">
     <value>這些圖片可能會佔用大量儲存空間 - 您可以縮小它們。</value>
@@ -785,7 +785,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>CrossCam 需要本機網路存取權限。 CrossCam 實際上並沒有使用本地網絡，但 iOS 要求 CrossCam 獲得此權限才能使用 Wi-Fi 天線掃描裝置。 CrossCam 將要求一次此權限 - 如果權限被拒絕，您將必須自行去設定應用程式中開啟開關。</value>
   </data>
   <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam 將根據需要請求權限並開啟組件電源，以便連接您的裝置。請注意：CrossCam 需要位置權限並在主設備上開啟位置服務才能連接到輔助設備。這只是 Android 的要求，完全超出我的控制範圍。 CrossCam 實際上不會以任何方式使用您的位置，但由於搜尋（和尋找）附近裝置的行為理論上可用於粗略定位您，因此 CrossCam 需要獲得存取您位置的權限。</value>
+    <value>CrossCam 將根據需要請求權限並開啟組件電源，以便連接您的裝置。請注意：CrossCam 需要位置權限並在主設備上開啟位置服務才能連接到輔助設備。這只是 Android 的要求，完全超出我的控制範圍。 CrossCam 實際上不會以任何方式使用您的位置，但由於搜尋（和尋找）附近裝置的行為理論上可用於粗略定位您，因此 CrossCam 需要獲得存取您的位置的權限。</value>
   </data>
   <data name="Page.Pairing.Permissions" xml:space="preserve">
     <value>關於權限的注意事項：</value>
@@ -797,7 +797,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>&lt; 返回</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Reddit 子版塊</value>
+    <value>交叉視圖 Reddit 子版塊</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>立體 3D Facebook 群組</value>
@@ -812,7 +812,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>看看我拍攝的照片</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>ParallelView Reddit 子版塊</value>
+    <value>平行視圖子版塊</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>自動對齊</value>
@@ -857,7 +857,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>科菲</value>
   </data>
   <data name="Page.TipMe.Patreon" xml:space="preserve">
-    <value>派特雷恩</value>
+    <value>派特隆</value>
   </data>
   <data name="Page.TipMe.PayPal" xml:space="preserve">
     <value>貝寶</value>
@@ -1064,7 +1064,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>儲存到專用的“CrossCam”子資料夾/相簿中</value>
   </data>
   <data name="Settings.Saving.Grayscale" xml:space="preserve">
-    <value>儲存灰階紅色/青色浮雕版本（有編輯但無邊框）</value>
+    <value>儲存灰階紅色/青色浮雕版本（有編輯但沒有邊框）</value>
   </data>
   <data name="Settings.Saving.Order" xml:space="preserve">
     <value>（保存會按照從上到下的順序進行）</value>
@@ -1088,7 +1088,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>單獨保存每一面（沒有編輯或邊框，以便於後期處理，首先保存左側）</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>儲存到專用的「CrossCam_{ViewMethod}」子資料夾/相簿中</value>
+    <value>儲存到專用的“CrossCam {檢視方法}”子資料夾/相簿中</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>儲存三重組合（帶編輯和邊框）</value>
@@ -1127,7 +1127,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>未授予位置許可。無法掃描設備。有關更多詳細信息，請參閱配對頁面。</value>
   </data>
   <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
-    <value>此設備不支援配對。例外：</value>
+    <value>此裝置不支援配對。例外：</value>
   </data>
   <data name="Page.Pair.Errors.Title" xml:space="preserve">
     <value>錯誤</value>
@@ -1136,7 +1136,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>Wi-Fi 已關閉。請開啟 Wi-Fi。</value>
   </data>
   <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
-    <value>該設備現已設定為主設備。</value>
+    <value>該設備現已設定為主要設備。</value>
   </data>
   <data name="Page.Pair.PrimarySelected" xml:space="preserve">
     <value>選擇的主要角色</value>
@@ -1151,6 +1151,6 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>模式。</value>
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
-    <value>CrossCam現已上線</value>
+    <value>CrossCam 現已上線</value>
   </data>
 </root>

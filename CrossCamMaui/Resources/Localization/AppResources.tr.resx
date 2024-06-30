@@ -166,7 +166,7 @@
     <value>Ek eğitimler:</value>
   </data>
   <data name="Page.Technique.Cross1" xml:space="preserve">
-    <value>Yukarıdaki resim çiftine bakarken gözlerinizi dikkatlice şaşı yapın. Gözlerinizi şaşı yaptığınızda her şey bulanıklaşacak ve içini görecek ve 2 (2 çift) yerine 4 fotoğraf görmeye başlayacaksınız. Gözlerinizi ne kadar şaşarsanız, resim çiftleri o kadar birbirinden uzaklaşacaktır; biraz şuna benzeyecektir:</value>
+    <value>Yukarıdaki resim çiftine bakarken gözlerinizi dikkatlice şaşı yapın. Gözlerinizi şaşı yaptığınızda her şey bulanıklaşacak ve içini görecek ve 2 (2 çift) yerine 4 fotoğraf görmeye başlayacaksınız. Gözlerinizi ne kadar şaşı tutarsanız, resim çiftleri o kadar birbirinden uzaklaşacaktır; biraz şuna benzeyecektir:</value>
   </data>
   <data name="Page.Technique.Cross2" xml:space="preserve">
     <value>Gözlerinizi dikkatlice açın, böylece her bir çiftin içindeki resimler üst üste gelmeye başlar. 4 yerine sadece 3 fotoğraf varmış gibi görünmeye başlayacak. Hala bulanık ve içi görünüyor olacak ve şunun gibi görünecek:</value>
@@ -185,7 +185,7 @@
 
 CrossCam'de 3D'yi ("stereogramlar" olarak adlandırılır) görmek için kırmızı/mavi 3D gözlükleri, bir Google Cardboard gözlüğü kullanabilir veya yalnızca gözlerinizi ve ekranınızı kullanarak "ücretsiz görüntüleme" yapabilirsiniz. Serbest görüntülemenin iki yolu vardır ve CrossCam her ikisini de öğrenmenize yardımcı olabilir. CrossCam'e resimleri nasıl görüntüleyeceğinizi söylemeniz gerekir, aksi takdirde düzgün çalışmayacaktır. Endişelenmeyin, bunu istediğiniz zaman Ayarlar'dan tekrar değiştirebilirsiniz.
 
-Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini denemelisiniz, aksi durumda paralel yöntemi denemelisiniz. Magic Eye™ kitaplarına alışkınsanız muhtemelen paralel yöntemi zaten yapabilirsiniz, ancak çapraz yöntemi de yapabilirsiniz. Öğrenmek için aşağıdaki yöntemlerden birine dokunun ve ilgili SEÇ düğmesine basarak CrossCam'e hangisinin sizin için uygun olduğunu söylediğinizden emin olun.
+Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini denemelisiniz, aksi durumda paralel yöntemi denemelisiniz. Magic Eye™ kitaplarına alışkınsanız muhtemelen paralel yöntemi zaten yapabilirsiniz, ancak çapraz yöntemi de yapabilirsiniz. Öğrenmek için aşağıdaki yöntemden birine dokunun ve ilgili SEÇ düğmesine basarak CrossCam'e hangisinin sizin için uygun olduğunu söylediğinizden emin olun.
 
 3D gözlük veya Cardboard gözlük kullanmayı tercih ediyorsanız, Ayarlar sayfasında CrossCam'i bunları kullanacak şekilde ayarlayabilirsiniz.</value>
   </data>
@@ -211,7 +211,7 @@ Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini deneme
     <value>Yukarıdaki görüntü ekranınıza sığmıyorsa telefonunuzu yatay konuma getirin - CrossCam bunun için en kolay boyutun üzerindeki görüntü çiftini oluşturmaya çalışıyor. CrossCam'i her zaman manzarada kullanmak zorunda değilsiniz, ancak mükemmel boyutlu bir görüntü tekniği öğrenmeyi kolaylaştırır.</value>
   </data>
   <data name="Page.Technique.Parallel2" xml:space="preserve">
-    <value>Gözlerinizi rahatlatın ve sanki gözleriniz resimlere bakıyormuş gibi yukarıdaki resim çiftinin "içinden" bakın. Ortasında 3 boyutlu bir resim bulunan 3 resmi görmeye başlamalısınız, biraz buna benzer:</value>
+    <value>Gözlerinizi rahatlatın ve sanki gözleriniz resimlere işaret ediyormuş gibi yukarıdaki resim çiftinin "içinden" bakın. Ortasında 3 boyutlu bir resim bulunan 3 resmi görmeye başlamalısınız, biraz buna benzer:</value>
   </data>
   <data name="Page.Technique.Parallel3" xml:space="preserve">
     <value>Eğer 4 fotoğraf görmeye başlarsanız çok ileri gitmişsiniz demektir. Kendinizi tekrar o noktada bulursanız gözlerinizi biraz hareket ettirmeyi deneyin. Çok fazla rahatlamak biraz şöyle görünecek:</value>
@@ -220,7 +220,7 @@ Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini deneme
     <value>Sorun yaşıyorsanız, bir çift fotoğraf gözünüzün önünde olacak şekilde ekranınızı yüzünüze yaklaştırmayı deneyin. Rahatlayın ve ekranın "içinden" bakın ve ardından gözlerinizi rahat tutarak ekranınızı yavaşça yüzünüzden uzaklaştırın. Sonunda görüntü odağa "tıklamalı".</value>
   </data>
   <data name="Page.Technique.Parallel5" xml:space="preserve">
-    <value>Hala dört resim görmeye devam ediyorsanız Ayarlar sayfasında "Maksimum paralel görünüm resim genişliği"ni artırın.</value>
+    <value>Hâlâ dört resim görmeye devam ediyorsanız Ayarlar sayfasında "Maksimum paralel görünüm resim genişliği"ni artırın.</value>
   </data>
   <data name="Page.Technique.ParallelViewing" xml:space="preserve">
     <value>PARALEL GÖRÜNTÜLEME</value>
@@ -409,7 +409,7 @@ Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini deneme
     <value>Senkronize ediliyor...</value>
   </data>
   <data name="Page.Camera.Transmitting" xml:space="preserve">
-    <value>Aktarılıyor...
+    <value>İletiliyor...
 (cihazın kilidini açık tutun)</value>
   </data>
   <data name="Page.Camera.VR" xml:space="preserve">
@@ -419,7 +419,7 @@ Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini deneme
     <value>Görüş Alanı Düzeltmesi</value>
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
-    <value>Farklı cihaz modelleri farklı görüş alanlarına sahip olabilir. CrossCam, ilk çekiminizi yaptıktan sonra bunu düzeltmenize yardımcı olacaktır. Çerçeveleyin ve çerçevenin üst ve alt kısmına yakın ayırt edici noktalara sahip bir şeyi yakalayın; bu noktaların her iki cihazda da göründüğünden emin olun.</value>
+    <value>Farklı cihaz modelleri farklı görüş alanlarına sahip olabilir. CrossCam, ilk çekiminizi yaptıktan sonra bunu düzeltmenize yardımcı olacaktır. Çerçeveleyin ve çerçevenin üst ve alt kısmına yakın ayırt edici noktalara sahip bir şey yakalayın; noktaların her iki cihazda da göründüğünden emin olun.</value>
   </data>
   <data name="Page.Technique.ParallelLink1" xml:space="preserve">
     <value>Güzel bir metin öğreticisi</value>
@@ -428,7 +428,7 @@ Gözlerinizi rahatça kaydırabiliyorsanız öncelikle çapraz yöntemini deneme
     <value>Başka bir güzel metin öğreticisi</value>
   </data>
   <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Yine güzel bir metin öğreticisi daha</value>
+    <value>BİR BAŞKA güzel metin öğreticisi</value>
   </data>
   <data name="Page.Technique.ParallelLink4" xml:space="preserve">
     <value>Sihirli Frankfurter Eğitimi</value>
@@ -489,7 +489,7 @@ Bazen bunu yaparken çapraz yöntemi mi yoksa paralel yöntemi mi yaptığınız
     <value>Çarpık</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam, 3D fotoğraflar çekmenize yardımcı olmak için yapıldı. Fotoğraflar tıpkı VR veya 3D filmler gibi 3D'dir, ancak herhangi bir özel ekipmana veya gözlüğe ihtiyacınız yoktur; yalnızca telefonunuza ihtiyacınız vardır (ancak bir çift kırmızı/mavi 3D gözlüğünüz veya Google Cardboard gözlüğünüz varsa bunları kullanabilirsiniz) CrossCam ile de). Yalnızca telefonunuzu ve gözlerinizi kullanan "serbest görüntüleme" tekniğini öğrenmek için biraz pratik yapmak gerekir. Size CrossCam'in nasıl kullanılacağını anlatmadan önce, görüntüleme tekniği hakkında daha fazla bilgi edinmek ister misiniz?</value>
+    <value>CrossCam, 3D fotoğraflar çekmenize yardımcı olmak için yapıldı. Fotoğraflar tıpkı VR veya 3D filmler gibi 3D'dir, ancak herhangi bir özel ekipmana veya gözlüğe ihtiyacınız yoktur; yalnızca telefonunuza ihtiyacınız vardır (ancak bir çift kırmızı/mavi 3D gözlüğünüz veya Google Cardboard gözlüğünüz varsa bunları kullanabilirsiniz) CrossCam ile de). Yalnızca telefonunuzu ve gözlerinizi kullanan "ücretsiz izleme" tekniğini öğrenmek için biraz pratik yapmak gerekir. Size CrossCam'in nasıl kullanılacağını anlatmadan önce, görüntüleme tekniği hakkında daha fazla bilgi edinmek ister misiniz?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>CrossCam'e hoş geldiniz!</value>
@@ -511,7 +511,7 @@ Bazen bunu yaparken çapraz yöntemi mi yoksa paralel yöntemi mi yaptığınız
 
 4) İlk resmi ikinci resmin önizlemesiyle hizalayın ve gördüğünüzü beğendiğinizde ikinci resmi çekin.
 
-5) CrossCam, resimlerinizi çektikten sonra otomatik olarak hizalayacaktır, ancak bu mükemmel değildir; hizalanma şeklini beğenmezseniz, küçük robot simgesine dokunarak otomatik hizalamayı kapatabilirsiniz. CrossCam ayrıca kalem simgesine dokunarak ulaşabileceğiniz çok sayıda manuel düzenleme seçeneğine de sahiptir.
+5) CrossCam, resimlerinizi çektikten sonra otomatik olarak hizalayacaktır, ancak bu mükemmel değildir. Hizalanma şeklini beğenmezseniz, küçük robot simgesine dokunarak otomatik hizalamayı kapatabilirsiniz. CrossCam ayrıca kalem simgesine dokunarak ulaşabileceğiniz çok sayıda manuel düzenleme seçeneğine de sahiptir.
 
 6) Kaydetmeye hazır olduğunuzda onay işaretine dokunun.
 
@@ -519,7 +519,7 @@ Bazen bunu yaparken çapraz yöntemi mi yoksa paralel yöntemi mi yaptığınız
 Yapabileceğiniz diğer şeyler:
  • Bir noktaya odaklanmak için bir kez dokunun, sürekli otomatik odaklamaya geri dönmek için iki kez dokunun.
  • Ayarlar sayfasını açmak için kamera ekranının sağ üst köşesindeki dişli simgesine dokunun. İlginç şeylerle dolu.
- • Kamera ekranının sol üst köşesindeki hamburger simgesine dokunarak resimlerinizi harika hale getirmenize yardımcı olabilecek güzel bir İpuçları sayfası bulunmaktadır.
+ • Kamera ekranının sol üst kısmındaki hamburger simgesine dokunarak resimlerinizi harika hale getirmenize yardımcı olabilecek güzel bir İpuçları sayfası bulunmaktadır.
  • İkinci atışınız için diğer yöne hareket etmeyi tercih ederseniz veya kenarları değiştirmek isterseniz, kaydırma yapmanız yeterlidir.
  • Bir görüntüyü yan olarak yüklemek veya tam stereo görüntüyü yüklemek için alttaki küçük klasör simgesine dokunun.</value>
   </data>
@@ -529,7 +529,7 @@ Yapabileceğiniz diğer şeyler:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Otomatik hizalama, görüntü çiftlerini mümkün olduğu kadar iyi hizalamaya çalışır, ancak mükemmel değildir. Bilgisayar görüşü bazı konularda insan gözünden daha iyidir, ancak bazı konularda da çok daha kötüdür. Gördüğü dünya bizimkinden çok farklıdır ama aynı zamanda birkaç farklı şekilde de görebilir. CrossCam'de görülen iki ana yol, geliştirilmiş korelasyon katsayısı (ECC) ve anahtar noktaların kullanılmasıdır.
 
-ECC hizalaması esas olarak, iki taraf üst üste bindirildiğinde açık yamaların açık yamalarla ve koyu yamaların da koyu yamalarla üst üste binmesini sağlamaya çalışarak çalışır. ECC uyumu, uyumun etkili olup olmadığına karar verilmesine yardımcı olacak bir güven puanıyla birlikte gelir. CrossCam, güvenin çok düşük olması durumunda oluşturulan hizalamayı reddedecek şekilde ayarlanmıştır ancak güven geçti/başarısız eşiğini Ayarlar sayfasında yapılandırabilirsiniz.
+ECC hizalaması, esas olarak, iki taraf üst üste bindirildiğinde, açık renkli parçaların açık renkli yamalarla ve koyu renkli parçaların da koyu renkli yamalarla üst üste binmesini sağlamaya çalışarak çalışır. ECC uyumu, uyumun etkili olup olmadığına karar verilmesine yardımcı olacak bir güven puanıyla birlikte gelir. CrossCam, güvenin çok düşük olması durumunda oluşturulan hizalamayı reddedecek şekilde ayarlanmıştır ancak güven geçti/başarısız eşiğini Ayarlar sayfasında yapılandırabilirsiniz.
 
 Anahtar nokta hizalaması köşeler, kenarlar, noktalar ve yüksek kontrast gibi ilgi çekici noktaları arar ve bunları iki taraf arasında eşleştirmeye çalışır. Noktalar eşleştirildikten sonra CrossCam, bir taraftaki anahtar noktaların diğer taraftaki karşılık gelen anahtar noktalara mümkün olduğunca yakın olmasını sağlayacak şekilde kenarları çarpıtmaya çalışmak için çeşitli algoritmalar kullanabilir.
 
@@ -541,13 +541,13 @@ CrossCam hizalama sonucunu kamera ekranında küçük robot simgesinin altında 
     <value>Bu gözlerim için kötü mü?</value>
   </data>
   <data name="Page.Faq.Bad.Body1" xml:space="preserve">
-    <value>Bilmiyorum ama sanmıyorum. Ancak kendinizi kötü hissediyorsanız biraz ara verin. Pratik yaptıkça rahatsızlık genellikle azalır. Herhangi bir görüntüleme yöntemi, verjans-uyum çatışması adı verilen bir etki nedeniyle rahatsızlığa neden olabilir. İşte</value>
+    <value>Bilmiyorum ama sanmıyorum. Ancak kendinizi kötü hissediyorsanız biraz ara verin. Pratik yaptıkça rahatsızlık genellikle azalır. Herhangi bir izleme yöntemi, verjans-uyum çatışması adı verilen bir etki nedeniyle rahatsızlığa neden olabilir. İşte</value>
   </data>
   <data name="Page.Faq.Bad.Body2" xml:space="preserve">
     <value>vergence-konaklama çatışmasıyla ilgili bir Wikipedia bağlantısı.</value>
   </data>
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
-    <value>Şaşılık yöntemini kullanıyorsanız bu his, gözlerinizin çok uzun süredir çok yakın bir şeye bakıyormuş gibi işaret etmeye alışkın olmamasından da kaynaklanıyor olabilir. Çapraz bakarken gözleriniz, gözleriniz ile ekran arasında yaklaşık olarak yarı mesafede bir noktada birleşir. Yakın bir şeye uzun süre bakmak da rahatsızlık veriyorsa açıklamamız var.
+    <value>Şaşılık yöntemini kullanıyorsanız bu his, gözlerinizin çok uzun süredir çok yakın bir şeye bakıyormuş gibi işaret etmeye alışık olmamasından da kaynaklanıyor olabilir. Çapraz bakarken gözleriniz, gözleriniz ile ekran arasında yaklaşık olarak yarı mesafede bir noktada birleşir. Yakın bir şeye uzun süre bakmak da rahatsızlık veriyorsa açıklamamız var.
 
 Benim düşüncem, gözlerinizin günlük yeteneklerinin dışında hiçbir şey yapmadığı, ancak normalde bu şekilde kullanılmayan iki farklı yeteneği birleştirdiğinizdir. Lenslerinizi normalde odaklanması rahat olan tek bir yere odaklıyorsunuz ve gözlerinizi normalde onların işaret etmesi rahat olan bir yere doğrultuyorsunuz, ancak lenslerinizin odaklandığı ve gözlerinizin birleştiği yer. sadece aynı nokta değil. Vizyonunuz hala gelişmediği sürece bunun sizin için ne kadar kötü olabileceğini anlamıyorum.</value>
   </data>
@@ -561,7 +561,7 @@ Cardboard'u kullanarak fotoğraf çekmek için Önizleme Görüntüleme Yöntemi
 
 İstediğiniz başka bir yöntemi kullanarak da çekim yapabilir, ardından Önizleme Görüntüleme Yönteminizi Cardboard'a geçirip telefonunuzu görüntüleyiciye yerleştirebilirsiniz.
 
-Farklı özelliklere sahip birçok farklı izleyici var. Deneyiminizi daha konforlu hale getirmek için Karton ayırma mesafesini (Ayarlar sayfasında) değiştirmeniz gerekebilir. Ayrıca, onları devasa ve sürükleyici hale getirmeden önce yüksek kaliteli stereogramları yakalamada iyi olduğunuzdan emin olmanız gerekebilir.</value>
+Farklı özelliklere sahip birçok farklı izleyici var. Deneyiminizi daha konforlu hale getirmek için Karton ayırma mesafesini (Ayarlar sayfasında) değiştirmeniz gerekebilir. Ayrıca, onları devasa ve sürükleyici hale getirmeden önce, yüksek kaliteli stereogramları yakalamada iyi olduğunuzdan emin olmanız gerekebilir.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Bu nasıl çalışır?</value>
@@ -609,9 +609,9 @@ Kazara yanlış görüntüleme yöntemini kullanmak çok kolaydır, çünkü ço
     <value>"Tek çekim aynalama" yöntemini nasıl yaparım?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Ayna yöntemiyle çekim yapmak, çerçeveyi ikiye böler ve gereken dönüşümü yapar; böylece tek bir telefon ve sıradan bir el aynası kullanarak her iki tarafı da aynı anda çekebilirsiniz. Yakalama sırasında ayna yöntemini kullanmak için, Ayarlar sayfasında ayna modu anahtarını açın (bu noktaya ulaşmak için dişli simgesine dokunun). Ayna modunu açtıktan sonra CrossCam aynanızı hangi tarafa tutmanız gerektiğini size söyleyecektir. Aynanızı o tarafa tutun ve telefonunuz ile ayna ve konunuz arasındaki hizalamayı araştırın. Biraz sabırla, aynanın taraflardan biri için doğru perspektifi göstermesini sağlayacak şekilde hepsini hizalayabileceksiniz. Ayna yöntemini kullanmak görüntünüzü dikey olarak ikiye böldüğünden, genellikle ayna yöntemini kullanarak yatay çekim yapmak en iyisidir.
+    <value>Ayna yöntemiyle çekim yapmak, çerçeveyi ikiye böler ve gerekli dönüşümü yapar; böylece tek bir telefon ve sıradan bir el aynası kullanarak her iki tarafı da aynı anda çekebilirsiniz. Yakalama sırasında ayna yöntemini kullanmak için, Ayarlar sayfasında ayna modu anahtarını açın (bu noktaya ulaşmak için dişli simgesine dokunun). Ayna modunu açtıktan sonra CrossCam aynanızı hangi tarafa tutmanız gerektiğini size söyleyecektir. Aynanızı o tarafa tutun ve telefonunuz ile ayna ve konunuz arasındaki hizalamayı araştırın. Biraz sabırla, aynanın taraflardan biri için doğru perspektifi göstermesini sağlayacak şekilde hepsini hizalayabileceksiniz. Ayna yöntemini kullanmak görüntünüzü dikey olarak ikiye böldüğünden, genellikle ayna yöntemiyle yatay çekim yapmak en iyisidir.
 
-Bu yöntem aynı zamanda büyük, temiz pencerelerdeki ve ayrıca durgun göl veya su birikintilerindeki (telefon dikey konumda kilitlendiğinde ve yana doğru çevrildiğinde) yansımalarla da çalışacaktır.</value>
+Bu yöntem aynı zamanda büyük, temiz pencerelerdeki ve ayrıca durgun göller veya su birikintilerindeki (telefon dikey konumda kilitlendiğinde ve yana doğru çevrildiğinde) yansımalarla da çalışacaktır.</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Ayna yöntemini kullanmak için yapılması gereken bazı tavizler/düzenlemeler vardır. Bunların hepsi CrossCam'de manuel olarak yapılabilir, ancak otomatik hizalama da bunları sizin için yapmaya çalışacaktır:
@@ -705,7 +705,7 @@ Sonraki birkaç hafta içinde giderek artan hayal kırıklığım, beni ilkinin 
     <value>Başkalarıyla birlikteyken hızlı modu açın.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Başkalarıyla keşif yapıyorsanız, otomatik hizalamayı ve sınırları kapatarak hızlı moda geçmek ve herhangi bir düzenleme yapmadan, çekimi yaptıktan sonra kaydetmek iyi bir fikirdir. Resimleri daha sonra istediğiniz zaman yükleyebilir, otomatik olarak hizalayabilir ve düzenleyebilirsiniz. Bu şekilde, arkadaşlarınızın fotoğraflarınızı anında mükemmelleştirmenizi beklemesine gerek kalmaz, ancak yine de istediğiniz derinliğin gerçekten orada olduğundan emin olabilirsiniz. İlk kaydetmeden önce aceleci düzenleme yapmamaya dikkat edin! Ayrıca, yaptığınız düzenlemeleri göz ardı edecek ayrı yan kaydetmeyi de açabilirsiniz.</value>
+    <value>Başkalarıyla birlikte keşif yapıyorsanız, otomatik hizalamayı ve sınırları kapatarak hızlı moda geçmek ve herhangi bir düzenleme yapmadan, çekimi yaptıktan sonra kaydetmek iyi bir fikirdir. Resimleri daha sonra istediğiniz zaman yükleyebilir, otomatik olarak hizalayabilir ve düzenleyebilirsiniz. Bu şekilde, arkadaşlarınızın fotoğraflarınızı anında mükemmelleştirmenizi beklemesine gerek kalmaz, ancak yine de istediğiniz derinliğin gerçekten orada olduğundan emin olabilirsiniz. İlk kaydetmeden önce aceleci düzenleme yapmamaya dikkat edin! Ayrıca, yaptığınız düzenlemeleri göz ardı edecek ayrı yan kaydetmeyi de açabilirsiniz.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Eğer hareket sizi hasta ediyorsa, hareketsiz durun.</value>
@@ -714,16 +714,16 @@ Sonraki birkaç hafta içinde giderek artan hayal kırıklığım, beni ilkinin 
     <value>Tüm hareketler sizi hasta ediyorsa veya 3 boyutlu görüntülemeyi çok zorlaştırıyorsa, biraz hareket edene kadar onu 3 boyutlu olarak görmeye çalışmayın. Daha sonra resimleri birbiriyle karşılaştırın ve 3D görüntüleme olmadan yatay çizgileri kullanarak resimleri hizalayın ve ardından hizalayıp sabit tuttuktan sonra 3D görüntülemeyi başlatın.</value>
   </data>
   <data name="Page.Tips.Space" xml:space="preserve">
-    <value>Bu resimler çok fazla depolama alanı kaplayabilir; onları küçültebilirsiniz.</value>
+    <value>Bu resimler çok fazla depolama alanı kaplayabilir; bunları küçültebilirsiniz.</value>
   </data>
   <data name="Page.Tips.Space.Body" xml:space="preserve">
-    <value>Ayarlar sayfasında son resmin çözünürlüğünü orantılı olarak azaltma seçeneği bulunur; bu, yerden tasarruf etmek istiyorsanız yardımcı olabilir. Fotoğrafınız kırpılmazsa, sonuçta iki tam çözünürlüklü fotoğraf bir araya getirilerek çift çözünürlüklü bir fotoğraf elde edilir; bu, kaliteyi gözle görülür şekilde etkilemeden genellikle çözünürlükte büyük bir azalmadan kurtulabileceğiniz anlamına gelir.</value>
+    <value>Ayarlar sayfasında son resmin çözünürlüğünü orantılı olarak azaltma seçeneği bulunur; bu, yerden tasarruf etmek istiyorsanız yardımcı olabilir. Fotoğrafınız kırpılmazsa, sonuçta iki tam çözünürlüklü fotoğraf bir araya getirilerek çift çözünürlüklü bir fotoğraf elde edilir; bu, genellikle kaliteyi belirgin bir şekilde etkilemeden çözünürlükte büyük bir azalmadan kurtulabileceğiniz anlamına gelir.</value>
   </data>
   <data name="Page.Tips.Turn" xml:space="preserve">
     <value>Dönme.</value>
   </data>
   <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Kenara geçtiğinizde, yana doğru hareket ettiğinizde nesneye doğru dönme eğiliminiz de dahil olmak üzere, telefonunuzu hiçbir yöne döndürmemeye çalışın. Bir miktar rotasyon gerekli olacaktır (bazen), ancak bunu en aza indirmeye çalışın. Telefonun düz, yatay bir ray üzerine monte edildiğini ve yalnızca kayabildiğini düşünün. İçe doğru döndürmek, köşelerin kaynaşmasını zorlaştıran bir kısaltma etkisine neden olabilir.</value>
+    <value>Kenara doğru hareket ettiğinizde, yana doğru hareket ederken nesneye doğru dönme yönündeki doğal eğilim de dahil olmak üzere, telefonunuzu hiçbir yöne döndürmemeye çalışın. Bir miktar rotasyon gerekli olacaktır (bazen), ancak bunu en aza indirmeye çalışın. Telefonun düz, yatay bir ray üzerine monte edildiğini ve yalnızca kayabildiğini düşünün. İçe doğru döndürmek, köşelerin kaynaşmasını zorlaştıran bir kısaltma etkisine neden olabilir.</value>
   </data>
   <data name="Page.Tips.Window" xml:space="preserve">
     <value>Güçlü bir stereo pencere oluşturmak için kenarlık ekleyin ve kırpın.</value>
@@ -797,7 +797,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
     <value>&lt; Geri</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Alt Dizini</value>
+    <value>Çapraz Görünüm Alt Dizini</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Stereoskopik 3D Facebook Grubu</value>
@@ -986,7 +986,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
     <value>Rol seçilmedi</value>
   </data>
   <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
-    <value>Önizleme karesi gecikmesi (daha yüksek sayı kare hızını azaltır ancak pilden tasarruf sağlar)</value>
+    <value>Çerçeve gecikmesini önizleyin (daha yüksek sayı kare hızını azaltır ancak pilden tasarruf sağlar)</value>
   </data>
   <data name="Settings.Pair.Primary" xml:space="preserve">
     <value>Öncelik:</value>
@@ -995,7 +995,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
     <value>Rol: Birincil</value>
   </data>
   <data name="Settings.Pair.Sample" xml:space="preserve">
-    <value>Saat örnek sayısı (daha düşük sayı, ilk senkronizasyon için gereken süreyi azaltır ancak senkronizasyon doğruluğunu azaltabilir)</value>
+    <value>Saat örnek sayısı (düşük sayı, ilk senkronizasyon için gereken süreyi azaltır ancak senkronizasyon doğruluğunu azaltabilir)</value>
   </data>
   <data name="Settings.Pair.Secondary" xml:space="preserve">
     <value>İkincil:</value>
@@ -1046,7 +1046,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
     <value>Araştır...</value>
   </data>
   <data name="Settings.Saving.Cardboard" xml:space="preserve">
-    <value>Cardboard için Kaydet (düzenlemelerle, kenarlıksız, aralıksız, tam genişlikte, daha sonra CrossCam'e tekrar yüklemek için)</value>
+    <value>Cardboard için Kaydet (düzenlemelerle, kenarlıksız, boşluksuz, tam genişlikte, daha sonra CrossCam'e tekrar yüklemek için)</value>
   </data>
   <data name="Settings.Saving.Clear" xml:space="preserve">
     <value>Kaydettikten sonra yakalamaları otomatik olarak temizle</value>
@@ -1088,7 +1088,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
     <value>Her iki tarafı ayrı ayrı kaydedin (sonradan işlemeyi kolaylaştırmak için düzenleme veya kenarlık olmadan, önce sol taraf kaydedilir)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Özel "CrossCam_{ViewMethod}" alt klasörlerine/albümlerine kaydedin</value>
+    <value>Özel "CrossCam {Görüntüleme Yöntemi}" alt klasörlerine/albümlerine kaydedin</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Üçlü kombinasyonu kaydet (düzenlemeler ve kenarlıkla)</value>

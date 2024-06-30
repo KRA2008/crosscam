@@ -154,7 +154,7 @@
     <value>2) Comece a visualizar anáglifo a primeira imagem com a visualização que aparece ao lado dela.</value>
   </data>
   <data name="Page.HowToUse.2cardboard" xml:space="preserve">
-    <value>2) Comece no papelão visualizando a primeira foto com a prévia que aparece ao lado dela.</value>
+    <value>2) Inicie o papelão visualizando a primeira foto com a prévia que aparece ao lado dela.</value>
   </data>
   <data name="Page.HowToUse.2cross" xml:space="preserve">
     <value>2) Comece a visualizar cruzadamente a primeira imagem com a visualização que aparece ao lado dela.</value>
@@ -439,7 +439,7 @@ Se preferir usar óculos 3D ou um visualizador de papelão, você pode configura
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Se você ainda estiver com problemas, tente levar o telefone para um quarto escuro para que a única coisa que seus olhos possam ver bem e focar seja a imagem.
 
-Outra coisa que você pode tentar é usar tubos de papel higiênico ou suas mãos para fazer com que cada olho veja apenas o lado da imagem que deveria ver.
+Outra coisa que você pode tentar é usar tubos de papel higiênico ou suas mãos para que cada olho possa ver apenas o lado da imagem que deveria ver.
  • Para visão cruzada: segure um único tubo contra a ponte do nariz (centralizado entre os olhos) enquanto o aponta para o centro da imagem à sua frente. Mova lentamente o tubo em direção à tela enquanto tenta olhar para baixo do tubo com os dois olhos. Quando você atingir a posição correta com o tubo, a imagem deverá se encaixar no lugar. Pode ser útil concentrar-se em tentar olhar para o interior da extremidade do tubo. Se não conseguir encontrar a posição correta, tente usar uma imagem maior ou um tubo menor.
  • Para visão paralela: segure um tubo na frente de cada olho, mas aponte ambos lateralmente, para que você quase não consiga ver nada. Gire lentamente os tubos para dentro ao mesmo tempo para começar a ver mais da imagem. No momento em que você conseguir ver a maior parte da imagem (quase metade com cada olho), tente relaxar os olhos e juntar as metades. Pode ajudar usar uma imagem maior ou menor.
 
@@ -527,7 +527,7 @@ Outras coisas que você pode fazer:
     <value>Como funciona o alinhamento automático?</value>
   </data>
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
-    <value>O alinhamento automático tenta alinhar os pares de imagens da melhor forma possível, mas não é perfeito. A visão computacional é melhor em algumas coisas do que os olhos humanos, mas também muito pior em outras coisas. O mundo que ela vê é muito diferente daquele que vemos, mas também pode ver de algumas maneiras diferentes. As duas principais formas de visualização no CrossCam são por meio do coeficiente de correlação aprimorado (ECC) e pelo uso de pontos-chave.
+    <value>O alinhamento automático tenta alinhar os pares de imagens da melhor forma possível, mas não é perfeito. A visão computacional é melhor em algumas coisas do que os olhos humanos, mas também muito pior em outras coisas. O mundo que vê é muito diferente daquele que vemos, mas também pode ver de algumas maneiras diferentes. As duas principais formas de visualização no CrossCam são por meio do coeficiente de correlação aprimorado (ECC) e pelo uso de pontos-chave.
 
 O alinhamento ECC funciona essencialmente tentando garantir que as manchas claras se sobreponham às manchas claras e as manchas escuras se sobreponham às manchas escuras quando os dois lados estão sobrepostos um sobre o outro. O alinhamento do ECC vem com uma pontuação de confiança que visa ajudar a decidir se o alinhamento foi eficaz. CrossCam está configurado para rejeitar o alinhamento produzido se a confiança for muito baixa, mas você pode configurar o limite de aprovação/reprovação de confiança na página Configurações.
 
@@ -535,7 +535,7 @@ O alinhamento de pontos-chave procura pontos de interesse, como cantos, bordas, 
 
 CrossCam está programado para usar o alinhamento do ponto-chave primeiro, mas retornará ao alinhamento ECC quando o alinhamento do ponto-chave falhar ou quando a captura estiver sendo feita com o método de divisão de espelho de disparo único. Você também pode configurar o alinhamento automático para sempre usar o alinhamento de ponto-chave ou sempre usar o alinhamento ECC na página Configurações.
 
-CrossCam exibirá o resultado do alinhamento na tela da câmera abaixo do pequeno ícone do robô. Se utilizou o alinhamento ECC, exibirá a porcentagem de confiança. Se utilizou alinhamento de ponto-chave, exibirá "KP". Se ambos os métodos de alinhamento falharem, será exibido "F". Se você não gostar do resultado do alinhamento você pode tocar no ícone do pequeno robô para remover o alinhamento.</value>
+CrossCam exibirá o resultado do alinhamento na tela da câmera abaixo do pequeno ícone do robô. Se utilizou o alinhamento ECC, exibirá a porcentagem de confiança. Se utilizou alinhamento de ponto-chave, exibirá "KP". Se ambos os métodos de alinhamento falharem, será exibido "F". Se você não gostar do resultado do alinhamento você pode tocar no pequeno ícone do robô para remover o alinhamento.</value>
   </data>
   <data name="Page.Faq.Bad" xml:space="preserve">
     <value>isso e ruim para os meus olhos?</value>
@@ -559,7 +559,7 @@ Minha opinião sobre isso é que seus olhos não estão fazendo nada fora de sua
 
 Para capturar fotos usando o Cardboard, mude seu Método de visualização de visualização (na página Configurações) para Cardboard, retorne à página da câmera e coloque seu telefone no visualizador. Pressione o botão para capturar e, quando ambos os lados forem capturados, pressione o botão novamente para salvar. Salvar no modo Cardboard serve apenas para permitir que você carregue as imagens de volta no CrossCam para visualização posterior, não para visualizá-las em seu aplicativo de fotos através do visualizador.
 
-Você também pode capturar usando qualquer outro método desejado e, em seguida, mudar o método de visualização de visualização para o Cardboard e colocar seu telefone no visualizador.
+Você também pode capturar usando qualquer outro método que desejar, depois mudar seu método de visualização de visualização para Cardboard e colocar seu telefone no visualizador.
 
 Existem muitos visualizadores diferentes com propriedades diferentes. Pode ser necessário alterar a distância de separação do Cardboard (na página Configurações) para tornar sua experiência mais confortável. Você também pode precisar primeiro ter certeza de que é bom em capturar estereogramas de alta qualidade antes de torná-los enormes e envolventes.</value>
   </data>
@@ -582,7 +582,7 @@ Existem muitos visualizadores diferentes com propriedades diferentes. Pode ser n
     <value>Enquanto eu estava me formando em física, tive a oportunidade de experimentar criar meus próprios hologramas usando lasers. O tipo de holograma que eu estava fazendo era 3D porque usava uma rede de difração para causar interferência destrutiva na luz que é refletida na superfície de uma placa de vidro, o que faz com que a imagem refletida pareça diferente em lugares diferentes. Quando cada um de nossos olhos vê uma imagem que parece ser de uma perspectiva diferente (se não forem muito diferentes), nosso cérebro percebe isso como profundidade.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
-    <value>Já conhecia esse princípio da percepção estereoscópica há muito tempo, mas nessa altura da minha vida também estava a ter algumas aulas de programação, por isso decidi que queria tentar fazer um programa de computador simples para desenho 3D estereoscópico. Esse esforço tornou-se StereoSketcher. A versão original foi escrita em Java, mas eu a reescrevi com Javascript e SVG e agora ela está na web</value>
+    <value>Eu já conhecia esse princípio da percepção estereoscópica há muito tempo, mas naquela época da minha vida eu também estava tendo algumas aulas de programação, então decidi que queria tentar fazer um programa de computador simples para desenho 3D estereoscópico. Esse esforço tornou-se StereoSketcher. A versão original foi escrita em Java, mas eu a reescrevi com Javascript e SVG e agora ela está na web</value>
   </data>
   <data name="Page.Faq.Into.Body3" xml:space="preserve">
     <value>neste link.</value>
@@ -603,7 +603,7 @@ Para demonstrar, mantenha um dedo à sua frente, próximo ao comprimento do bra�
 É muito fácil usar acidentalmente o método de visualização errado porque é muito difícil para a maioria das pessoas saber se estão cruzando ou relaxando os olhos apenas sentindo ou olhando para a confusa imagem dupla do mundo resultante. Em vez disso, é melhor pedir a outra pessoa que observe o que seus olhos estão fazendo ou experimentar esta imagem de teste:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
-    <value>Muitas pessoas ficaram bastante confortáveis ​​ao visualizar livros Magic Eye™, que devem ser visualizados usando o método de visualização paralela. Se você visualizá-los de forma cruzada, os objetos 3D robustos que deveriam aparecer na página parecerão buracos. Ambos os métodos permitem que você veja *alguma coisa*, mas se você não sabia o que era, provavelmente você os está visualizando de forma cruzada.</value>
+    <value>Muitas pessoas ficaram bastante confortáveis ​​ao visualizar livros Magic Eye™, que devem ser visualizados usando o método de visualização paralela. Se você visualizá-los de forma cruzada, os objetos 3D robustos que deveriam aparecer na página parecerão buracos. Ambos os métodos permitem que você veja *alguma coisa*, mas se você não souber o que é, provavelmente estará fazendo uma visualização cruzada.</value>
   </data>
   <data name="Page.Faq.Mirror" xml:space="preserve">
     <value>Como faço o método "espelho de disparo único"?</value>
@@ -666,7 +666,7 @@ Nas semanas seguintes, minha frustração latente me levou a imaginar simplesmen
     <value>Você pode desativar o alinhamento automático.</value>
   </data>
   <data name="Page.Tips.Alignment.Body" xml:space="preserve">
-    <value>Se você não gostar dos resultados do alinhamento automático, basta desligá-lo na página Configurações ou tocando no pequeno ícone do robô e suas fotos originais capturadas serão restauradas.</value>
+    <value>Se você não gostar dos resultados do alinhamento automático, basta desligá-lo na página Configurações ou tocando no pequeno ícone do robô e suas imagens originais capturadas serão restauradas.</value>
   </data>
   <data name="Page.Tips.Donut" xml:space="preserve">
     <value>O guia de donuts pode ajudar sua janela.</value>
@@ -708,10 +708,10 @@ Nas semanas seguintes, minha frustração latente me levou a imaginar simplesmen
     <value>Se você estiver explorando com outras pessoas, é uma boa ideia entrar no modo rápido, desativando o alinhamento automático e as bordas e salvando apenas depois de capturar, sem fazer nenhuma edição. Você sempre pode carregar, alinhar automaticamente e editar as imagens posteriormente. Dessa forma, seus companheiros não precisam esperar que você aperfeiçoe suas fotos na hora, mas você ainda pode ter certeza de que a profundidade desejada realmente existe. Apenas tome cuidado para não fazer nenhuma edição precipitada antes do primeiro salvamento! Você também pode ativar o salvamento lateral separado, que ignorará qualquer edição que você fizer.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
-    <value>Se o movimento te deixa doente, fique quieto.</value>
+    <value>Se o movimento te deixar doente, fique quieto.</value>
   </data>
   <data name="Page.Tips.Sick.Body" xml:space="preserve">
-    <value>Se todo o movimento deixa você enjoado ou dificulta muito a visualização em 3D, não comece a tentar vê-lo em 3D antes de ter se movido um pouco. Em seguida, compare as imagens entre si e alinhe-as usando as linhas horizontais sem visualização 3D e, em seguida, inicie a visualização 3D depois de alinhadas e imóveis.</value>
+    <value>Se todo o movimento deixa você enjoado ou dificulta muito a visualização em 3D, não comece a tentar vê-lo em 3D antes de ter se movido um pouco. Em seguida, compare as imagens entre si e alinhe-as usando as linhas horizontais sem visualização em 3D e, em seguida, inicie a visualização em 3D depois de alinhadas e imóveis.</value>
   </data>
   <data name="Page.Tips.Space" xml:space="preserve">
     <value>Essas fotos podem ocupar muito espaço de armazenamento - você pode reduzi-las.</value>
@@ -723,7 +723,7 @@ Nas semanas seguintes, minha frustração latente me levou a imaginar simplesmen
     <value>Não vire.</value>
   </data>
   <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Ao se mover, tente não girar o telefone em nenhuma direção, incluindo a tendência natural de virar na direção do objeto conforme você se move para o lado. Será necessária alguma rotação (às vezes), mas tente minimizá-la. Imagine que o telefone está montado em um trilho horizontal reto e só pode deslizar. Virar para dentro pode causar um efeito de escorço que dificulta a fusão dos cantos.</value>
+    <value>Ao se mover, tente não girar o telefone em nenhuma direção, incluindo a tendência natural de virar em direção ao objeto conforme você se move para o lado. Será necessária alguma rotação (às vezes), mas tente minimizá-la. Imagine que o telefone está montado em um trilho horizontal reto e só pode deslizar. Virar para dentro pode causar um efeito de escorço que dificulta a fusão dos cantos.</value>
   </data>
   <data name="Page.Tips.Window" xml:space="preserve">
     <value>Adicione borda e recorte para criar uma janela estéreo forte.</value>
@@ -785,7 +785,7 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
     <value>CrossCam requer permissão de acesso à rede local. Na verdade, o CrossCam não usa a rede local, mas o iOS exige que o CrossCam obtenha essa permissão para usar a antena Wi-Fi para procurar dispositivos. CrossCam solicitará essa permissão uma vez - se a permissão for negada, você mesmo terá que apertar o botão no aplicativo Configurações.</value>
   </data>
   <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam solicitará permissões e ligará componentes conforme necessário para conectar seus dispositivos. Observação: CrossCam requer permissão de localização e que os serviços de localização sejam ativados no dispositivo principal para se conectar ao dispositivo secundário. Este é simplesmente um requisito do Android e está completamente fora do meu controle. Na verdade, o CrossCam não USA sua localização de forma alguma, mas como o ato de procurar (e encontrar) dispositivos próximos poderia, teoricamente, ser usado para localizá-lo aproximadamente, o CrossCam requer permissão para acessar sua localização.</value>
+    <value>CrossCam solicitará permissões e ligará componentes conforme necessário para conectar seus dispositivos. Observação: o CrossCam requer permissão de localização e que os serviços de localização estejam ativados no dispositivo principal para se conectar ao dispositivo secundário. Este é simplesmente um requisito do Android e está completamente fora do meu controle. Na verdade, o CrossCam não USA sua localização de forma alguma, mas como o ato de procurar (e encontrar) dispositivos próximos poderia, teoricamente, ser usado para localizá-lo aproximadamente, o CrossCam requer permissão para acessar sua localização.</value>
   </data>
   <data name="Page.Pairing.Permissions" xml:space="preserve">
     <value>Uma observação sobre permissões:</value>
@@ -797,7 +797,7 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
     <value>&lt; Voltar</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>Subreddit CrossView</value>
+    <value>Subreddit de visualização cruzada</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Grupo 3D estereoscópico no Facebook</value>
@@ -812,7 +812,7 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
     <value>Veja as fotos que tirei</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>Subreddit do ParallelView</value>
+    <value>Subreddit de visualização paralela</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Alinhamento Automático</value>
@@ -974,7 +974,7 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
     <value>Correção do campo de visão</value>
   </data>
   <data name="Settings.Pair.FovNotSet" xml:space="preserve">
-    <value>Correção FOV não definida (faça uma captura com dispositivos emparelhados para acompanhar a configuração).</value>
+    <value>Correção de FOV não definida (faça uma captura com dispositivos emparelhados para acompanhar a configuração).</value>
   </data>
   <data name="Settings.Pair.FovReset" xml:space="preserve">
     <value>Reiniciar</value>
@@ -1088,7 +1088,7 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
     <value>Salve cada lado separadamente (sem edições ou bordas para facilitar o pós-processamento, o lado esquerdo salva primeiro)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Salve em subpastas/álbuns dedicados "CrossCam_{ViewMethod}"</value>
+    <value>Salve em subpastas/álbuns dedicados "CrossCam {View Method}"</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Salvar combinação tripla (com edições e borda)</value>

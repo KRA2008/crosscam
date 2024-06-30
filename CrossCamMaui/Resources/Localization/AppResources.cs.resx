@@ -151,10 +151,10 @@
     <value>! Rád mluvím s uživateli a je to nejrychlejší způsob, jak se mnou komunikovat.</value>
   </data>
   <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
-    <value>2) Spusťte anaglyf zobrazením prvního obrázku s náhledem, který se objeví vedle něj.</value>
+    <value>2) Spusťte anaglyf prohlížením prvního obrázku s náhledem, který se objeví vedle něj.</value>
   </data>
   <data name="Page.HowToUse.2cardboard" xml:space="preserve">
-    <value>2) Začněte kartonem prohlížet první obrázek s náhledem, který se objeví vedle něj.</value>
+    <value>2) Začněte kartonem prohlížet první obrázek s náhledem, který se zobrazí vedle něj.</value>
   </data>
   <data name="Page.HowToUse.2cross" xml:space="preserve">
     <value>2) Začněte křížově prohlížet první obrázek s náhledem, který se zobrazí vedle něj.</value>
@@ -220,7 +220,7 @@ Pokud byste raději používali 3D brýle nebo prohlížeč Cardboard, můžete 
     <value>Pokud máte potíže, zkuste si přiblížit obrazovku přímo k obličeji a dvojici obrázků přímo před vašima očima. Uvolněte se a dívejte se „skrze“ obrazovku a poté obrazovku pomalu odtáhněte od obličeje a přitom mějte oči uvolněné. Nakonec by se měl obrázek „zacvaknout“ a zaostřit.</value>
   </data>
   <data name="Page.Technique.Parallel5" xml:space="preserve">
-    <value>Pokud stále vidíte čtyři obrázky, zvyšte na stránce Nastavení "Maximální šířku obrazu paralelního zobrazení".</value>
+    <value>Pokud se vám stále zobrazují čtyři obrázky, zvyšte na stránce Nastavení „Maximální šířku obrazu paralelního zobrazení“.</value>
   </data>
   <data name="Page.Technique.ParallelViewing" xml:space="preserve">
     <value>PARALELNÍ ZOBRAZENÍ</value>
@@ -439,7 +439,7 @@ Pokud byste raději používali 3D brýle nebo prohlížeč Cardboard, můžete 
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Pokud máte stále potíže, zkuste telefon přenést do tmavé místnosti, aby vaše oči dobře viděly a na co se mohly soustředit, byl obraz.
 
-Další věc, kterou můžete vyzkoušet, je použití trubic z toaletního papíru nebo vašich rukou, abyste to udělali tak, aby každé oko vidělo pouze tu stranu obrázku, kterou vidět má.
+Další věc, kterou můžete vyzkoušet, je použití trubiček od toaletního papíru nebo vašich rukou, abyste to udělali tak, aby každé oko vidělo pouze tu stranu obrázku, kterou vidět má.
  • Pro příčný pohled: držte jednu trubici u kořene nosu (uprostřed mezi očima) a namiřte ji na střed obrazu před vámi. Pomalu pohybujte trubicí směrem k obrazovce a snažte se dívat dolů trubicí oběma očima. Když s trubicí dosáhnete správné polohy, obraz by měl zapadnout na místo. Může pomoci soustředit se na pokus podívat se na vnitřní stranu vzdáleného konce trubice. Pokud nemůžete najít správnou polohu, zkuste použít větší obrázek nebo menší trubici.
  • Pro paralelní pohled: držte trubici před každým okem, ale obě nasměrujte na stranu, abyste téměř nic neviděli. Současně pomalu otáčejte trubicemi dovnitř, abyste mohli začít vidět více z obrazu. Ve chvíli, kdy uvidíte většinu obrazu (každým okem téměř polovinu), zkuste oči uvolnit a přiložte poloviny k sobě. Může pomoci použít větší nebo menší obrázek.
 
@@ -489,7 +489,7 @@ Někdy je těžké cítit, zda při tom děláte křížovou nebo paralelní met
     <value>Pokřivené</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam byl vytvořen, aby vám pomohl vytvořit 3D fotografie. Fotografie jsou 3D stejně jako VR nebo 3D filmy, ale nepotřebujete žádné speciální vybavení nebo brýle – stačí váš telefon (pokud ale máte červené/azurové 3D brýle nebo prohlížeč Google Cardboard, můžete je použít. také s CrossCam). Technika \"volného prohlížení\", která využívá pouze váš telefon a vaše oči, vyžaduje určitý cvik, než se naučit. Než vám řeknu, jak používat CrossCam, chtěli byste se nejprve dozvědět více o technice sledování?</value>
+    <value>CrossCam byl vytvořen, aby vám pomohl vytvořit 3D fotografie. Fotografie jsou 3D stejně jako VR nebo 3D filmy, ale nepotřebujete žádné speciální vybavení nebo brýle – stačí váš telefon (pokud ale máte červené/azurové 3D brýle nebo prohlížeč Google Cardboard, můžete je použít. také s CrossCam). Technika „volného prohlížení“, která využívá pouze váš telefon a vaše oči, vyžaduje určitou praxi, než se naučit. Než vám řeknu, jak používat CrossCam, chtěli byste se nejprve dozvědět více o technice sledování?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Vítejte v CrossCam!</value>
@@ -513,7 +513,7 @@ Někdy je těžké cítit, zda při tom děláte křížovou nebo paralelní met
 
 5) CrossCam automaticky zarovná vaše obrázky poté, co je pořídíte, ale není to dokonalé, pokud se vám nelíbí, jak byly zarovnány, můžete automatické zarovnání vypnout klepnutím na ikonu malého robota. CrossCam má také spoustu možností ručních úprav, ke kterým se dostanete klepnutím na ikonu tužky.
 
-6) Až budete připraveni uložit, klepněte na zaškrtávací značku.
+6) Až budete připraveni uložit, klepněte na značku zaškrtnutí.
 
 
 Další věci, které můžete udělat:
@@ -531,9 +531,9 @@ Další věci, které můžete udělat:
 
 Zarovnání ECC v podstatě funguje tak, že se snaží zajistit, aby se světlé plochy překrývaly se světlými a tmavé plochy se překrývaly s tmavými plochami, když jsou dvě strany překryty přes sebe. Zarovnání ECC přichází se skóre spolehlivosti, které má pomoci rozhodnout, zda bylo zarovnání účinné. CrossCam je nastaven tak, aby odmítl vytvořené zarovnání, pokud je spolehlivost příliš nízká, ale na stránce Nastavení můžete nakonfigurovat práh spolehlivosti, který vyhovuje/nevyhovuje.
 
-Zarovnání klíčových bodů hledá body zájmu, jako jsou rohy, okraje, tečky a vysoký kontrast, a pokouší se je mezi oběma stranami sladit. Jakmile jsou body porovnány, může CrossCam použít různé algoritmy, aby se pokusil zkroutit strany tak, aby byly všechny klíčové body na jedné straně co nejblíže odpovídajícím klíčovým bodům na druhé straně.
+Zarovnání klíčových bodů hledá body zájmu, jako jsou rohy, okraje, tečky a vysoký kontrast, a pokouší se je sladit mezi dvěma stranami. Jakmile jsou body porovnány, může CrossCam použít různé algoritmy, aby se pokusil zkroutit strany tak, aby byly všechny klíčové body na jedné straně co nejblíže odpovídajícím klíčovým bodům na druhé straně.
 
-CrossCam je naprogramován tak, aby nejprve používal zarovnání klíčových bodů, ale pokud se zarovnání klíčových bodů nezdaří nebo když se snímání provádí metodou zrcadlového dělení, přejde zpět na zarovnání ECC. Můžete také nakonfigurovat automatické zarovnání tak, aby vždy použilo zarovnání klíčových bodů nebo vždy použilo zarovnání ECC na stránce Nastavení.
+CrossCam je naprogramován tak, aby nejprve používal zarovnání klíčových bodů, ale pokud se zarovnání klíčových bodů nezdaří nebo když se snímání provádí metodou zrcadlového dělení, přejde zpět na zarovnání ECC. Na stránce Nastavení můžete také nakonfigurovat automatické zarovnání tak, aby vždy použilo zarovnání klíčových bodů nebo vždy použilo zarovnání ECC.
 
 CrossCam zobrazí výsledek zarovnání na obrazovce kamery pod ikonou malého robota. Pokud použil zarovnání ECC, zobrazí procento spolehlivosti. Pokud použil zarovnání klíčových bodů, zobrazí se "KP". Pokud obě metody zarovnání selhaly, zobrazí se "F". Pokud se vám nelíbí výsledek zarovnání, můžete klepnutím na ikonu malého robota zarovnání odstranit.</value>
   </data>
@@ -594,11 +594,11 @@ Existuje mnoho různých diváků s různými vlastnostmi. Možná budete muset 
     <value>Proč 3D nevypadá správně NEBO proč vypadá 3D převráceně?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Při volném prohlížení pomocí křížové nebo paralelní metody je důležité dívat se na obrázky stejnou metodou, která byla použita k jejich vytvoření. Jinak se vaše pravé oko bude dívat z perspektivy určené pro levé oko a naopak. Tím se hloubka obrazu invertuje, protože směr paralaxy byl prohozen.
+    <value>Při volném prohlížení pomocí křížové nebo paralelní metody je důležité dívat se na obrázky stejnou metodou, která byla použita k jejich vytvoření. Jinak se vaše pravé oko bude dívat z perspektivy určené pro levé oko a naopak. Tím se hloubka obrazu převrátí, protože směr paralaxy byl prohozen.
 
-Paralaxa znamená, že z pohledu vašeho pravého oka, když jsou objekty dále, zdají se být více vpravo než bližší objekty při pohledu z vašeho levého oka. Je to matoucí, když je popsáno ve formátu vět, ale velmi intuitivní, když je demonstrováno.
+Paralaxa znamená, že z pohledu vašeho pravého oka, když jsou předměty dále, zdají se být více vpravo než bližší předměty při pohledu z vašeho levého oka. Je to matoucí, když je popsáno ve formátu vět, ale velmi intuitivní, když je demonstrováno.
 
-Chcete-li to ukázat, držte jeden prst před sebou na délku paže, pak druhou rukou držte další prst přibližně v polovině vzdálenosti mezi ukazováčkem a obličejem. Pokud budete střídavě zavírat každé oko a věnovat pozornost tomu, kde máte prsty, uvidíte, že je každé oko vidí na jiných místech. Takže přirozeně, pokud každé oko vidělo tento pohyb opačně, než by mělo, hloubka bude obrácená.
+Chcete-li demonstrovat, držte jeden prst před sebou na délku paže, pak druhou rukou držte další prst přibližně v polovině vzdálenosti mezi ukazováčkem a obličejem. Pokud budete střídavě zavírat každé oko a věnovat pozornost tomu, kde máte prsty, uvidíte, že je každé oko vidí na jiných místech. Takže přirozeně, pokud každé oko vidělo tento pohyb opačně, než by mělo, hloubka bude obrácená.
 
 Je velmi snadné náhodně použít špatnou metodu sledování, protože se ukázalo, že pro většinu lidí je velmi těžké rozeznat, zda kříží nebo uvolňují oči pouhým pocitem nebo pohledem na matoucí dvojitý obraz světa, který je výsledkem. Místo toho je nejlepší nechat někoho jiného, ​​aby se podíval na to, co dělají vaše oči, nebo vyzkoušet tento obrázek testera:</value>
   </data>
@@ -606,23 +606,23 @@ Je velmi snadné náhodně použít špatnou metodu sledování, protože se uk�
     <value>Mnoho lidí si docela zvyklo na prohlížení knih Magic Eye™, které jsou určeny k prohlížení pomocí metody paralelního zobrazení. Pokud si je prohlédnete, pak robustní 3D objekty, které mají vyskočit ze stránky, vypadají jako díry. Obě metody vám umožňují *něco* vidět, ale pokud nemůžete říct, co to bylo, pravděpodobně je prohlížíte křížem krážem.</value>
   </data>
   <data name="Page.Faq.Mirror" xml:space="preserve">
-    <value>Jak provedu metodu „jednoho zrcadla“?</value>
+    <value>Jak provedu metodu "single-shot mirror"?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
     <value>Snímání metodou zrcadlení rozdělí snímek na polovinu a provede požadovanou transformaci, takže můžete zachytit obě strany ve stejný okamžik pomocí jediného telefonu a běžného ručního zrcátka. Chcete-li při snímání použít metodu zrcadlení, přepněte přepínač do režimu zrcadlení na stránce Nastavení (tam se dostanete klepnutím na ikonu ozubeného kola). Po zapnutí režimu zrcadlení vám CrossCam řekne, na kterou stranu máte zrcadlo držet. Podržte zrcátko na této straně a postarejte se o zarovnání mezi telefonem a zrcadlem a vaším objektem. S trochou trpělivosti se vám je podaří všechny zarovnat tak, aby zrcadlo ukazovalo správnou perspektivu pro jednu ze stran. Vzhledem k tomu, že použití metody zrcadlení rozdělí váš obraz na polovinu vertikálně, je obvykle nejlepší snímat na šířku pomocí metody zrcadlení.
 
-Tato metoda bude fungovat také s odrazy ve velkých čistých oknech a také na klidných jezerech nebo kalužích (když je telefon uzamčen na výšku a převrácen na stranu).</value>
+Tato metoda bude fungovat také s odrazy ve velkých, čistých oknech a také na klidných jezerech nebo kalužích (když je telefon zamčený na výšku a převrácený na stranu).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Aby bylo možné použít metodu zrcadlení, je třeba provést určité kompromisy/úpravy. To vše lze provést ručně v CrossCam, ale automatické zarovnání se je také pokusí udělat za vás:
- • Protože se odražený pohled pohybuje na delší vzdálenost než normální pohled, bude potřeba zrcadlenou stranu trochu přiblížit.
+ • Protože se odražený pohled pohybuje na delší vzdálenost než normální pohled, bude nutné zrcadlenou stranu trochu přiblížit.
  • Je pravděpodobné, že při použití metody zrcadlení skončíte se sbíhavostí, spíše než aby byly perspektivy rovnoběžné – to může způsobit, že zkrácení bude vypadat jako špatné vertikální zarovnání. Chcete-li to vrátit zpět, lze provést korekci lichoběžníkového zkreslení, což znamená vertikální zmenšení jedné strany každého z obrázků.
- • Sbíhavost bude mít také tendenci posouvat stereo okno směrem k vám. Můžete to vrátit zpět a umístit jej na požadované místo oříznutím stran.
+ • Sbíhavost má také tendenci posouvat stereo okno směrem k vám. Můžete to vrátit zpět a umístit jej na požadované místo oříznutím stran.
  • Zrcadlo pravděpodobně nebude zcela zakrývat pohled na jednu stranu, takže může být nutné provést určité oříznutí, aby se odstranily neodražené kousky.
 
-Nejlepší zrcadla na to mají tenké sklo. Jednak jsou lehké, takže se snáze udrží po dlouhou dobu. Další důležitou věcí je, že při používání zrcadla budete pravděpodobně mířit zrcadlo do strany, spíše než se do něj dívat přímo, jak se zrcadla obvykle používají. Při této orientaci mohou být zrcadla se silným sklem trochu rozmazaná. Čím tenčí je sklo, tím méně zřetelné bude toto rozmazání. Tyto druhy zrcadel mohou být také nekvalitní v jiných ohledech, takže je důležité najít správnou rovnováhu.
+Nejlepší zrcadla na to mají tenké sklo. Jednak jsou lehké, takže se snáze drží po dlouhou dobu. Další důležitou věcí je, že při používání zrcadla budete pravděpodobně mířit zrcadlo do strany, spíše než se do něj dívat přímo, jak se zrcadla obvykle používají. Při této orientaci mohou být zrcadla se silným sklem trochu rozmazaná. Čím tenčí je sklo, tím méně zřetelné bude toto rozmazání. Tyto druhy zrcadel mohou být také nekvalitní v jiných ohledech, takže je důležité najít správnou rovnováhu.
 
-Existuje několik dalších kompromisů, které je třeba přijmout při používání zrcadlení, které nelze opravit v úpravách CrossCam:
+Existuje několik dalších kompromisů, které je třeba přijmout při použití zrcadlení, které nelze opravit v úpravách pomocí CrossCam:
  • Vzhledem k tomu, že pohled na obě strany urazí mírně odlišnou vzdálenost, zaostření potřebné pro každou stranu bude mírně odlišné, takže jedna strana bude vždy mírně rozmazaná. Tento efekt bude více či méně patrný v závislosti na vzdálenosti k objektu a hloubce ostrosti objektivu.
  • Žádné zrcadlo není skutečně 100% účinné, takže strana, která používá zrcadlo, může být o něco tmavší. To se bude lišit v závislosti na kvalitě zrcadla.</value>
   </data>
@@ -654,7 +654,7 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
     <value>Co jsou wigglegramy?</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
-    <value>Wigglegramy představují způsob zobrazení stereogramů, který se nespoléhá na binokulární vidění. Obvykle se jedná o gif, který přepíná mezi dvěma perspektivami a zobrazuje každou celou na stejném místě. CrossCam je momentálně nepodporuje, ale pokud o ně máte opravdu zájem, napište mi a já to udělám.</value>
+    <value>Wigglegramy představují způsob zobrazení stereogramů, který se nespoléhá na binokulární vidění. Obvykle se jedná o gif, který přepíná mezi dvěma perspektivami a zobrazuje každou celou na stejném místě. CrossCam nepodporuje jejich výrobu právě teď, ale pokud o ně máte opravdu zájem, napište mi a já to udělám.</value>
   </data>
   <data name="Page.Tips.AlignAfter" xml:space="preserve">
     <value>Dávejte pozor na vodorovné čáry, ale můžete zarovnat i poté.</value>
@@ -681,13 +681,13 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
     <value>Pokud se při každém záběru otočíte dovnitř, je velmi užitečné provést korekci lichoběžníkového zkreslení. Obvykle byste chtěli zmenšit vnitřní okraje fotografií a poté oříznout horní a spodní část, abyste je vyrovnali. Do nabídky úprav lichoběžníkového zkreslení se dostanete klepnutím na tlačítko, které vypadá takto:</value>
   </data>
   <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Otočení dovnitř se nazývá sbíhavost. Může způsobit zkracující efekt, který znesnadňuje sloučení rohů obrazu. Efekt zkrácení je přítomen vždy ve skutečném životě, protože se zdá, že se paralelní linie sbíhají, jak se vzdalují od vás, ale umělé perspektivy to mohou dělat divně.</value>
+    <value>Otočení dovnitř se nazývá sbíhavost. Může způsobit zkracující efekt, který znesnadňuje sloučení rohů obrazu. Efekt zkracování je přítomen vždy v reálném životě, protože se zdá, že se paralelní linie sbíhají, jak se vzdalují od vás, ale umělé perspektivy to mohou dělat divně.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Můžete se jen opřít.</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>Někdy může být při fotografování snazší stát s nohama od sebe a naklánět se každým směrem, ale dávejte pozor, aby byl telefon vodorovně a ve stejné výšce. Pouhé naklánění místo pohybu vám může pomoci od příliš velkého pohybu a může vám usnadnit držení cíle rovně.</value>
+    <value>Někdy může být snazší stát s nohama od sebe a naklánět se každým směrem, ale dávejte pozor, abyste telefon udržovali vodorovně a ve stejné výšce. Pouhé naklánění místo pohybu vám může pomoci od příliš velkého pohybu a může vám usnadnit držení cíle rovně.</value>
   </data>
   <data name="Page.Tips.Lines" xml:space="preserve">
     <value>Zarovnávací čáry se mohou pohybovat.</value>
@@ -705,13 +705,13 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
     <value>Zapněte rychlý režim, když jste s ostatními.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Pokud prozkoumáváte s ostatními lidmi, je dobré přejít do rychlého režimu vypnutím automatického zarovnání a ohraničení a po pořízení snímku bez jakýchkoli úprav pouze uložit. Obrázky můžete kdykoli načíst, automaticky zarovnat a upravit později. Vaši společníci tak nebudou muset čekat, až vaše snímky zdokonalíte na místě, ale přesto si můžete být jisti, že požadovaná hloubka skutečně existuje. Jen si dejte pozor, abyste před prvním uložením neprováděli žádné ukvapené úpravy! Můžete také zapnout samostatné ukládání na stranu, které bude ignorovat jakékoli úpravy, které provedete.</value>
+    <value>Pokud prozkoumáváte s ostatními lidmi, je dobré přejít do rychlého režimu vypnutím automatického zarovnání a okrajů a po pořízení snímku bez jakýchkoli úprav pouze uložit. Obrázky můžete kdykoli načíst, automaticky zarovnat a upravit později. Vaši společníci tak nebudou muset čekat, až vaše snímky zdokonalíte na místě, ale přesto si můžete být jisti, že požadovaná hloubka skutečně existuje. Jen si dejte pozor, abyste před prvním uložením neprováděli žádné ukvapené úpravy! Můžete také zapnout samostatné ukládání na stranu, které bude ignorovat jakékoli úpravy, které provedete.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Pokud se vám z pohybu dělá špatně, vydržte.</value>
   </data>
   <data name="Page.Tips.Sick.Body" xml:space="preserve">
-    <value>Pokud se vám ze všech pohybů dělá nevolno nebo je příliš obtížné sledovat ve 3D, začněte to vidět ve 3D, dokud se trochu nepohnete. Poté obrázky porovnejte a zarovnejte obrázky pomocí vodorovných čar bez zobrazení 3D a poté začněte prohlížet 3D, jakmile jsou zarovnány a držte nehybně.</value>
+    <value>Pokud se vám ze všech pohybů dělá nevolno nebo je příliš obtížné sledovat ve 3D, začněte to vidět ve 3D až poté, co se trochu posunete. Poté porovnejte obrázky mezi sebou a zarovnejte obrázky pomocí vodorovných čar bez zobrazení 3D a poté začněte prohlížet 3D, jakmile zarovnáte a držte nehybně.</value>
   </data>
   <data name="Page.Tips.Space" xml:space="preserve">
     <value>Tyto obrázky zaberou spoustu místa – můžete je zmenšit.</value>
@@ -729,7 +729,7 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
     <value>Přidejte ohraničení a ořízněte, abyste vytvořili silné stereo okno.</value>
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Zajímavý efekt stereo okna lze vytvořit provedením dvou věcí: 1) zapnout ohraničení (na stránce Nastavení) a 2) pro křížové prohlížení oříznout vnitřní okraje obrázků, dokud se samotný vnější okraj nestane 3D na obrázku (oříznutí VNĚJŠÍ okraje, pokud se díváte paralelně). Klíčem je oříznout pravý okraj levého obrázku mírně za to, co ukazuje pravý okraj pravého obrázku scény a naopak. Přidání ohraničení se přepíná na stránce Nastavení. Pokud je to matoucí, stačí oříznout svazek z vnitřních okrajů a začne to být jasné. Tlačítko oříznutí pro vnitřní okraje vypadá takto:</value>
+    <value>Zajímavý efekt stereo okna lze vytvořit provedením dvou věcí: 1) zapnout ohraničení (na stránce Nastavení) a 2) pro křížové prohlížení oříznout vnitřní okraje obrázků, dokud se samotný vnější okraj na obrázku nestane 3D (oříznutí VNĚJŠÍ okraje, pokud se díváte paralelně). Klíčem je oříznout pravý okraj levého obrázku mírně za to, co ukazuje pravý okraj pravého obrázku scény a naopak. Přidání ohraničení se přepíná na stránce Nastavení. Pokud je to matoucí, stačí oříznout svazek z vnitřních okrajů a začne to být jasné. Tlačítko oříznutí pro vnitřní okraje vypadá takto:</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
     <value>Viz Kodex</value>
@@ -741,7 +741,7 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
     <value>Napiš mi email</value>
   </data>
   <data name="Button.GitHub" xml:space="preserve">
-    <value>Přidejte problém na GitHubu</value>
+    <value>Přidejte problém na GitHub</value>
   </data>
   <data name="Button.Press" xml:space="preserve">
     <value>Vraťte se na obrazovku fotoaparátu na obou zařízeních a klepněte na tlačítko párování v dolním rohu</value>
@@ -753,7 +753,7 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
     <value>Zásady ochrany osobních údajů</value>
   </data>
   <data name="Button.Secondary" xml:space="preserve">
-    <value>KLEPNĚTE ZDE NA SEKUNDÁRNÍM</value>
+    <value>KLIKNĚTE ZDE NA SEKUNDÁRNÍM</value>
   </data>
   <data name="Button.Test" xml:space="preserve">
     <value>Testovat předběžné verze</value>
@@ -797,7 +797,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
     <value>&lt; Zpět</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Subreddit</value>
+    <value>Cross View Subreddit</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Stereoskopická 3D skupina na Facebooku</value>
@@ -812,7 +812,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
     <value>Viz obrázky, které jsem pořídil</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>ParallelView Subreddit</value>
+    <value>Paralelní zobrazení Subreddit</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatické zarovnání</value>
@@ -848,7 +848,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
     <value>Ukládání</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
-    <value>CrossCam je zdarma k použití, bez reklam, s otevřeným zdrojovým kódem, neshromažďuje od vás žádné osobní údaje a poskytuje vám plný přístup ke všem funkcím. Miluji práci na CrossCam, ale vyžaduje to spoustu času a úsilí. Z CrossCam nevydělávám vůbec žádné peníze kromě tipů, které by se mi lidé mohli rozhodnout poslat.</value>
+    <value>CrossCam je zdarma k použití, bez reklam, open source, neshromažďuje od vás žádné osobní údaje a poskytuje vám plný přístup ke všem funkcím. Miluji práci na CrossCam, ale vyžaduje to spoustu času a úsilí. Z CrossCam nevydělávám vůbec žádné peníze kromě tipů, které by se mi lidé mohli rozhodnout poslat.</value>
   </data>
   <data name="Page.TipMe.2" xml:space="preserve">
     <value>Pokud se vám CrossCam líbí a umíte to, zvažte prosím zaslání tipu.</value>
@@ -950,7 +950,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
     <value>Maximální poměr přiblížení</value>
   </data>
   <data name="Settings.Guides.Donut" xml:space="preserve">
-    <value>Zobrazit vodítko pro prstence (způsobí sbíhavost, takže může vyžadovat úpravu lichoběžníkového zkreslení)</value>
+    <value>Zobrazit průvodce koblihami (způsobí sbíhavost, takže může vyžadovat úpravu lichoběžníkového zkreslení)</value>
   </data>
   <data name="Settings.Guides.Fuse" xml:space="preserve">
     <value>Zobrazit vodítko pojistky (tečka nad každou stranou)</value>
@@ -986,7 +986,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
     <value>Role není vybrána</value>
   </data>
   <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
-    <value>Zpoždění náhledu snímku (vyšší číslo sníží snímkovou frekvenci, ale šetří baterii)</value>
+    <value>Prodleva náhledu snímku (vyšší číslo sníží snímkovou frekvenci, ale šetří baterii)</value>
   </data>
   <data name="Settings.Pair.Primary" xml:space="preserve">
     <value>Hlavní:</value>
@@ -1085,10 +1085,10 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
     <value>Uložit do:</value>
   </data>
   <data name="Settings.Saving.Separate" xml:space="preserve">
-    <value>Uložte každou stranu zvlášť (bez úprav nebo ohraničení pro snazší zpracování postu, ukládá nejprve levá strana)</value>
+    <value>Uložte každou stranu zvlášť (bez úprav nebo ohraničení pro snazší zpracování postu, nejprve se uloží levá strana)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Uložte do vyhrazených podsložek/alb "CrossCam_{ViewMethod}"</value>
+    <value>Uložte do vyhrazených podsložek/alb "CrossCam {View Method}"</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Uložit trojkombinaci (s úpravami a ohraničením)</value>

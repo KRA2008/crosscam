@@ -157,7 +157,7 @@
     <value>2) Beginnen Sie mit der Anzeige des ersten Bildes und der Vorschau, die daneben erscheint.</value>
   </data>
   <data name="Page.HowToUse.2cross" xml:space="preserve">
-    <value>2) Beginnen Sie mit der Queransicht des ersten Bildes mit der daneben erscheinenden Vorschau.</value>
+    <value>2) Beginnen Sie mit der Queransicht des ersten Bildes mit der Vorschau, die daneben erscheint.</value>
   </data>
   <data name="Page.HowToUse.2parallel" xml:space="preserve">
     <value>2) Starten Sie die parallele Betrachtung des ersten Bildes mit der daneben erscheinenden Vorschau.</value>
@@ -489,7 +489,7 @@ Manchmal ist es schwierig zu spüren, ob man dabei die Kreuz- oder die Parallelm
     <value>Verzogen</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam wurde entwickelt, um Ihnen beim Erstellen von 3D-Fotos zu helfen. Die Fotos sind 3D, genau wie VR- oder 3D-Filme, aber Sie benötigen keine spezielle Ausrüstung oder Brille – nur Ihr Telefon (wenn Sie jedoch eine Rot-/Cyan-3D-Brille oder einen Google Cardboard-Viewer haben, können Sie diese verwenden auch mit CrossCam). Die Technik des „freien Betrachtens“, bei der nur Ihr Telefon und Ihre Augen zum Einsatz kommen, erfordert etwas Übung, um sie zu erlernen. Bevor ich Ihnen erkläre, wie Sie CrossCam verwenden, möchten Sie zunächst mehr über die Betrachtungstechnik erfahren?</value>
+    <value>CrossCam wurde entwickelt, um Sie bei der Erstellung von 3D-Fotos zu unterstützen. Die Fotos sind 3D, genau wie VR- oder 3D-Filme, aber Sie benötigen keine spezielle Ausrüstung oder Brille – nur Ihr Telefon (wenn Sie jedoch eine Rot-/Cyan-3D-Brille oder einen Google Cardboard-Viewer haben, können Sie diese verwenden auch mit CrossCam). Die Technik des „freien Betrachtens“, bei der nur Ihr Telefon und Ihre Augen zum Einsatz kommen, erfordert etwas Übung zum Erlernen. Bevor ich Ihnen erkläre, wie Sie CrossCam verwenden, möchten Sie zunächst mehr über die Betrachtungstechnik erfahren?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Willkommen bei CrossCam!</value>
@@ -518,7 +518,7 @@ Manchmal ist es schwierig zu spüren, ob man dabei die Kreuz- oder die Parallelm
 
 Andere Dinge, die Sie tun können:
  • Tippen Sie einmal, um auf einen Punkt zu fokussieren, und tippen Sie zweimal, um wieder zum kontinuierlichen Autofokus zu wechseln.
- • Tippen Sie oben rechts auf dem Kamerabildschirm auf das Zahnradsymbol, um die Seite „Einstellungen“ zu öffnen. Es ist voller interessanter Dinge.
+ • Tippen Sie auf das Zahnradsymbol oben rechts auf dem Kamerabildschirm, um die Seite „Einstellungen“ zu öffnen. Es ist voller interessanter Dinge.
  • Es gibt eine nette Seite mit Tipps, die Sie durch Tippen auf das Hamburger-Symbol oben links auf dem Kamerabildschirm aufrufen können und die Ihnen dabei helfen kann, Ihre Bilder großartig zu machen.
  • Wenn Sie sich für Ihren zweiten Schuss lieber in die andere Richtung bewegen oder die Seiten tauschen möchten, führen Sie einfach einen Wisch aus.
  • Tippen Sie unten auf das kleine Ordnersymbol, um ein Bild als Seite oder ein vollständiges Stereobild zu laden.</value>
@@ -529,7 +529,7 @@ Andere Dinge, die Sie tun können:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Die automatische Ausrichtung versucht, die Bildpaare so gut wie möglich auszurichten, ist jedoch nicht perfekt. Das maschinelle Sehen ist in manchen Dingen besser als das menschliche Auge, in anderen Dingen aber auch viel schlechter. Die Welt, die es sieht, ist ganz anders als die, die wir sehen, aber es kann auch auf verschiedene Arten sehen. Die beiden wichtigsten Möglichkeiten, die es in CrossCam sieht, sind der erweiterte Korrelationskoeffizient (ECC) und die Verwendung von Schlüsselpunkten.
 
-Bei der ECC-Ausrichtung wird im Wesentlichen versucht, sicherzustellen, dass sich helle Flecken mit hellen Flecken überlappen und dunkle Flecken mit dunklen Flecken überlappen, wenn die beiden Seiten übereinander liegen. Die ECC-Ausrichtung verfügt über einen Konfidenzwert, der dabei helfen soll, zu entscheiden, ob die Ausrichtung effektiv war. CrossCam ist so eingerichtet, dass die erstellte Ausrichtung abgelehnt wird, wenn die Konfidenz zu niedrig ist. Sie können den Konfidenzschwellenwert für Bestehen/Nichtbestehen jedoch auf der Seite „Einstellungen“ konfigurieren.
+Bei der ECC-Ausrichtung wird im Wesentlichen versucht, sicherzustellen, dass sich helle Flecken mit hellen Flecken überlappen und dunkle Flecken mit dunklen Flecken überlappen, wenn die beiden Seiten übereinander liegen. Die ECC-Ausrichtung verfügt über einen Konfidenzwert, der dabei helfen soll, zu entscheiden, ob die Ausrichtung effektiv war. CrossCam ist so eingerichtet, dass die erzeugte Ausrichtung abgelehnt wird, wenn die Zuverlässigkeit zu niedrig ist. Sie können den Schwellenwert für die Zuverlässigkeit des Bestehens/Nichtbestehens jedoch auf der Seite „Einstellungen“ konfigurieren.
 
 Die Schlüsselpunktausrichtung sucht nach interessanten Punkten wie Ecken, Kanten, Punkten und hohem Kontrast und versucht, diese zwischen den beiden Seiten abzugleichen. Sobald die Punkte übereinstimmen, kann CrossCam mithilfe verschiedener Algorithmen versuchen, die Seiten so zu verzerren, dass die Schlüsselpunkte auf einer Seite alle so nah wie möglich an den entsprechenden Schlüsselpunkten auf der anderen Seite liegen.
 
@@ -557,7 +557,7 @@ Meine Meinung dazu ist, dass Ihre Augen nichts tun, was über ihre alltäglichen
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
     <value>Wenn Ihr Betrachter über eine Taste verfügt, die auf die Mitte des Bildschirms drückt, können Sie diese zum Aufnehmen mit Cardboard verwenden. Ihr Betrachter muss außerdem ein Loch haben, durch das die Kamera Ihres Telefons hindurchsehen kann.
 
-Um Fotos mit Cardboard aufzunehmen, stellen Sie die Vorschau-Anzeigemethode (auf der Seite „Einstellungen“) auf Cardboard um, kehren Sie dann zur Kameraseite zurück und stecken Sie Ihr Telefon in den Viewer. Drücken Sie die Taste, um die Aufnahme zu starten. Wenn beide Seiten erfasst sind, drücken Sie die Taste erneut, um zu speichern. Das Speichern im Cardboard-Modus dient nur dazu, dass Sie die Bilder zur späteren Anzeige wieder in CrossCam laden können, nicht aber, um sie in Ihrer Foto-App über Ihren Viewer anzusehen.
+Um Fotos mit Cardboard aufzunehmen, stellen Sie Ihre Vorschau-Anzeigemethode (auf der Seite „Einstellungen“) auf Cardboard um, kehren Sie dann zur Kameraseite zurück und stecken Sie Ihr Telefon in den Viewer. Drücken Sie die Taste, um die Aufnahme zu starten. Wenn beide Seiten erfasst sind, drücken Sie die Taste erneut, um zu speichern. Das Speichern im Cardboard-Modus dient nur dazu, dass Sie die Bilder zur späteren Anzeige wieder in CrossCam laden können, nicht aber, um sie in Ihrer Foto-App über Ihren Viewer anzusehen.
 
 Sie können die Aufnahme auch mit jeder anderen gewünschten Methode durchführen, dann die Vorschau-Anzeigemethode auf „Karton“ umstellen und Ihr Telefon in den Viewer legen.
 
@@ -609,21 +609,21 @@ Es ist sehr leicht, versehentlich die falsche Betrachtungsmethode zu verwenden, 
     <value>Wie wende ich die „Single-Shot-Mirror“-Methode an?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Bei der Aufnahme mit der Spiegelmethode wird das Bild in zwei Hälften geteilt und die erforderliche Transformation durchgeführt, sodass Sie beide Seiten gleichzeitig mit einem einzigen Telefon und einem normalen Handspiegel aufnehmen können. Um die Spiegelmethode bei der Aufnahme zu verwenden, schalten Sie den Spiegelmodus auf der Seite „Einstellungen“ ein (tippen Sie auf das Zahnradsymbol, um dorthin zu gelangen). Nachdem Sie den Spiegelmodus aktiviert haben, teilt Ihnen CrossCam mit, auf welcher Seite Sie Ihren Spiegel halten müssen. Halten Sie Ihren Spiegel auf dieser Seite und kümmern Sie sich um die Ausrichtung zwischen Ihrem Telefon, dem Spiegel und Ihrem Motiv. Mit etwas Geduld können Sie sie alle so ausrichten, dass der Spiegel für eine Seite die richtige Perspektive zeigt. Da bei der Spiegelmethode Ihr Bild vertikal in zwei Hälften geteilt wird, ist es normalerweise am besten, es mit der Spiegelmethode im Querformat aufzunehmen.
+    <value>Bei der Aufnahme mit der Spiegelmethode wird das Bild in zwei Hälften geteilt und die erforderliche Transformation durchgeführt, sodass Sie beide Seiten gleichzeitig mit einem einzigen Telefon und einem normalen Handspiegel aufnehmen können. Um die Spiegelmethode bei der Aufnahme zu verwenden, schalten Sie den Spiegelmodus auf der Seite „Einstellungen“ ein (tippen Sie auf das Zahnradsymbol, um dorthin zu gelangen). Nachdem Sie den Spiegelmodus aktiviert haben, teilt Ihnen CrossCam mit, auf welcher Seite Sie Ihren Spiegel halten müssen. Halten Sie Ihren Spiegel auf diese Seite und kümmern Sie sich um die Ausrichtung zwischen Ihrem Telefon, dem Spiegel und Ihrem Motiv. Mit etwas Geduld gelingt es Ihnen, sie alle so auszurichten, dass der Spiegel für eine Seite die richtige Perspektive zeigt. Da bei der Spiegelmethode Ihr Bild vertikal in zwei Hälften geteilt wird, ist es normalerweise am besten, es mit der Spiegelmethode im Querformat aufzunehmen.
 
 Diese Methode funktioniert auch bei Reflexionen in großen, sauberen Fenstern sowie bei stillen Seen oder Pfützen (wenn das Telefon im Hochformat gesperrt und zur Seite gedreht ist).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Für die Verwendung der Spiegelmethode müssen einige Kompromisse/Änderungen eingegangen werden. Dies kann alles manuell in CrossCam durchgeführt werden, die automatische Ausrichtung versucht jedoch auch, sie für Sie zu erledigen:
- • Da die reflektierte Ansicht über eine längere Distanz reicht als die normale Ansicht, muss die gespiegelte Seite etwas vergrößert werden.
- • Wenn Sie die Spiegelmethode verwenden, ist es wahrscheinlich, dass Sie am Ende nach innen tendieren, anstatt die Perspektiven parallel zu halten – dies kann dazu führen, dass die perspektivische Verkürzung wie eine schlechte vertikale Ausrichtung aussieht. Um dies rückgängig zu machen, kann eine Trapezkorrektur durchgeführt werden, bei der eine Seite jedes Bilds vertikal verkleinert wird.
+ • Da die reflektierte Ansicht eine längere Strecke zurücklegt als die normale Ansicht, muss die gespiegelte Seite etwas vergrößert werden.
+ • Wenn Sie die Spiegelmethode verwenden, ist es wahrscheinlich, dass Sie am Ende nach innen blicken, anstatt die Perspektiven parallel zu halten – dies kann dazu führen, dass die perspektivische Verkürzung wie eine schlechte vertikale Ausrichtung aussieht. Um dies rückgängig zu machen, kann eine Trapezkorrektur durchgeführt werden, bei der eine Seite jedes Bilds vertikal verkleinert wird.
  • Beim Vorspuren wird das Stereofenster tendenziell auch in Ihre Richtung verschoben. Sie können dies rückgängig machen und es an der gewünschten Stelle platzieren, indem Sie die Seiten zuschneiden.
  • Der Spiegel wird die Sicht auf einer Seite wahrscheinlich nicht vollständig abdecken, daher muss möglicherweise etwas zugeschnitten werden, um nicht reflektierte Teile zu entfernen.
 
 Die besten Spiegel dafür haben dünnes Glas. Zum einen sind sie leicht, sodass man sie auch über einen längeren Zeitraum besser halten kann. Der andere wichtige Punkt ist, dass Sie bei der Verwendung des Spiegels den Spiegel wahrscheinlich seitlich ausrichten und nicht direkt hineinschauen, wie es bei Spiegeln normalerweise der Fall ist. Bei einer solchen Ausrichtung kann es bei Spiegeln mit dickem Glas zu Unschärfen kommen. Je dünner das Glas ist, desto weniger fällt diese Unschärfe auf. Solche Spiegel können auch in anderer Hinsicht minderwertig sein, daher ist es wichtig, eine gute Balance zu finden.
 
 Es gibt noch ein paar andere Kompromisse, die bei der Verwendung der Spiegelerfassung in Kauf genommen werden müssen und die nicht durch CrossCam-Bearbeitungen behoben werden können:
- • Da die Sicht auf beiden Seiten leicht unterschiedliche Entfernungen zurücklegt, ist der erforderliche Fokus für jede Seite etwas unterschiedlich, sodass eine Seite immer leicht verschwommen ist. Dieser Effekt ist je nach Entfernung zum Motiv und Schärfentiefe des Objektivs mehr oder weniger deutlich spürbar.
+ • Da die beiden Seiten leicht unterschiedliche Entfernungen zurücklegen, ist der für jede Seite erforderliche Fokus etwas unterschiedlich, sodass eine Seite immer leicht verschwommen ist. Dieser Effekt ist je nach Entfernung zum Motiv und Schärfentiefe des Objektivs mehr oder weniger deutlich spürbar.
  • Kein Spiegel ist wirklich 100 % effizient, daher kann die Seite, auf der der Spiegel verwendet wird, etwas dunkler sein. Dies hängt von der Qualität des Spiegels ab.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
@@ -654,13 +654,13 @@ In den nächsten Wochen brachte mich meine schwelende Frustration dazu, mir vorz
     <value>Was sind Wigglegramme?</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
-    <value>Wigglegramme sind eine Möglichkeit, Stereogramme anzuzeigen, die nicht auf binokularem Sehen angewiesen sind. Normalerweise handelt es sich dabei um GIFs, die zwischen den beiden Perspektiven hin- und herwechseln und beide in ihrer Gesamtheit an derselben Stelle zeigen. CrossCam unterstützt die Erstellung derzeit nicht. Schicken Sie mir jedoch eine E-Mail, wenn Sie wirklich daran interessiert sind, und ich werde es tun.</value>
+    <value>Wigglegramme sind eine Möglichkeit, Stereogramme anzuzeigen, die nicht auf binokularem Sehen angewiesen sind. Normalerweise handelt es sich um ein GIF, das zwischen den beiden Perspektiven hin- und herwechselt und jede in ihrer Gesamtheit an derselben Stelle zeigt. CrossCam unterstützt die Erstellung derzeit nicht. Schicken Sie mir jedoch eine E-Mail, wenn Sie wirklich daran interessiert sind, und ich werde es tun.</value>
   </data>
   <data name="Page.Tips.AlignAfter" xml:space="preserve">
     <value>Beachten Sie die horizontalen Linien, Sie können diese aber auch nachträglich ausrichten.</value>
   </data>
   <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
-    <value>Wenn Sie beim Fotografieren feststellen, dass es unmöglich ist, sowohl die obere als auch die untere Führungslinie gleichzeitig auszurichten, haben Sie sich wahrscheinlich in eine andere Richtung als nur zur Seite bewegt. Versuchen Sie, das Problem vor dem Aufnehmen der Bilder zu beheben. Eine nachträgliche Ausrichtung kann jedoch sehr hilfreich sein.</value>
+    <value>Wenn Sie beim Fotografieren feststellen, dass es unmöglich ist, sowohl die obere als auch die untere Führungslinie gleichzeitig auszurichten, haben Sie sich wahrscheinlich in eine andere Richtung als nur zur Seite bewegt. Versuchen Sie, das Problem zu beheben, bevor Sie die Bilder aufnehmen. Eine nachträgliche Ausrichtung kann jedoch sehr hilfreich sein.</value>
   </data>
   <data name="Page.Tips.Alignment" xml:space="preserve">
     <value>Sie können die automatische Ausrichtung deaktivieren.</value>
@@ -678,16 +678,16 @@ In den nächsten Wochen brachte mich meine schwelende Frustration dazu, mir vorz
     <value>Bei Vorspur ist eine Trapezkorrektur erforderlich.</value>
   </data>
   <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
-    <value>Wenn Sie sich bei jeder Aufnahme nach innen drehen, ist es sehr hilfreich, Trapezkorrekturen vorzunehmen. Normalerweise möchten Sie die Innenkanten der Fotos verkleinern und dann oben und unten etwas abschneiden, um sie auszugleichen. Sie gelangen zum Keystone-Bearbeitungsmenü, indem Sie auf die Schaltfläche tippen, die wie folgt aussieht:</value>
+    <value>Wenn Sie sich bei jeder Aufnahme nach innen drehen, ist es sehr hilfreich, Trapezkorrekturen vorzunehmen. Normalerweise möchten Sie die Innenkanten der Fotos verkleinern und dann oben und unten etwas abschneiden, um sie auszugleichen. Sie gelangen zum Trapezbearbeitungsmenü, indem Sie auf die Schaltfläche tippen, die so aussieht:</value>
   </data>
   <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Das Eindrehen wird als Vorspur bezeichnet. Es kann zu einem Verkürzungseffekt kommen, der es schwierig macht, die Ecken des Bildes zu verschmelzen. Der perspektivische Effekt ist im wirklichen Leben jederzeit vorhanden, da parallele Linien scheinbar zusammenlaufen, wenn sie sich von Ihnen entfernen, aber die künstlichen Perspektiven können es seltsam machen.</value>
+    <value>Das Eindrehen nennt man Vorspur. Es kann zu einem Verkürzungseffekt kommen, der es schwierig macht, die Ecken des Bildes zu verschmelzen. Der perspektivische Verkürzungseffekt ist im wirklichen Leben jederzeit vorhanden, da parallele Linien scheinbar zusammenlaufen, wenn sie sich von Ihnen entfernen, aber die künstlichen Perspektiven können es seltsam machen.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Du kannst dich einfach lehnen.</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>Anstatt Ihre Füße zum Fotografieren vollständig nach links oder rechts zu bewegen, kann es manchmal einfacher sein, einfach mit gespreizten Füßen zu stehen und sich in jede Richtung zu lehnen. Achten Sie jedoch darauf, das Telefon gerade und auf der gleichen Höhe zu halten. Sich einfach zu beugen statt sich zu bewegen, kann Ihnen dabei helfen, sich nicht zu weit zu bewegen, und es Ihnen leichter machen, Ihr Ziel gerade zu halten.</value>
+    <value>Anstatt Ihre Füße zum Fotografieren vollständig nach links oder rechts zu bewegen, kann es manchmal einfacher sein, einfach mit gespreizten Füßen zu stehen und sich in jede Richtung zu lehnen. Achten Sie jedoch darauf, das Telefon gerade und auf gleicher Höhe zu halten. Sich einfach zu beugen statt sich zu bewegen, kann Ihnen dabei helfen, sich nicht zu weit zu bewegen, und es Ihnen leichter machen, Ihr Ziel gerade zu halten.</value>
   </data>
   <data name="Page.Tips.Lines" xml:space="preserve">
     <value>Die Ausrichtungslinien können verschoben werden.</value>
@@ -717,13 +717,13 @@ In den nächsten Wochen brachte mich meine schwelende Frustration dazu, mir vorz
     <value>Diese Bilder können viel Speicherplatz beanspruchen – Sie können sie verkleinern.</value>
   </data>
   <data name="Page.Tips.Space.Body" xml:space="preserve">
-    <value>Auf der Seite „Einstellungen“ besteht die Möglichkeit, die Auflösung des endgültigen Bilds proportional zu verringern. Dies kann hilfreich sein, wenn Sie Platz sparen möchten. Wenn Ihr Foto nicht zugeschnitten ist, besteht das Endergebnis aus zwei Bildern mit voller Auflösung, die zu einem Bild mit doppelter Auflösung zusammengefügt werden. Das bedeutet, dass Sie oft mit einer starken Reduzierung der Auflösung davonkommen können, ohne dass die Qualität spürbar darunter leidet.</value>
+    <value>Auf der Seite „Einstellungen“ besteht die Möglichkeit, die Auflösung des endgültigen Bilds proportional zu verringern. Dies kann hilfreich sein, wenn Sie Platz sparen möchten. Wenn Ihr Foto nicht zugeschnitten ist, besteht das Endergebnis aus zwei Bildern in voller Auflösung, die zu einem Bild mit doppelter Auflösung zusammengefügt werden. Das bedeutet, dass Sie oft mit einer starken Reduzierung der Auflösung davonkommen können, ohne dass die Qualität spürbar darunter leidet.</value>
   </data>
   <data name="Page.Tips.Turn" xml:space="preserve">
     <value>Dreh dich nicht um.</value>
   </data>
   <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Versuchen Sie beim Bewegen Ihres Telefons, Ihr Telefon überhaupt nicht in eine Richtung zu drehen, einschließlich der natürlichen Tendenz, sich dem Motiv zuzuwenden, wenn Sie sich zur Seite bewegen. Eine gewisse Rotation ist (manchmal) notwendig, aber versuchen Sie, diese zu minimieren. Stellen Sie sich vor, das Telefon ist auf einer geraden horizontalen Schiene montiert und kann nur verschoben werden. Eine Drehung nach innen kann einen perspektivischen Effekt hervorrufen, der die Verbindung der Ecken erschwert.</value>
+    <value>Versuchen Sie beim Bewegen Ihres Telefons, Ihr Telefon überhaupt nicht in irgendeine Richtung zu drehen, einschließlich der natürlichen Tendenz, sich dem Motiv zuzuwenden, wenn Sie sich zur Seite bewegen. Eine gewisse Rotation ist (manchmal) notwendig, aber versuchen Sie, diese zu minimieren. Stellen Sie sich vor, das Telefon ist auf einer geraden horizontalen Schiene montiert und kann nur verschoben werden. Eine Drehung nach innen kann einen perspektivischen Effekt hervorrufen, der die Verbindung der Ecken erschwert.</value>
   </data>
   <data name="Page.Tips.Window" xml:space="preserve">
     <value>Fügen Sie einen Rand hinzu und beschneiden Sie es, um ein starkes Stereofenster zu erstellen.</value>
@@ -797,7 +797,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>&lt; Zurück</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView-Subreddit</value>
+    <value>Cross View-Subreddit</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Stereoskopische 3D-Facebook-Gruppe</value>
@@ -812,7 +812,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>Siehe Bilder, die ich gemacht habe</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>ParallelView-Subreddit</value>
+    <value>Subreddit mit paralleler Ansicht</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatische Ausrichtung</value>
@@ -887,7 +887,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>Versuchen Sie immer zuerst die ECC-Ausrichtung zu verwenden</value>
   </data>
   <data name="Settings.Alignment.Keypoints" xml:space="preserve">
-    <value>Versuchen Sie immer zuerst die Schlüsselpunktausrichtung zu verwenden</value>
+    <value>Versuchen Sie immer zuerst, die Schlüsselpunktausrichtung zu verwenden</value>
   </data>
   <data name="Settings.Alignment.On" xml:space="preserve">
     <value>Nach der Aufnahme automatisch ausrichten</value>
@@ -911,7 +911,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>Kamera1-API erzwingen (kann hilfreich sein, wenn seltsame Dinge auftreten, führt aber zu einer eingeschränkten Funktionalität und erfordert ein erzwungenes Beenden/Neustarten, um wirksam zu werden)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
-    <value>Kamera2-API erzwingen (muss auf Android 6 oder höher sein, kann hilfreich sein, wenn Fehler auftreten, kann aber möglicherweise mehr auslösen, erfordert ein erzwungenes Beenden/Neustarten, um wirksam zu werden)</value>
+    <value>Kamera2-API erzwingen (muss auf Android 6 oder höher sein, kann hilfreich sein, wenn Fehler auftreten, kann aber möglicherweise mehr verursachen, erfordert ein erzwungenes Beenden/Neustarten, um wirksam zu werden)</value>
   </data>
   <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
     <value>Horizontale Platzierung der Schaltfläche „Querformataufnahme“.</value>
@@ -1088,7 +1088,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>Speichern Sie jede Seite separat (ohne Bearbeitungen oder Rahmen zur einfacheren Nachbearbeitung, die linke Seite wird zuerst gespeichert)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Speichern Sie in speziellen „CrossCam_{ViewMethod}“-Unterordnern/Alben</value>
+    <value>Speichern Sie in speziellen „CrossCam {View Method}“-Unterordnern/Alben</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Dreifachkombination speichern (mit Bearbeitungen und Rand)</value>

@@ -166,7 +166,7 @@
     <value>Dodatkowe tutoriale:</value>
   </data>
   <data name="Page.Technique.Cross1" xml:space="preserve">
-    <value>Przyjrzyj się uważnie parze zdjęć powyżej. Kiedy zezujesz, wszystko stanie się niewyraźne i przezroczyste, a zamiast 2 (2 pary) zaczniesz widzieć 4 zdjęcia. Im mocniej zezujesz, tym bardziej będą się od siebie oddalać pary obrazków – będzie to wyglądać mniej więcej tak:</value>
+    <value>Ostrożnie zezuj oczami, patrząc na parę zdjęć powyżej. Kiedy zezujesz, wszystko stanie się niewyraźne i przezroczyste, a zamiast 2 (2 pary) zaczniesz widzieć 4 zdjęcia. Im mocniej zezujesz, tym bardziej będą się od siebie oddalać pary obrazków – będzie to wyglądać mniej więcej tak:</value>
   </data>
   <data name="Page.Technique.Cross2" xml:space="preserve">
     <value>Ostrożnie przesuń oczy, tak aby obrazki po wewnętrznej stronie każdej pary zaczęły na siebie zachodzić. Zacznie wyglądać, jakby były tylko 3 zdjęcia zamiast 4. Nadal będą rozmazane i przezroczyste i będą wyglądać mniej więcej tak:</value>
@@ -181,7 +181,7 @@
     <value>PRZEGLĄDANIE KRZYŻOWE</value>
   </data>
   <data name="Page.Technique.P1" xml:space="preserve">
-    <value>Jeśli chcesz zobaczyć to jeszcze raz, dotknij ikony hamburgera (trzy linie) w lewym górnym rogu ekranu aparatu i dotknij „Pomoc”.
+    <value>Jeśli chcesz zobaczyć to ponownie, dotknij ikony hamburgera (trzy linie) w lewym górnym rogu ekranu aparatu i dotknij „Pomoc”.
 
 Aby zobaczyć obraz 3D w CrossCam (zwany „stereogramami”), możesz użyć czerwono-cyjanowych okularów 3D, przeglądarki Google Cardboard lub możesz „swobodnie oglądać”, używając tylko oczu i ekranu. Istnieją dwa sposoby swobodnego przeglądania, a CrossCam może pomóc Ci nauczyć się obu. Musisz powiedzieć CrossCam, jak będziesz oglądać zdjęcia, w przeciwnym razie nie będzie to działać poprawnie. Nie martw się, zawsze możesz to zmienić ponownie w Ustawieniach.
 
@@ -238,7 +238,7 @@ Jeśli wolisz używać okularów 3D lub przeglądarki Cardboard, możesz ustawi�
     <value>Pomoc</value>
   </data>
   <data name="Title.HowToUse" xml:space="preserve">
-    <value>Jak korzystać z CrossCam</value>
+    <value>Jak korzystać z CrossCama</value>
   </data>
   <data name="Title.Technique" xml:space="preserve">
     <value>Technika oglądania 3D</value>
@@ -295,7 +295,7 @@ Jeśli wolisz używać okularów 3D lub przeglądarki Cardboard, możesz ustawi�
     <value>Obróć do poziomu w trybie kartonowym.</value>
   </data>
   <data name="Page.Camera.FlipLarger" xml:space="preserve">
-    <value>(przejdź do pozycji poziomej, aby zobaczyć większy widok)</value>
+    <value>(przejdź do orientacji poziomej, aby zobaczyć większy widok)</value>
   </data>
   <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
     <value>dla anaglifu</value>
@@ -416,7 +416,7 @@ Jeśli wolisz używać okularów 3D lub przeglądarki Cardboard, możesz ustawi�
     <value>VR</value>
   </data>
   <data name="Page.FovCorrection" xml:space="preserve">
-    <value>Korekta pola widzenia</value>
+    <value>Korekcja pola widzenia</value>
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Różne modele urządzeń mogą mieć różne pola widzenia. CrossCam pomoże Ci to skorygować po wykonaniu pierwszego przechwytywania. Wykadruj i uchwyć coś z charakterystycznymi punktami w górnej i dolnej części kadru, upewniając się, że te punkty są widoczne na obu urządzeniach.</value>
@@ -480,7 +480,7 @@ Czasami trudno jest poczuć, czy wykonujesz metodę krzyżową, czy równoległ�
     <value>Aby skorygować różnice w polu widzenia, powiększ i przesuń zdjęcia tak, aby charakterystyczne punkty zrównały się między nimi. Możesz przeciągać białe linie, aby ułatwić wizualizację wyrównania. Ta poprawka zostanie zastosowana do przyszłych podglądów. Zostanie zapisany, ale możesz go zresetować na stronie Ustawienia. Jeśli używasz identycznych urządzeń, po prostu zapisz bez dostosowywania.</value>
   </data>
   <data name="Page.Camera.FovTitle" xml:space="preserve">
-    <value>Korekta pola widzenia</value>
+    <value>Korekcja pola widzenia</value>
   </data>
   <data name="Page.Camera.KeyPoints" xml:space="preserve">
     <value>Kluczowe punkty</value>
@@ -501,7 +501,7 @@ Czasami trudno jest poczuć, czy wykonujesz metodę krzyżową, czy równoległ�
     <value>Technika oglądania</value>
   </data>
   <data name="Page.HowToUse.P1" xml:space="preserve">
-    <value>Jeśli chcesz zobaczyć to jeszcze raz, dotknij ikony hamburgera (trzy linie) w lewym górnym rogu ekranu aparatu i dotknij „Pomoc”.
+    <value>Jeśli chcesz zobaczyć to ponownie, dotknij ikony hamburgera (trzy linie) w lewym górnym rogu ekranu aparatu i dotknij „Pomoc”.
 
 
 1) Wykadruj i zrób pierwsze zdjęcie.</value>
@@ -511,13 +511,13 @@ Czasami trudno jest poczuć, czy wykonujesz metodę krzyżową, czy równoległ�
 
 4) Dopasuj pierwsze zdjęcie do podglądu drugiego zdjęcia i zrób drugie zdjęcie, kiedy spodoba ci się to, co widzisz.
 
-5) CrossCam automatycznie wyrówna Twoje zdjęcia po ich przechwyceniu, ale nie jest to idealne rozwiązanie. Jeśli nie podoba Ci się sposób, w jaki zostały wyrównane, możesz wyłączyć automatyczne wyrównanie, dotykając ikony małego robota. CrossCam oferuje również wiele opcji ręcznej edycji, do których można uzyskać dostęp, dotykając ikony ołówka.
+5) CrossCam automatycznie wyrówna zdjęcia po ich przechwyceniu, ale nie jest to idealne rozwiązanie. Jeśli nie podoba Ci się sposób, w jaki zostały wyrównane, możesz wyłączyć automatyczne wyrównanie, dotykając ikony małego robota. CrossCam oferuje również wiele opcji ręcznej edycji, do których można uzyskać dostęp, dotykając ikony ołówka.
 
 6) Kliknij znacznik wyboru, gdy będziesz gotowy do zapisania.
 
 
 Inne rzeczy, które możesz zrobić:
- • Stuknij raz, aby ustawić ostrość na punkcie, stuknij dwukrotnie, aby wrócić do ciągłego automatycznego ustawiania ostrości.
+ • Stuknij raz, aby ustawić ostrość na punkcie, stuknij dwa razy, aby wrócić do ciągłego automatycznego ustawiania ostrości.
  • Stuknij ikonę koła zębatego w prawym górnym rogu ekranu aparatu, aby otworzyć stronę Ustawienia. Jest pełen ciekawych rzeczy.
  • Dostępna jest przyjemna strona z poradami, do której można przejść, dotykając ikony hamburgera w lewym górnym rogu ekranu aparatu, która pomoże Ci uzyskać wspaniałe zdjęcia.
  • Jeśli wolisz przesunąć się w innym kierunku przy drugim strzale lub zamienić strony, po prostu przesuń.
@@ -529,7 +529,7 @@ Inne rzeczy, które możesz zrobić:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Funkcja automatycznego wyrównywania stara się jak najlepiej dopasować pary obrazów, ale nie jest to idealne rozwiązanie. Widzenie komputerowe jest lepsze w niektórych kwestiach niż ludzkie oczy, ale także znacznie gorsze w innych. Świat, który widzi, bardzo różni się od tego, który my widzimy, ale może też widzieć na kilka różnych sposobów. Dwa główne sposoby, w jakie widzi w CrossCam, to ulepszony współczynnik korelacji (ECC) i wykorzystanie kluczowych punktów.
 
-Wyrównanie ECC zasadniczo polega na próbie upewnienia się, że jasne plamy nakładają się na jasne plamy, a ciemne plamy nakładają się na ciemne plamy, gdy obie strony nakładają się na siebie. Dostosowanie ECC obejmuje wskaźnik pewności, który ma pomóc w podjęciu decyzji, czy dostosowanie było skuteczne. CrossCam jest skonfigurowany tak, aby odrzucać utworzone wyrównanie, jeśli pewność jest zbyt niska, ale możesz skonfigurować próg zaufania pozytywny/negatywny na stronie Ustawienia.
+Wyrównanie ECC zasadniczo polega na próbie upewnienia się, że jasne plamy nakładają się na jasne plamy, a ciemne plamy nakładają się na ciemne plamy, gdy obie strony nakładają się na siebie. Dostosowanie ECC obejmuje wskaźnik pewności, który ma pomóc w podjęciu decyzji, czy dostosowanie było skuteczne. CrossCam jest skonfigurowany tak, aby odrzucać wygenerowane wyrównanie, jeśli pewność jest zbyt niska, ale możesz skonfigurować próg zaufania pozytywny/negatywny na stronie Ustawienia.
 
 Wyrównanie punktów kluczowych wyszukuje interesujące miejsca, takie jak narożniki, krawędzie, kropki i wysoki kontrast, a następnie próbuje dopasować je pomiędzy obiema stronami. Po dopasowaniu punktów CrossCam może użyć różnych algorytmów, aby spróbować zamienić boki tak, aby wszystkie kluczowe punkty z jednej strony znajdowały się jak najbliżej odpowiadających im punktów kluczowych po drugiej stronie.
 
@@ -549,7 +549,7 @@ CrossCam wyświetli wynik wyrównania na ekranie kamery pod małą ikoną robota
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
     <value>Jeśli używasz metody zeza, uczucie to może również wynikać z tego, że twoje oczy nie są przyzwyczajone do wskazywania tak, jakby patrzyły na coś tak blisko przez tak długi czas. Podczas oglądania krzyżowego wzrok skupia się w punkcie mniej więcej w połowie odległości między oczami a ekranem. Jeśli patrzenie na coś, co jest blisko przez długi czas, również powoduje dyskomfort, mamy nasze wyjaśnienie.
 
-Moim zdaniem twoje oczy nie robią nic poza swoimi codziennymi możliwościami, ale łączysz dwie różne zdolności, które zwykle nie są wykorzystywane w ten sposób. Koncentrujesz swoje soczewki na czymś w jednym miejscu, na którym zwykle wygodnie jest ustawić ostrość, i kierujesz oczy w miejsce, w którym zwykle wygodnie jest je skierować, ale w miejsce, w którym skupiają się soczewki i gdzie Twoje oczy się zbiegają to po prostu nie ten sam punkt. Nie rozumiem, w jaki sposób mogłoby to być dla ciebie złe, dopóki twoja wizja się jeszcze nie rozwija.</value>
+Moim zdaniem twoje oczy nie robią nic poza swoimi codziennymi możliwościami, ale łączysz dwie różne zdolności, które zwykle nie są wykorzystywane w ten sposób. Koncentrujesz swoje soczewki na czymś w jednym miejscu, na którym zwykle wygodnie jest ustawić ostrość, i kierujesz oczy w miejsce, w którym zwykle wygodnie jest je skierować, ale w miejsce, w którym skupiają się soczewki i gdzie Twoje oczy się zbiegają to po prostu nie ten sam punkt. Nie rozumiem, w jaki sposób mogłoby to być dla ciebie złe, skoro twoja wizja wciąż się nie rozwija.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
     <value>Jak używać CrossCam z Google Cardboard?</value>
@@ -582,7 +582,7 @@ Istnieje wiele różnych przeglądarek o różnych właściwościach. Może być
     <value>Podczas studiów na kierunku fizyka miałem okazję eksperymentować z tworzeniem własnych hologramów za pomocą laserów. Hologramy, które tworzyłem, były hologramami 3D, ponieważ korzystano z siatki dyfrakcyjnej, która powodowała destrukcyjną interferencję w świetle odbijającym się od powierzchni szklanej płyty, co powodowało, że odbity obraz wyglądał inaczej w różnych miejscach. Kiedy każde z naszych oczu widzi obraz, który wygląda, jakby był z innej perspektywy (jeśli nie są one zbyt różne), nasz mózg postrzega to jako głębię.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
-    <value>O zasadzie percepcji stereoskopowej wiedziałem już od dawna, ale w tamtym momencie brałem też udział w zajęciach z programowania, więc zdecydowałem, że chcę spróbować stworzyć prosty program komputerowy do rysowania stereoskopowego 3D. Ten wysiłek stał się StereoSketcherem. Oryginalna wersja została napisana w Javie, ale przepisałem ją za pomocą Javascript i SVG i teraz jest dostępna w sieci</value>
+    <value>O zasadzie percepcji stereoskopowej wiedziałem już od dawna, ale w tamtym momencie brałem też udział w zajęciach z programowania, więc zdecydowałem, że chcę spróbować stworzyć prosty program komputerowy do rysowania stereoskopowego 3D. Ten wysiłek stał się StereoSketcherem. Oryginalna wersja została napisana w Javie, ale przepisałem ją za pomocą Javascript i SVG i teraz jest dostępna w Internecie</value>
   </data>
   <data name="Page.Faq.Into.Body3" xml:space="preserve">
     <value>pod tym linkiem.</value>
@@ -600,7 +600,7 @@ Paralaksa oznacza, że ​​z perspektywy prawego oka, gdy obiekty znajdują si
 
 Aby to zademonstrować, trzymaj jeden palec przed sobą na odległość mniej więcej wyciągniętego ramienia, a następnie drugą ręką przytrzymaj drugi palec mniej więcej w połowie odległości między pierwszym palcem a twarzą. Jeśli na przemian zamkniesz każde oko i zwrócisz uwagę na położenie palców, zobaczysz, że każde oko widzi je w innym miejscu. Naturalnie, jeśli każde oko zobaczy ten ruch w odwrotną stronę niż powinno, głębokość zostanie odwrócona.
 
-Bardzo łatwo jest przypadkowo zastosować niewłaściwą metodę patrzenia, ponieważ okazuje się, że większości ludzi bardzo trudno jest stwierdzić, czy krzyżują oczy, czy też rozluźniają je, po prostu na podstawie dotyku lub patrzenia na mylący podwójny obraz świata, jaki z tego wynika. Zamiast tego najlepiej poprosić kogoś innego o sprawdzenie, co robią Twoje oczy, lub wypróbować ten obraz testowy:</value>
+Bardzo łatwo jest przypadkowo zastosować niewłaściwą metodę patrzenia, ponieważ okazuje się, że większości ludzi bardzo trudno jest stwierdzić, czy krzyżują wzrok, czy też go rozluźniają, po prostu na podstawie dotyku lub patrzenia na mylący podwójny obraz świata, jaki z tego wynika. Zamiast tego najlepiej poprosić kogoś innego o sprawdzenie, co robią Twoje oczy, lub wypróbować ten obraz testowy:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>Wiele osób przyzwyczaiło się już do oglądania książek Magic Eye™, które są przeznaczone do przeglądania metodą widoku równoległego. Jeśli je obejrzysz, solidne obiekty 3D, które powinny wyskakiwać ze strony, zamiast tego będą wyglądać jak dziury. Obie metody pozwalają zobaczyć *coś*, ale jeśli nie możesz stwierdzić, co to było, prawdopodobnie przeglądasz je krzyżowo.</value>
@@ -672,7 +672,7 @@ W ciągu następnych kilku tygodni kipiąca frustracja skłoniła mnie do wyobra
     <value>Przewodnik po pączkach może pomóc Twojemu oknu.</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Na stronie Ustawienia znajduje się eksperymentalny przewodnik, który może pomóc zachować okno stereo, jednocześnie maksymalizując użyteczną szerokość. Obracając w lewo i w prawo, głębokość pączka zmieni się w stosunku do reszty sceny — ustaw głębokość pączka tak, aby znajdował się w najdalszym punkcie sceny lub za nim. Bądź ostrożny, używanie go w mniejszych scenach może sprawić, że wszystko będzie bolesne (patrz wskazówka dotycząca trapezu powyżej).</value>
+    <value>Na stronie Ustawienia znajduje się eksperymentalny przewodnik, który możesz włączyć, co pomoże Ci zachować okno stereo, jednocześnie maksymalizując użyteczną szerokość. Obracając w lewo i prawo, głębokość pączka zmieni się w stosunku do reszty sceny — ustaw głębokość pączka tak, aby znajdował się w najdalszym punkcie sceny lub za nim. Bądź ostrożny, używanie go w mniejszych scenach może sprawić, że wszystko będzie bolesne (patrz wskazówka dotycząca trapezu powyżej).</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>W przypadku zbieżności konieczna jest korekta trapezu.</value>
@@ -699,13 +699,13 @@ W ciągu następnych kilku tygodni kipiąca frustracja skłoniła mnie do wyobra
     <value>Możesz otwierać stare zdjęcia w CrossCam.</value>
   </data>
   <data name="Page.Tips.Old.Body" xml:space="preserve">
-    <value>Możesz załadować wcześniej zrobione zdjęcia, dotykając ikony folderu na dole strony aparatu, ale jeśli pracujesz z dużą partią zdjęć, możesz także udostępnić je CrossCam bezpośrednio z aplikacji do zdjęć, która może śledzić Twoje lepiej umieszczaj na swoich zdjęciach.</value>
+    <value>Możesz załadować wcześniej zrobione zdjęcia, dotykając ikony folderu na dole strony aparatu, ale jeśli pracujesz z dużą partią zdjęć, możesz także udostępnić je CrossCam bezpośrednio z aplikacji do zdjęć, która może śledzić Twoje umieść je lepiej na swoich zdjęciach.</value>
   </data>
   <data name="Page.Tips.Quick" xml:space="preserve">
     <value>Włącz tryb szybki, gdy jesteś z innymi.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Jeśli eksplorujesz z innymi osobami, dobrym pomysłem jest przejście do trybu szybkiego, wyłączając automatyczne wyrównywanie i obramowanie i po prostu zapisując po przechwyceniu bez dokonywania jakiejkolwiek edycji. Zawsze możesz załadować, automatycznie wyrównać i edytować zdjęcia później. Dzięki temu Twoi towarzysze nie będą musieli czekać, aż od razu udoskonalisz zdjęcia, ale nadal będziesz mieć pewność, że głębia, której pragniesz, rzeczywiście jest tam. Uważaj tylko, aby nie dokonać pochopnej edycji przed pierwszym zapisem! Możesz także włączyć osobne zapisywanie strony, co spowoduje ignorowanie wszelkich edycji.</value>
+    <value>Jeśli eksplorujesz z innymi osobami, dobrym pomysłem jest przejście do trybu szybkiego, wyłączając automatyczne wyrównywanie i obramowanie i po prostu zapisując po przechwyceniu bez dokonywania jakiejkolwiek edycji. Zawsze możesz załadować, automatycznie wyrównać i edytować zdjęcia później. Dzięki temu Twoi towarzysze nie będą musieli czekać, aż od razu udoskonalisz zdjęcia, ale nadal będziesz mieć pewność, że głębia, której pragniesz, naprawdę jest na miejscu. Uważaj tylko, aby nie dokonać pochopnej edycji przed pierwszym zapisem! Możesz także włączyć osobne zapisywanie strony, co spowoduje ignorowanie wszelkich edycji.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Jeżeli ten ruch wywołuje u ciebie mdłości, zatrzymaj się.</value>
@@ -764,7 +764,7 @@ W ciągu następnych kilku tygodni kipiąca frustracja skłoniła mnie do wyobra
   <data name="Page.Pairing.1" xml:space="preserve">
     <value>Jeżeli posiadasz dwa urządzenia z zainstalowanym CrossCamem możesz je połączyć w celu jednoczesnego wykonywania zdjęć z dwóch perspektyw. Wykonanie dwóch zdjęć w tym samym momencie pozwala uzyskać najlepsze stereogramy.
 
-Należy pamiętać, że ta funkcja jest wciąż w fazie eksperymentalnej i mogą powodować problemy. Może nie działać idealnie przez cały czas i może pochłonąć baterię. Należy również pamiętać, że obecnie urządzenia muszą być na tej samej platformie, aby można było się połączyć (zarówno z systemem Android, jak i iOS).
+Należy pamiętać, że ta funkcja jest wciąż w fazie eksperymentalnej i mogą powodować problemy. Może nie działać idealnie przez cały czas i może pożerać baterię. Należy również pamiętać, że obecnie urządzenia muszą być na tej samej platformie, aby można było się połączyć (zarówno z systemem Android, jak i iOS).
 
 Jednym ze sposobów uzyskania *idealnej* synchronizacji przy użyciu tylko jednego urządzenia i CrossCam jest użycie metody „pojedynczego lustra”. Możesz to włączyć na stronie Ustawienia i możesz przeczytać o tym na stronie FAQ.
 
@@ -797,7 +797,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>&lt; Powrót</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>Subreddit CrossView</value>
+    <value>Subreddit widoku krzyżowego</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Grupa na Facebooku dotycząca stereoskopowego 3D</value>
@@ -812,7 +812,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Zobacz zdjęcia, które zrobiłem</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>Subreddit ParallelView</value>
+    <value>Subreddit widoku równoległego</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatyczne wyrównanie</value>
@@ -902,7 +902,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Dodaj obramowanie</value>
   </data>
   <data name="Settings.Border.Prompt" xml:space="preserve">
-    <value>Monituj o przycięcie obramowania po wykryciu go podczas ładowania</value>
+    <value>Monituj o przycięcie obramowania w przypadku wykrycia podczas ładowania</value>
   </data>
   <data name="Settings.Border.Thickness" xml:space="preserve">
     <value>Grubość obramowania (dziesiąte części procentu szerokości)</value>
@@ -941,7 +941,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Maksymalne stopnie obrotu</value>
   </data>
   <data name="Settings.Editing.SideCrop" xml:space="preserve">
-    <value>Maksymalny udział upraw bocznych</value>
+    <value>Maksymalna proporcja upraw bocznych</value>
   </data>
   <data name="Settings.Editing.TopCrop" xml:space="preserve">
     <value>Maksymalna proporcja plonu góra/dół</value>
@@ -968,7 +968,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Dodatkowe opóźnienie momentu przechwycenia (ms) (dodaje dodatkowe opóźnienie do momentu przechwycenia celu tylko na tym urządzeniu)</value>
   </data>
   <data name="Settings.Pair.Countdown" xml:space="preserve">
-    <value>Długość odliczania przechwytywania (zegar)</value>
+    <value>Długość odliczania przechwytywania (timer)</value>
   </data>
   <data name="Settings.Pair.Fov" xml:space="preserve">
     <value>Korekcja pola widzenia</value>
@@ -1016,7 +1016,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Odległość separacji kartonu</value>
   </data>
   <data name="Settings.Preview.Downsize" xml:space="preserve">
-    <value>Zmniejsz obraz (może zwiększyć liczbę klatek na sekundę)</value>
+    <value>Zmniejsz rozmiar obrazu (może zwiększyć liczbę klatek na sekundę)</value>
   </data>
   <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
     <value>Zmniejsz procent obrazu</value>
@@ -1088,7 +1088,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Zapisz każdą stronę osobno (bez edycji i obramowania dla łatwiejszego przetwarzania końcowego, najpierw zapisuje się lewa strona)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Zapisz w dedykowanych podfolderach/albumach „CrossCam_{ViewMethod}”.</value>
+    <value>Zapisz w dedykowanych podfolderach/albumach „CrossCam {View Method}”.</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Zapisz potrójną kombinację (z edycjami i obramowaniem)</value>
@@ -1115,7 +1115,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Nie przyznano niezbędnych uprawnień do parowania. Wyjątek:</value>
   </data>
   <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
-    <value>Nie udało się włączyć urządzenia Bluetooth. Wyjątek:</value>
+    <value>Nie udało się włączyć Bluetootha. Wyjątek:</value>
   </data>
   <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
     <value>Urządzenie nie wyszukało urządzeń. Wyjątek:</value>

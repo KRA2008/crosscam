@@ -295,7 +295,7 @@ Si prefiere usar gafas 3D o un visor Cardboard, puede configurar CrossCam para q
     <value>Voltear a paisaje cuando esté en modo cartón.</value>
   </data>
   <data name="Page.Camera.FlipLarger" xml:space="preserve">
-    <value>(voltear a paisaje para una vista más grande)</value>
+    <value>(voltear al paisaje para una vista más grande)</value>
   </data>
   <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
     <value>para anaglifo</value>
@@ -489,7 +489,7 @@ A veces es difícil sentir si estás haciendo el método cruzado o paralelo mien
     <value>deformado</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam se creó para ayudarte a tomar fotografías en 3D. Las fotos son en 3D, como la realidad virtual o las películas en 3D, pero no necesitas ningún equipo ni gafas especiales, solo tu teléfono (pero si tienes un par de gafas 3D rojas/cian o un visor Google Cardboard, puedes usarlas). con CrossCam también). La técnica de \"visualización gratuita\" que utiliza sólo el teléfono y los ojos requiere algo de práctica para aprenderla. Antes de explicarte cómo utilizar CrossCam, ¿te gustaría aprender más sobre la técnica de visualización?</value>
+    <value>CrossCam se creó para ayudarte a tomar fotografías en 3D. Las fotos son en 3D, como la realidad virtual o las películas en 3D, pero no necesitas ningún equipo o gafas especiales, solo tu teléfono (pero si tienes un par de gafas 3D rojas/cian o un visor Google Cardboard, puedes usarlas). con CrossCam también). Aprender la técnica de "visualización libre" que utiliza sólo el teléfono y los ojos requiere algo de práctica. Antes de explicarte cómo utilizar CrossCam, ¿te gustaría aprender más sobre la técnica de visualización?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>¡Bienvenido a CrossCam!</value>
@@ -594,13 +594,13 @@ Hay muchos espectadores diferentes con diferentes propiedades. Es posible que te
     <value>¿Por qué el 3D no se ve bien O por qué el 3D parece invertido?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Al visualizarlas libremente con el método cruzado o paralelo, es importante mirar las imágenes utilizando el mismo método que se utilizó para crearlas. De lo contrario, su ojo derecho mirará en la perspectiva prevista para el ojo izquierdo y viceversa. Esto hace que la profundidad de la imagen se invierta, porque se ha intercambiado la dirección del paralaje.
+    <value>Cuando se visualiza libremente con el método cruzado o paralelo, es importante mirar las imágenes utilizando el mismo método que se utilizó para crearlas. De lo contrario, su ojo derecho mirará en la perspectiva prevista para el ojo izquierdo y viceversa. Esto hace que la profundidad de la imagen se invierta, porque se ha intercambiado la dirección del paralaje.
 
 Paralaje significa que desde la perspectiva del ojo derecho, cuando los objetos están más lejos parecen estar más a la derecha que los objetos más cercanos cuando se ven desde el ojo izquierdo. Es confuso cuando se describe en formato de oración, pero muy intuitivo cuando se demuestra.
 
-Para demostrarlo, sostenga un dedo frente a usted a aproximadamente la longitud del brazo, luego con la otra mano sostenga otro dedo aproximadamente a medio camino entre el primer dedo y su cara. Si cierras alternativamente cada ojo y prestas atención a dónde están tus dedos, verás que cada ojo los ve en diferentes lugares. Entonces, naturalmente, si cada ojo vio ese movimiento de la manera opuesta a la que se supone, la profundidad se invertirá.
+Para demostrarlo, sostenga un dedo frente a usted aproximadamente a la distancia de un brazo, luego con la otra mano sostenga otro dedo aproximadamente a medio camino entre el primer dedo y su cara. Si cierras alternativamente cada ojo y prestas atención a dónde están tus dedos, verás que cada ojo los ve en diferentes lugares. Entonces, naturalmente, si cada ojo vio ese movimiento de la manera opuesta a la que se supone, la profundidad se invertirá.
 
-Es muy fácil usar accidentalmente el método de visualización incorrecto porque resulta muy difícil para la mayoría de las personas saber si están cruzando o relajando los ojos simplemente sintiendo o mirando la doble imagen confusa del mundo que resulta. En su lugar, es mejor que otra persona observe lo que hacen tus ojos o probar esta imagen de prueba:</value>
+Es muy fácil usar accidentalmente el método de visualización incorrecto porque resulta que a la mayoría de las personas les resulta muy difícil saber si están cruzando o relajando los ojos simplemente sintiendo o mirando la doble imagen confusa del mundo que resulta. En su lugar, es mejor que otra persona observe lo que hacen tus ojos o probar esta imagen de prueba:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>Muchas personas se han sentido bastante cómodas viendo libros Magic Eye™, que están pensados ​​para ser vistos utilizando el método de vista paralela. Si los ve de forma cruzada, los robustos objetos 3D que se supone que deben salir de la página parecen agujeros. Ambos métodos te permiten ver *algo* pero si no puedes decir qué era, probablemente los estés viendo de forma cruzada.</value>
@@ -618,7 +618,7 @@ Este método también funcionará con reflejos en ventanas grandes y limpias, y 
  • Debido a que la vista reflejada recorre una distancia mayor que la vista normal, será necesario ampliar un poco el lado reflejado.
  • Es probable que al utilizar el método del espejo termines acercándote, en lugar de mantener las perspectivas paralelas; esto puede hacer que el escorzo parezca una mala alineación vertical. Para deshacer esto, se puede realizar una corrección trapezoidal, lo que significa reducir verticalmente un lado de cada una de las imágenes.
  • La convergencia también tenderá a mover la ventana del estéreo hacia usted. Puedes deshacer eso y colocarlo donde quieras recortando los lados.
- • Es probable que el espejo no cubra completamente la vista de un lado, por lo que es posible que sea necesario recortar para eliminar las partes no reflejadas.
+ • Es probable que el espejo no cubra completamente la vista de un lado, por lo que es posible que sea necesario recortar un poco para eliminar las partes no reflejadas.
 
 Los mejores espejos para esto tienen vidrio fino. Por un lado, son livianos, por lo que es más fácil sostenerlos durante períodos prolongados. La otra cosa importante es que cuando uses el espejo, probablemente lo apuntes hacia un lado en lugar de mirar directamente hacia él, como se usan normalmente. Cuando se orientan así, los espejos con vidrio grueso pueden verse algo borrosos. Cuanto más fino sea el cristal, menos evidente será esta borrosidad. Este tipo de espejos también pueden ser de baja calidad en otros aspectos, por lo que es importante encontrar un buen equilibrio.
 
@@ -648,7 +648,7 @@ Para utilizar el método espejo, consulte las otras preguntas frecuentes al resp
   <data name="Page.Faq.Why.Body" xml:space="preserve">
     <value>Cuando estaba empezando a interesarme por la estereoscopía, hice un viaje a Yellowstone. Mientras estaba allí, me di cuenta de que podría ser divertido intentar usar una aplicación móvil de cámara 3D para capturar cosas en 3D. Me decepcionaron mucho las opciones existentes. Descubrí que todos requerían que hicieras dos capturas y luego descubrieras si eran buenas. A menudo no lo eran, ya que tenía que hacer conjeturas completas repetidamente sobre mi distancia de separación, así como sobre la calidad del sujeto.
 
-Durante las siguientes semanas, mi frustración latente me llevó a imaginarme simplemente brindando una vista previa en vivo de la segunda captura junto con la primera. Ya tenía experiencia en desarrollo móvil, así que era solo cuestión de dedicar tiempo. Para mí ha sido increíble utilizar CrossCam solo para mí para preservar recuerdos, y estoy feliz de compartirlo contigo también.</value>
+Durante las siguientes semanas, mi frustración latente me llevó a imaginarme simplemente brindando una vista previa en vivo de la segunda captura junto con la primera. Ya tenía experiencia en desarrollo móvil, así que era solo cuestión de dedicarle tiempo. Para mí ha sido increíble utilizar CrossCam solo para mí para preservar recuerdos, y estoy feliz de compartirlo contigo también.</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
     <value>¿Qué son los meneos?</value>
@@ -672,7 +672,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>La guía de donas puede ayudar a tu ventana.</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Hay una guía experimental en la página de Configuración que puedes activar y que puede ayudarte a preservar tu ventana estéreo mientras maximizas el ancho utilizable. Al girar hacia la izquierda y hacia la derecha, la profundidad del donut cambiará en relación con el resto de la escena; establezca la profundidad del donut para que esté sobre o detrás del punto más distante de la escena. Tenga cuidado, usarlo en escenas más pequeñas puede hacer que las cosas sean dolorosas (consulte el consejo clave más arriba).</value>
+    <value>Hay una guía experimental en la página de Configuración que puedes activar y que puede ayudarte a preservar tu ventana estéreo mientras maximizas el ancho utilizable. Al girar hacia la izquierda y hacia la derecha, la profundidad del donut cambiará en relación con el resto de la escena; establezca la profundidad del donut para que esté sobre o detrás del punto más distante de la escena. Tenga cuidado, usarlo en escenas más pequeñas puede hacer que las cosas sean dolorosas (consulte el consejo clave arriba).</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Se necesita una corrección trapezoidal si se converge.</value>
@@ -687,7 +687,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>Puedes simplemente inclinarte.</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>A veces, en lugar de mover completamente los pies hacia la izquierda o hacia la derecha para tomar fotografías, puede ser más fácil simplemente pararse con los pies separados e inclinarse en cada dirección, pero tenga cuidado de mantener el teléfono nivelado y a la misma altura. Simplemente inclinarse en lugar de moverse puede ayudarle a no moverse demasiado y hacer que sea más fácil mantener la puntería recta.</value>
+    <value>A veces, en lugar de mover completamente los pies hacia la izquierda o hacia la derecha para tomar fotografías, puede ser más fácil simplemente pararse con los pies separados e inclinarse en cada dirección, pero tenga cuidado de mantener el teléfono nivelado y a la misma altura. Simplemente inclinarse en lugar de moverse puede ayudarle a no moverse demasiado y puede hacer que sea más fácil mantener la puntería recta.</value>
   </data>
   <data name="Page.Tips.Lines" xml:space="preserve">
     <value>Las líneas de alineación pueden moverse.</value>
@@ -699,7 +699,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>Puedes abrir fotos antiguas en CrossCam.</value>
   </data>
   <data name="Page.Tips.Old.Body" xml:space="preserve">
-    <value>Puedes cargar fotografías tomadas previamente tocando el ícono de la carpeta en la parte inferior de la página de la cámara, pero si estás trabajando con un gran lote de fotos, también puedes compartirlas en CrossCam directamente desde tu aplicación de fotos, que puede realizar un seguimiento de tu Coloca mejor en tus fotos.</value>
+    <value>Puedes cargar fotografías tomadas anteriormente tocando el ícono de la carpeta en la parte inferior de la página de la cámara, pero si estás trabajando con un gran lote de fotos también puedes compartirlas en CrossCam directamente desde tu aplicación de fotos, que puede realizar un seguimiento de tu Coloca mejor en tus fotos.</value>
   </data>
   <data name="Page.Tips.Quick" xml:space="preserve">
     <value>Activa el modo rápido cuando estés con otras personas.</value>
@@ -723,13 +723,13 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>No te gires.</value>
   </data>
   <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Cuando te muevas, intenta no girar el teléfono en ninguna dirección, incluida la tendencia natural de girar hacia el sujeto a medida que te mueves hacia un lado. Será necesaria cierta rotación (a veces), pero trate de minimizarla. Imagine que el teléfono está montado sobre un riel horizontal recto y solo puede deslizarse. Girar hacia adentro puede provocar un efecto de escorzo que dificulta la fusión de las esquinas.</value>
+    <value>Cuando te muevas, intenta no girar el teléfono en ninguna dirección, incluida la tendencia natural a girar hacia el sujeto a medida que te mueves hacia un lado. Será necesaria cierta rotación (a veces), pero trate de minimizarla. Imagine que el teléfono está montado sobre un riel horizontal recto y solo puede deslizarse. Girar hacia adentro puede provocar un efecto de escorzo que dificulta la fusión de las esquinas.</value>
   </data>
   <data name="Page.Tips.Window" xml:space="preserve">
     <value>Agregue un borde y recorte para crear una ventana estéreo potente.</value>
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Se puede crear un efecto de ventana estéreo interesante haciendo dos cosas: 1) activar el borde (en la página Configuración) y 2) para visualización cruzada, recortar los bordes interiores de las imágenes hasta que el borde exterior se convierta en 3D en la imagen (recortar los bordes EXTERIORES si está viendo en paralelo). La clave es recortar el borde derecho de la imagen izquierda ligeramente más allá de lo que muestra el borde derecho de la imagen derecha de la escena y viceversa. Agregar un borde se alterna en la página Configuración. Si esto le resulta confuso, simplemente recorte un manojo de los bordes interiores y empezará a quedar claro. El botón de recorte para los bordes interiores se ve así:</value>
+    <value>Se puede crear un efecto de ventana estéreo interesante haciendo dos cosas: 1) activar el borde (en la página Configuración) y 2) para visualización cruzada, recortar los bordes interiores de las imágenes hasta que el borde exterior se convierta en 3D en la imagen (recortar los bordes EXTERIORES si está viendo en paralelo). La clave es recortar el borde derecho de la imagen izquierda ligeramente más allá de lo que el borde derecho de la imagen derecha muestra de la escena y viceversa. Agregar un borde se alterna en la página Configuración. Si esto le resulta confuso, simplemente recorte un manojo de los bordes interiores y empezará a quedar claro. El botón de recorte para los bordes interiores se ve así:</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
     <value>Ver el código</value>
@@ -762,7 +762,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>Asegúrese de que Wi-Fi esté habilitado en ambos dispositivos (pero no es necesario que esté conectado a nada)</value>
   </data>
   <data name="Page.Pairing.1" xml:space="preserve">
-    <value>Si tienes dos dispositivos con CrossCam instalado, puedes conectarlos para tomar fotografías simultáneas desde dos perspectivas. Tomar dos fotografías al mismo momento genera los mejores estereogramas posibles.
+    <value>Si tienes dos dispositivos con CrossCam instalado, puedes conectarlos para tomar fotografías simultáneas desde dos perspectivas. Tomar dos fotografías al mismo momento permite obtener los mejores estereogramas posibles.
 
 Tenga en cuenta que esta función aún es experimental y puede tener problemas. Es posible que no funcione perfectamente todo el tiempo y que consuma la batería. También tenga en cuenta que en este momento los dispositivos deben ser de la misma plataforma para poder conectarse (tanto Android como ambos iOS).
 
@@ -797,7 +797,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>&lt; Atrás</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>Subreddit de CrossView</value>
+    <value>Subreddit de vista cruzada</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Grupo de Facebook 3D estereoscópico</value>
@@ -812,7 +812,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Ver fotos que he tomado</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>Subreddit de ParallelView</value>
+    <value>Subreddit de vista paralela</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Alineación automática</value>
@@ -1058,7 +1058,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Guardar en el directorio externo de CrossCam en:</value>
   </data>
   <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
-    <value>(advertencia: las imágenes allí se eliminarán si se desinstala CrossCam)</value>
+    <value>(advertencia: las imágenes se eliminarán si se desinstala CrossCam)</value>
   </data>
   <data name="Settings.Saving.Folder" xml:space="preserve">
     <value>Guardar en la subcarpeta/álbum dedicado "CrossCam"</value>
@@ -1088,7 +1088,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Guarde cada lado por separado (sin ediciones ni bordes para facilitar el posprocesamiento, el lado izquierdo se guarda primero)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Guarde en subcarpetas/álbumes dedicados "CrossCam_{ViewMethod}"</value>
+    <value>Guarde en subcarpetas/álbumes dedicados "CrossCam {View Method}"</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Guardar combinación triple (con ediciones y borde)</value>

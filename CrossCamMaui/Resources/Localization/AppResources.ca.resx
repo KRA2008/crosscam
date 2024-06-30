@@ -211,10 +211,10 @@ Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar Cross
     <value>Si la imatge de dalt no encaixa a la pantalla, gireu el telèfon en horitzontal; CrossCam està intentant que el parell d'imatges per sobre de la mida més fàcil per a això. No sempre cal utilitzar CrossCam en paisatge, però una imatge de mida perfecta facilita l'aprenentatge de la tècnica.</value>
   </data>
   <data name="Page.Technique.Parallel2" xml:space="preserve">
-    <value>Relaxeu els vostres ulls i mireu "a través" del parell d'imatges de dalt com si estiguéssiu zonificant amb els ulls apuntant a les imatges. Hauríeu de començar a veure 3 imatges amb una imatge 3D al mig, una mica com aquesta:</value>
+    <value>Relaxeu els vostres ulls i mireu "a través" del parell d'imatges de dalt com si estiguéssiu delimitant les zones amb els ulls apuntant a les imatges. Hauríeu de començar a veure 3 imatges amb una imatge 3D al mig, una mica com aquesta:</value>
   </data>
   <data name="Page.Technique.Parallel3" xml:space="preserve">
-    <value>Si comenceu a veure 4 imatges, heu anat massa lluny. Proveu de moure els ulls una mica si torneu a trobar-vos en aquest punt. Relaxar-se massa lluny es veurà una mica així:</value>
+    <value>Si comenceu a veure 4 imatges, heu anat massa lluny. Proveu de moure els ulls una mica si us torneu a trobar en aquest punt. Relaxar-se massa lluny es veurà una mica així:</value>
   </data>
   <data name="Page.Technique.Parallel4" xml:space="preserve">
     <value>Si tens problemes, prova d'acostar la pantalla a la cara amb el parell d'imatges davant dels teus ulls. Relaxeu-vos i mireu "a través" de la pantalla i, a continuació, allunyeu lentament la pantalla de la cara mentre manteniu els ulls relaxats. Finalment, la imatge hauria de "fer clic" al focus.</value>
@@ -310,7 +310,7 @@ Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar Cross
     <value>per paral·lel</value>
   </data>
   <data name="Page.Camera.GoPickRole" xml:space="preserve">
-    <value>Aneu a la pàgina de vinculació (a través de la pàgina de configuració) i trieu una funció de vinculació per a aquest dispositiu abans d'intentar l'aparellament.</value>
+    <value>Aneu a la pàgina de sincronització (a través de la pàgina Configuració) i trieu una funció de sincronització per a aquest dispositiu abans d'intentar-ho.</value>
   </data>
   <data name="Page.Camera.InvalidImage" xml:space="preserve">
     <value>Imatge no vàlida</value>
@@ -379,7 +379,7 @@ Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar Cross
     <value>Desat a l'exterior</value>
   </data>
   <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
-    <value>Desat a Fotos</value>
+    <value>S'ha desat a Fotos</value>
   </data>
   <data name="Page.Camera.SaveFailed" xml:space="preserve">
     <value>S'ha produït un error en desar. :(</value>
@@ -391,7 +391,7 @@ Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar Cross
     <value>SECUNDÀRIA A L'ESQUERRA</value>
   </data>
   <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
-    <value>SECUNDÀRIA A LA DRETA</value>
+    <value>SECUNDÀRIA PER LA DRETA</value>
   </data>
   <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
     <value>La imatge seleccionada no és vàlida.</value>
@@ -428,7 +428,7 @@ Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar Cross
     <value>Un altre bon tutorial de text</value>
   </data>
   <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Un altre tutorial de text agradable</value>
+    <value>Encara un altre tutorial de text agradable</value>
   </data>
   <data name="Page.Technique.ParallelLink4" xml:space="preserve">
     <value>Tutorial Magic Frankfurter</value>
@@ -477,7 +477,7 @@ De vegades és difícil sentir si estàs fent el mètode creuat o paral·lel men
     <value>Triple</value>
   </data>
   <data name="Page.Camera.FovExplain" xml:space="preserve">
-    <value>Per corregir les diferències de camp de visió, feu zoom i feu lliscar les imatges de manera que els punts distintius s'alineïn entre les dues fotos. Podeu arrossegar les línies blanques per ajudar-vos a visualitzar l'alineació. Aquesta correcció s'aplicarà a les visualitzacions prèvies futures. Es desarà, però el podeu restablir a la pàgina de configuració. Si utilitzeu dispositius idèntics, només cal desar sense ajustar.</value>
+    <value>Per corregir les diferències de camp de visió, feu zoom i feu lliscar les imatges de manera que els punts distintius s'alinein entre les dues fotos. Podeu arrossegar les línies blanques per ajudar-vos a visualitzar l'alineació. Aquesta correcció s'aplicarà a les visualitzacions prèvies futures. Es desarà, però el podeu restablir a la pàgina Configuració. Si utilitzeu dispositius idèntics, només cal desar sense ajustar.</value>
   </data>
   <data name="Page.Camera.FovTitle" xml:space="preserve">
     <value>Correcció del camp de visió</value>
@@ -489,7 +489,7 @@ De vegades és difícil sentir si estàs fent el mètode creuat o paral·lel men
     <value>Deformat</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam es va crear per ajudar-vos a fer fotos en 3D. Les fotos són en 3D igual que les pel·lícules en realitat virtual o en 3D, però no necessiteu cap equip ni ulleres especials, només el vostre telèfon (però si teniu un parell d'ulleres 3D vermelles/cianes o un visor de Google Cardboard, podeu utilitzar-los). amb CrossCam també). La tècnica de \"visualització gratuïta\" que només utilitza el telèfon i els ulls requereix una mica de pràctica per aprendre. Abans d'explicar-vos com utilitzar CrossCam, primer us agradaria aprendre més sobre la tècnica de visualització?</value>
+    <value>CrossCam es va crear per ajudar-vos a fer fotos en 3D. Les fotos són en 3D igual que les pel·lícules en realitat virtual o en 3D, però no necessiteu cap equip ni ulleres especials, només el vostre telèfon (però si teniu un parell d'ulleres 3D vermelles/cianes o un visor de Google Cardboard, podeu utilitzar-los). amb CrossCam també). La tècnica de "visualització gratuïta" que només utilitza el telèfon i els ulls requereix una mica de pràctica per aprendre. Abans d'explicar-vos com utilitzar CrossCam, primer us agradaria aprendre més sobre la tècnica de visualització?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Benvingut a CrossCam!</value>
@@ -519,7 +519,7 @@ De vegades és difícil sentir si estàs fent el mètode creuat o paral·lel men
 Altres coses que pots fer:
  • Toqueu una vegada per enfocar un punt, toqueu dues vegades per tornar a l'enfocament automàtic continu.
  • Toqueu la icona d'engranatge a la part superior dreta de la pantalla de la càmera per obrir la pàgina Configuració. Està ple de coses interessants.
- • Hi ha una pàgina de consells agradable a la qual podeu accedir tocant la icona d'hamburguesa a la part superior esquerra de la pantalla de la càmera que us pot ajudar a fer les vostres imatges genials.
+ • Hi ha una pàgina de consells agradable a la qual podeu accedir tocant la icona d'hamburguesa a la part superior esquerra de la pantalla de la càmera que us pot ajudar a fer que les vostres imatges siguin genials.
  • Si preferiu moure l'altra direcció per a la vostra segona presa o voleu canviar els costats, feu un lliscar.
  • Toqueu la icona de la carpeta petita a la part inferior per carregar una imatge com a lateral o per carregar una imatge estèreo completa.</value>
   </data>
@@ -555,11 +555,11 @@ La meva opinió és que els teus ulls no fan res fora de les seves capacitats qu
     <value>Com puc utilitzar CrossCam amb Google Cardboard?</value>
   </data>
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
-    <value>Si el vostre visor té un botó que prem el centre de la pantalla, podeu utilitzar-lo per capturar amb Cardboard. El vostre espectador també haurà de tenir un forat perquè la càmera del vostre telèfon vegi a través.
+    <value>Si el vostre visor té un botó que prem el centre de la pantalla, podeu utilitzar-lo per capturar amb Cardboard. El vostre visor també haurà de tenir un forat perquè la càmera del vostre telèfon vegi a través.
 
 Per capturar fotos amb Cardboard, canvieu el vostre Mètode de visualització prèvia (a la pàgina Configuració) a Cardboard, després torneu a la pàgina de la càmera i enganxeu el telèfon al visor. Premeu el botó per capturar i, quan els dos costats estiguin capturats, torneu a prémer el botó per desar. Desar en mode Cardboard només us permet tornar a carregar les imatges a CrossCam per veure-les més tard, no per veure-les a l'aplicació de fotos a través del vostre visor.
 
-També podeu capturar amb qualsevol altre mètode que vulgueu, després canviar el vostre mètode de visualització prèvia a Cardboard i posar el telèfon al visor.
+També podeu capturar amb qualsevol altre mètode que vulgueu, després canviar el mètode de visualització de la vista prèvia a Cardboard i posar el telèfon al visor.
 
 Hi ha molts espectadors diferents amb propietats diferents. És possible que hàgiu de canviar la distància de separació de cartró (a la pàgina Configuració) per fer la vostra experiència més còmoda. És possible que també hàgiu d'assegurar-vos primer de capturar estereogrames d'alta qualitat abans de fer-los enormes i immersius.</value>
   </data>
@@ -582,7 +582,7 @@ Hi ha molts espectadors diferents amb propietats diferents. És possible que hà
     <value>Mentre obtenia el meu títol de física, vaig tenir l'oportunitat d'experimentar amb la creació dels meus propis hologrames amb làsers. El tipus d'hologrames que estava fent eren 3D perquè utilitzaven una reixa de difracció per provocar una interferència destructiva en la llum que es reflecteix a la superfície d'una placa de vidre, cosa que fa que la imatge reflectida sembli diferent de diferents llocs. Quan cadascun dels nostres ulls veu una imatge que sembla des d'una perspectiva diferent (si no són massa diferents), el nostre cervell ho percep com a profunditat.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
-    <value>Feia temps que coneixia aquest principi de la percepció estereoscòpica, però en aquell moment de la meva vida també estava fent algunes classes de programació, així que vaig decidir que volia provar de fer un programa informàtic senzill per al dibuix 3D estereoscòpic. Aquest esforç es va convertir en StereoSketcher. La versió original estava escrita en Java, però la vaig reescriure amb Javascript i SVG i ara viu a la web</value>
+    <value>Feia temps que coneixia aquest principi de la percepció estereoscòpica, però en aquell moment de la meva vida també estava fent classes de programació, així que vaig decidir que volia provar de fer un programa informàtic senzill per al dibuix 3D estereoscòpic. Aquest esforç es va convertir en StereoSketcher. La versió original estava escrita en Java, però la vaig reescriure amb Javascript i SVG i ara viu a la web</value>
   </data>
   <data name="Page.Faq.Into.Body3" xml:space="preserve">
     <value>en aquest enllaç.</value>
@@ -598,7 +598,7 @@ Hi ha molts espectadors diferents amb propietats diferents. És possible que hà
 
 Paral·laxi vol dir que des de la perspectiva de l'ull dret, quan els objectes estan més lluny, semblen estar més a la dreta que els objectes més propers quan es veuen des de l'ull esquerre. És confús quan es descriu en format de frase, però molt intuïtiu quan es demostra.
 
-Per demostrar-ho, manteniu un dit davant vostre a una distància aproximadament d'un braç i, a continuació, amb l'altra mà manteniu un altre dit a mig camí entre el dit primer i la cara. Si tanqueu alternativament cada ull i presteu atenció a on són els dits, veureu que cada ull els veu en diferents llocs. Així, naturalment, si cada ull veia aquest moviment de la manera oposada a la que se suposa, la profunditat s'invertirà.
+Per demostrar-ho, manteniu un dit davant vostre a una distància aproximadament d'un braç i, a continuació, amb l'altra mà manteniu un altre dit a mig camí entre el primer dit i la cara. Si tanqueu alternativament cada ull i presteu atenció a on són els dits, veureu que cada ull els veu en diferents llocs. Així, naturalment, si cada ull veia aquest moviment de la manera oposada a la que se suposa, la profunditat s'invertirà.
 
 És molt fàcil utilitzar accidentalment el mètode de visualització incorrecte perquè resulta que és molt difícil per a la majoria de la gent saber si creuen o relaxen els ulls només per sentir o mirant la doble imatge confusa del món que en resulta. En comptes d'això, el millor és que algú altre miri el que fan els teus ulls o prova aquesta imatge de prova:</value>
   </data>
@@ -618,9 +618,9 @@ Aquest mètode també funcionarà amb reflexos en finestres grans i netes, i tam
  • Com que la vista reflectida viatja a una distància més llarga que la vista normal, caldrà ampliar una mica el costat reflectit.
  • És probable que quan utilitzeu el mètode del mirall acabeu apropant-vos, en lloc de mantenir les perspectives paral·leles; això pot fer que l'escorç sembli una mala alineació vertical. Per desfer-ho, es pot fer una correcció trapezoidal, que significa reduir verticalment un costat de cadascuna de les imatges.
  • Apropar-se també tendirà a moure la finestra estèreo cap a vostè. Podeu desfer-ho i col·locar-lo on vulgueu retallant els costats.
- • És probable que el mirall no cobreixi completament la vista d'un costat, per la qual cosa és possible que s'hagi de fer un retall per eliminar els fragments no reflectits.
+ • És probable que el mirall no cobreixi completament la vista d'un costat, per la qual cosa és possible que s'hagi de fer algun retall per eliminar els fragments no reflectits.
 
-Els millors miralls per a això tenen un vidre prim. D'una banda, són lleugers, de manera que són més fàcils de subjectar durant llargs períodes. L'altra cosa important és que quan utilitzeu el mirall és probable que l'apunteu de costat en lloc de mirar-lo directament, ja que normalment s'utilitzen miralls. Quan s'orienten així, els miralls amb vidre gruixut poden tenir certa borrositat. Com més prim sigui el vidre, menys evident serà aquest desenfocament. Aquest tipus de miralls també poden ser de baixa qualitat en altres aspectes, per la qual cosa és important trobar un bon equilibri.
+Els millors miralls per a això tenen un vidre prim. D'una banda, són lleugers, de manera que són més fàcils de subjectar durant llargs períodes. L'altra cosa important és que quan utilitzeu el mirall és probable que apunteu el mirall de costat en lloc de mirar-lo directament, ja que normalment s'utilitzen miralls. Quan s'orienten així, els miralls amb vidre gruixut poden tenir certa borrositat. Com més prim sigui el vidre, menys evident serà aquest desenfocament. Aquest tipus de miralls també poden ser de baixa qualitat en altres aspectes, per la qual cosa és important trobar un bon equilibri.
 
 Hi ha un parell de compromisos més que s'han d'acceptar quan s'utilitza la captura de miralls que no es poden solucionar en les edicions de CrossCam:
  • Com que la vista dels dos costats recorre distàncies lleugerament diferents, l'enfocament necessari per a cada costat serà lleugerament diferent, de manera que un costat sempre serà lleugerament borrós. Aquest efecte es notarà més o menys segons la distància al subjecte i la profunditat de camp de la lent.
@@ -648,7 +648,7 @@ Per utilitzar el mètode mirall, consulteu l'altra pregunta de PMF al respecte.<
   <data name="Page.Faq.Why.Body" xml:space="preserve">
     <value>Quan començava a interessar-me per l'estereoscòpia, vaig fer un viatge a Yellowstone. Mentre hi era, em vaig adonar que podria ser divertit provar d'utilitzar una aplicació mòbil de càmera 3D per capturar coses allà en 3D. Em va decebre molt les opcions existents. Vaig descobrir que tots us demanaven que feu dues captures i després esbrineu si eren bones. Sovint no ho eren, ja que vaig haver de fer conjectures completes repetidament sobre la meva distància de separació, així com la qualitat del tema.
 
-Durant les properes setmanes, la meva frustració a foc lent em va portar a imaginar-me simplement oferint una vista prèvia en directe de la segona captura juntament amb la primera. Ja tenia formació en desenvolupament mòbil, així que llavors només era qüestió de dedicar-hi temps. CrossCam ha estat fantàstic per a mi utilitzar-lo només per a mi per preservar els records, i també estic encantat de compartir-ho amb vosaltres.</value>
+Durant les properes setmanes, la meva frustració a foc lent em va portar a imaginar-me simplement oferint una vista prèvia en directe de la segona captura juntament amb la primera. Ja tenia formació en desenvolupament mòbil, així que llavors només era qüestió de dedicar-hi temps. CrossCam ha estat fantàstic per a mi utilitzar-lo només per a mi per preservar els records, i també estic encantat de compartir-lo amb vosaltres.</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
     <value>Què són els wigglegrams?</value>
@@ -717,7 +717,7 @@ Durant les properes setmanes, la meva frustració a foc lent em va portar a imag
     <value>Aquestes imatges poden ocupar molt d'emmagatzematge; podeu reduir-les.</value>
   </data>
   <data name="Page.Tips.Space.Body" xml:space="preserve">
-    <value>La pàgina Configuració té una opció per reduir proporcionalment la resolució de la imatge final; això us pot ajudar si voleu estalviar espai. Si la vostra foto no es retalla, el resultat final són dues imatges de resolució completa unides per fer-ne una de doble resolució, el que significa que sovint podeu sortir amb una gran reducció de resolució sense afectar notablement la qualitat.</value>
+    <value>La pàgina Configuració té una opció per reduir proporcionalment la resolució de la imatge final; això us pot ajudar si voleu estalviar espai. Si la vostra foto no es retalla, el resultat final són dues imatges de resolució completa unides per fer-ne una de doble resolució, la qual cosa significa que sovint podeu sortir amb una gran reducció de la resolució sense afectar notablement la qualitat.</value>
   </data>
   <data name="Page.Tips.Turn" xml:space="preserve">
     <value>No gireu.</value>
@@ -738,7 +738,7 @@ Durant les properes setmanes, la meva frustració a foc lent em va portar a imag
     <value>Sobre el desenvolupador</value>
   </data>
   <data name="Button.EmailMe" xml:space="preserve">
-    <value>Envia'm un correu electrònic</value>
+    <value>Envieu-me un correu electrònic</value>
   </data>
   <data name="Button.GitHub" xml:space="preserve">
     <value>Afegiu un problema a GitHub</value>
@@ -747,7 +747,7 @@ Durant les properes setmanes, la meva frustració a foc lent em va portar a imag
     <value>Torneu a la pantalla de la càmera als dos dispositius i toqueu el botó de vinculació a la cantonada inferior</value>
   </data>
   <data name="Button.Primary" xml:space="preserve">
-    <value>TOCA AQUÍ A PRIMÀRIA</value>
+    <value>TOQUE AQUÍ A PRIMÀRIA</value>
   </data>
   <data name="Button.Privacy" xml:space="preserve">
     <value>Política de privacitat</value>
@@ -766,7 +766,7 @@ Durant les properes setmanes, la meva frustració a foc lent em va portar a imag
 
 Tingueu en compte que aquesta funció encara és experimental i pot tenir problemes. És possible que no funcioni perfectament tot el temps i que us consumeixi la bateria. També tingueu en compte que en aquest moment els dispositius han de ser de la mateixa plataforma per poder connectar-se (tant amb Android com ambdós iOS).
 
-Una manera d'aconseguir una sincronització *perfecta* utilitzant només un únic dispositiu i CrossCam és utilitzar el mètode "mirall d'un sol tir". Podeu activar-lo a la pàgina Configuració i llegir-lo a la pàgina de PMF.
+Una manera d'aconseguir una sincronització *perfecta* utilitzant només un únic dispositiu i CrossCam és utilitzar el mètode "mirall d'un sol tir". Podeu activar-lo a la pàgina de configuració i llegir-ne a la pàgina de PMF.
 
 Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves funcions. El dispositiu PRIMARI és el que mostrarà les dues previsualitzacions, activarà la captura i mantindrà/desarà les captures finals. Per assignar rols, navegueu pels dos dispositius fins a aquesta pàgina i seguiu els passos següents:</value>
   </data>
@@ -776,16 +776,16 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
  • Pot ser útil deixar de vincular els dos dispositius i reiniciar-lo alhora.
  • Pot ser útil desconnectar-se de les xarxes Wi-Fi o de dades en cas que funcionin correctament.
  • Cada càmera és diferent. Aquestes diferències poden incloure el camp de visió angular, l'enfocament, l'exposició i el comportament del balanç de blancs, el temps i molt més. Fins i tot dos del mateix model de telèfon es comportaran de manera lleugerament diferent. Prefereixo utilitzar un parell de telèfons antics idèntics (en el meu cas, un parell d'iPhone 6).
- • CrossCam és programari, no maquinari, de manera que la captura de les fotos pot estar lleugerament dessincronitzada depenent de què més facin els processadors i la memòria en el moment precís de la captura. Com a resultat, la sincronització de vegades pot no ser perfecta, però en general hauria d'estar molt propera.</value>
+ • CrossCam és programari, no maquinari, de manera que la captura de les fotos pot estar lleugerament dessincronitzada depenent de què més facin els processadors i la memòria en el moment precís de la captura. Com a resultat, de vegades la sincronització pot no ser perfecta, però en general hauria d'estar molt propera.</value>
   </data>
   <data name="Page.Pairing.Again" xml:space="preserve">
-    <value>Per tornar a connectar-vos més tard, assegureu-vos que teniu la Wi-Fi activada i, a continuació, només heu de tocar el botó de connexió a la pantalla d'inici dels dos dispositius.</value>
+    <value>Per tornar a connectar-se més tard, assegureu-vos que teniu la Wi-Fi activada i, a continuació, només cal que toqueu el botó de connexió a la pantalla d'inici dels dos dispositius.</value>
   </data>
   <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
     <value>CrossCam requereix permís d'accés a la xarxa local. CrossCam en realitat no utilitza la xarxa local, però iOS requereix que CrossCam obtingui aquest permís per utilitzar l'antena Wi-Fi per buscar dispositius. CrossCam us demanarà aquest permís una vegada; si us denega el permís, haureu d'anar i girar l'interruptor a l'aplicació Configuració.</value>
   </data>
   <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam sol·licitarà permisos i encendrerà components segons sigui necessari per connectar els vostres dispositius. Tingueu en compte que CrossCam requereix permís d'ubicació i que els serveis d'ubicació estiguin activats al dispositiu principal per connectar-se al dispositiu secundari. Això és simplement un requisit d'Android i està completament fora del meu control. CrossCam en realitat no fa servir la vostra ubicació de cap manera, però com que l'acte de cercar (i trobar) dispositius propers en teoria es podria utilitzar per localitzar-vos aproximadament, CrossCam requereix permís per accedir a la vostra ubicació.</value>
+    <value>CrossCam sol·licitarà permisos i encendrerà components segons sigui necessari per connectar els vostres dispositius. Tingueu en compte: CrossCam requereix permís d'ubicació i que els serveis d'ubicació estiguin activats al dispositiu principal per connectar-se al dispositiu secundari. Això és simplement un requisit d'Android i està completament fora del meu control. CrossCam en realitat no UTILITZA la vostra ubicació de cap manera, però com que l'acte de cercar (i trobar) dispositius propers en teoria es podria utilitzar per localitzar-vos aproximadament, CrossCam requereix permís per accedir a la vostra ubicació.</value>
   </data>
   <data name="Page.Pairing.Permissions" xml:space="preserve">
     <value>Una nota sobre els permisos:</value>
@@ -797,7 +797,7 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
     <value>&lt; Enrere</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Subreddit</value>
+    <value>Vista creuada Subreddit</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Grup de Facebook 3D estereoscòpic</value>
@@ -812,7 +812,7 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
     <value>Mira les fotos que he fet</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>Subreddit ParallelView</value>
+    <value>Vista paral·lela Subreddit</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Alineació automàtica</value>
@@ -935,7 +935,7 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
     <value>Màxima proporció d'alineació vertical</value>
   </data>
   <data name="Settings.Editing.Keystone" xml:space="preserve">
-    <value>Clave màxima</value>
+    <value>Clave clau màxima</value>
   </data>
   <data name="Settings.Editing.Rotation" xml:space="preserve">
     <value>Graus màxims de rotació</value>
@@ -1088,7 +1088,7 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
     <value>Desa cada costat per separat (sense modificacions ni vores per facilitar el processament de la publicació, primer desa el costat esquerre)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Desa a les subcarpetes/àlbums dedicats "CrossCam_{ViewMethod}".</value>
+    <value>Desa a les subcarpetes/àlbums dedicats "CrossCam {View Method}".</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Desa la combinació triple (amb edicions i vores)</value>
@@ -1103,7 +1103,7 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
     <value>Accepta la connexió a</value>
   </data>
   <data name="Page.Camera.Confirm" xml:space="preserve">
-    <value>Confirmeu que el codi coincideix amb els dos dispositius:</value>
+    <value>Confirmeu que el codi coincideixi amb els dos dispositius:</value>
   </data>
   <data name="Page.Footer.CouldntOpen" xml:space="preserve">
     <value>No s'ha pogut obrir l'enllaç</value>

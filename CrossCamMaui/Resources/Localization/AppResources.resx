@@ -492,7 +492,7 @@ Sometimes it's difficult to feel whether you're doing the cross or parallel meth
     <value>Warped</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam was made to help you make 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone (but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). The \"free viewing\" technique that uses just your phone and your eyes takes some practice to learn. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?</value>
+    <value>CrossCam was made to help you make 3D photos. The photos are 3D just like VR or 3D movies, but you don't need any special equipment or glasses - just your phone (but if you do have a pair of red/cyan 3D glasses or a Google Cardboard viewer, you can use those with CrossCam too). The "free viewing" technique that uses just your phone and your eyes takes some practice to learn. Before I tell you how to use CrossCam, would you first like to learn more about the viewing technique?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Welcome to CrossCam!</value>
@@ -800,7 +800,7 @@ Before two devices can be used together their roles have to be assigned. The PRI
     <value>&lt; Back</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Subreddit</value>
+    <value>Cross View Subreddit</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Stereoscopic 3D Facebook Group</value>
@@ -815,7 +815,7 @@ Before two devices can be used together their roles have to be assigned. The PRI
     <value>See Pictures I've Taken</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>ParallelView Subreddit</value>
+    <value>Parallel View Subreddit</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatic Alignment</value>
@@ -1091,7 +1091,7 @@ Before two devices can be used together their roles have to be assigned. The PRI
     <value>Save each side separately (with no edits or border for easier post processing, left side saves first)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Save into dedicated "CrossCam_{ViewMethod}" subfolders/albums</value>
+    <value>Save into dedicated "CrossCam {View Method}" subfolders/albums</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Save triple combination (with edits and border)</value>

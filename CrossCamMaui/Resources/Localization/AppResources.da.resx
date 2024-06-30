@@ -214,7 +214,7 @@ Hvis du hellere vil bruge 3D-briller eller en Cardboard-fremviser, kan du indsti
     <value>Slap af i øjnene og se "gennem" billedeparret ovenfor, som om du på en måde zoner ud med dine øjne pegende på billederne. Du bør begynde at se 3 billeder med et 3D-billede i midten, lidt som dette:</value>
   </data>
   <data name="Page.Technique.Parallel3" xml:space="preserve">
-    <value>Hvis du begynder at se 4 billeder, er du gået for langt. Prøv at flytte dine øjne rundt en lille smule, hvis du befinder dig på det tidspunkt igen. At slappe af for langt vil se lidt sådan ud:</value>
+    <value>Hvis du begynder at se 4 billeder, er du gået for langt. Prøv at flytte dine øjne lidt rundt, hvis du befinder dig på det tidspunkt igen. At slappe af for langt vil se lidt sådan ud:</value>
   </data>
   <data name="Page.Technique.Parallel4" xml:space="preserve">
     <value>Hvis du har problemer, så prøv at bringe din skærm helt op mod dit ansigt med parret billeder lige foran dine øjne. Slap af og kig "gennem" skærmen og træk derefter langsomt din skærm væk fra dit ansigt, mens du holder dine øjne afslappede. Til sidst skulle billedet "klikke" i fokus.</value>
@@ -298,7 +298,7 @@ Hvis du hellere vil bruge 3D-briller eller en Cardboard-fremviser, kan du indsti
     <value>(vend til landskab for en større visning)</value>
   </data>
   <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
-    <value>for anaglyph</value>
+    <value>for anaglyf</value>
   </data>
   <data name="Page.Camera.ForCardboard" xml:space="preserve">
     <value>til pap</value>
@@ -352,7 +352,7 @@ Hvis du hellere vil bruge 3D-briller eller en Cardboard-fremviser, kan du indsti
     <value>Ups</value>
   </data>
   <data name="Page.Camera.OrRotate" xml:space="preserve">
-    <value>(eller roter)</value>
+    <value>(eller drej)</value>
   </data>
   <data name="Page.Camera.OrSwipe" xml:space="preserve">
     <value>(eller swipe)</value>
@@ -443,7 +443,7 @@ En anden ting, du kan prøve, er at bruge toiletpapirrør eller dine hænder til
  • Til krydssyn: Hold et enkelt rør mod næseryggen (centreret mellem dine øjne), mens du peger det mod midten af ​​billedet foran dig. Flyt langsomt røret mod skærmen, mens du prøver at se ned i røret med begge øjne. Når du når den rigtige position med røret, skal billedet klikke på plads. Det kan hjælpe at koncentrere sig om at prøve at se på indersiden af ​​den fjerneste ende af røret. Hvis du ikke kan finde den rigtige position, så prøv at bruge et større billede eller et mindre rør.
  • For parallel visning: Hold et rør foran hvert øje, men peg dem begge ud til siden, så du næsten ikke kan se noget. Drej langsomt rørene indad på samme tid, så du kan begynde at se mere af billedet. I det øjeblik du kan se det meste af billedet (næsten halvdelen med hvert øje), så prøv at slappe af i øjnene og bring halvdelene sammen. Det kan hjælpe at bruge et større eller mindre billede.
 
-Der er en nem øvelse, du kan gøre for at øve dig i fusion med enten kryds- eller parallelvisning. Tag en markør og tegn en del af et smiley på hver af dine thumbnails (eller et par ispinde eller tungepressere). Tegn for eksempel på den ene side det ene øje og en mund, og på den anden side tegne et øje og en næse. Du kan derefter holde dem op foran dig og øve dig i at smelte de to billeder sammen for at fuldende smileyen.
+Der er en nem øvelse, du kan lave for at øve dig i fusion med enten kryds- eller parallelvisning. Tag en markør og tegn en del af et smiley på hver af dine thumbnails (eller et par ispinde eller tungepressere). Tegn for eksempel på den ene side det ene øje og en mund, og på den anden side tegne et øje og en næse. Du kan derefter holde dem op foran dig og øve dig i at smelte de to billeder sammen for at fuldende smileyen.
 
 Jeg foretrækker personligt cross over parallel, fordi billeder kan være større, men begge metoder virker. Hvis du gerne vil eksperimentere med større parallelle billeder, kan du styre størrelsen på siden Indstillinger.
 
@@ -489,7 +489,7 @@ Nogle gange er det svært at mærke, om du laver cross- eller parallelmetoden, m
     <value>skævt</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam blev lavet for at hjælpe dig med at lave 3D-billeder. Billederne er 3D ligesom VR eller 3D film, men du behøver ikke noget særligt udstyr eller briller - kun din telefon (men hvis du har et par røde/cyan 3D briller eller en Google Cardboard viewer, kan du bruge disse også med CrossCam). \"gratis visning\" teknikken, der kun bruger din telefon og dine øjne kræver lidt øvelse at lære. Før jeg fortæller dig, hvordan du bruger CrossCam, vil du så først gerne lære mere om visningsteknikken?</value>
+    <value>CrossCam blev lavet for at hjælpe dig med at lave 3D-billeder. Billederne er 3D ligesom VR eller 3D film, men du behøver ikke noget særligt udstyr eller briller - kun din telefon (men hvis du har et par røde/cyan 3D briller eller en Google Cardboard viewer, kan du bruge disse også med CrossCam). Teknikken til "fri visning", der kun bruger din telefon og dine øjne, kræver lidt øvelse at lære. Før jeg fortæller dig, hvordan du bruger CrossCam, vil du så først gerne lære mere om visningsteknikken?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Velkommen til CrossCam!</value>
@@ -507,7 +507,7 @@ Nogle gange er det svært at mærke, om du laver cross- eller parallelmetoden, m
 1) Indram og tag det første billede.</value>
   </data>
   <data name="Page.HowToUse.P2" xml:space="preserve">
-    <value>3) Hold din telefon stille foran dig, og bevæg dig langsomt sidelæns i den retning, CrossCam fortæller dig. Bevæg dig ikke for langt – en tomme eller mindre for hver fod væk dit mål er. Du skal heller ikke vende dig overhovedet, bare glide sidelæns, eller måske endda bare læne dig.
+    <value>3) Hold din telefon stille foran dig og bevæg dig langsomt sidelæns i den retning, CrossCam fortæller dig. Bevæg dig ikke for langt - en tomme eller mindre for hver fod væk dit mål er. Du skal heller ikke vende dig overhovedet, bare glide sidelæns, eller måske endda bare læne dig.
 
 4) Juster det første billede med forhåndsvisningen af ​​det andet billede, og tag det andet billede, når du kan lide det, du ser.
 
@@ -561,7 +561,7 @@ For at tage billeder ved hjælp af Cardboard skal du skifte din forhåndsvisning
 
 Du kan også optage ved hjælp af en hvilken som helst anden metode, du ønsker, og derefter skifte din forhåndsvisningsmetode til Cardboard og sætte din telefon i fremviseren.
 
-Der er mange forskellige seere derude med forskellige egenskaber. Du skal muligvis ændre papadskillelsesafstanden (på siden Indstillinger) for at gøre din oplevelse mere behagelig. Du skal muligvis også først sikre dig, at du er god til at optage stereogrammer af høj kvalitet, før du gør dem enorme og fordybende.</value>
+Der er mange forskellige seere derude med forskellige egenskaber. Du skal muligvis ændre papadskillelsesafstanden (på siden Indstillinger) for at gøre din oplevelse mere behagelig. Du skal muligvis også først sikre dig, at du er god til at optage stereogrammer i høj kvalitet, før du gør dem enorme og fordybende.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Hvordan virker det?</value>
@@ -594,37 +594,37 @@ Der er mange forskellige seere derude med forskellige egenskaber. Du skal muligv
     <value>Hvorfor ser 3D'en ikke rigtig ud ELLER hvorfor ser 3D'en omvendt ud?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Når du ser frit med enten kryds- eller parallelmetoden, er det vigtigt at se på billederne ved hjælp af samme metode, som blev brugt til at skabe dem. Ellers vil dit højre øje se på det perspektiv, der er beregnet til det venstre øje og omvendt. Dette får billedets dybde til at vende om, fordi retningen af ​​parallaksen er blevet skiftet.
+    <value>Når du ser frit med enten kryds- eller parallelmetoden, er det vigtigt at se på billederne med samme metode, som blev brugt til at lave dem. Ellers vil dit højre øje se på det perspektiv, der er beregnet til det venstre øje og omvendt. Dette får billedets dybde til at vende om, fordi retningen af ​​parallaksen er blevet skiftet.
 
-Parallaxe betyder, at fra dit højre øjes perspektiv, når objekter er længere væk, ser de ud til at være længere til højre end tættere objekter, når de ses fra dit venstre øje. Det er forvirrende, når det beskrives i sætningsformat, men meget intuitivt, når det demonstreres.
+Parallaxe betyder, at set fra dit højre øjes perspektiv, når objekter er længere væk, ser de ud til at være længere til højre end tættere objekter set fra dit venstre øje. Det er forvirrende, når det beskrives i sætningsformat, men meget intuitivt, når det demonstreres.
 
 For at demonstrere skal du holde en finger op foran dig i en armslængde, og derefter holde en anden finger med din anden hånd cirka halvvejs mellem den første finger og dit ansigt. Hvis du skiftevis lukker hvert øje og er opmærksom på, hvor dine fingre er, vil du se, at hvert øje ser dem forskellige steder. Så naturligvis, hvis hvert øje så den bevægelse den modsatte vej, som det skulle, vil dybden blive omvendt.
 
 Det er meget nemt ved et uheld at bruge den forkerte visningsmetode, fordi det viser sig, at det er meget svært for de fleste mennesker at sige, om de krydser eller slapper af deres øjne, bare ved at føle eller ved at se på det forvirrende dobbeltbillede af verden, der resulterer. I stedet er det bedst enten at få en anden til at se på, hvad dine øjne laver, eller prøve dette testbillede:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
-    <value>Mange mennesker er blevet ret fortrolige med at se Magic Eye™-bøger, som er beregnet til at blive set ved hjælp af parallelvisningsmetoden. Hvis du krydsviser dem, ser de robuste 3D-objekter, der formodes at springe ud af siden, i stedet for huller. Begge metoder giver dig mulighed for at se *noget*, men hvis du ikke kunne se, hvad det var, krydsviser du dem sandsynligvis.</value>
+    <value>Mange mennesker er blevet ret fortrolige med at se Magic Eye™-bøger, som er beregnet til at blive set ved hjælp af parallelvisningsmetoden. Hvis du krydsviser dem, ser de robuste 3D-objekter, der formodes at springe af siden, i stedet ud som huller. Begge metoder giver dig mulighed for at se *noget*, men hvis du ikke kunne fortælle, hvad det var, krydser du dem sandsynligvis.</value>
   </data>
   <data name="Page.Faq.Mirror" xml:space="preserve">
-    <value>Hvordan gør jeg "single-shot mirror"-metoden?</value>
+    <value>Hvordan gør jeg metoden "single-shot mirror"?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Optagelse med spejlmetoden deler rammen i to og udfører den nødvendige transformation, så du kan fange begge sider på samme tidspunkt ved hjælp af en enkelt telefon og et almindeligt håndholdt spejl. For at bruge spejlmetoden, når du optager, skal du slå kontakten til for spejltilstand på siden Indstillinger (tryk på tandhjulsikonet for at komme dertil). Når du har aktiveret spejltilstand, vil CrossCam fortælle dig, hvilken side du skal holde dit spejl på. Hold dit spejl på den side og bøvl med justeringen mellem din telefon og spejlet og dit motiv. Med lidt tålmodighed vil du være i stand til at placere dem alle sammen, så spejlet viser det korrekte perspektiv for en af ​​siderne. Fordi brugen af ​​spejlmetoden deler dit billede i to lodret, er det normalt bedst at optage i landskab med spejlmetoden.
+    <value>Optagelse med spejlmetoden deler rammen i to og udfører den nødvendige transformation, så du kan fange begge sider på samme tidspunkt ved hjælp af en enkelt telefon og et almindeligt håndholdt spejl. For at bruge spejlmetoden, når du optager, skal du slå kontakten til for spejltilstand på siden Indstillinger (tryk på tandhjulsikonet for at komme dertil). Når du har aktiveret spejltilstand, vil CrossCam fortælle dig, hvilken side du skal holde dit spejl på. Hold dit spejl på den side og bøvl med justeringen mellem din telefon og spejlet og dit motiv. Med lidt tålmodighed vil du være i stand til at placere dem alle sammen, så spejlet viser det korrekte perspektiv for en af ​​siderne. Fordi brug af spejlmetoden deler dit billede i to lodret, er det normalt bedst at optage i landskab med spejlmetoden.
 
 Denne metode vil også fungere med refleksioner i store, rene vinduer og også på stillestående søer eller vandpytter (når telefonen er låst i portræt og vendt sidelæns).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Der er nogle kompromiser/redigeringer, der skal laves for at bruge spejlmetoden. Disse kan alle gøres manuelt i CrossCam, men automatisk justering vil også forsøge at gøre dem for dig:
  • Fordi den reflekterede visning rejser over en længere afstand end den normale visning, skal den spejlede side zoomes lidt ind.
- • Det er sandsynligt, at når du bruger spejlmetoden, vil du ende med at gå ind, i stedet for at holde perspektiverne parallelle - dette kan få forkortning til at ligne dårlig vertikal justering. For at fortryde det, kan keystone-korrektion udføres, hvilket betyder, at den ene side af hvert af billederne lodret krympes.
+ • Det er sandsynligt, at når du bruger spejlmetoden, vil du ende med at gå ind, i stedet for at holde perspektiverne parallelle - dette kan få afkortning til at ligne dårlig vertikal justering. For at fortryde det, kan keystone-korrektion udføres, hvilket betyder, at den ene side af hvert af billederne lodret krympes.
  • Indstigning vil også have en tendens til at flytte stereovinduet mod dig. Du kan fortryde det og placere det, hvor du vil have det, ved at beskære siderne.
- • Spejlet vil sandsynligvis ikke helt dække udsynet fra den ene side, så det kan være nødvendigt at beskære noget for at fjerne ureflekterede bits.
+ • Spejlet vil sandsynligvis ikke helt dække udsynet af den ene side, så det kan være nødvendigt at beskære noget for at fjerne ureflekterede bits.
 
 De bedste spejle til dette har tyndt glas. For det første er de lette, så de er nemmere at holde i lange perioder. Den anden vigtige ting er, at når du bruger spejlet, vil du sandsynligvis rette spejlet sidelæns i stedet for at kigge direkte ind i det, da spejle typisk bruges. Når de er orienteret på denne måde, kan spejle med tykt glas have en vis sløring. Jo tyndere glasset er, jo mindre tydelig vil denne sløring være. Den slags spejle kan også i andre henseender være af lav kvalitet, så det er vigtigt at finde en god balance.
 
 Der er et par andre kompromiser, der skal accepteres, når du bruger spejloptagelsen, som ikke kan rettes i redigeringer af CrossCam:
- • Fordi synet af de to sider rejser lidt forskellige afstande, vil det nødvendige fokus for hver side være lidt forskelligt, så den ene side vil altid være lidt sløret. Denne effekt vil være mere eller mindre mærkbar afhængig af afstanden til motivet og objektivets dybdeskarphed.
- • Intet spejl er virkelig 100 % effektivt, så den side, der bruger spejlet, kan være lidt mørkere. Dette vil variere med spejlets kvalitet.</value>
+ • Fordi visningen af ​​de to sider rejser lidt forskellige afstande, vil det nødvendige fokus for hver side være lidt forskelligt, så den ene side vil altid være lidt sløret. Denne effekt vil være mere eller mindre mærkbar afhængig af afstanden til motivet og objektivets dybdeskarphed.
+ • Intet spejl er virkelig 100 % effektivt, så den side, der bruger spejlet, kan være lidt mørkere. Dette vil variere med kvaliteten af ​​spejlet.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
     <value>Mit motiv bevæger sig, hvordan tager jeg 3D-billeder af det?</value>
@@ -654,13 +654,13 @@ I løbet af de næste par uger fik min ulmende frustration mig til at forestille
     <value>Hvad er wigglegrams?</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
-    <value>Wigggrams er en måde at se stereogrammer på, der ikke er afhængige af kikkertsyn. De er normalt en gif, der bladrer frem og tilbage mellem de to perspektiver og viser hver i sin helhed på samme sted. CrossCam understøtter ikke at lave dem lige nu, men e-mail mig, hvis du virkelig er interesseret i dem, så gør jeg det.</value>
+    <value>Wigggrams er en måde at se stereogrammer på, der ikke er afhængige af kikkertsyn. De er normalt en gif, der bladrer frem og tilbage mellem de to perspektiver og viser hver i sin helhed på samme sted. CrossCam understøtter ikke at lave dem lige nu, men send mig en e-mail, hvis du virkelig er interesseret i dem, så gør jeg det.</value>
   </data>
   <data name="Page.Tips.AlignAfter" xml:space="preserve">
     <value>Pas på de vandrette linjer, men du kan også justere efter.</value>
   </data>
   <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
-    <value>Hvis du opdager, at det, mens du tager billeder, er umuligt at få både den øvre og den nedre ledelinje til at være på linje på samme tid, har du sandsynligvis bevæget dig i en anden retning end bare til siden. Prøv at rette dette, før du tager billederne, men det kan hjælpe meget at justere efter kendsgerningen.</value>
+    <value>Hvis du opdager, at det, mens du tager billeder, er umuligt at få både den øvre og den nedre ledelinje til at være på linje på samme tid, har du sandsynligvis bevæget dig i en anden retning end bare til siden. Prøv at ordne dette, før du tager billederne, men at justere efter kendsgerningen kan hjælpe dette meget.</value>
   </data>
   <data name="Page.Tips.Alignment" xml:space="preserve">
     <value>Du kan slå automatisk justering fra.</value>
@@ -699,7 +699,7 @@ I løbet af de næste par uger fik min ulmende frustration mig til at forestille
     <value>Du kan åbne gamle billeder i CrossCam.</value>
   </data>
   <data name="Page.Tips.Old.Body" xml:space="preserve">
-    <value>Du kan indlæse tidligere taget billeder ved at trykke på mappeikonet nederst på kamerasiden, men hvis du arbejder med et stort parti billeder, kan du også dele dem til CrossCam direkte fra din foto-app, som muligvis holder styr på dine placere i dine billeder bedre.</value>
+    <value>Du kan indlæse tidligere taget billeder ved at trykke på mappeikonet nederst på kamerasiden, men hvis du arbejder med et stort parti billeder, kan du også dele dem til CrossCam direkte fra din foto-app, som muligvis holder styr på dine placere bedre i dine billeder.</value>
   </data>
   <data name="Page.Tips.Quick" xml:space="preserve">
     <value>Slå hurtig tilstand til, når du er sammen med andre.</value>
@@ -729,7 +729,7 @@ I løbet af de næste par uger fik min ulmende frustration mig til at forestille
     <value>Tilføj kant og beskær for at skabe et stærkt stereovindue.</value>
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>En interessant stereovindueeffekt kan skabes ved at gøre to ting: 1) slå grænsen til (på siden Indstillinger) og 2) for krydsvisning, beskær de indvendige kanter af billederne, indtil selve den ydre kant bliver 3D i billedet (beskæring) de Udvendige kanter, hvis du ser parallelt). Nøglen er at beskære højre kant af det venstre billede lidt forbi, hvad højre kant af det højre billede viser af scenen og omvendt. Tilføjelse af en kant skiftes på siden Indstillinger. Hvis dette er forvirrende, skal du bare skære en masse af de indvendige kanter, og det vil begynde at være klart. Beskæringsknappen til de indvendige kanter ser sådan ud:</value>
+    <value>En interessant stereovindueeffekt kan skabes ved at gøre to ting: 1) slå grænsen til (på siden Indstillinger) og 2) for krydsvisning, beskær de indvendige kanter af billederne, indtil selve den ydre kant bliver 3D i billedet (beskæring) de Udvendige kanter, hvis du ser parallelt). Nøglen er at beskære højre kant af det venstre billede lidt forbi, hvad højre kant af det højre billede viser af scenen og omvendt. Tilføjelse af en kant skiftes på siden Indstillinger. Hvis dette er forvirrende, skal du bare skære en masse af de indvendige kanter, og det vil begynde at være klart. Beskæringsknappen for de indvendige kanter ser sådan ud:</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
     <value>Se koden</value>
@@ -785,7 +785,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>CrossCam kræver tilladelse til lokal netværksadgang. CrossCam bruger faktisk ikke det lokale netværk, men iOS kræver, at CrossCam får denne tilladelse for at bruge Wi-Fi-antennen til at scanne efter enheder. CrossCam vil bede om denne tilladelse én gang - hvis tilladelsen nægtes, skal du selv gå hen og dreje på kontakten i appen Indstillinger.</value>
   </data>
   <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam vil anmode om tilladelser og tænde for komponenter efter behov for at forbinde dine enheder. Bemærk venligst: CrossCam kræver lokationstilladelse, og for at lokationstjenester skal være slået til på den primære enhed for at oprette forbindelse til den sekundære enhed. Dette er simpelthen et Android-krav og er helt uden for min kontrol. CrossCam BRUGER faktisk ikke din placering på nogen måde, men fordi handlingen med at søge efter (og finde) enheder i nærheden teoretisk set kunne bruges til groft at finde dig, kræver CrossCam tilladelse for at få adgang til din placering.</value>
+    <value>CrossCam vil anmode om tilladelser og tænde for komponenter efter behov for at forbinde dine enheder. Bemærk venligst: CrossCam kræver lokationstilladelse, og for at lokationstjenester skal være slået til på den primære enhed for at oprette forbindelse til den sekundære enhed. Dette er simpelthen et Android-krav og er helt uden for min kontrol. CrossCam BRUGER faktisk ikke din placering på nogen måde, men fordi det at søge efter (og finde) enheder i nærheden teoretisk set kunne bruges til groft at finde dig, kræver CrossCam tilladelse for at få adgang til din placering.</value>
   </data>
   <data name="Page.Pairing.Permissions" xml:space="preserve">
     <value>En note om tilladelser:</value>
@@ -797,7 +797,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>&lt; Tilbage</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Subreddit</value>
+    <value>Cross View Subreddit</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Stereoskopisk 3D Facebook-gruppe</value>
@@ -812,7 +812,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Se billeder jeg har taget</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>ParallelView Subreddit</value>
+    <value>Parallel View Subreddit</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatisk justering</value>
@@ -908,7 +908,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Kanttykkelse (tiendedele af procent af bredden)</value>
   </data>
   <data name="Settings.Camera.Camera1" xml:space="preserve">
-    <value>Force camera1 API (kan være nyttigt, hvis du oplever mærkeligheder, men vil resultere i begrænset funktionalitet, kræver en tvungen afslutning/genstart for at træde i kraft)</value>
+    <value>Force camera1 API (kan være nyttigt, hvis du oplever mærkeligt, men vil resultere i begrænset funktionalitet, kræver en tvungen afslutning/genstart for at træde i kraft)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
     <value>Force camera2 API (skal være på Android 6 eller nyere, kan være nyttigt, hvis du oplever fejl, men kan lave flere, kræver en tvungen afslutning/genstart for at træde i kraft)</value>
@@ -923,7 +923,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Lås fokus og eksponering for andet billede til fokus og eksponering fra første billede</value>
   </data>
   <data name="Settings.Camera.Pair" xml:space="preserve">
-    <value>Vandret placering af parringsknappen (når optageknappen er centreret)</value>
+    <value>Parringsknap vandret placering (når optageknappen er centreret)</value>
   </data>
   <data name="Settings.Camera.PointFocus" xml:space="preserve">
     <value>Tryk for at pege fokus, dobbelttryk for at skifte tilbage til kontinuerlig fokus (eller gem eller ryd)</value>
@@ -965,7 +965,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Rulleføring synlig</value>
   </data>
   <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
-    <value>Capture moment ekstra forsinkelse (ms) (føjer kun en ekstra forsinkelse til målfangst øjeblik på denne enhed)</value>
+    <value>Capture moment ekstra forsinkelse (ms) (føjer en ekstra forsinkelse til målet fange øjeblikke kun på denne enhed)</value>
   </data>
   <data name="Settings.Pair.Countdown" xml:space="preserve">
     <value>Optag nedtællingslængde (timer)</value>
@@ -1010,7 +1010,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Tilføj linsekorrektion/tøndeforvrængning (kan sænke billedhastigheden)</value>
   </data>
   <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
-    <value>Tilføj kun objektivkorrektion/tøndeforvrængning til de endelige billeder (kan gøre den endelige visning langsommere, men vil fremskynde optagelsen)</value>
+    <value>Tilføj kun linsekorrektion/tøndeforvrængning til de endelige billeder (kan gøre den endelige visning langsommere, men vil fremskynde optagelsen)</value>
   </data>
   <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
     <value>Papadskillelsesafstand</value>
@@ -1037,10 +1037,10 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Nulstil til standarder</value>
   </data>
   <data name="Settings.Saving.Alone" xml:space="preserve">
-    <value>Gem første side alene (uden redigeringer eller kant) (for nem deling af fladt billede med fladt visningspersoner)</value>
+    <value>Gem første side alene (uden redigeringer eller kant) (for nem deling af fladt foto med fladt visningspersoner)</value>
   </data>
   <data name="Settings.Saving.Anaglyph" xml:space="preserve">
-    <value>Gem rød/cyan anaglyf-version (med redigeringer, men ingen kant)</value>
+    <value>Gem rød/cyan anaglyph-version (med redigeringer, men ingen kant)</value>
   </data>
   <data name="Settings.Saving.Browse" xml:space="preserve">
     <value>Gennemse...</value>
@@ -1088,7 +1088,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Gem hver side separat (uden redigeringer eller kant for lettere efterbehandling, venstre side gemmer først)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Gem i dedikerede "CrossCam_{ViewMethod}" undermapper/album</value>
+    <value>Gem i dedikerede "CrossCam {View Method}" undermapper/album</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Gem tredobbelt kombination (med redigeringer og kant)</value>

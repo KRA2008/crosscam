@@ -262,7 +262,7 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
     <value>Oui, c'est clair</value>
   </data>
   <data name="Page.Camera.Aligning" xml:space="preserve">
-    <value>Alignement...</value>
+    <value>Aligner...</value>
   </data>
   <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
     <value>L'alignement automatique n'est pas pris en charge sur l'appareil : désactivez-le dans les paramètres.</value>
@@ -507,7 +507,7 @@ Parfois, il est difficile de savoir si vous utilisez la méthode croisée ou par
 1) Cadrez et prenez la première photo.</value>
   </data>
   <data name="Page.HowToUse.P2" xml:space="preserve">
-    <value>3) Gardez votre téléphone stable devant vous et déplacez-vous lentement sur le côté dans la direction que CrossCam vous indique. Ne vous éloignez pas trop – un pouce ou moins pour chaque pied de votre cible. De plus, ne vous tournez pas du tout, glissez simplement sur le côté ou peut-être même penchez-vous simplement.
+    <value>3) Gardez votre téléphone stable devant vous et déplacez-vous lentement sur le côté dans la direction que CrossCam vous indique. Ne vous éloignez pas trop – un pouce ou moins pour chaque pied de votre cible. De plus, ne vous tournez pas du tout, glissez simplement sur le côté, ou peut-être même penchez-vous simplement.
 
 4) Alignez la première photo avec l'aperçu de la deuxième photo et prenez la deuxième photo lorsque vous aimez ce que vous voyez.
 
@@ -529,7 +529,7 @@ Autres choses que vous pouvez faire :
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>L'alignement automatique tente d'aligner au mieux les paires d'images, mais il n'est pas parfait. La vision par ordinateur est meilleure dans certains domaines que l’œil humain, mais elle est également bien pire dans d’autres. Le monde qu’il voit est très différent de celui que nous voyons, mais il peut aussi voir de différentes manières. Les deux principales méthodes envisagées dans CrossCam sont le coefficient de corrélation amélioré (ECC) et l'utilisation de points clés.
 
-L'alignement ECC fonctionne essentiellement en essayant de s'assurer que les taches claires se chevauchent avec les taches claires et que les taches sombres se chevauchent avec les taches sombres lorsque les deux côtés sont superposés. L'alignement ECC est accompagné d'un score de confiance destiné à aider à décider si l'alignement a été efficace. CrossCam est configuré pour rejeter l'alignement produit si la confiance est trop faible, mais vous pouvez configurer le seuil de réussite/échec de confiance sur la page Paramètres.
+L'alignement ECC fonctionne essentiellement en essayant de s'assurer que les taches claires se chevauchent avec les taches claires et que les taches sombres se chevauchent avec les taches sombres lorsque les deux côtés sont superposés l'un sur l'autre. L'alignement ECC est accompagné d'un score de confiance destiné à aider à décider si l'alignement a été efficace. CrossCam est configuré pour rejeter l'alignement produit si la confiance est trop faible, mais vous pouvez configurer le seuil de réussite/échec de confiance sur la page Paramètres.
 
 L'alignement des points clés recherche les points d'intérêt tels que les coins, les bords, les points et les contrastes élevés et tente de les faire correspondre entre les deux côtés. Une fois les points correspondants, CrossCam peut utiliser divers algorithmes pour tenter de déformer les côtés afin que les points clés d'un côté soient tous aussi proches que possible de leurs points clés correspondants de l'autre côté.
 
@@ -549,7 +549,7 @@ CrossCam affichera le résultat de l'alignement sur l'écran de la caméra sous 
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
     <value>Si vous utilisez la méthode des yeux croisés, cette sensation peut également être due au fait que vos yeux ne sont pas habitués à pointer comme s'ils regardaient quelque chose d'aussi proche pendant si longtemps. En vision croisée, vos yeux convergent vers un point situé à mi-chemin entre vos yeux et l'écran. Si regarder longtemps quelque chose d’aussi proche vous cause également un inconfort, nous avons notre explication.
 
-Mon opinion à ce sujet est que vos yeux ne font rien en dehors de leurs capacités quotidiennes, mais vous combinez deux capacités différentes qui ne sont généralement pas utilisées de cette façon. Vous concentrez vos lentilles sur quelque chose à un endroit sur lequel il est normalement confortable de se concentrer, et vous pointez vos yeux vers un endroit où il est normalement confortable pour eux de pointer, mais l'endroit où vos lentilles se concentrent et où vos yeux convergent. ce n'est tout simplement pas le même point. Je ne vois pas en quoi cela pourrait être mauvais pour vous tant que votre vision ne se développe pas encore.</value>
+Mon opinion à ce sujet est que vos yeux ne font rien en dehors de leurs capacités quotidiennes, mais vous combinez deux capacités différentes qui ne sont généralement pas utilisées de cette façon. Vous concentrez vos lentilles sur quelque chose à un endroit sur lequel il est normalement confortable de se concentrer, et vous pointez vos yeux quelque part où il est normalement confortable pour eux de pointer, mais l'endroit où vos lentilles se concentrent et où vos yeux convergent. ce n'est tout simplement pas le même point. Je ne vois pas en quoi cela pourrait être mauvais pour vous tant que votre vision ne se développe pas encore.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
     <value>Comment utiliser CrossCam avec Google Cardboard ?</value>
@@ -561,7 +561,7 @@ Pour capturer des photos à l'aide de Cardboard, changez votre méthode d'affich
 
 Vous pouvez également capturer en utilisant n'importe quelle autre méthode de votre choix, puis basculer votre méthode de visualisation d'aperçu sur Carton et placer votre téléphone dans la visionneuse.
 
-Il existe de nombreux visualiseurs différents avec des propriétés différentes. Vous devrez peut-être modifier la distance de séparation du carton (sur la page Paramètres) pour rendre votre expérience plus confortable. Vous devrez peut-être également vous assurer d'abord que vous maîtrisez bien la capture de stéréogrammes de haute qualité avant de les rendre énormes et immersifs.</value>
+Il existe de nombreux visualiseurs différents avec des propriétés différentes. Vous devrez peut-être modifier la distance de séparation du carton (sur la page Paramètres) pour rendre votre expérience plus confortable. Vous devrez peut-être également d'abord vous assurer que vous maîtrisez bien la capture de stéréogrammes de haute qualité avant de les rendre énormes et immersifs.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Comment cela marche-t-il?</value>
@@ -646,7 +646,7 @@ Pour utiliser la méthode miroir, consultez l'autre question de la FAQ à ce suj
     <value>Pourquoi avez-vous créé CrossCam ?</value>
   </data>
   <data name="Page.Faq.Why.Body" xml:space="preserve">
-    <value>Alors que je commençais à m'intéresser à la stéréoscopie, il m'est arrivé de faire un voyage à Yellowstone. Pendant que j'étais là-bas, j'ai réalisé qu'il pourrait être amusant d'essayer d'utiliser une application mobile de caméra 3D pour capturer des choses en 3D. J'ai été très déçu par les options existantes. J'ai découvert qu'ils exigeaient tous que vous fassiez deux captures, puis que vous découvriez si elles étaient bonnes. Ce n’était souvent pas le cas, car je devais à plusieurs reprises faire des suppositions complètes sur ma distance de séparation, ainsi que sur la qualité du sujet.
+    <value>Alors que je commençais à m'intéresser à la stéréoscopie, il m'est arrivé de faire un voyage à Yellowstone. Pendant que j'étais là-bas, j'ai réalisé qu'il pourrait être amusant d'essayer d'utiliser une application mobile d'appareil photo 3D pour capturer des choses en 3D. J'ai été très déçu par les options existantes. J'ai découvert qu'ils exigeaient tous que vous fassiez deux captures, puis que vous découvriez si elles étaient bonnes. Ce n’était souvent pas le cas, car je devais à plusieurs reprises faire des suppositions complètes sur ma distance de séparation, ainsi que sur la qualité du sujet.
 
 Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer simplement fournir un aperçu en direct de la deuxième capture aux côtés de la première. J'avais déjà une formation en développement mobile, alors c'était juste une question d'y consacrer du temps. CrossCam a été formidable à utiliser juste pour moi afin de préserver mes souvenirs, et je suis également heureux de le partager avec vous.</value>
   </data>
@@ -732,7 +732,7 @@ Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer s
     <value>Un effet de fenêtre stéréo intéressant peut être créé en faisant deux choses : 1) activer la bordure (sur la page Paramètres) et 2) pour une visualisation croisée, recadrer les bords intérieurs des images jusqu'à ce que le bord extérieur lui-même devienne 3D dans l'image (recadrer les bords EXTÉRIEURS si vous regardez en parallèle). La clé est de recadrer le bord droit de l’image de gauche légèrement au-delà de ce que le bord droit de l’image de droite montre de la scène et vice versa. L'ajout d'une bordure est activé sur la page Paramètres. Si cela prête à confusion, coupez simplement un peu des bords intérieurs et cela commencera à être clair. Le bouton de recadrage pour les bords intérieurs ressemble à ceci :</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
-    <value>Voir le Code</value>
+    <value>Voir le code</value>
   </data>
   <data name="Button.Developer" xml:space="preserve">
     <value>À propos du développeur</value>
@@ -764,7 +764,7 @@ Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer s
   <data name="Page.Pairing.1" xml:space="preserve">
     <value>Si vous disposez de deux appareils sur lesquels CrossCam est installé, vous pouvez les connecter afin de prendre des photos simultanées sous deux perspectives. Prendre deux photos en même temps permet d'obtenir les meilleurs stéréogrammes possibles.
 
-Veuillez noter que cette fonctionnalité est encore expérimentale et peut rencontrer des problèmes. Il se peut que cela ne fonctionne pas parfaitement tout le temps et que cela puisse épuiser votre batterie. Veuillez également noter qu'à l'heure actuelle, les appareils doivent être sur la même plate-forme pour pouvoir se connecter (Android ou iOS).
+Veuillez noter que cette fonctionnalité est encore expérimentale et peut rencontrer des problèmes. Cela peut ne pas fonctionner parfaitement tout le temps et cela peut épuiser votre batterie. Veuillez également noter qu'à l'heure actuelle, les appareils doivent être sur la même plate-forme pour pouvoir se connecter (les deux Android ou les deux iOS).
 
 Une façon d'obtenir une synchronisation *parfaite* en utilisant un seul appareil et CrossCam consiste à utiliser la méthode du « miroir à prise unique ». Vous pouvez l'activer sur la page Paramètres et vous pouvez en savoir plus sur la page FAQ.
 
@@ -797,7 +797,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>&lt; Retour</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>Sous-reddit CrossView</value>
+    <value>Sous-reddit Cross View</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Groupe Facebook 3D stéréoscopique</value>
@@ -812,7 +812,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Voir les photos que j'ai prises</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>Sous-reddit ParallelView</value>
+    <value>Sous-reddit à vue parallèle</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Alignement automatique</value>
@@ -974,7 +974,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Correction du champ de vision</value>
   </data>
   <data name="Settings.Pair.FovNotSet" xml:space="preserve">
-    <value>La correction FOV n'est pas définie (effectuez une capture avec des appareils couplés pour parcourir la configuration).</value>
+    <value>Correction du FOV non définie (effectuez une capture avec des appareils couplés pour parcourir la configuration).</value>
   </data>
   <data name="Settings.Pair.FovReset" xml:space="preserve">
     <value>Réinitialiser</value>
@@ -1088,10 +1088,10 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Enregistrez chaque côté séparément (sans modifications ni bordure pour un post-traitement plus facile, le côté gauche est enregistré en premier)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Enregistrez dans les sous-dossiers/albums dédiés "CrossCam_{ViewMethod}"</value>
+    <value>Enregistrez dans les sous-dossiers/albums dédiés « CrossCam {View Method} »</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
-    <value>Enregistrer la combinaison triple (avec modifications et bordure)</value>
+    <value>Enregistrer la triple combinaison (avec modifications et bordure)</value>
   </data>
   <data name="Button.Pair.Accept" xml:space="preserve">
     <value>Accepter</value>

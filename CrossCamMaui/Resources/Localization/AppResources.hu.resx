@@ -166,13 +166,13 @@
     <value>További oktatóanyagok:</value>
   </data>
   <data name="Page.Technique.Cross1" xml:space="preserve">
-    <value>Óvatosan húzza keresztbe a szemét, miközben a fenti képpárt nézi. Ha keresztbe teszed a szemed, a dolgok elmosódnak és átlátszóak lesznek, és 2 (2 pár) helyett 4 kép jelenik meg. Minél erősebben teszed keresztbe a szemed, annál távolabb kerülnek egymástól a képpárok – ez egy kicsit így fog kinézni:</value>
+    <value>Óvatosan húzza keresztbe a szemét, miközben a fenti képpárt nézi. Ha keresztbe teszed a szemed, a dolgok elmosódnak és átlátszóvá válnak, és 2 (2 pár) helyett 4 képet fogsz látni. Minél erősebben húzza keresztbe a szemét, annál távolabb kerül egymástól a képpár – ez egy kicsit így fog kinézni:</value>
   </data>
   <data name="Page.Technique.Cross2" xml:space="preserve">
     <value>Óvatosan húzza ki a szemét, hogy az egyes párok belsejében lévő képek átfedjék egymást. Úgy fog kinézni, mintha csak 3 kép lenne 4 helyett. Továbbra is homályos és átlátszó lesz, és valahogy így néz ki:</value>
   </data>
   <data name="Page.Technique.Cross3" xml:space="preserve">
-    <value>Miután a középső átfedés működik, csak lazítsa el a szemét, és hagyja, hogy fókuszálják a képet. Ekkor egy éles 3D-s kép lesz a közepén, mindkét oldalán egy átlátszó képpel, amely így fog kinézni (kivéve, hogy a közepe 3D-s lesz):</value>
+    <value>Miután a középső átfedés működik, csak lazítsa el a szemét, és hagyja, hogy fókuszáljon a képre. Ekkor egy éles 3D-s kép lesz a közepén, mindkét oldalán egy átlátszó képpel, amely így fog kinézni (kivéve, hogy a közepe 3D-s lesz):</value>
   </data>
   <data name="Page.Technique.Cross4" xml:space="preserve">
     <value>Ha nem tudja keresztbe tenni a szemét, megpróbálhatja az ujját is bámulni, miközben félúton tartja a szeme és a képernyő között. Látnia kell, hogy a képek az ujja mögött szétválnak és átfedik egymást.</value>
@@ -181,7 +181,7 @@
     <value>KERESZTNÉZÉS</value>
   </data>
   <data name="Page.Technique.P1" xml:space="preserve">
-    <value>Ha újra látni szeretné ezt, érintse meg a hamburger (három sor) ikont a kamera képernyőjének bal felső sarkában, majd érintse meg a „Súgó” lehetőséget.
+    <value>Ha újra látni szeretné ezt, érintse meg a hamburger (három vonal) ikont a kamera képernyőjének bal felső sarkában, majd érintse meg a „Súgó” lehetőséget.
 
 Ha 3D-t szeretne látni a CrossCamben (az úgynevezett "sztereogramok"), használhat vörös/cián 3D-s szemüveget, egy Google Cardboard-nézegetőt, vagy végezhet "ingyenes megtekintést" csak a szeme és a képernyő használatával. A szabad megtekintésnek két módja van, és a CrossCam segíthet mindkettő megtanulásában. Meg kell mondania a CrossCamnek, hogyan fogja látni a képeket, különben nem fog megfelelően működni. Ne aggódjon, ezt bármikor újra módosíthatja a Beállításokban.
 
@@ -205,7 +205,7 @@ Ha inkább 3D-s szemüveget vagy Cardboard-nézegetőt szeretne használni, a Be
     <value>Egy újabb YouTube oktatóanyag</value>
   </data>
   <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Kétkamerás projekt oktatóanyaggal</value>
+    <value>Kettős kamerás projekt oktatóanyaggal</value>
   </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Ha a fenti kép nem fér el a képernyőn, fordítsa fekvő helyzetbe a telefont – a CrossCam a fenti képpárt igyekszik a legegyszerűbb méretre készíteni. Nem kell mindig a CrossCam-et használni fekvő helyzetben, de a tökéletes méretű kép megkönnyíti a technika elsajátítását.</value>
@@ -289,7 +289,7 @@ Ha inkább 3D-s szemüveget vagy Cardboard-nézegetőt szeretne használni, a Be
     <value>A mentési cél nem található. Kérjük, válasszon másikat a beállítások oldalon.</value>
   </data>
   <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
-    <value>Mit csináltál a hiba előtt? Kérjük, írja le még az apró dolgokat is.\n\n\n\n\n\nMűködött a CrossCam a hiba után is? Ha nem, hogyan törött?\n\n\n\n\n\nEz ismétlődően megtörténik?\n\n\n\n\n\nKényszerítheti a hiba előfordulását parancsra? Ha igen, hogyan?\n\n\n\n\n\n</value>
+    <value>Mit csináltál közvetlenül a hiba fellépése előtt? Kérjük, írja le még az apró dolgokat is.\n\n\n\n\n\nMűködött a CrossCam a hiba után is? Ha nem, hogyan törött?\n\n\n\n\n\nEz ismétlődően megtörténik?\n\n\n\n\n\nKényszerítheti a hiba előfordulását parancsra? Ha igen, hogyan?\n\n\n\n\n\n</value>
   </data>
   <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
     <value>Fordítsa fekvő helyzetbe karton módban.</value>
@@ -364,7 +364,7 @@ Ha inkább 3D-s szemüveget vagy Cardboard-nézegetőt szeretne használni, a Be
     <value>Csípje össze vagy húzza a felfedezéshez!</value>
   </data>
   <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
-    <value>Kérjük, válasszon Jpeg, Png vagy Webp képet. A kiválasztott kép</value>
+    <value>Kérjük, válasszon Jpeg, Png vagy Webp képet. A kiválasztott kép a következő</value>
   </data>
   <data name="Page.Camera.ReallyClear" xml:space="preserve">
     <value>Tényleg világos?</value>
@@ -437,17 +437,17 @@ Ha inkább 3D-s szemüveget vagy Cardboard-nézegetőt szeretne használni, a Be
     <value>Egy jó videó a Magic Eye-ről</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
-    <value>Ha továbbra is problémái vannak, próbálja meg telefonját egy sötét helyiségbe vinni, hogy a szeme csak a képre lásson jól, és arra fókuszáljon.
+    <value>Ha továbbra is problémái vannak, próbálja meg telefonját egy sötét helyiségbe vinni, hogy a szeme csak a képre lásson jól és arra fókuszáljon.
 
 Egy másik dolog, amit kipróbálhatsz, hogy WC-papír csövekkel vagy a kezeddel készítsd el, hogy minden szem csak azt az oldalát lássa a képnek, amelyet látnia kell.
- • Keresztnézethez: tartson egy csövet az orrnyergéhez (középen a szeme közé), miközben az előtte lévő kép közepére irányítja. Lassan mozgassa a csövet a képernyő felé, miközben megpróbál mindkét szemével lefelé nézni. Amikor eléri a megfelelő pozíciót a csővel, a képnek a helyére kell kattannia. Segíthet, ha a cső túlsó végének belsejére próbál koncentrálni. Ha nem találja a megfelelő pozíciót, próbáljon meg nagyobb képet vagy kisebb csövet használni.
+ • Keresztnézethez: tartson egy csövet az orrnyergéhez (középen a szeme közé), miközben az előtte lévő kép közepére irányítja. Lassan mozgassa a csövet a képernyő felé, miközben megpróbál mindkét szemével lefelé nézni. Amikor eléri a megfelelő pozíciót a csővel, a képnek a helyére kell kattannia. Segíthet, ha arra koncentrál, hogy a cső túlsó végének belsejét próbálja megnézni. Ha nem találja a megfelelő pozíciót, próbáljon meg nagyobb képet vagy kisebb csövet használni.
  • Párhuzamos nézethez: tartson egy-egy csövet mindkét szem elé, de mindkettőt fordítsa kifelé, hogy alig lásson semmit. Lassan fordítsa befelé a csöveket egyszerre, hogy többet láthasson a képből. Abban a pillanatban, amikor a kép nagy részét látja (majdnem a felét mindkét szemével), próbálja meg lazítani a szemét, és összehozza a feleket. Segíthet nagyobb vagy kisebb kép használata.
 
 Van egy egyszerű gyakorlat, amellyel gyakorolhatja a fúziót kereszt- vagy párhuzamos nézéssel. Vegyünk egy jelölőt, és rajzoljunk egy-egy mosolygós arcot minden miniatűrünkre (vagy egy pár popsirudat vagy nyelvnyomót). Például az egyik oldalra rajzoljon egy szemet és egy szájat, a másik oldalra pedig egy szemet és egy orrot. Ezután maga elé tarthatja őket, és gyakorolhatja a két kép egyesítését, hogy teljes legyen a mosolygós arc.
 
 Én személy szerint jobban szeretem a keresztezést a párhuzamos helyett, mert a képek lehetnek nagyobbak, de mindkét módszer működik. Ha nagyobb párhuzamos képekkel szeretne kísérletezni, a méretet a Beállítások oldalon állíthatja be.
 
-Néha nehéz átérezni, hogy a kereszt- vagy párhuzamos módszert alkalmazod-e, miközben csinálod. Megkérhet valaki mást, hogy figyelje a szemét, miközben ezt csinálja, vagy tesztként megnézheti az alábbi képet:</value>
+Néha nehéz átérezni, hogy a kereszt- vagy párhuzamos módszert alkalmazod-e, miközben csinálod. Megkérhet valaki mást, hogy figyelje a szemét, miközben csinálja, vagy tesztként megnézheti az alábbi képet:</value>
   </data>
   <data name="SaveModes.Anaglyph" xml:space="preserve">
     <value>Anaglif</value>
@@ -489,7 +489,7 @@ Néha nehéz átérezni, hogy a kereszt- vagy párhuzamos módszert alkalmazod-e
     <value>Megvetemedett</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>A CrossCam azért készült, hogy segítsen 3D fényképek készítésében. A fotók 3D-sek, mint a VR vagy a 3D filmek, de nincs szükséged semmilyen speciális felszerelésre vagy szemüvegre, csak a telefonodra (de ha van piros/cián 3D szemüveged vagy Google Cardboard-nézegetőd, akkor ezeket is használhatod CrossCammel is). Az \"ingyenes megtekintés\" technika, amely csak a telefonját és a szemét használja, némi gyakorlatot igényel. Mielőtt elmondanám a CrossCam használatát, szeretne többet megtudni a megtekintési technikáról?</value>
+    <value>A CrossCam azért készült, hogy segítsen 3D fényképek készítésében. A fotók 3D-sek, mint a VR vagy a 3D filmek, de nincs szükséged semmilyen speciális felszerelésre vagy szemüvegre, csak a telefonodra (de ha van piros/cián 3D szemüveged vagy Google Cardboard néződ, akkor ezeket is használhatod CrossCammel is). A "szabad megtekintés" technika, amely csak a telefonját és a szemét használja, némi gyakorlatot igényel. Mielőtt elmondanám a CrossCam használatát, szeretne többet megtudni a megtekintési technikáról?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Üdvözöljük a CrossCamben!</value>
@@ -501,7 +501,7 @@ Néha nehéz átérezni, hogy a kereszt- vagy párhuzamos módszert alkalmazod-e
     <value>Megtekintési technika</value>
   </data>
   <data name="Page.HowToUse.P1" xml:space="preserve">
-    <value>Ha újra látni szeretné ezt, érintse meg a hamburger (három sor) ikont a kamera képernyőjének bal felső sarkában, majd érintse meg a „Súgó” lehetőséget.
+    <value>Ha újra látni szeretné ezt, érintse meg a hamburger (három vonal) ikont a kamera képernyőjének bal felső sarkában, majd érintse meg a „Súgó” lehetőséget.
 
 
 1) Keretezze be és készítse el az első képet.</value>
@@ -529,11 +529,11 @@ Egyéb teendők:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Az automatikus igazítás megpróbálja a lehető legjobban igazítani a képpárokat, de nem tökéletes. A számítógépes látás bizonyos dolgokban jobb, mint az emberi szem, de más dolgokban sokkal rosszabb is. A világ, amit lát, nagyon különbözik attól, amit mi látunk, de néhány különböző módon is láthat. A CrossCam két fő módja a fokozott korrelációs együttható (ECC) és a kulcspontok használata.
 
-Az ECC-igazítás lényegében úgy működik, hogy megkísérli megbizonyosodni arról, hogy a világos foltok átfedik egymást a világos foltokkal, a sötét foltok pedig sötét foltokkal, ha a két oldal egymásra van fedve. Az ECC igazításhoz egy megbízhatósági pontszám tartozik, amely segít eldönteni, hogy az igazítás hatékony volt-e. A CrossCam úgy van beállítva, hogy elutasítsa a létrehozott igazítást, ha a megbízhatóság túl alacsony, de a Beállítások oldalon beállíthatja a megbízhatósági átadás/sikertelenség küszöbértékét.
+Az ECC-igazítás lényegében úgy működik, hogy megkísérli megbizonyosodni arról, hogy a világos foltok átfedik egymást a világos foltokkal, a sötét foltok pedig a sötét foltokkal, ha a két oldal egymásra van fedve. Az ECC-igazításhoz egy megbízhatósági pontszám tartozik, amely segít eldönteni, hogy az igazítás hatékony volt-e. A CrossCam úgy van beállítva, hogy elutasítsa a létrehozott igazítást, ha a megbízhatóság túl alacsony, de a Beállítások oldalon beállíthatja a megbízhatósági átadás/sikertelenség küszöbértékét.
 
-A kulcspontok igazítása olyan érdekes pontokat keres, mint a sarkok, élek, pontok és a nagy kontraszt, és megpróbálja összeilleszteni őket a két oldal között. A pontok összeillesztése után a CrossCam különféle algoritmusokat használhat az oldalak elvetemítésére úgy, hogy az egyik oldal kulcspontjai a lehető legközelebb legyenek a másik oldalon lévő megfelelő kulcspontokhoz.
+A kulcspontok igazítása olyan érdekes pontokat keres, mint a sarkok, élek, pontok és a nagy kontraszt, és megpróbálja ezeket a két oldal között összehangolni. A pontok összeillesztése után a CrossCam különféle algoritmusokat használhat az oldalak torzítására, hogy az egyik oldal kulcspontjai a lehető legközelebb legyenek a másik oldalon lévő megfelelő kulcspontokhoz.
 
-A CrossCam úgy van programozva, hogy először a kulcspont igazítást használja, de visszaáll az ECC igazításra, ha a kulcspont igazítása meghiúsul, vagy ha a rögzítés az egyszeri tükörosztásos módszerrel történik. Az automatikus igazítást úgy is beállíthatja, hogy mindig használja a kulcspont-igazítást, vagy mindig használja az ECC-igazítást a Beállítások oldalon.
+A CrossCam úgy van programozva, hogy először a kulcspont igazítást használja, de visszaáll az ECC igazításra, ha a kulcspont igazítása meghiúsul, vagy ha a rögzítés az egyszeri tükörosztásos módszerrel történik. Az automatikus igazítást úgy is beállíthatja, hogy mindig használja a kulcspont igazítását, vagy mindig használja az ECC igazítást a Beállítások oldalon.
 
 A CrossCam megjeleníti az igazítás eredményét a kamera képernyőjén a kis robot ikon alatt. Ha ECC-igazítást használt, akkor megjelenik a konfidencia százaléka. Ha kulcspont-igazítást használt, akkor a "KP" jelenik meg. Ha mindkét igazítási módszer sikertelen, az "F" jelenik meg. Ha nem tetszik az igazítás eredménye, koppintson a kis robot ikonra az igazítás eltávolításához.</value>
   </data>
@@ -552,14 +552,14 @@ A CrossCam megjeleníti az igazítás eredményét a kamera képernyőjén a kis
 Az a véleményem róla, hogy a szemed nem csinál semmit a mindennapi képességein kívül, hanem két különböző képességet kombinálsz, amelyeket általában nem használnak így. Valamire fókuszálja a lencsét egy olyan helyre, amelyre általában kényelmes a fókuszálás, és a szemét olyan helyre irányítja, ahová általában kényelmes, de arra a helyre, ahol a lencsék fókuszálnak, és ahol a szeme összefolyik. csak nem ugyanaz a pont. Nem értem, hogyan lehet ez rossz neked, amíg a látásod még nem fejlődik.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
-    <value>Hogyan használhatom a CrossCam-et a Google Cardboarddal?</value>
+    <value>Hogyan használhatom a CrossCam alkalmazást a Google Cardboarddal?</value>
   </data>
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
     <value>Ha a megtekintőben van egy gomb, amely megnyomja a képernyő közepét, akkor a Cardboard segítségével rögzítheti. A nézőnek rendelkeznie kell egy lyukkal is, amelyen keresztül a telefon kamerája átlát.
 
 Ha fényképeket szeretne készíteni a Cardboard segítségével, állítsa az Előnézeti megtekintési módot (a Beállítások oldalon) Cardboardra, majd térjen vissza a kamera oldalára, és helyezze a telefont a megjelenítőbe. Nyomja meg a gombot a rögzítéshez, majd ha mindkét oldalt rögzítette, nyomja meg újra a gombot a mentéshez. A Cardboard módban történő mentés csak azt a célt szolgálja, hogy a képeket visszatöltse a CrossCambe, hogy később megtekinthesse őket, nem pedig arra, hogy a fotóalkalmazásban megtekinthesse őket a megjelenítőn keresztül.
 
-Rögzíthet bármilyen más módszerrel is, majd átállíthatja az Előnézeti megtekintési módot Cardboardra, és behelyezheti telefonját a megjelenítőbe.
+Rögzíthet bármilyen más módszerrel is, majd átállíthatja az Előnézeti megtekintési módot Cardboardra, és a telefont a nézőbe helyezheti.
 
 Sok különböző néző van, különböző tulajdonságokkal. Előfordulhat, hogy módosítania kell a Cardboard elválasztási távolságot (a Beállítások oldalon), hogy kényelmesebbé tegye az élményt. Előfordulhat, hogy először meg kell győződnie arról, hogy jó minőségű sztereogramokat rögzít, mielőtt huncuttá és magával ragadóvá tenné őket.</value>
   </data>
@@ -579,7 +579,7 @@ Sok különböző néző van, különböző tulajdonságokkal. Előfordulhat, ho
     <value>Hogyan kerültél a sztereoszkópiába?</value>
   </data>
   <data name="Page.Faq.Into.Body1" xml:space="preserve">
-    <value>Amíg a fizikus diplomámat szereztem, lehetőségem nyílt arra, hogy kísérletezzek saját hologramok létrehozásával lézerek segítségével. Az általam készített hologramok 3D típusúak voltak, mivel diffrakciós rácsot használtak, hogy destruktív interferenciát okozzanak az üveglap felületéről visszaverődő fényben, ami miatt a visszavert kép különböző helyekről eltérően néz ki. Amikor minden szemünk olyan képet lát, amely más perspektívából néz ki (ha nem túlságosan különbözik), agyunk ezt mélységként érzékeli.</value>
+    <value>Amíg a fizikus diplomámat szereztem, lehetőségem nyílt arra, hogy kísérletezzek saját hologramok létrehozásával lézerek segítségével. Az általam készített hologramok 3D típusúak voltak, mert diffrakciós rácsot használtak, hogy destruktív interferenciát okozzanak az üveglap felületéről visszaverődő fényben, ami miatt a visszavert kép különböző helyekről eltérően néz ki. Amikor minden szemünk olyan képet lát, amely más perspektívából néz ki (ha nem túlságosan különbözik), agyunk ezt mélységként érzékeli.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
     <value>Régóta tisztában voltam a sztereoszkópikus érzékelés elvével, de életemnek akkoriban programozási órákra is jártam, ezért úgy döntöttem, hogy megpróbálok egy egyszerű számítógépes programot készíteni sztereoszkópikus 3D-s rajzoláshoz. Ez a törekvés a StereoSketcher lett. Az eredeti verzió Java nyelven íródott, de átírtam Javascripttel és SVG-vel, és most már a weben is él</value>
@@ -611,12 +611,12 @@ Nagyon könnyű véletlenül rossz megtekintési módot használni, mert kiderü
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
     <value>A tükörmódszerrel történő rögzítés kettéosztja a keretet, és elvégzi a szükséges átalakítást, így egyetlen telefonnal és egy hagyományos kézi tükörrel egyszerre rögzítheti mindkét oldalt. A tükörmódszer használatához rögzítéskor kapcsolja be a tükör mód kapcsolóját a Beállítások oldalon (érintse meg a fogaskerék ikont az eléréshez). A tükör mód bekapcsolása után a CrossCam megmondja, melyik oldalon tartsa a tükröt. Tartsa a tükröt ezen az oldalon, és ügyeljen a telefon és a tükör és a téma közötti igazításra. Némi türelemmel mindet sorba tudja rendezni úgy, hogy a tükör a megfelelő perspektívát mutassa az egyik oldalon. Mivel a tükörmódszer használatakor a képet függőlegesen kettéosztja, általában a legjobb a tükörmódszerrel tájképben rögzíteni.
 
-Ez a módszer nagy, tiszta ablakokon, valamint csendes tavakon vagy tócsákon is működik (ha a telefont álló helyzetben zárják és oldalra fordítják).</value>
+Ez a módszer nagy, tiszta ablakokon, valamint csendes tavakon vagy tócsákon való tükröződéseknél is működik (ha a telefont álló helyzetben zárják és oldalra fordítják).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Néhány kompromisszum/szerkesztés szükséges a tükörmódszer használatához. Ezek mind manuálisan elvégezhetők a CrossCamben, de az automatikus igazítás is megkísérli ezeket elvégezni:
  • Mivel a visszavert nézet nagyobb távolságra van, mint a normál nézet, a tükrözött oldalt kicsit nagyítani kell.
- • Valószínű, hogy a tükörmódszer használatakor a perspektívák párhuzamosan tartása helyett a perspektívák összehúzódása lesz a vége – ez azt eredményezheti, hogy az előrerövidítés rossz függőleges igazításnak tűnhet. Ennek visszavonására trapéztorzítás-korrekció végezhető, ami azt jelenti, hogy mindegyik kép egyik oldalát függőlegesen össze kell zsugorítani.
+ • Valószínű, hogy a tükörmódszer használatakor a perspektívák párhuzamosan tartása helyett a perspektívák összehúzódása lesz a vége – ez azt eredményezheti, hogy az előrerövidítés rossz függőleges igazításnak tűnhet. Ennek visszavonására trapéztorzítási korrekciót lehet végezni, ami azt jelenti, hogy mindegyik kép egyik oldalát függőlegesen összehúzzuk.
  • A behúzás hajlamos arra, hogy a sztereó ablakot maga felé mozdítsa. Ezt visszavonhatja, és az oldalak levágásával a kívánt helyre helyezheti.
  • A tükör valószínűleg nem fedi le teljesen az egyik oldal nézetét, ezért előfordulhat, hogy némi kivágást kell végezni a nem tükröződő darabok eltávolításához.
 
@@ -627,7 +627,7 @@ Van néhány további kompromisszum, amelyet el kell fogadni a tükörrögzíté
  • Egyetlen tükör sem igazán 100%-os hatékonyságú, így a tükröt használó oldal kissé sötétebb lehet. Ez a tükör minőségétől függően változik.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
-    <value>A témám mozog, hogyan készíthetek 3D-s képeket róla?</value>
+    <value>A témám mozog, hogyan készíthetek 3D képeket róla?</value>
   </data>
   <data name="Page.Faq.Moving.Body" xml:space="preserve">
     <value>A CrossCam két módszert tesz lehetővé mindkét perspektíva egyidejű rögzítésére. Az egyik módszer két telefont használ, a másik pedig egy tükröt.
@@ -640,7 +640,7 @@ A tükör módszer használatához nézze meg a másik GYIK-et ezzel kapcsolatba
     <value>Hogyan tesztelhetem a CrossCam kiadás előtti verzióit?</value>
   </data>
   <data name="Page.Faq.Test.Body" xml:space="preserve">
-    <value>Nézd meg ezt a Reddit bejegyzést</value>
+    <value>Nézze meg ezt a Reddit-bejegyzést</value>
   </data>
   <data name="Page.Faq.Why" xml:space="preserve">
     <value>Miért csináltad a CrossCam-et?</value>
@@ -654,7 +654,7 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
     <value>Mik azok a wigglegramok?</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
-    <value>A wigglegramok olyan sztereogramok megtekintésére szolgálnak, amelyek nem támaszkodnak binokuláris látásra. Általában egy gif-ről van szó, amely ide-oda vált a két nézőpont között, és mindegyiket teljes egészében ugyanazon a helyen mutatja. A CrossCam jelenleg nem támogatja ezek elkészítését, de írjon nekem e-mailt, ha valóban érdekli őket, és megteszem.</value>
+    <value>A wigglegramok olyan sztereogramok megtekintésére szolgálnak, amelyek nem támaszkodnak binokuláris látásra. Általában egy gif-ről van szó, amely ide-oda vált a két nézőpont között, és mindegyiket teljes egészében ugyanazon a helyen mutatja. A CrossCam jelenleg nem támogatja ezek elkészítését, de írjon e-mailt, ha valóban érdekli őket, és megteszem.</value>
   </data>
   <data name="Page.Tips.AlignAfter" xml:space="preserve">
     <value>Ügyeljen a vízszintes vonalakra, de utána is igazíthatja.</value>
@@ -687,7 +687,7 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
     <value>Csak dőlhetsz.</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>Néha ahelyett, hogy teljesen balra vagy jobbra mozgatná a lábát a fényképezéshez, könnyebb lehet csak állni széthúzott lábbal, és mindkét irányba dőlni, de ügyeljen arra, hogy a telefon vízszintesen és ugyanabban a magasságban legyen. Ha csak támaszkodunk ahelyett, hogy mozdulnánk, az segíthet abban, hogy ne mozduljon túl messzire, és könnyebben célozhat egyenesen.</value>
+    <value>Néha ahelyett, hogy teljesen balra vagy jobbra mozgatná a lábát a fényképezéshez, könnyebb lehet csak állni széthúzott lábbal, és mindkét irányba dőlni, de ügyeljen arra, hogy a telefon vízszintesen és ugyanabban a magasságban legyen. Ha csak támaszkodunk ahelyett, hogy mozdulnánk, az segíthet abban, hogy ne mozduljunk túl messzire, és könnyebben célozhatunk egyenesen.</value>
   </data>
   <data name="Page.Tips.Lines" xml:space="preserve">
     <value>Az igazítási vonalak elmozdulhatnak.</value>
@@ -705,7 +705,7 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
     <value>Kapcsolja be a gyors módot, amikor másokkal van együtt.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Ha másokkal együtt böngészik, célszerű gyors módba kapcsolni az automatikus igazítás és a szegélyek kikapcsolásával, és csak a mentést követően, szerkesztés nélkül menteni. Később bármikor betöltheti, automatikusan igazíthatja és szerkesztheti a képeket. Így társaidnak nem kell megvárniuk, amíg a helyszínen tökéletesíted a képeidet, de továbbra is biztos lehetsz benne, hogy a kívánt mélység valóban megvan. Csak ügyeljen arra, hogy az első mentés előtt ne végezzen elhamarkodott szerkesztést! Bekapcsolhatja a külön oldalsó mentést is, amely figyelmen kívül hagy minden szerkesztést.</value>
+    <value>Ha másokkal együtt böngészik, célszerű gyors módba kapcsolni az automatikus igazítás és a szegélyek kikapcsolásával, és a mentést követően, szerkesztés nélkül. Később bármikor betöltheti, automatikusan igazíthatja és szerkesztheti a képeket. Így társainak nem kell megvárniuk, amíg Ön a helyszínen tökéletesíti a képeit, de továbbra is biztos lehet benne, hogy a kívánt mélység valóban megvan. Csak ügyeljen arra, hogy az első mentés előtt ne végezzen elhamarkodott szerkesztést! Bekapcsolhatja a külön oldalsó mentést is, amely figyelmen kívül hagy minden szerkesztést.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Ha a mozgás megbetegít, maradjon nyugton.</value>
@@ -717,7 +717,7 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
     <value>Ezek a képek sok tárhelyet igényelhetnek – összezsugoríthatja őket.</value>
   </data>
   <data name="Page.Tips.Space.Body" xml:space="preserve">
-    <value>A Beállítások oldalon lehetőség van a végső kép felbontásának arányos csökkentésére – ez segíthet, ha helyet szeretne spórolni. Ha a fényképet nem vágja le, a végeredmény két teljes felbontású kép, amelyet összeilleszt, hogy az egyik kettős felbontású legyen, ami azt jelenti, hogy gyakran megúszhatja a felbontás jelentős csökkenését anélkül, hogy észrevehetően befolyásolná a minőséget.</value>
+    <value>A Beállítások oldalon lehetőség van a végső kép felbontásának arányos csökkentésére – ez segíthet, ha helyet szeretne spórolni. Ha a fényképet nem vágja le, a végeredmény két teljes felbontású kép lesz, amelyeket összeillesztve kettős felbontású lesz az egyik, ami azt jelenti, hogy gyakran megúszhatja a felbontás jelentős csökkenését anélkül, hogy észrevehetően befolyásolná a minőséget.</value>
   </data>
   <data name="Page.Tips.Turn" xml:space="preserve">
     <value>Ne fordulj.</value>
@@ -729,7 +729,7 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
     <value>Adjon hozzá szegélyt és vágja ki, hogy erős sztereó ablakot hozzon létre.</value>
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Érdekes sztereó ablak effektus hozható létre, ha két dolgot teszünk: 1) bekapcsoljuk a szegélyt (a Beállítások oldalon) és 2) a keresztirányú megtekintéshez, levágjuk a képek belső széleit, amíg maga a külső szél 3D-ssé nem válik a képen (kivágás a KÜLSŐ élek, ha párhuzamosan nézi). A kulcs az, hogy a bal oldali kép jobb szélét valamivel túl kell vágni ahhoz, amit a jobb oldali kép jobb széle a jelenetnél mutat, és fordítva. A szegély hozzáadása a Beállítások oldalon kapcsolható be. Ha ez zavaró, csak vágjon le egy csomót a belső szélekről, és kezd világossá válni. A belső élek körülvágás gombja így néz ki:</value>
+    <value>Érdekes sztereó ablak effektus hozható létre, ha két dolgot teszünk: 1) bekapcsoljuk a szegélyt (a Beállítások oldalon) és 2) a keresztirányú megtekintéshez, levágjuk a képek belső széleit, amíg maga a külső szél 3D-ssé nem válik a képen (kivágás a KÜLSŐ élek, ha párhuzamosan nézi). A kulcs az, hogy a bal oldali kép jobb szélét valamivel túl kell vágni ahhoz, amit a jobb oldali kép jobb széle mutat a jelenetnél, és fordítva. A szegély hozzáadása a Beállítások oldalon be van kapcsolva. Ha ez zavaró, csak vágjon le egy csomót a belső szélekről, és kezd világossá válni. A belső élek körülvágás gombja így néz ki:</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
     <value>Lásd a kódot</value>
@@ -744,7 +744,7 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
     <value>Adjon hozzá egy problémát a GitHubon</value>
   </data>
   <data name="Button.Press" xml:space="preserve">
-    <value>Térjen vissza a kamera képernyőjére mindkét eszközön, és érintse meg a párosítás gombot az alsó sarokban</value>
+    <value>Mindkét eszközön térjen vissza a kamera képernyőjére, és érintse meg a párosítás gombot az alsó sarokban</value>
   </data>
   <data name="Button.Primary" xml:space="preserve">
     <value>Érintse meg IDE AZ ELSŐDLEGESEN</value>
@@ -797,7 +797,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>&lt; Vissza</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
-    <value>CrossView Subreddit</value>
+    <value>Cross View Subreddit</value>
   </data>
   <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
     <value>Sztereoszkópikus 3D Facebook-csoport</value>
@@ -812,7 +812,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Lásd az általam készített képeket</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>ParallelView Subreddit</value>
+    <value>Párhuzamos nézet Subreddit</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatikus igazítás</value>
@@ -902,7 +902,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Keret hozzáadása</value>
   </data>
   <data name="Settings.Border.Prompt" xml:space="preserve">
-    <value>A szegély levágását kéri, ha a rendszer betöltés közben észleli</value>
+    <value>Felszólítás a szegély levágására, ha betöltés közben észleli</value>
   </data>
   <data name="Settings.Border.Thickness" xml:space="preserve">
     <value>Szegély vastagsága (a szélesség tized százaléka)</value>
@@ -926,7 +926,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Párosítsa a gomb vízszintes elhelyezését (ha a rögzítés gomb középen van)</value>
   </data>
   <data name="Settings.Camera.PointFocus" xml:space="preserve">
-    <value>Koppintson az élességállításhoz, koppintson duplán a folyamatos élességállításhoz való visszatéréshez (vagy mentéshez vagy törléshez)</value>
+    <value>Koppintson az élességállításhoz, koppintson duplán a folyamatos élességállításhoz (vagy mentéshez vagy törléshez)</value>
   </data>
   <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
     <value>Portré rögzítő gomb elhelyezése</value>
@@ -965,7 +965,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Tekercsvezető látható</value>
   </data>
   <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
-    <value>Rögzítési pillanat extra késleltetése (ms) (csak ezen az eszközön ad plusz késleltetést a célrögzítési pillanathoz)</value>
+    <value>Rögzítési pillanat extra késleltetése (ms) (csak ezen az eszközön ad extra késleltetést a célrögzítési pillanathoz)</value>
   </data>
   <data name="Settings.Pair.Countdown" xml:space="preserve">
     <value>Rögzítés visszaszámlálás hossza (időzítő)</value>
@@ -995,7 +995,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Szerep: Elsődleges</value>
   </data>
   <data name="Settings.Pair.Sample" xml:space="preserve">
-    <value>Óraminta száma (az alacsonyabb szám csökkenti a kezdeti szinkronizáláshoz szükséges időt, de csökkentheti a szinkronizálás pontosságát)</value>
+    <value>Óraminta számlálása (az alacsonyabb szám csökkenti a kezdeti szinkronizáláshoz szükséges időt, de csökkentheti a szinkronizálás pontosságát)</value>
   </data>
   <data name="Settings.Pair.Secondary" xml:space="preserve">
     <value>Másodlagos:</value>
@@ -1088,7 +1088,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Mentse el mindegyik oldalt külön-külön (szerkesztés és szegély nélkül a könnyebb utófeldolgozás érdekében, először a bal oldali mentés)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Mentse dedikált „CrossCam_{ViewMethod}” almappákba/albumokba</value>
+    <value>Mentse a kijelölt „CrossCam {View Method}” almappákba/albumokba</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Tripla kombináció mentése (szerkesztéssel és szegéllyel)</value>
