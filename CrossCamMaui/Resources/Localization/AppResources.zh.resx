@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button.GoogleDoc" xml:space="preserve">
+    <value>Google 文档中的精彩内容</value>
+  </data>
+  <data name="Button.LearnCross" xml:space="preserve">
+    <value>学习交叉</value>
+  </data>
+  <data name="Button.LearnParallel" xml:space="preserve">
+    <value>学习并行</value>
+  </data>
+  <data name="Button.MorePictures" xml:space="preserve">
+    <value>查看更多图片</value>
+  </data>
+  <data name="Button.Review" xml:space="preserve">
+    <value>写评论</value>
+  </data>
+  <data name="Button.Share" xml:space="preserve">
+    <value>分享 CrossCam</value>
+  </data>
+  <data name="Button.Support" xml:space="preserve">
+    <value>支持开发者</value>
+  </data>
+  <data name="Button.TapCross" xml:space="preserve">
+    <value>点击此处选择十字</value>
+  </data>
+  <data name="Button.TapParallel" xml:space="preserve">
+    <value>点击此处选择并行</value>
+  </data>
+  <data name="Footer.Span1" xml:space="preserve">
+    <value>发现错误？有一个问题？只需发送电子邮件</value>
+  </data>
+  <data name="Footer.Span3" xml:space="preserve">
+    <value>！我喜欢与用户交谈，这是与我沟通的最快方式。</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) 开始浮雕查看第一张图片及其旁边出现的预览。</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) 开始使用 Cardboard 查看第一张图片及其旁边出现的预览。</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) 开始交叉查看第一张图片及其旁边出现的预览。</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) 开始并行查看第一张图片及其旁边出现的预览。</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>附加教程：</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>查看上面的两张图片时，请小心地交叉眼睛。当您斜视时，事物会变得模糊且透明，您将开始看到 4 张图片而不是 2 张（2 对）。你越用力交叉眼睛，这对图片就会移动得越远——它看起来有点像这样：</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>小心地松开双眼，使每对内侧的图片开始重叠。它会开始看起来只有 3 张图片而不是 4 张。它仍然是模糊且透明的，看起来像这样：</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>一旦你完成了中间重叠的工作，你只需要放松你的眼睛，让它们聚焦在图片上。此时，您将在中间看到一张清晰的 3D 图片，每一侧都有一张漂浮的透明图片，如下所示（除了中间是 3D 之外）：</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>如果您的眼睛有困难，您也可以尝试将手指放在眼睛和屏幕之间，盯着手指看。您应该会看到图片开始在手指后面分离和重叠。</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>交叉观察</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>如果您想再次看到此内容，请点击相机屏幕左上角的汉堡包（三行）图标，然后点击“帮助”。
+
+要在 CrossCam 中观看 3D（称为“立体图”），您可以使用红色/青色 3D 眼镜、Google Cardboard 查看器，也可以仅使用眼睛和屏幕进行“自由观看”。免费观看的方式有两种，CrossCam 可以帮助您学习这两种方式。您需要告诉 CrossCam 您将如何查看图片，否则它将无法正常工作。不用担心，您随时可以在“设置”中再次更改此设置。
+
+如果您能够轻松地交叉眼睛，则应先尝试交叉方法，否则应尝试平行方法。如果您习惯了 Magic Eye™ 书籍，您可能已经能够执行并行方法，但您也可能能够执行交叉方法。点击下面的方法来了解它，并确保通过按相应的“选择”按钮告诉 CrossCam 哪种方法适合您。
+
+如果您更愿意使用 3D 眼镜或 Cardboard 查看器，您可以在“设置”页面上将 CrossCam 设置为使用这些眼镜。</value>
+  </data>
+  <data name="Page.Technique.CrossLink1" xml:space="preserve">
+    <value>不错的文字教程</value>
+  </data>
+  <data name="Page.Technique.CrossLink2" xml:space="preserve">
+    <value>又一个不错的文字教程</value>
+  </data>
+  <data name="Page.Technique.CrossLink3" xml:space="preserve">
+    <value>YouTube 简短教程</value>
+  </data>
+  <data name="Page.Technique.CrossLink4" xml:space="preserve">
+    <value>一个冗长、奇怪但很有帮助的 YouTube 教程</value>
+  </data>
+  <data name="Page.Technique.CrossLink5" xml:space="preserve">
+    <value>另一个 YouTube 教程</value>
+  </data>
+  <data name="Page.Technique.CrossLink6" xml:space="preserve">
+    <value>带有教程的双摄像头项目</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>如果上面的图片不适合您的屏幕，请将手机转为横向 - CrossCam 正在尝试将上面的一对图片调整为最简单的尺寸。您并不总是需要在风景中使用 CrossCam，但尺寸完美的图像可以使学习该技术变得更容易。</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>放松你的眼睛，“浏览”上面的两张图片，就像你的眼睛指向图片一样走神。您应该开始看到 3 张图片，中间有一张 3D 图片，有点像这样：</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>如果您开始看到 4 张图片，则说明您已经走得太远了。如果您再次发现自己处于这种情况，请尝试稍微移动一下您的眼睛。放松得太过分会看起来有点像这样：</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>如果您遇到问题，请尝试将屏幕放在您的脸上，并将这对照片放在您的眼前。放松并“透过”屏幕看，然后慢慢地将屏幕从脸上拉开，同时保持眼睛放松。最终图像应该“咔哒”一声进入焦点。</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>如果您仍然看到四个图像，请增加“设置”页面上的“最大平行视图图像宽度”。</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>平行观看</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>我制作的图片可供您练习</value>
+  </data>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>接触</value>
+  </data>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>常问问题</value>
+  </data>
+  <data name="Title.Help" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>如何使用 CrossCam</value>
+  </data>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>3D观看技术</value>
+  </data>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>尖端</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>现在不要给我发电子邮件</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>现在给我发电子邮件</value>
+  </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>不</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>好的</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>是的，清楚</value>
+  </data>
+  <data name="Page.Camera.Aligning" xml:space="preserve">
+    <value>正在对齐...</value>
+  </data>
+  <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
+    <value>设备不支持自动对齐 - 在“设置”中关闭。</value>
+  </data>
+  <data name="Page.Camera.AlignmentFailed" xml:space="preserve">
+    <value>对齐失败。</value>
+  </data>
+  <data name="Page.Camera.BorderAsk" xml:space="preserve">
+    <value>已检测到边界。去掉边框？</value>
+  </data>
+  <data name="Page.Camera.BorderDetected" xml:space="preserve">
+    <value>检测到边界</value>
+  </data>
+  <data name="Page.Camera.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Page.Camera.ChooseAction" xml:space="preserve">
+    <value>选择一个动作：</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
+    <value>找不到目录</value>
+  </data>
+  <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
+    <value>找不到保存目的地。请在设置页面选择另一个。</value>
+  </data>
+  <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
+    <value>错误发生之前您做了什么？请描述哪怕是很小的事情。\n\n\n\n\n\n错误发生后 CrossCam 还能工作吗？如果不是，它是如何损坏的？\n\n\n\n\n\n这种情况会重复发生吗？\n\n\n\n\n\n你能强制按命令发生错误吗？如果是的话，怎么办？\n\n\n\n\n\n</value>
+  </data>
+  <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
+    <value>在纸板模式下翻转为横向。</value>
+  </data>
+  <data name="Page.Camera.FlipLarger" xml:space="preserve">
+    <value>（翻转到横向以获得更大的视图）</value>
+  </data>
+  <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
+    <value>用于浮雕</value>
+  </data>
+  <data name="Page.Camera.ForCardboard" xml:space="preserve">
+    <value>用于纸板</value>
+  </data>
+  <data name="Page.Camera.ForCross" xml:space="preserve">
+    <value>用于交叉</value>
+  </data>
+  <data name="Page.Camera.ForParallel" xml:space="preserve">
+    <value>对于并行</value>
+  </data>
+  <data name="Page.Camera.GoPickRole" xml:space="preserve">
+    <value>在尝试配对之前，请转至配对页面（通过“设置”页面）并为此设备选择配对角色。</value>
+  </data>
+  <data name="Page.Camera.InvalidImage" xml:space="preserve">
+    <value>图片无效</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>保持</value>
+  </data>
+  <data name="Page.Camera.LoadFullImage" xml:space="preserve">
+    <value>加载完整立体图像</value>
+  </data>
+  <data name="Page.Camera.Loading" xml:space="preserve">
+    <value>加载中...</value>
+  </data>
+  <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
+    <value>负载单面</value>
+  </data>
+  <data name="Page.Camera.ManualCorrections" xml:space="preserve">
+    <value>也请考虑手动更正。</value>
+  </data>
+  <data name="Page.Camera.MirrorOnLeft" xml:space="preserve">
+    <value>左侧镜子</value>
+  </data>
+  <data name="Page.Camera.MirrorOnRight" xml:space="preserve">
+    <value>右侧镜子</value>
+  </data>
+  <data name="Page.Camera.MoveLeft" xml:space="preserve">
+    <value>向左移动</value>
+  </data>
+  <data name="Page.Camera.MoveRight" xml:space="preserve">
+    <value>向右移</value>
+  </data>
+  <data name="Page.Camera.NoSaveModes" xml:space="preserve">
+    <value>没有激活保存模式</value>
+  </data>
+  <data name="Page.Camera.NoSaveModesExplain" xml:space="preserve">
+    <value>当前未打开任何保存模式。在“设置”页面上打开保存模式。</value>
+  </data>
+  <data name="Page.Camera.Oops" xml:space="preserve">
+    <value>哎呀</value>
+  </data>
+  <data name="Page.Camera.OrRotate" xml:space="preserve">
+    <value>（或旋转）</value>
+  </data>
+  <data name="Page.Camera.OrSwipe" xml:space="preserve">
+    <value>（或滑动）</value>
+  </data>
+  <data name="Page.Camera.PairRoleNotSelected" xml:space="preserve">
+    <value>未选择配对角色</value>
+  </data>
+  <data name="Page.Camera.PinchOrDrag" xml:space="preserve">
+    <value>捏或拖动来探索！</value>
+  </data>
+  <data name="Page.Camera.PleaseSelectValid" xml:space="preserve">
+    <value>请选择 Jpeg、Png 或 Webp 图像。您选择的图像是</value>
+  </data>
+  <data name="Page.Camera.ReallyClear" xml:space="preserve">
+    <value>真的清楚吗？</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>消除</value>
+  </data>
+  <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
+    <value>保存到自定义文件夹</value>
+  </data>
+  <data name="Page.Camera.SavedToExternal" xml:space="preserve">
+    <value>保存到外部</value>
+  </data>
+  <data name="Page.Camera.SavedToPhotos" xml:space="preserve">
+    <value>保存到照片</value>
+  </data>
+  <data name="Page.Camera.SaveFailed" xml:space="preserve">
+    <value>保存失败。 :(</value>
+  </data>
+  <data name="Page.Camera.Saving" xml:space="preserve">
+    <value>保存...</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
+    <value>左边中学</value>
+  </data>
+  <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
+    <value>右侧中学</value>
+  </data>
+  <data name="Page.Camera.SelectedInvalid" xml:space="preserve">
+    <value>所选图像无效。</value>
+  </data>
+  <data name="Page.Camera.SorryError" xml:space="preserve">
+    <value>抱歉，CrossCam 出错了。错误报告已自动发送。您可能根本没有注意到任何问题，但如果您注意到，请尝试重新启动应用程序。如果这种情况持续发生，请给我发电子邮件并告诉我有关情况。 （转到“设置”页面以停止这些弹出窗口。）</value>
+  </data>
+  <data name="Page.Camera.Steady" xml:space="preserve">
+    <value>稳定的...</value>
+  </data>
+  <data name="Page.Camera.SureClear" xml:space="preserve">
+    <value>您确定要清除照片并重新开始吗？</value>
+  </data>
+  <data name="Page.Camera.Syncing" xml:space="preserve">
+    <value>正在同步...</value>
+  </data>
+  <data name="Page.Camera.Transmitting" xml:space="preserve">
+    <value>正在传输...
+（保持设备解锁）</value>
+  </data>
+  <data name="Page.Camera.VR" xml:space="preserve">
+    <value>虚拟现实</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>视场校正</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>不同的设备型号可以有不同的视野。 CrossCam 将在您完成第一次捕获后帮助您​​纠正此问题。取景并捕捉画面顶部和底部附近具有独特点的内容，确保这些点在两台设备上都可见。</value>
+  </data>
+  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
+    <value>不错的文字教程</value>
+  </data>
+  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
+    <value>另一个不错的文字教程</value>
+  </data>
+  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
+    <value>另一个不错的文字教程</value>
+  </data>
+  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
+    <value>神奇法兰克福教程</value>
+  </data>
+  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
+    <value>关于魔眼的精彩视频</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>如果您仍然遇到问题，请尝试将手机带到黑暗的房间，以便您的眼睛唯一能看清并聚焦的就是图像。
+
+您可以尝试的另一件事是使用卫生纸管或您的手来制作它，这样每只眼睛只能看到它应该看到的图像的一侧。
+ • 对于交叉视图：将一根管子靠在鼻梁上（两眼之间的中心），同时将其指向您前方图像的中心。慢慢地将管子移向屏幕，同时尝试用双眼向下看管子。当您使用管到达正确位置时，图像应该卡入到位。集中精力观察管子远端的内部可能会有所帮助。如果找不到正确的位置，请尝试使用较大的图像或较小的管。
+ • 对于平行视图：将一根管子放在每只眼睛前面，但将它们指向侧面，这样您就几乎看不到任何东西。同时慢慢地将管子向内转动，这样您就可以开始看到更多的图像。当您可以看到大部分图像（每只眼睛几乎一半）时，尝试放松眼睛并将两半放在一起。使用更大或更小的图像可能会有所帮助。
+
+您可以做一个简单的练习来练习交叉或平行观察的融合。拿一支记号笔，在每个缩略图（或一对冰棒棒或压舌板）上画出笑脸的一部分。例如，在一侧画一只眼睛和一张嘴，在另一侧画一只眼睛和鼻子。然后，您可以将它们举在您面前，练习将两个图像融合在一起以完成笑脸。
+
+我个人更喜欢交叉而不是并行，因为图像可能更大，但这两种方法都有效。如果您想尝试更大的并行图像，可以在“设置”页面上控制大小。
+
+有时在做的时候很难感觉自己是在做交叉法还是平行法。你可以让别人在你做的时候看着你的眼睛，或者你可以看下面的图片作为测试：</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>浮雕</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>纸板</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>叉</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>灰度浮雕</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>平行线</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>四人组</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>分离</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>单身的</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>三倍</value>
+  </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>要纠正视野差异，请缩放并滑动照片，使两张照片之间的独特点对齐。您可以拖动白线来帮助您直观地看到对齐情况。此更正将应用于未来的预览。它将被保存，但您可以在“设置”页面上重置它。如果您使用相同的设备，只需保存而不进行调整。</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>视场校正</value>
+  </data>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>关键点</value>
+  </data>
+  <data name="Page.Camera.Warped" xml:space="preserve">
+    <value>翘曲</value>
+  </data>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam 旨在帮助您制作 3D 照片。这些照片是 3D，就像 VR 或 3D 电影一样，但您不需要任何特殊设备或眼镜 - 只需您的手机（但如果您有一副红/青色 3D 眼镜或 Google Cardboard 查看器，您可以使用这些也可使用 CrossCam）。仅使用手机和眼睛的“自由观看”技术需要一些练习才能学会。在我告诉您如何使用 CrossCam 之前，您是否想先了解更多有关查看技术的信息？</value>
+  </data>
+  <data name="Page.Camera.Welcome" xml:space="preserve">
+    <value>欢迎来到十字相机！</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>跳至路线</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>观看技巧</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>如果您想再次看到此内容，请点击相机屏幕左上角的汉堡包（三行）图标，然后点击“帮助”。
+
+
+1) 构图并拍摄第一张照片。</value>
+  </data>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) 将手机稳定地放在您面前，然后按照 CrossCam 指示的方向慢慢向侧面移动。不要移动太远——距离目标每英尺一英寸或更少。另外，根本不要转动，只是向侧面滑动，或者甚至只是倾斜。
+
+4) 将第一张照片与第二张照片的预览对齐，当您喜欢所看到的效果时拍摄第二张照片。
+
+5）CrossCam会在您拍摄照片后自动对齐您的照片，但这并不完美，如果您不喜欢它们的对齐方式，您可以通过点击小机器人图标来关闭自动对齐。 CrossCam 还具有大量手动编辑选项，您可以通过点击铅笔图标来访问。
+
+6) 当您准备好保存时，点击复选标记。
+
+
+您可以做的其他事情：
+ • 点击一次可对焦于一个点，点击两次可切换回连续自动对焦。
+ • 点击相机屏幕右上角的齿轮图标可打开“设置”页面。它充满了有趣的东西。
+ • 点击相机屏幕左上角的汉堡包图标即可进入一个不错的“提示”页面，它可以帮助您使照片更精彩。
+ • 如果您希望向另一个方向移动第二次拍摄或想要交换两侧，只需滑动即可。
+ • 点击底部的小文件夹图标可加载侧面图像或加载完整的立体图像。</value>
+  </data>
+  <data name="Page.Faq.Alignment" xml:space="preserve">
+    <value>自动对齐是如何工作的？</value>
+  </data>
+  <data name="Page.Faq.Alignment.Body" xml:space="preserve">
+    <value>自动对齐尝试尽可能对齐图像对，但它并不完美。计算机视觉在某些方面比人眼更好，但在其他方面也差很多。它看到的世界与我们看到的世界非常不同，但它也可以以几种不同的方式看到。 CrossCam 中的两种主要方式是通过增强相关系数 (ECC) 和使用关键点。
+
+ECC 对齐的本质是，当两侧重叠时，尝试确保亮色块与亮色块重叠，暗色块与暗色块重叠。 ECC 对齐附带一个置信度分数，旨在帮助确定对齐是否有效。 CrossCam 设置为在置信度太低时拒绝生成的对齐，但您可以在“设置”页面上配置置信度通过/失败阈值。
+
+关键点对齐寻找感兴趣的点，例如角、边缘、点和高对比度，并尝试将它们在两侧之间匹配。一旦点匹配起来，CrossCam 就可以使用各种算法来尝试扭曲侧面，以便一侧的关键点尽可能接近另一侧的相应关键点。
+
+CrossCam 被编程为首先使用关键点对齐，但当关键点对齐失败或使用单次镜像分割方法完成捕获时，它将回退到 ECC 对齐。您还可以在“设置”页面上将自动对齐配置为始终使用关键点对齐或始终使用 ECC 对齐。
+
+CrossCam 将在小机器人图标下方的相机屏幕上显示对齐结果。如果它使用 ECC 对齐，它将显示置信百分比。如果它使用关键点对齐，它将显示“KP”。如果两种对齐方法均失败，则会显示“F”。如果您不喜欢对齐的结果，可以点击小机器人图标来删除对齐。</value>
+  </data>
+  <data name="Page.Faq.Bad" xml:space="preserve">
+    <value>这对我的眼睛有害吗？</value>
+  </data>
+  <data name="Page.Faq.Bad.Body1" xml:space="preserve">
+    <value>我不知道，但我不这么认为。不过，如果感觉不好，就休息一下。经过练习，不适感通常会减轻。由于一种称为聚散调节冲突的效应，任何观看方法都可能引起不适。这是</value>
+  </data>
+  <data name="Page.Faq.Bad.Body2" xml:space="preserve">
+    <value>关于聚散调节冲突的维基百科链接。</value>
+  </data>
+  <data name="Page.Faq.Bad.Body3" xml:space="preserve">
+    <value>如果您使用斗鸡眼方法，这种感觉也可能是由于您的眼睛不习惯指向，就好像它们长时间注视如此近的物体一样。交叉观看时，您的眼睛会聚在眼睛和屏幕之间大约中间的一点上。如果长时间看近处的东西也会让您感到不适，我们有我们的解释。
+
+我对此的看法是，你的眼睛不会做任何超出其日常能力的事情，但你结合了两种通常不以这种方式使用的不同能力。您将镜片聚焦在通常可以舒适聚焦的某个位置上，并将您的眼睛指向通常可以舒适地指向的某个位置，但镜片聚焦的位置以及您的眼睛会聚的位置只是不是同一点。只要您的视力尚未发育，我不认为这对您有什么坏处。</value>
+  </data>
+  <data name="Page.Faq.Cardboard" xml:space="preserve">
+    <value>如何将 CrossCam 与 Google Cardboard 结合使用？</value>
+  </data>
+  <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
+    <value>如果您的查看器有一个按下屏幕中心的按钮，您可以使用它来使用 Cardboard 进行捕获。您的观看者还需要有一个孔，以便手机摄像头能够看到。
+
+要使用 Cardboard 拍摄照片，请将预览查看方法（在“设置”页面上）切换为 Cardboard，然后返回相机页面并将手机放在查看器中。按下按钮进行捕捉，当双方都捕捉完毕后，再次按下按钮进行保存。以 Cardboard 模式保存只是为了让您将图像加载回 CrossCam 以便稍后查看，而不是通过查看器在照片应用程序中查看它们。
+
+您还可以使用您想要的任何其他方法进行捕获，然后将预览查看方法切换为 Cardboard 并将手机放入查看器中。
+
+有许多不同的观看者具有不同的属性。您可能需要更改纸板间隔距离（在“设置”页面上）以使您的体验更舒适。您可能还需要首先确保自己擅长捕捉高质量的立体图，然后再将它们制作得巨大而身临其境。</value>
+  </data>
+  <data name="Page.Faq.How" xml:space="preserve">
+    <value>这是如何运作的？</value>
+  </data>
+  <data name="Page.Faq.How.Body1" xml:space="preserve">
+    <value>CrossCam 使用的 3D 效果是一门经过充分研究的学科，称为立体视觉，而交叉眼睛（或放松眼睛）查看两侧的方法称为自由观看。当我们环顾世界时，我们每只眼睛都从不同的角度看事物。在立体视觉中，我们所做的就是向每只眼睛呈现一个（人工）视角，而我们的大脑只需完成其余的工作。有很多不同的方法可以让每只眼睛看到不同的图像。这是</value>
+  </data>
+  <data name="Page.Faq.How.Body2" xml:space="preserve">
+    <value>关于立体视觉的维基百科链接</value>
+  </data>
+  <data name="Page.Faq.How.Body3" xml:space="preserve">
+    <value>使用 CrossCam 制作的 3D 图片称为立体图。 Magic Eye™ 书籍包含所谓的自动立体图。</value>
+  </data>
+  <data name="Page.Faq.Into" xml:space="preserve">
+    <value>您是如何进入立体视觉领域的？</value>
+  </data>
+  <data name="Page.Faq.Into.Body1" xml:space="preserve">
+    <value>当我获得物理学位时，我有机会尝试使用激光创建自己的全息图。我制作的全息图类型是 3D，因为它们使用衍射光栅对从玻璃板表面反射的光造成相消干涉，从而导致反射图像在不同地方看起来不同。当我们的每只眼睛看到看起来像是从不同角度（如果差异不太大）的图像时，我们的大脑会将其视为深度。</value>
+  </data>
+  <data name="Page.Faq.Into.Body2" xml:space="preserve">
+    <value>我很早就意识到立体感知的原理，但当时我也参加了一些编程课程，所以我决定尝试制作一个简单的用于立体 3D 绘图的计算机程序。这项努力后来成为了 StereoSketcher。最初的版本是用 Java 编写的，但我用 Javascript 和 SVG 重写了它，现在它出现在网络上</value>
+  </data>
+  <data name="Page.Faq.Into.Body3" xml:space="preserve">
+    <value>在这个链接。</value>
+  </data>
+  <data name="Page.Faq.Into.Body4" xml:space="preserve">
+    <value>无论如何，它并不流行，而且除了我之外的任何人都可能不容易使用，但它确实有效。在使用 StereoSketcher 时，我尝试了立体视觉的原理，并着迷于使用一些简单的规则就可以产生如此身临其境且引人入胜的体验。</value>
+  </data>
+  <data name="Page.Faq.Inverted" xml:space="preserve">
+    <value>为什么 3D 看起来不正确或者为什么 3D 看起来是倒置的？</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
+    <value>当使用交叉或平行方法自由观看时，重要的是使用与创建它们相同的方法来观看图片。否则，您的右眼将看到左眼的视角，反之亦然。这使得图像的深度反转，因为视差的方向已被交换。
+
+视差意味着，从右眼的角度来看，当物体较远时，它们看起来比从左眼看时较近的物体更靠右。用句子的形式描述时会让人困惑，但演示时却非常直观。
+
+为了进行演示，请将一根手指举在您面前大约一臂的距离，然后用另一只手将另一根手指放在第一根手指和您的脸之间的中间位置。如果您交替闭上每只眼睛并注意手指的位置，您会发现每只眼睛都在不同的位置看到它们。因此，如果每只眼睛都以与预期相反的方式看到该运动，那么深度就会反转。
+
+人们很容易意外地使用错误的观看方法，因为事实证明，大多数人很难仅通过感觉或观看由此产生的令人困惑的世界重影来判断他们是交叉还是放松眼睛。相反，最好让其他人看看你的眼睛在做什么，或者尝试这个测试图像：</value>
+  </data>
+  <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
+    <value>许多人已经习惯于观看 Magic Eye™ 书籍，这些书籍旨在使用平行视图方法进行观看。如果你交叉查看它们，那么原本应该从页面上弹出的坚固 3D 对象看起来就像是洞。这两种方法都可以让您看到“某些东西”，但如果您无法分辨它是什么，那么您可能正在交叉查看它们。</value>
+  </data>
+  <data name="Page.Faq.Mirror" xml:space="preserve">
+    <value>如何进行“单镜镜像”方法？</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
+    <value>使用镜子拍摄方法将画面分成两半并进行所需的转换，这样您就可以使用一部手机和常规手持镜同时拍摄两侧。要在捕捉时使用镜像方法，请在“设置”页面上打开镜像模式开关（点击齿轮图标即可到达）。打开镜子模式后，CrossCam 会告诉您将镜子放在哪一侧。将镜子放在那一侧，然后注意手机、镜子和拍摄对象之间的对齐情况。只要有耐心，您就可以将它们全部排列起来，以便镜子显示其中一侧的正确视角。由于使用镜像方法会将图像垂直分成两半，因此通常最好使用镜像方法拍摄风景。
+
+此方法还适用于大而干净的窗户以及静止的湖泊或水坑中的反射（当手机锁定为纵向并侧向翻转时）。</value>
+  </data>
+  <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
+    <value>为了使用镜像方法，需要做出一些妥协/编辑。这些都可以在 CrossCam 中手动完成，但自动对齐也会尝试为您完成这些操作：
+ • 因为反射视图比正常视图传播的距离更长，所以镜像侧需要稍微放大。
+ • 当使用镜像方法时，您可能最终会内倾，而不是保持透视平行 - 这可能会导致透视缩短看起来像是糟糕的垂直对齐。要消除这种情况，可以进行梯形校正，这意味着垂直缩小每个图像的一侧。
+ • 前倾也会使立体窗口向您移动。您可以撤消该操作并通过裁剪侧面将其放置在您想要的位置。
+ • 镜子可能不会完全覆盖一侧的视图，因此可能需要进行一些裁剪以去除未反射的部分。
+
+最好的镜子是薄玻璃。一方面，它们很轻，因此更容易长时间握持。另一件重要的事情是，当使用镜子时，您可能会将镜子瞄准侧面，而不是像通常使用镜子那样直视镜子。当这样定向时，带有厚玻璃的镜子可能会有些模糊。玻璃越薄，这种模糊现象就越不明显。这类镜子在其他方面也可能质量较低，因此找到一个良好的平衡点很重要。
+
+使用镜像捕捉时还必须接受其他一些妥协，这些妥协无法在 CrossCam 的编辑中修复：
+ • 由于两侧的视野移动距离略有不同，因此两侧所需的焦距也会略有不同，因此一侧总是会稍微模糊。根据到拍摄对象的距离和镜头的景深，这种效果或多或少会明显。
+ • 没有镜子真正100% 有效，因此使用镜子的一侧可能会稍微暗一些。这会因镜子的质量而异。</value>
+  </data>
+  <data name="Page.Faq.Moving" xml:space="preserve">
+    <value>我的拍摄对象是移动的，如何拍摄它的 3D 照片？</value>
+  </data>
+  <data name="Page.Faq.Moving.Body" xml:space="preserve">
+    <value>CrossCam 允许您使用两种方法同时捕捉两个视角。一种方法使用两部手机，一种方法使用镜子。
+
+要使用两部手机设置，请查看“配对设置”页面，您可以从“设置”页面访问该页面（点击齿轮图标）。
+
+要使用镜像方法，请查看有关它的其他常见问题解答。</value>
+  </data>
+  <data name="Page.Faq.Test" xml:space="preserve">
+    <value>如何测试 CrossCam 的预发布版本？</value>
+  </data>
+  <data name="Page.Faq.Test.Body" xml:space="preserve">
+    <value>查看这个 Reddit 帖子</value>
+  </data>
+  <data name="Page.Faq.Why" xml:space="preserve">
+    <value>你为什么制作 CrossCam？</value>
+  </data>
+  <data name="Page.Faq.Why.Body" xml:space="preserve">
+    <value>当我开始对立体视觉产生兴趣时，我碰巧去了一趟黄石公园。当我在那里时，我意识到尝试使用 3D 相机移动应用程序以 3D 形式捕捉那里的事物可能会很有趣。我对现有的选择感到非常失望。我发现它们都要求你拍摄两次，然后再看看它们是否有用。它们通常不是，因为我必须反复对我的间隔距离以及拍摄对象的质量进行完整的猜测。
+
+在接下来的几周里，我内心的挫败感让我想到，只需在第一个捕获的同时提供第二个捕获的实时预览。我已经有了移动开发的背景，所以只需投入时间即可。 CrossCam 对我来说非常棒，可以用来保存我自己的记忆，我也很高兴与您分享。</value>
+  </data>
+  <data name="Page.Faq.Wiggle" xml:space="preserve">
+    <value>什么是扭动图？</value>
+  </data>
+  <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
+    <value>摆动图是一种不依赖双眼视觉来查看立体图的方法。它们通常是在两个视角之间来回翻转的 gif，在同一位置完整地显示每个视角。 CrossCam 目前不支持制作它们，但如果您真的对它们感兴趣，请给我发电子邮件，我会制作。</value>
+  </data>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>注意水平线，但您也可以之后对齐。</value>
+  </data>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>如果您发现拍照时无法使上下引导线同时对齐，则您可能朝某个方向移动，而不仅仅是向侧面移动。尝试在拍照之前解决这个问题，但事后对齐会很有帮助。</value>
+  </data>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>您可以关闭自动对齐。</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>如果您不喜欢自动对齐的结果，只需在“设置”页面上将其关闭或点击小机器人图标即可恢复原始拍摄的照片。</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>甜甜圈指南可以帮助您的窗口。</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>您可以打开“设置”页面上的实验性指南甜甜圈，它可以帮助您保留立体窗口，同时最大化可用宽度。通过左右旋转，甜甜圈上的深度将相对于场景的其余部分发生变化 - 设置甜甜圈的深度，使其位于场景中最远的点之上或之后。请小心，在较小的场景中使用它可能会让事情变得痛苦（请参阅上面的梯形提示）。</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>如果您前束，则需要进行梯形校正。</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+    <value>如果每次拍摄时都向内转动，那么进行梯形校正会非常有帮助。通常，您会想要缩小照片的内边缘，然后裁剪顶部和底部的一些以使其平整。您可以通过点击如下所示的按钮进入梯形校正编辑菜单：</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
+    <value>向内转动称为前束。它可能会导致透视缩短效果，从而难以融合图像的角点。透视效果在现实生活中始终存在，因为平行线在远离您的距离时似乎会聚，但人为的视角会使它变得奇怪。</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>你可以倾斜一下。</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>有时，无需完全向左或向右移动双脚来拍照，只需将双脚分开站立并向各个方向倾斜会更容易，但请注意保持手机水平和相同高度。仅倾斜而不是移动可以帮助您避免移动得太远，并且可以更轻松地保持目标正确。</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>对齐线可以移动。</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>如果需要，您可以拖动对齐线。这在编辑过程中对齐图片时特别有用。</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>您可以在 CrossCam 中打开旧照片。</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>您可以通过点击相机页面底部的文件夹图标来加载以前拍摄的照片，但如果您正在处理大量照片，您也可以直接从照片应用程序将它们共享到 CrossCam，该应用程序可能会跟踪您的照片。更好地放置在您的照片中。</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>与他人在一起时打开快速模式。</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>如果您正在与其他人一起探索，最好进入快速模式，关闭自动对齐和边框，然后在捕获后立即保存而不进行任何编辑。您可以随时加载、自动对齐和编辑图片。这样，您的同伴就不必等待您当场完善您的照片，但您仍然可以确信您想要的深度确实存在。只是要小心，不要在第一次保存之前进行任何仓促的编辑！您还可以打开单独的侧面保存，这将忽略您所做的任何编辑。</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>如果这个动作让你感到不适，请保持不动。</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>如果所有的移动都让您感到恶心或难以以 3D 方式观看，那么在稍微移动一点之前，不要开始尝试以 3D 方式观看。然后将图片相互比较并使用水平线对齐图片而不进行 3D 查看，然后在对齐并保持静止后开始 3D 查看。</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>这些图片可能会占用大量存储空间 - 您可以缩小它们。</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>“设置”页面有一个选项可以按比例降低最终图片的分辨率 - 如果您想节省空间，这会有所帮助。如果您的照片未经过裁剪，最终结果是两张全分辨率图片连接在一起，形成双分辨率图片，这意味着您通常可以大幅降低分辨率，而不会明显影响质量。</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>别转身。</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>当您移动时，请尽量不要向任何方向旋转手机，包括当您移动到一侧时自然倾向于转向拍摄对象。 （有时）需要进行一些轮换，但请尽量减少轮换。想象一下，手机安装在笔直的水平导轨上并且只能滑动。向内转动会导致透视效果，使角难以融合。</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>添加边框和裁剪以制作强大的立体窗口。</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>可以通过做两件事来创建有趣的立体窗口效果：1）打开边框（在“设置”页面上），2）进行交叉查看，裁剪图像的内边缘，直到外边缘本身在图片中变成 3D（裁剪）如果您平行观看，则为外侧边缘）。关键是将左图的右边缘裁剪得稍微超过右图的右边缘显示的场景，反之亦然。添加边框在“设置”页面上切换。如果这令人困惑，只需从内边缘剪掉一堆，它就会开始变得清晰。内边缘的裁剪按钮如下所示：</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>查看代码</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>关于开发商</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>给我发邮件</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>在 GitHub 上添加问题</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>返回两台设备上的相机屏幕，然后点击下角的配对按钮</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>在主要位置点击这里</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>隐私政策</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>点击辅助按钮上的此处</value>
+  </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>测试预发布版本</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>确保两台设备均启用 Wi-Fi（但不需要连接到任何设备）</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>如果您有两台安装了 CrossCam 的设备，您可以将它们连接起来，以便从两个角度同时拍摄照片。同时拍摄两张照片可以得到最好的立体图。
+
+请注意，此功能仍处于实验阶段，可能存在问题。它可能不会一直完美工作，并且可能会耗尽您的电池。另请注意，此时设备必须是同一平台才能连接（均为 Android 或均为 iOS）。
+
+仅使用单个设备和 CrossCam 获得“完美”同步的一种方法是使用“单次镜像”方法。您可以在“设置”页面上将其打开，并且可以在“常见问题解答”页面上阅读相关信息。
+
+在两个设备可以一起使用之前，必须分配它们的角色。主设备将显示两个预览、触发捕获并保留/保存最终捕获。要分配角色，请将两台设备导航到此页面，然后按照以下步骤操作：</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>如果您遇到问题，请注意：
+ • 开始配对过程后，可以随时再次点击配对按钮来停止配对或断开连接。
+ • 停止两台设备上的配对并同时重新启动可能会有所帮助。
+ • 如果 Wi-Fi 或数据网络出现故障，断开与它们的连接可能会有所帮助。
+ • 每台相机都不同。这些差异可能包括视场角、焦点、曝光和白平衡行为、时间等。即使两部相同型号的手机的行为也会略有不同。我更喜欢使用一对一模一样的旧手机（就我而言，是一对 iPhone 6）。
+ • CrossCam 是软件，而不是硬件，因此拍摄照片可能会稍微不同步，具体取决于触发拍摄时处理器和内存正在执行的其他操作。因此，同步有时可能并不完美，但通常应该非常接近。</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>要稍后再次连接，请确保您已启用 Wi-Fi，然后只需点击两台设备主屏幕上的连接按钮即可。</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam 需要本地网络访问权限。 CrossCam 实际上并不使用本地网络，但 iOS 要求 CrossCam 获得此权限才能使用 Wi-Fi 天线扫描设备。 CrossCam 将请求一次此权限 - 如果权限被拒绝，您将必须自己去设置应用程序中打开开关。</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam 将根据需要请求权限并打开组件电源，以便连接您的设备。请注意：CrossCam 需要位置权限并在主设备上打开位置服务才能连接到辅助设备。这只是 Android 的要求，完全超出我的控制范围。 CrossCam 实际上不会以任何方式使用您的位置，但由于搜索（和查找）附近设备的行为理论上可用于粗略定位您，因此 CrossCam 需要获得访问您的位置的权限。</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>关于权限的注意事项：</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>配对</value>
+  </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; 返回</value>
+  </data>
+  <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
+    <value>交叉视图 Reddit 子版块</value>
+  </data>
+  <data name="Page.MorePictures.FacebookGroup" xml:space="preserve">
+    <value>立体 3D Facebook 群组</value>
+  </data>
+  <data name="Page.MorePictures.GoogleDoc" xml:space="preserve">
+    <value>Google 文档中的精彩内容</value>
+  </data>
+  <data name="Page.MorePictures.Instagram" xml:space="preserve">
+    <value>Instagram 立体标签</value>
+  </data>
+  <data name="Page.MorePictures.Mine" xml:space="preserve">
+    <value>查看我拍摄的照片</value>
+  </data>
+  <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
+    <value>平行视图子版块</value>
+  </data>
+  <data name="Page.Settings.Alignment" xml:space="preserve">
+    <value>自动对齐</value>
+  </data>
+  <data name="Page.Settings.Analytics" xml:space="preserve">
+    <value>分享匿名使用情况和错误数据以帮助改进 CrossCam</value>
+  </data>
+  <data name="Page.Settings.Border" xml:space="preserve">
+    <value>边界</value>
+  </data>
+  <data name="Page.Settings.Camera" xml:space="preserve">
+    <value>相机</value>
+  </data>
+  <data name="Page.Settings.Defaults" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="Page.Settings.Editing" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Page.Settings.ErrorEmail" xml:space="preserve">
+    <value>出现错误时提示发送邮件</value>
+  </data>
+  <data name="Page.Settings.Guides" xml:space="preserve">
+    <value>捕捉指南</value>
+  </data>
+  <data name="Page.Settings.Pairing" xml:space="preserve">
+    <value>配对</value>
+  </data>
+  <data name="Page.Settings.Preview" xml:space="preserve">
+    <value>预览观看方式</value>
+  </data>
+  <data name="Page.Settings.Saving" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Page.TipMe.1" xml:space="preserve">
+    <value>CrossCam 可免费使用、无广告、开源，不会收集您的个人信息，并让您可以完全使用所有功能。我喜欢在 CrossCam 上工作，但这需要花费大量的时间和精力。除了人们可能决定给我的小费外，我根本没有从 CrossCam 中赚到钱。</value>
+  </data>
+  <data name="Page.TipMe.2" xml:space="preserve">
+    <value>如果您喜欢 CrossCam 并且有能力，请考虑给我一个提示。</value>
+  </data>
+  <data name="Page.TipMe.Ko-fi" xml:space="preserve">
+    <value>科菲</value>
+  </data>
+  <data name="Page.TipMe.Patreon" xml:space="preserve">
+    <value>帕特隆</value>
+  </data>
+  <data name="Page.TipMe.PayPal" xml:space="preserve">
+    <value>贝宝</value>
+  </data>
+  <data name="Page.TipMe.Tipped" xml:space="preserve">
+    <value>我已被提示</value>
+  </data>
+  <data name="Page.TipMe.TippedTimes" xml:space="preserve">
+    <value>次，总计</value>
+  </data>
+  <data name="Page.TipMe.Venmo" xml:space="preserve">
+    <value>文莫</value>
+  </data>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>查看更多图片</value>
+  </data>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>提示值得赞赏！</value>
+  </data>
+  <data name="Settings.Alignment.Advanced" xml:space="preserve">
+    <value>显示高级对齐设置</value>
+  </data>
+  <data name="Settings.Alignment.Ecc" xml:space="preserve">
+    <value>始终首先尝试使用 ECC 对齐</value>
+  </data>
+  <data name="Settings.Alignment.Keypoints" xml:space="preserve">
+    <value>始终首先尝试使用关键点对齐</value>
+  </data>
+  <data name="Settings.Alignment.On" xml:space="preserve">
+    <value>捕获后自动对齐</value>
+  </data>
+  <data name="Settings.Border.Color" xml:space="preserve">
+    <value>边框颜色</value>
+  </data>
+  <data name="Settings.Border.FuseGuide" xml:space="preserve">
+    <value>在顶部添加保险丝导轨（每侧上方一个点）</value>
+  </data>
+  <data name="Settings.Border.On" xml:space="preserve">
+    <value>添加边框</value>
+  </data>
+  <data name="Settings.Border.Prompt" xml:space="preserve">
+    <value>加载过程中检测到时提示剪掉边框</value>
+  </data>
+  <data name="Settings.Border.Thickness" xml:space="preserve">
+    <value>边框厚度（宽度的十分之一百分比）</value>
+  </data>
+  <data name="Settings.Camera.Camera1" xml:space="preserve">
+    <value>强制camera1 API（如果您遇到奇怪的情况可能会有所帮助，但会导致功能有限，需要强制退出/重新启动才能生效）</value>
+  </data>
+  <data name="Settings.Camera.Camera2" xml:space="preserve">
+    <value>强制camera2 API（必须在Android 6或更高版本上，如果您遇到错误可能会有所帮助，但可能会出现更多错误，需要强制退出/重新启动才能生效）</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
+    <value>横向拍摄按钮水平放置</value>
+  </data>
+  <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
+    <value>风景拍摄按钮垂直放置</value>
+  </data>
+  <data name="Settings.Camera.Lock" xml:space="preserve">
+    <value>将第二张照片的对焦和曝光锁定为第一张照片的对焦和曝光</value>
+  </data>
+  <data name="Settings.Camera.Pair" xml:space="preserve">
+    <value>配对按钮水平放置（当捕获按钮居中时）</value>
+  </data>
+  <data name="Settings.Camera.PointFocus" xml:space="preserve">
+    <value>点击进行点对焦，双击切换回连续对焦（或保存或清除）</value>
+  </data>
+  <data name="Settings.Camera.PortraitCapture" xml:space="preserve">
+    <value>人像拍摄按钮的位置</value>
+  </data>
+  <data name="Settings.Editing.Align" xml:space="preserve">
+    <value>最大垂直对齐比例</value>
+  </data>
+  <data name="Settings.Editing.Keystone" xml:space="preserve">
+    <value>最大梯形校正</value>
+  </data>
+  <data name="Settings.Editing.Rotation" xml:space="preserve">
+    <value>最大旋转度数</value>
+  </data>
+  <data name="Settings.Editing.SideCrop" xml:space="preserve">
+    <value>最大副作物比例</value>
+  </data>
+  <data name="Settings.Editing.TopCrop" xml:space="preserve">
+    <value>最大顶部/底部裁剪比例</value>
+  </data>
+  <data name="Settings.Editing.Zoom" xml:space="preserve">
+    <value>最大缩放比例</value>
+  </data>
+  <data name="Settings.Guides.Donut" xml:space="preserve">
+    <value>显示甜甜圈指南（会导致前束，因此可能需要梯形校正编辑）</value>
+  </data>
+  <data name="Settings.Guides.Fuse" xml:space="preserve">
+    <value>显示保险丝指南（每侧上方一个点）</value>
+  </data>
+  <data name="Settings.Guides.LineColor" xml:space="preserve">
+    <value>不同颜色的线条</value>
+  </data>
+  <data name="Settings.Guides.Lines" xml:space="preserve">
+    <value>线条可见</value>
+  </data>
+  <data name="Settings.Guides.Roll" xml:space="preserve">
+    <value>可见滚动导轨</value>
+  </data>
+  <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
+    <value>捕获时刻额外延迟 (ms)（仅在此设备上为目标捕获时刻添加额外延迟）</value>
+  </data>
+  <data name="Settings.Pair.Countdown" xml:space="preserve">
+    <value>捕获倒计时长度（计时器）</value>
+  </data>
+  <data name="Settings.Pair.Fov" xml:space="preserve">
+    <value>视场校正</value>
+  </data>
+  <data name="Settings.Pair.FovNotSet" xml:space="preserve">
+    <value>未设置 FOV 校正（使用配对设备进行捕获以完成设置）。</value>
+  </data>
+  <data name="Settings.Pair.FovReset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Settings.Pair.Go" xml:space="preserve">
+    <value>进入配对设置页面</value>
+  </data>
+  <data name="Settings.Pair.NoRole" xml:space="preserve">
+    <value>未选择角色</value>
+  </data>
+  <data name="Settings.Pair.PreviewDelay" xml:space="preserve">
+    <value>预览帧延迟（较高的数字会降低帧速率但节省电池）</value>
+  </data>
+  <data name="Settings.Pair.Primary" xml:space="preserve">
+    <value>基本的：</value>
+  </data>
+  <data name="Settings.Pair.PrimaryRole" xml:space="preserve">
+    <value>角色：主要</value>
+  </data>
+  <data name="Settings.Pair.Sample" xml:space="preserve">
+    <value>时钟样本计数（较低的数字将减少初始同步所需的时间，但可能会降低同步精度）</value>
+  </data>
+  <data name="Settings.Pair.Secondary" xml:space="preserve">
+    <value>次要：</value>
+  </data>
+  <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
+    <value>角色：次要</value>
+  </data>
+  <data name="Settings.Pair.Timeout" xml:space="preserve">
+    <value>连接超时（秒）（0表示不超时）</value>
+  </data>
+  <data name="Settings.Preview.Barrel" xml:space="preserve">
+    <value>添加镜头校正/镜筒畸变（可能会降低帧速率）</value>
+  </data>
+  <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
+    <value>仅向最终图像添加镜头校正/镜筒畸变（可能会减慢最终显示速度，但会加快捕获速度）</value>
+  </data>
+  <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
+    <value>纸板间隔距离</value>
+  </data>
+  <data name="Settings.Preview.Downsize" xml:space="preserve">
+    <value>缩小图像（可能会提高帧速率）</value>
+  </data>
+  <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
+    <value>缩小图像百分比</value>
+  </data>
+  <data name="Settings.Preview.Immersive" xml:space="preserve">
+    <value>沉浸式最终观看</value>
+  </data>
+  <data name="Settings.Preview.LensStrength" xml:space="preserve">
+    <value>镜头校正强度</value>
+  </data>
+  <data name="Settings.Preview.Mirror" xml:space="preserve">
+    <value>采用单次镜分割法拍摄</value>
+  </data>
+  <data name="Settings.Preview.Width" xml:space="preserve">
+    <value>最大平行视图图像宽度（点）</value>
+  </data>
+  <data name="Settings.Reset" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="Settings.Saving.Alone" xml:space="preserve">
+    <value>单独保存第一面（不进行编辑或边框）（以便与平面视图人员轻松共享平面照片）</value>
+  </data>
+  <data name="Settings.Saving.Anaglyph" xml:space="preserve">
+    <value>保存红色/青色浮雕版本（经过编辑但没有边框）</value>
+  </data>
+  <data name="Settings.Saving.Browse" xml:space="preserve">
+    <value>浏览...</value>
+  </data>
+  <data name="Settings.Saving.Cardboard" xml:space="preserve">
+    <value>保存为 Cardboard（经过编辑、无边框、无间距、全宽，以便稍后加载回 CrossCam）</value>
+  </data>
+  <data name="Settings.Saving.Clear" xml:space="preserve">
+    <value>保存后自动清除捕获</value>
+  </data>
+  <data name="Settings.Saving.Cross" xml:space="preserve">
+    <value>保存连接的交叉视图版本（带有编辑和边框）</value>
+  </data>
+  <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
+    <value>保存到外部 CrossCam 目录：</value>
+  </data>
+  <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
+    <value>（警告：如果卸载CrossCam，其中的图片将会被删除）</value>
+  </data>
+  <data name="Settings.Saving.Folder" xml:space="preserve">
+    <value>保存到专用的“CrossCam”子文件夹/相册中</value>
+  </data>
+  <data name="Settings.Saving.Grayscale" xml:space="preserve">
+    <value>保存灰度红色/青色浮雕版本（有编辑但没有边框）</value>
+  </data>
+  <data name="Settings.Saving.Order" xml:space="preserve">
+    <value>（保存会按照从上到下的顺序进行）</value>
+  </data>
+  <data name="Settings.Saving.Parallel" xml:space="preserve">
+    <value>保存连接的并行视图版本（带有编辑和边框）</value>
+  </data>
+  <data name="Settings.Saving.Quad" xml:space="preserve">
+    <value>保存四边形组合（带有编辑和边框）</value>
+  </data>
+  <data name="Settings.Saving.Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Settings.Saving.Resolution" xml:space="preserve">
+    <value>分辨率比例</value>
+  </data>
+  <data name="Settings.Saving.SaveTo" xml:space="preserve">
+    <value>存到：</value>
+  </data>
+  <data name="Settings.Saving.Separate" xml:space="preserve">
+    <value>单独保存每一面（没有编辑或边框，以便于后期处理，首先保存左侧）</value>
+  </data>
+  <data name="Settings.Saving.Subfolder" xml:space="preserve">
+    <value>保存到专用的“CrossCam {查看方法}”子文件夹/相册中</value>
+  </data>
+  <data name="Settings.Saving.Triple" xml:space="preserve">
+    <value>保存三重组合（带编辑和边框）</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>接受连接到</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>确认两台设备上的代码匹配：</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>无法打开链接</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>无法打开 mailto 链接。这可能是因为您的电子邮件客户端未设置或其他原因。</value>
+  </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>未授予配对所需的权限。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>设备无法开启蓝牙。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>设备搜索设备失败。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>定位服务未激活。无法扫描设备。有关更多详细信息，请参阅配对页面。</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>未授予位置许可。无法扫描设备。有关更多详细信息，请参阅配对页面。</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>此设备不支持配对。例外：</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi 已关闭。请打开 Wi-Fi。</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>该设备现已设置为主要设备。</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>选择的主要角色</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>该设备现在被设置为辅助设备。</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>选择次要角色</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>模式。</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam 现已上线</value>
+  </data>
+</root>
