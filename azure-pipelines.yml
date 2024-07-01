@@ -154,20 +154,25 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        dotnet publish -f net8.0-android
+        dotnet publish -f net8.0-android -c Release
 
-  - task: AndroidSigning@3
-    inputs:
-      apkFiles: '$(Pipeline.Workspace)\**\*.apk'
-      apksignerKeystoreFile: 'kra2008Android.keystore'
-      apksignerKeystorePassword: '$(keystorePassword)'
-      apksignerKeystoreAlias: 'kra2008android'
-      apksignerKeyPassword: '$(keystorePassword)'
+  # - task: AndroidSigning@3
+  #   inputs:
+  #     apkFiles: '$(Pipeline.Workspace)\**\*.apk'
+  #     apksignerKeystoreFile: 'kra2008Android.keystore'
+  #     apksignerKeystorePassword: '$(keystorePassword)'
+  #     apksignerKeystoreAlias: 'kra2008android'
+  #     apksignerKeyPassword: '$(keystorePassword)'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
+      targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\'
       publishLocation: 'pipeline'
+
+  # - task: PublishPipelineArtifact@1
+  #   inputs:
+  #     targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
+  #     publishLocation: 'pipeline'
 
   - task: AppCenterDistribute@3
     inputs:
