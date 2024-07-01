@@ -153,32 +153,38 @@ jobs:
     inputs:
       secureFile: 'kra2008Android.keystore'
 
-  - task: Bash@3
-    displayName: 'Build Android App'
+  - task: PublishBuildArtifacts@1
     inputs:
-      targetType: 'inline'
-      script: 'dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=D:/a/_temp/kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android'
+      PathtoPublish: '$(Agent.BuildDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
 
-  - task: CopyFiles@2
-    displayName: 'Copy build output to staging'
-    inputs:
-      SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net8.0-android\publish'
-      Contents: |
-        **/*.apk
-        **/*.aab
-      TargetFolder: '$(ArtifactStagingDirectory)'
-      flattenFolders: true
+  # - task: Bash@3
+  #   displayName: 'Build Android App'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=D:\a\_temp\kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android'
 
-  - publish: $(ArtifactStagingDirectory)
-    artifact: drop
+  # - task: CopyFiles@2
+  #   displayName: 'Copy build output to staging'
+  #   inputs:
+  #     SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net8.0-android\publish'
+  #     Contents: |
+  #       **/*.apk
+  #       **/*.aab
+  #     TargetFolder: '$(ArtifactStagingDirectory)'
+  #     flattenFolders: true
 
-  - task: AppCenterDistribute@3
-    inputs:
-      serverEndpoint: 'App Center'
-      appSlug: 'kra3030/CrossCam-1'
-      appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\publish\com.kra2008.crosscam-Signed.apk'
-      symbolsOption: 'Android'
-      releaseNotesOption: 'input'
-      releaseNotesInput: '☃'
-      destinationType: 'groups'
-      isSilent: true
+  # - publish: $(ArtifactStagingDirectory)
+  #   artifact: drop
+
+  # - task: AppCenterDistribute@3
+  #   inputs:
+  #     serverEndpoint: 'App Center'
+  #     appSlug: 'kra3030/CrossCam-1'
+  #     appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\publish\com.kra2008.crosscam-Signed.apk'
+  #     symbolsOption: 'Android'
+  #     releaseNotesOption: 'input'
+  #     releaseNotesInput: '☃'
+  #     destinationType: 'groups'
+  #     isSilent: true
