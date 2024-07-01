@@ -154,33 +154,28 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        dotnet publish -f net8.0-android -c Release
+        dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android
 
-  # - task: AndroidSigning@3
-  #   inputs:
-  #     apkFiles: '$(Pipeline.Workspace)\**\*.apk'
-  #     apksignerKeystoreFile: 'kra2008Android.keystore'
-  #     apksignerKeystorePassword: '$(keystorePassword)'
-  #     apksignerKeystoreAlias: 'kra2008android'
-  #     apksignerKeyPassword: '$(keystorePassword)'
-
-  - task: PublishPipelineArtifact@1
+  - task: CopyFiles@2
+    displayName: 'Copy build output to staging'
     inputs:
-      targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\'
-      publishLocation: 'pipeline'
+      SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net8.0-android\publish'
+      Contents: |
+        **/*.apk
+        **/*.aab
+      TargetFolder: '$(ArtifactStagingDirectory)'
+      flattenFolders: true
 
-  # - task: PublishPipelineArtifact@1
-  #   inputs:
-  #     targetPath: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
-  #     publishLocation: 'pipeline'
+  - publish: $(ArtifactStagingDirectory)
+    artifact: drop
 
-  # - task: AppCenterDistribute@3
-  #   inputs:
-  #     serverEndpoint: 'App Center'
-  #     appSlug: 'kra3030/CrossCam-1'
-  #     appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\com.kra2008.crosscam-Signed.apk'
-  #     symbolsOption: 'Android'
-  #     releaseNotesOption: 'input'
-  #     releaseNotesInput: '☃'
-  #     destinationType: 'groups'
-  #     isSilent: true
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'App Center'
+      appSlug: 'kra3030/CrossCam-1'
+      appFile: '$(Pipeline.Workspace)\s\CrossCamMaui\bin\Release\net8.0-android\publish\com.kra2008.crosscam-Signed.apk'
+      symbolsOption: 'Android'
+      releaseNotesOption: 'input'
+      releaseNotesInput: '☃'
+      destinationType: 'groups'
+      isSilent: true
