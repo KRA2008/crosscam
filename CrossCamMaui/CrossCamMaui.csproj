@@ -105,7 +105,7 @@
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
 	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
-	  <AndroidKeyStore>False</AndroidKeyStore>
+	  <AndroidKeyStore>True</AndroidKeyStore>
 	  <AndroidPackageFormat>aab</AndroidPackageFormat>
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
