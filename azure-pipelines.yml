@@ -157,7 +157,7 @@ jobs:
     displayName: 'Build Android App'
     inputs:
       targetType: 'inline'
-      script: 'dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=D:\a\_temp\kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android'
+      script: 'dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=D:/a/_temp/kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android'
 
   - task: CopyFiles@2
     displayName: 'Copy build output to staging'
