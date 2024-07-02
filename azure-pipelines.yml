@@ -170,7 +170,7 @@ jobs:
       flattenFolders: true
 
   - publish: $(ArtifactStagingDirectory)
-    artifact: drop
+    artifact: Android
 
   - task: AppCenterDistribute@3
     inputs:
