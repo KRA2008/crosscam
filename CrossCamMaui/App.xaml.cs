@@ -15,7 +15,7 @@ namespace CrossCam
         public const string APP_UNPAUSING_EVENT = "appUnpausing";
         public static bool IsAnalyticsInDebugMode = false;
 
-        private readonly CameraViewModel _cameraViewModel;
+        private static CameraViewModel _cameraViewModel;
 
         public App()
         {
@@ -29,7 +29,7 @@ namespace CrossCam
 #endif
         }
 
-        public void LoadSharedImages(byte[] image1, byte[] image2)
+        public static void LoadSharedImages(byte[] image1, byte[] image2)
         {
             _cameraViewModel.LoadSharedImages(image1, image2);
         }

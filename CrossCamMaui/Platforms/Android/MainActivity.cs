@@ -47,7 +47,6 @@ namespace CrossCam.Platforms.Android
 
         internal static MainActivity Instance { get; private set; }
 
-        private App _app;
         private TaskCompletionSource<bool> _requestReviewTaskCompletionSource;
         private bool _requestReviewCheckComplete;
         private IReviewManager _reviewManager;
@@ -112,7 +111,7 @@ namespace CrossCam.Platforms.Android
                 Intent.GetParcelableExtra(Intent.ExtraStream) is Uri uri)
             {
                 var image = await ImageUriToByteArray(uri);
-                _app.LoadSharedImages(image, null);
+                App.LoadSharedImages(image, null);
             }
             else if (Intent.ActionSendMultiple.Equals(Intent?.Action) && 
                      Intent.Type != null &&
@@ -125,7 +124,7 @@ namespace CrossCam.Platforms.Android
                     var image1Task = ImageUriToByteArray(uri1);
                     var image2Task = ImageUriToByteArray(uri2);
                     await Task.WhenAll(image1Task, image2Task);
-                    _app.LoadSharedImages(image1Task.Result, image2Task.Result);
+                    App.LoadSharedImages(image1Task.Result, image2Task.Result);
                 }
             }
 
