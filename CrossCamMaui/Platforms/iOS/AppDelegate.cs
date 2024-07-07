@@ -14,8 +14,6 @@ namespace CrossCam.Platforms.iOS
 	[Register ("AppDelegate")]
 	public class AppDelegate : MauiUIApplicationDelegate
     {
-	    private App _app;
-
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
@@ -48,7 +46,7 @@ namespace CrossCam.Platforms.iOS
 	            image2String = query.Substring(image2Start, query.Length - image2Start);
 	        }
 
-            _app.LoadSharedImages(Convert.FromBase64String(WebUtility.UrlDecode(image1String)), image2String != null ? Convert.FromBase64String(WebUtility.UrlDecode(image2String)) : null);
+            App.LoadSharedImages(Convert.FromBase64String(WebUtility.UrlDecode(image1String)), image2String != null ? Convert.FromBase64String(WebUtility.UrlDecode(image2String)) : null);
             return true;
 	    }
 
