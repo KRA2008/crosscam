@@ -143,7 +143,34 @@ namespace CrossCam.Model
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
         public bool SaveForCardboard { get; set; }
-        public bool ClearCapturesAfterSave { get; set; }
+
+        private bool _clearCapturesAfterSave;
+        public bool ClearCapturesAfterSave
+        {
+            get => _clearCapturesAfterSave;
+            set
+            {
+                if (!value)
+                {
+                    InstantSave = false;
+                }
+                _clearCapturesAfterSave = value;
+            }
+        }
+
+        public bool _instantSave;
+        public bool InstantSave
+        {
+            get => _instantSave;
+            set
+            {
+                if (value)
+                {
+                    ClearCapturesAfterSave = true;
+                }
+                _instantSave = value;
+            }
+        }
 
         private bool _saveIntoDedicatedFolder;
         public bool SaveIntoDedicatedFolder2
@@ -330,7 +357,7 @@ namespace CrossCam.Model
             SaveWithFuseGuide = true;
             SaveForCardboard = false;
             ClearCapturesAfterSave = true;
-
+            InstantSave = false;
 
             IsForceCamera1Enabled = false;
             IsForceCamera2Enabled = false;

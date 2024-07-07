@@ -32,7 +32,7 @@
        Text="{x:Static localization:AppResources.Settings_Pair_NoRole}">
         <Label.Triggers>
             <DataTrigger TargetType="Label"
-                     Binding="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"
+                     Binding="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"
                      Value="False">
                 <Setter Property="Text"
                     Value="{x:Static localization:AppResources.Settings_Pair_NoRole}"/>
@@ -91,20 +91,20 @@
     <Label Grid.Column="0"
        Grid.Row="5"
        Text="{x:Static localization:AppResources.Settings_Pair_Timeout}"
-       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
+       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"/>
     <Frame Grid.Column="1"
        Grid.Row="5"
-       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}">
+       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}">
         <Entry Text="{Binding Settings.PairSettings.TimeoutSeconds}"/>
     </Frame>
 
     <Label Grid.Column="0"
        Grid.Row="6"
        Text="{x:Static localization:AppResources.Settings_Pair_CaptureDelay}"
-       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}"/>
+       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"/>
     <Frame Grid.Column="1"
        Grid.Row="6"
-       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary.HasValue}">
+       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}">
         <Entry Text="{Binding Settings.PairSettings.CaptureMomentExtraDelayMs}"/>
     </Frame>
 

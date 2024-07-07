@@ -2382,6 +2382,10 @@ namespace CrossCam.ViewModel
                     CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
                     AutoAlign();
+                    if (Settings.InstantSave)
+                    {
+                        SaveCapturesCommand.Execute(null);
+                    }
                 }
             }
         }
@@ -2428,6 +2432,10 @@ namespace CrossCam.ViewModel
                     CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
                     WorkflowStage = WorkflowStage.Final;
                     AutoAlign();
+                    if (Settings.InstantSave)
+                    {
+                        SaveCapturesCommand.Execute(null);
+                    }
                 }
             }
         }

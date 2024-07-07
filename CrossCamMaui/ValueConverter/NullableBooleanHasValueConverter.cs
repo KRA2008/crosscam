@@ -2,12 +2,12 @@
 
 namespace CrossCam.ValueConverter
 {
-    public class NullableBooleanConverter : IValueConverter, IMarkupExtension
+    public class NullableBooleanHasValueConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var nullable = value as bool?;
-            return nullable.HasValue && (bool)value;
+            return nullable.HasValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -29,6 +29,7 @@
         <RowDefinition Height="50"/>
         <RowDefinition Height="60"/>
         <RowDefinition Height="60"/>
+        <RowDefinition Height="60"/>
         <RowDefinition Height="75"/>
         <RowDefinition Height="70"/>
         <RowDefinition Height="70"/>
@@ -70,24 +71,32 @@
         IsToggled="{Binding Settings.ClearCapturesAfterSave}"/>
 
     <Label Grid.Row="2"
+           Grid.Column="0"
+           Grid.ColumnSpan="3"
+           Text="Save automatically after capturing"/>
+    <Switch Grid.Row="2"
+            Grid.Column="3"
+            IsToggled="{Binding Settings.InstantSave}"/>
+
+    <Label Grid.Row="3"
        Grid.Column="0"
        Grid.ColumnSpan="4"
        Text="{x:Static localization:AppResources.Settings_Saving_Order}"
        HorizontalOptions="CenterAndExpand"/>
 
-    <Image Grid.Row="3"
+    <Image Grid.Row="4"
        Grid.Column="0"
        Source="saveboth.png"
        Style="{StaticResource saveModes}"/>
-    <Label Grid.Row="3"
+    <Label Grid.Row="4"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Separate}"/>
-    <Switch Grid.Row="3"
+    <Switch Grid.Row="4"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveSidesSeparately}"/>
 
-    <Image Grid.Row="4"
+    <Image Grid.Row="5"
        Grid.Column="0"
        Source="crossed.png"
        Style="{StaticResource saveModes}">
@@ -100,7 +109,7 @@
             </DataTrigger>
         </Image.Triggers>
     </Image>
-    <Label Grid.Row="4"
+    <Label Grid.Row="5"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Cross}">
@@ -113,7 +122,7 @@
             </DataTrigger>
         </Label.Triggers>
     </Label>
-    <Switch Grid.Row="4"
+    <Switch Grid.Row="5"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForCrossView}">
         <Switch.Triggers>
@@ -126,7 +135,7 @@
         </Switch.Triggers>
     </Switch>
 
-    <Image Grid.Row="5"
+    <Image Grid.Row="6"
        Grid.Column="0"
        Source="parallel.png"
        Style="{StaticResource saveModes}">
@@ -139,7 +148,7 @@
             </DataTrigger>
         </Image.Triggers>
     </Image>
-    <Label Grid.Row="5"
+    <Label Grid.Row="6"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Parallel}">
@@ -152,7 +161,7 @@
             </DataTrigger>
         </Label.Triggers>
     </Label>
-    <Switch Grid.Row="5"
+    <Switch Grid.Row="6"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForParallel}">
         <Switch.Triggers>
@@ -165,97 +174,97 @@
         </Switch.Triggers>
     </Switch>
 
-    <Image Grid.Row="6"
-       Grid.Column="0"
-       Source="anaglyph.png"
-       Style="{StaticResource saveModes}"/>
-    <Label Grid.Row="6"
-       Grid.Column="1"
-       Grid.ColumnSpan="2"
-       Text="{x:Static localization:AppResources.Settings_Saving_Anaglyph}"/>
-    <Switch Grid.Row="6"
-        Grid.Column="3"
-        IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
-
     <Image Grid.Row="7"
        Grid.Column="0"
-       Source="grayscaleanaglyph.png"
+       Source="anaglyph.png"
        Style="{StaticResource saveModes}"/>
     <Label Grid.Row="7"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="{x:Static localization:AppResources.Settings_Saving_Grayscale}"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Anaglyph}"/>
     <Switch Grid.Row="7"
         Grid.Column="3"
-        IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+        IsToggled="{Binding Settings.SaveForRedCyanAnaglyph}"/>
 
     <Image Grid.Row="8"
        Grid.Column="0"
-       Source="saveone.png"
+       Source="grayscaleanaglyph.png"
        Style="{StaticResource saveModes}"/>
     <Label Grid.Row="8"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="{x:Static localization:AppResources.Settings_Saving_Alone}"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Grayscale}"/>
     <Switch Grid.Row="8"
         Grid.Column="3"
-        IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-        IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+        IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
 
     <Image Grid.Row="9"
        Grid.Column="0"
-       Source="triple.png"
+       Source="saveone.png"
        Style="{StaticResource saveModes}"/>
     <Label Grid.Row="9"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="{x:Static localization:AppResources.Settings_Saving_Triple}"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Alone}"/>
     <Switch Grid.Row="9"
+        Grid.Column="3"
+        IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+        IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+
+    <Image Grid.Row="10"
+       Grid.Column="0"
+       Source="triple.png"
+       Style="{StaticResource saveModes}"/>
+    <Label Grid.Row="10"
+       Grid.Column="1"
+       Grid.ColumnSpan="2"
+       Text="{x:Static localization:AppResources.Settings_Saving_Triple}"/>
+    <Switch Grid.Row="10"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForTriple}"/>
 
-    <Image Grid.Row="10"
+    <Image Grid.Row="11"
        Grid.Column="0"
        Source="quad.png"
        Style="{StaticResource saveModes}"
        HeightRequest="25"/>
-    <Label Grid.Row="10"
+    <Label Grid.Row="11"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Quad}"/>
-    <Switch Grid.Row="10"
+    <Switch Grid.Row="11"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForQuad}"/>
 
-    <Label Grid.Row="11"
+    <Label Grid.Row="12"
        Grid.Column="0"
        HorizontalOptions="Center"
        Text="VR"/>
-    <Label Grid.Row="11"
+    <Label Grid.Row="12"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Cardboard}"/>
-    <Switch Grid.Row="11"
-        Grid.Column="3"
-        IsToggled="{Binding Settings.SaveForCardboard}"/>
-
-    <Label Grid.Row="12"
-       Grid.Column="0"
-       Grid.ColumnSpan="3"
-       Text="{x:Static localization:AppResources.Settings_Saving_Folder}"/>
     <Switch Grid.Row="12"
         Grid.Column="3"
-        IsToggled="{Binding Settings.SaveIntoDedicatedFolder2}"/>
+        IsToggled="{Binding Settings.SaveForCardboard}"/>
 
     <Label Grid.Row="13"
        Grid.Column="0"
        Grid.ColumnSpan="3"
-       Text="{x:Static localization:AppResources.Settings_Saving_Subfolder}"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Folder}"/>
     <Switch Grid.Row="13"
+        Grid.Column="3"
+        IsToggled="{Binding Settings.SaveIntoDedicatedFolder2}"/>
+
+    <Label Grid.Row="14"
+       Grid.Column="0"
+       Grid.ColumnSpan="3"
+       Text="{x:Static localization:AppResources.Settings_Saving_Subfolder}"/>
+    <Switch Grid.Row="14"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveIntoSeparateFolders1}"/>
 
-    <Label Grid.Row="14"
+    <Label Grid.Row="15"
        Grid.Column="0"
        Grid.ColumnSpan="2"
        IsVisible="{Binding CanSaveToArbitraryDirectory}">
@@ -266,7 +275,7 @@
             </FormattedString>
         </Label.FormattedText>
     </Label>
-    <Button Grid.Row="14"
+    <Button Grid.Row="15"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ChooseDirectory}"
@@ -288,14 +297,14 @@
         </Button.Triggers>
     </Button>
 
-    <Button Grid.Row="14"
+    <Button Grid.Row="15"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ClearDirectory}"
         Text="{x:Static localization:AppResources.Settings_Saving_Reset}"
         IsVisible="{Binding Settings.SavingDirectory, Converter={toolkit:IsNotNullConverter}}"/>
 
-    <Label Grid.Row="15"
+    <Label Grid.Row="16"
        Grid.Column="0"
        Grid.ColumnSpan="2"
        Text="{Binding ExternalDirectory, StringFormat='{0}'}"
@@ -308,7 +317,7 @@
             </FormattedString>
         </Label.FormattedText>
     </Label>
-    <Switch Grid.Row="15"
+    <Switch Grid.Row="16"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveToExternal}"
         IsVisible="{Binding CanSaveToExternalDirectory}"/>
