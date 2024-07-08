@@ -166,7 +166,7 @@
     <value>Tutoriales adicionales:</value>
   </data>
   <data name="Page.Technique.Cross1" xml:space="preserve">
-    <value>Cruza los ojos con cuidado mientras miras el par de imágenes de arriba. Cuando cruces los ojos, las cosas se volverán borrosas y transparentes y comenzarás a ver 4 imágenes en lugar de 2 (2 pares). Cuanto más cruces los ojos, más se separarán los pares de imágenes; se verá un poco así:</value>
+    <value>Cruza los ojos con cuidado mientras miras el par de imágenes de arriba. Cuando cruces los ojos, las cosas se volverán borrosas y transparentes y comenzarás a ver 4 imágenes en lugar de 2 (2 pares). Cuanto más cruces los ojos, más se separarán los pares de imágenes; se verá así:</value>
   </data>
   <data name="Page.Technique.Cross2" xml:space="preserve">
     <value>Descruza los ojos con cuidado, de modo que las imágenes del interior de cada par comiencen a superponerse. Comenzará a parecer que solo hay 3 imágenes en lugar de 4. Seguirá estando borroso y transparente y se verá así:</value>
@@ -211,7 +211,7 @@ Si prefiere usar gafas 3D o un visor Cardboard, puede configurar CrossCam para q
     <value>Si la imagen de arriba no cabe en su pantalla, coloque su teléfono en posición horizontal. CrossCam está tratando de hacer que el par de imágenes de arriba tengan el tamaño más fácil para esto. No siempre es necesario utilizar CrossCam en horizontal, pero una imagen de tamaño perfecto facilita el aprendizaje de la técnica.</value>
   </data>
   <data name="Page.Technique.Parallel2" xml:space="preserve">
-    <value>Relaje los ojos y mire "a través" del par de imágenes de arriba como si se estuviera distrayendo con los ojos apuntando a las imágenes. Deberías empezar a ver 3 imágenes con una imagen 3D en el medio, un poco así:</value>
+    <value>Relaje los ojos y mire "a través" del par de imágenes de arriba como si se estuviera distrayendo con los ojos apuntando a las imágenes. Deberías empezar a ver 3 imágenes con una imagen en 3D en el medio, un poco así:</value>
   </data>
   <data name="Page.Technique.Parallel3" xml:space="preserve">
     <value>Si empiezas a ver 4 imágenes, has ido demasiado lejos. Intente mover los ojos un poquito si se encuentra en ese punto nuevamente. Relajarse demasiado se verá así:</value>
@@ -295,7 +295,7 @@ Si prefiere usar gafas 3D o un visor Cardboard, puede configurar CrossCam para q
     <value>Voltear a paisaje cuando esté en modo cartón.</value>
   </data>
   <data name="Page.Camera.FlipLarger" xml:space="preserve">
-    <value>(voltear al paisaje para una vista más grande)</value>
+    <value>(voltear a paisaje para una vista más grande)</value>
   </data>
   <data name="Page.Camera.ForAnaglyph" xml:space="preserve">
     <value>para anaglifo</value>
@@ -489,7 +489,7 @@ A veces es difícil sentir si estás haciendo el método cruzado o paralelo mien
     <value>deformado</value>
   </data>
   <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam se creó para ayudarte a tomar fotografías en 3D. Las fotos son en 3D, como la realidad virtual o las películas en 3D, pero no necesitas ningún equipo o gafas especiales, solo tu teléfono (pero si tienes un par de gafas 3D rojas/cian o un visor Google Cardboard, puedes usarlas). con CrossCam también). Aprender la técnica de "visualización libre" que utiliza sólo el teléfono y los ojos requiere algo de práctica. Antes de explicarte cómo utilizar CrossCam, ¿te gustaría aprender más sobre la técnica de visualización?</value>
+    <value>CrossCam se creó para ayudarte a tomar fotografías en 3D. Las fotos son en 3D, como la realidad virtual o las películas en 3D, pero no necesitas ningún equipo ni gafas especiales, solo tu teléfono (pero si tienes un par de gafas 3D rojas/cian o un visor Google Cardboard, puedes usarlas). con CrossCam también). Aprender la técnica de "visualización libre" que utiliza sólo el teléfono y los ojos requiere algo de práctica. Antes de explicarte cómo utilizar CrossCam, ¿te gustaría aprender más sobre la técnica de visualización?</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>¡Bienvenido a CrossCam!</value>
@@ -594,13 +594,13 @@ Hay muchos espectadores diferentes con diferentes propiedades. Es posible que te
     <value>¿Por qué el 3D no se ve bien O por qué el 3D parece invertido?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Cuando se visualiza libremente con el método cruzado o paralelo, es importante mirar las imágenes utilizando el mismo método que se utilizó para crearlas. De lo contrario, su ojo derecho mirará en la perspectiva prevista para el ojo izquierdo y viceversa. Esto hace que la profundidad de la imagen se invierta, porque se ha intercambiado la dirección del paralaje.
+    <value>Al visualizarlas libremente con el método cruzado o paralelo, es importante mirar las imágenes utilizando el mismo método que se utilizó para crearlas. De lo contrario, su ojo derecho mirará en la perspectiva prevista para el ojo izquierdo y viceversa. Esto hace que la profundidad de la imagen se invierta, porque se ha intercambiado la dirección del paralaje.
 
 Paralaje significa que desde la perspectiva del ojo derecho, cuando los objetos están más lejos parecen estar más a la derecha que los objetos más cercanos cuando se ven desde el ojo izquierdo. Es confuso cuando se describe en formato de oración, pero muy intuitivo cuando se demuestra.
 
-Para demostrarlo, sostenga un dedo frente a usted aproximadamente a la distancia de un brazo, luego con la otra mano sostenga otro dedo aproximadamente a medio camino entre el primer dedo y su cara. Si cierras alternativamente cada ojo y prestas atención a dónde están tus dedos, verás que cada ojo los ve en diferentes lugares. Entonces, naturalmente, si cada ojo vio ese movimiento de la manera opuesta a la que se supone, la profundidad se invertirá.
+Para demostrarlo, sostenga un dedo frente a usted a aproximadamente la longitud del brazo, luego con la otra mano sostenga otro dedo aproximadamente a medio camino entre el primer dedo y su cara. Si cierras alternativamente cada ojo y prestas atención a dónde están tus dedos, verás que cada ojo los ve en diferentes lugares. Entonces, naturalmente, si cada ojo vio ese movimiento de la manera opuesta a la que se supone, la profundidad se invertirá.
 
-Es muy fácil usar accidentalmente el método de visualización incorrecto porque resulta que a la mayoría de las personas les resulta muy difícil saber si están cruzando o relajando los ojos simplemente sintiendo o mirando la doble imagen confusa del mundo que resulta. En su lugar, es mejor que otra persona observe lo que hacen tus ojos o probar esta imagen de prueba:</value>
+Es muy fácil usar accidentalmente el método de visualización incorrecto porque resulta muy difícil para la mayoría de las personas saber si están cruzando o relajando los ojos simplemente sintiendo o mirando la doble imagen confusa del mundo que resulta. En su lugar, es mejor que otra persona observe lo que hacen tus ojos o probar esta imagen de prueba:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>Muchas personas se han sentido bastante cómodas viendo libros Magic Eye™, que están pensados ​​para ser vistos utilizando el método de vista paralela. Si los ve de forma cruzada, los robustos objetos 3D que se supone que deben salir de la página parecen agujeros. Ambos métodos te permiten ver *algo* pero si no puedes decir qué era, probablemente los estés viendo de forma cruzada.</value>
@@ -611,7 +611,7 @@ Es muy fácil usar accidentalmente el método de visualización incorrecto porqu
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
     <value>La captura con el método del espejo divide el marco por la mitad y realiza la transformación necesaria para que puedas capturar ambos lados al mismo tiempo usando un solo teléfono y un espejo de mano normal. Para utilizar el método espejo al capturar, active el interruptor del modo espejo en la página Configuración (toque el ícono de ajustes para llegar allí). Después de activar el modo espejo, CrossCam le indicará de qué lado debe sostener el espejo. Sostenga el espejo de ese lado y ocúpese de la alineación entre su teléfono, el espejo y el sujeto. Con un poco de paciencia podrás alinearlos todos para que el espejo muestre la perspectiva correcta de uno de los lados. Debido a que el método del espejo divide la imagen por la mitad verticalmente, generalmente es mejor capturar en paisaje con el método del espejo.
 
-Este método también funcionará con reflejos en ventanas grandes y limpias, y también en lagos o charcos tranquilos (cuando el teléfono está bloqueado en posición vertical y volteado hacia un lado).</value>
+Este método también funcionará con reflejos en ventanas grandes y limpias, y también en lagos o charcos tranquilos (cuando el teléfono está bloqueado en vertical y volteado hacia un lado).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Hay algunos compromisos/ediciones que deben realizarse para poder utilizar el método espejo. Todo esto se puede hacer manualmente en CrossCam, pero la alineación automática también intentará hacerlo por usted:
@@ -678,7 +678,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>Se necesita una corrección trapezoidal si se converge.</value>
   </data>
   <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
-    <value>Si gira hacia adentro con cada disparo, es muy útil realizar correcciones trapezoidales. Por lo general, querrás reducir los bordes interiores de las fotos y luego recortar algunas partes superior e inferior para nivelarlas. Puede acceder al menú de edición Keystone tocando el botón que se parece a este:</value>
+    <value>Si gira hacia adentro con cada disparo, es muy útil realizar correcciones trapezoidales. Por lo general, querrás reducir los bordes interiores de las fotos y luego recortar algunos de la parte superior e inferior para nivelarlos. Puede acceder al menú de edición Keystone tocando el botón que se parece a este:</value>
   </data>
   <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
     <value>Girar hacia adentro se llama convergencia. Puede provocar un efecto de escorzo que dificulta fusionar las esquinas de la imagen. El efecto de escorzo está presente en todo momento en la vida real, porque las líneas paralelas parecen converger a medida que se alejan de ti, pero las perspectivas artificiales pueden hacerlo extraño.</value>
@@ -687,7 +687,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>Puedes simplemente inclinarte.</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>A veces, en lugar de mover completamente los pies hacia la izquierda o hacia la derecha para tomar fotografías, puede ser más fácil simplemente pararse con los pies separados e inclinarse en cada dirección, pero tenga cuidado de mantener el teléfono nivelado y a la misma altura. Simplemente inclinarse en lugar de moverse puede ayudarle a no moverse demasiado y puede hacer que sea más fácil mantener la puntería recta.</value>
+    <value>A veces, en lugar de mover completamente los pies hacia la izquierda o hacia la derecha para tomar fotografías, puede ser más fácil simplemente pararse con los pies separados e inclinarse en cada dirección, pero tenga cuidado de mantener el teléfono nivelado y a la misma altura. Simplemente inclinarse en lugar de moverse puede ayudarle a no moverse demasiado y hacer que sea más fácil mantener la puntería recta.</value>
   </data>
   <data name="Page.Tips.Lines" xml:space="preserve">
     <value>Las líneas de alineación pueden moverse.</value>
@@ -699,7 +699,7 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
     <value>Puedes abrir fotos antiguas en CrossCam.</value>
   </data>
   <data name="Page.Tips.Old.Body" xml:space="preserve">
-    <value>Puedes cargar fotografías tomadas anteriormente tocando el ícono de la carpeta en la parte inferior de la página de la cámara, pero si estás trabajando con un gran lote de fotos también puedes compartirlas en CrossCam directamente desde tu aplicación de fotos, que puede realizar un seguimiento de tu Coloca mejor en tus fotos.</value>
+    <value>Puedes cargar fotografías tomadas previamente tocando el ícono de la carpeta en la parte inferior de la página de la cámara, pero si estás trabajando con un gran lote de fotos, también puedes compartirlas en CrossCam directamente desde tu aplicación de fotos, que puede realizar un seguimiento de tu Coloca mejor en tus fotos.</value>
   </data>
   <data name="Page.Tips.Quick" xml:space="preserve">
     <value>Activa el modo rápido cuando estés con otras personas.</value>
@@ -848,7 +848,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Ahorro</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
-    <value>CrossCam es de uso gratuito, no tiene publicidad, es de código abierto, no recopila información personal suya y le brinda acceso completo a todas las funciones. Me encanta trabajar en CrossCam pero requiere mucho tiempo y esfuerzo. No gano dinero con CrossCam, excepto las propinas que la gente pueda decidir enviarme.</value>
+    <value>CrossCam es de uso gratuito, no tiene publicidad, es de código abierto, no recopila información personal suya y le brinda acceso completo a todas las funciones. Me encanta trabajar en CrossCam pero requiere mucho tiempo y esfuerzo. No gano dinero con CrossCam, excepto las propinas que la gente podría decidir enviarme.</value>
   </data>
   <data name="Page.TipMe.2" xml:space="preserve">
     <value>Si te gusta CrossCam y puedes hacerlo, considera enviarme un consejo.</value>
@@ -908,7 +908,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Grosor del borde (décimas de porcentaje del ancho)</value>
   </data>
   <data name="Settings.Camera.Camera1" xml:space="preserve">
-    <value>Forzar la API de la cámara 1 (puede ser útil si experimenta situaciones extrañas, pero su funcionalidad será limitada; requiere forzar el cierre/reinicio para que surta efecto)</value>
+    <value>Forzar la API de la cámara 1 (puede ser útil si experimenta cosas raras, pero resultará en una funcionalidad limitada, requiere forzar el cierre/reinicio para que surta efecto)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
     <value>Force camera2 API (debe estar en Android 6 o superior, puede ser útil si experimenta errores, pero puede cometer más; requiere forzar el cierre/reinicio para que surta efecto)</value>
@@ -1058,7 +1058,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Guardar en el directorio externo de CrossCam en:</value>
   </data>
   <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
-    <value>(advertencia: las imágenes se eliminarán si se desinstala CrossCam)</value>
+    <value>(advertencia: las imágenes allí se eliminarán si se desinstala CrossCam)</value>
   </data>
   <data name="Settings.Saving.Folder" xml:space="preserve">
     <value>Guardar en la subcarpeta/álbum dedicado "CrossCam"</value>
@@ -1152,5 +1152,8 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam ya está disponible</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Guardar automáticamente después de capturar</value>
   </data>
 </root>

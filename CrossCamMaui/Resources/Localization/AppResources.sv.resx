@@ -157,7 +157,7 @@
     <value>2) Börja kartong titta på den första bilden med förhandsgranskningen som visas bredvid.</value>
   </data>
   <data name="Page.HowToUse.2cross" xml:space="preserve">
-    <value>2) Börja korsvisa den första bilden med förhandsgranskningen som visas bredvid den.</value>
+    <value>2) Börja korsvisa den första bilden med förhandsgranskningen som visas bredvid.</value>
   </data>
   <data name="Page.HowToUse.2parallel" xml:space="preserve">
     <value>2) Börja parallellt titta på den första bilden med förhandsgranskningen som visas bredvid.</value>
@@ -286,7 +286,7 @@ Om du hellre vill använda 3D-glasögon eller en Cardboard-visare kan du ställa
     <value>Katalog hittades inte</value>
   </data>
   <data name="Page.Camera.DirectoryNotFoundExplain" xml:space="preserve">
-    <value>Det gick inte att hitta destinationen för att spara. Välj en annan på inställningssidan.</value>
+    <value>Spardestinationen kunde inte hittas. Välj en annan på inställningssidan.</value>
   </data>
   <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
     <value>Vad gjorde du precis innan felet inträffade? Beskriv även de små sakerna.\n\n\n\n\n\nFungerade CrossCam fortfarande efter felet? Om inte, hur går det sönder?\n\n\n\n\n\nHänder detta upprepade gånger?\n\n\n\n\n\nKan du tvinga felet att inträffa på kommando? Om så är fallet, hur?\n\n\n\n\n\n</value>
@@ -310,7 +310,7 @@ Om du hellre vill använda 3D-glasögon eller en Cardboard-visare kan du ställa
     <value>för parallell</value>
   </data>
   <data name="Page.Camera.GoPickRole" xml:space="preserve">
-    <value>Gå till sidan för ihopkoppling (via sidan Inställningar) och välj en parningsroll för den här enheten innan du försöker para ihop.</value>
+    <value>Gå till sidan för sammankoppling (via sidan Inställningar) och välj en parningsroll för den här enheten innan du försöker para ihop.</value>
   </data>
   <data name="Page.Camera.InvalidImage" xml:space="preserve">
     <value>Ogiltig bild</value>
@@ -319,7 +319,7 @@ Om du hellre vill använda 3D-glasögon eller en Cardboard-visare kan du ställa
     <value>Ha kvar</value>
   </data>
   <data name="Page.Camera.LoadFullImage" xml:space="preserve">
-    <value>Ladda hela stereobilden</value>
+    <value>Ladda in hela stereobilden</value>
   </data>
   <data name="Page.Camera.Loading" xml:space="preserve">
     <value>Läser in...</value>
@@ -441,7 +441,7 @@ Om du hellre vill använda 3D-glasögon eller en Cardboard-visare kan du ställa
 
 En annan sak du kan prova är att använda toalettpappersrör eller dina händer för att göra det så att varje öga bara kan se sidan av bilden som det är tänkt att se.
  • För tvärsikt: håll ett enda rör mot näsryggen (centrerat mellan ögonen) samtidigt som du pekar mot mitten av bilden framför dig. Flytta långsamt röret mot skärmen medan du försöker titta ner i röret med båda ögonen. När du når rätt position med röret ska bilden snäppa på plats. Det kan hjälpa att koncentrera sig på att försöka titta på insidan av den bortre änden av röret. Om du inte hittar rätt position, prova att använda en större bild eller ett mindre rör.
- • För parallell vy: håll ett rör framför varje öga, men peka båda ut i sidled så att du knappt kan se någonting. Vrid långsamt rören inåt samtidigt så att du kan börja se mer av bilden. I det ögonblick du kan se större delen av bilden (nästan hälften med varje öga), försök att slappna av i ögonen och föra ihop halvorna. Det kan hjälpa att använda en större eller mindre bild.
+ • För parallell vy: håll ett rör framför varje öga, men peka ut båda i sidled så att du knappt ser någonting. Vrid långsamt rören inåt samtidigt så att du kan börja se mer av bilden. I det ögonblick du kan se större delen av bilden (nästan hälften med varje öga), försök att slappna av i ögonen och föra ihop halvorna. Det kan hjälpa att använda en större eller mindre bild.
 
 Det finns en enkel övning du kan göra för att träna sammansmältning med antingen tvär- eller parallellvisning. Ta en markör och rita en del av en smiley på var och en av dina miniatyrer (eller ett par popsicle sticks eller tungdepressorer). Till exempel, på ena sidan rita ett öga och en mun, och på den andra sidan rita ett öga och en näsa. Du kan sedan hålla upp dem framför dig och öva på att smälta ihop de två bilderna för att göra smileyen komplett.
 
@@ -519,7 +519,7 @@ Ibland är det svårt att känna om du gör cross- eller parallellmetoden medan 
 Andra saker du kan göra:
  • Tryck en gång för att fokusera på en punkt, tryck två gånger för att växla tillbaka till kontinuerlig autofokus.
  • Tryck på kugghjulsikonen längst upp till höger på kameraskärmen för att öppna sidan Inställningar. Den är full av intressanta saker.
- • Det finns en bra tipssida som du kan komma till genom att trycka på hamburgerikonen längst upp till vänster på kameraskärmen som kan hjälpa dig att göra dina bilder fantastiska.
+ • Det finns en trevlig tipssida som du kan komma till genom att trycka på hamburgerikonen längst upp till vänster på kameraskärmen som kan hjälpa dig att göra dina bilder fantastiska.
  • Om du föredrar att flytta åt andra hållet för ditt andra skott eller vill byta sidor är det bara att svepa.
  • Tryck på den lilla mappikonen längst ned för att ladda en bild som en sida eller för att ladda en hel stereobild.</value>
   </data>
@@ -529,7 +529,7 @@ Andra saker du kan göra:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Automatisk justering försöker justera bildparen så bra som möjligt, men det är inte perfekt. Datorseende är bättre på vissa saker än mänskliga ögon, men också mycket sämre på andra saker. Världen den ser är väldigt annorlunda än den vi gör, men den kan också se på några olika sätt. De två huvudsakliga sätten den ser i CrossCam är via den förbättrade korrelationskoefficienten (ECC) och att använda nyckelpunkter.
 
-ECC-justering fungerar i huvudsak genom att försöka se till att ljusa fläckar överlappar med ljusa fläckar och mörka fläckar överlappar med mörka fläckar när de två sidorna är överlagrade ovanpå varandra. ECC-anpassning kommer med ett konfidenspoäng som är tänkt att hjälpa till att avgöra om anpassningen var effektiv. CrossCam är inställt för att avvisa anpassningen som skapas om konfidensen är för låg, men du kan konfigurera tröskeln för godkänt/underkänd konfidens på sidan Inställningar.
+ECC-justering fungerar i huvudsak genom att försöka se till att ljusa fläckar överlappar med ljusa fläckar och mörka fläckar överlappar med mörka fläckar när de två sidorna läggs ovanpå varandra. ECC-anpassning kommer med ett konfidenspoäng som är tänkt att hjälpa till att avgöra om anpassningen var effektiv. CrossCam är inställt för att avvisa anpassningen som skapas om konfidensen är för låg, men du kan konfigurera tröskeln för godkänt/underkänd konfidens på sidan Inställningar.
 
 Nyckelpunktsjustering letar efter intressanta platser som hörn, kanter, punkter och hög kontrast och försöker matcha dem mellan de två sidorna. När punkterna väl har matchats kan CrossCam använda en mängd olika algoritmer för att försöka förvränga sidorna så att nyckelpunkterna från ena sidan är så nära som möjligt deras motsvarande nyckelpunkter på den andra sidan.
 
@@ -579,7 +579,7 @@ Det finns många olika tittare där ute med olika egenskaper. Du kan behöva än
     <value>Hur kom du in på stereoskopi?</value>
   </data>
   <data name="Page.Faq.Into.Body1" xml:space="preserve">
-    <value>Medan jag tog min fysikexamen fick jag möjlighet att experimentera med att skapa mina egna hologram med laser. Den typ av hologram jag gjorde var 3D eftersom de använde ett diffraktionsgitter för att orsaka destruktiv interferens i ljuset som reflekteras från en glasplattas yta, vilket gör att den reflekterade bilden ser annorlunda ut från olika platser. När vart och ett av våra ögon ser en bild som ser ut att vara från ett annat perspektiv (om de inte är för olika), uppfattar våra hjärnor det som djup.</value>
+    <value>Medan jag tog min fysikexamen fick jag möjlighet att experimentera med att skapa mina egna hologram med laser. Den typ av hologram jag gjorde var 3D eftersom de använde ett diffraktionsgitter för att orsaka destruktiv interferens i ljuset som reflekteras från en glasplattas yta, vilket gör att den reflekterade bilden ser annorlunda ut från olika platser. När var och en av våra ögon ser en bild som ser ut som om den är från ett annat perspektiv (om de inte är för olika), uppfattar våra hjärnor det som djup.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
     <value>Jag hade varit medveten om principen om stereoskopisk uppfattning under lång tid, men vid den tidpunkten i mitt liv gick jag också några programmeringskurser, så jag bestämde mig för att försöka göra ett enkelt datorprogram för stereoskopisk 3D-ritning. Den ansträngningen blev StereoSketcher. Originalversionen skrevs i Java, men jag skrev om den med Javascript och SVG och nu finns den på webben</value>
@@ -615,7 +615,7 @@ Denna metod kommer också att fungera med reflektioner i stora, rena fönster, o
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Det finns några kompromisser/redigeringar som måste göras för att använda spegelmetoden. Dessa kan alla göras manuellt i CrossCam, men automatisk justering kommer också att försöka göra dem åt dig:
- • Eftersom den reflekterade vyn färdas över en längre sträcka än den normala, kommer den spegelvända sidan att behöva zoomas in en aning.
+ • Eftersom den reflekterade vyn färdas över en längre sträcka än den normala vyn, kommer den spegelvända sidan att behöva zoomas in lite.
  • Det är troligt att när du använder spegelmetoden kommer du att hamna i tån istället för att hålla perspektiven parallella - detta kan göra att förkortning ser ut som dålig vertikal inriktning. För att ångra det kan keystone-korrigering göras, vilket innebär att vertikalt krympa ena sidan av var och en av bilderna.
  • Att gå in kommer också att tendera att flytta stereofönstret mot dig. Du kan ångra det och placera det där du vill ha det genom att beskära sidorna.
  • Spegeln kommer förmodligen inte helt att täcka sikten på ena sidan, så en del beskärning kan behöva göras för att ta bort oreflekterade bitar.
@@ -678,7 +678,7 @@ Under de närmaste veckorna fick min sjudande frustration mig att föreställa m
     <value>Keystone-korrigering behövs om du går in.</value>
   </data>
   <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
-    <value>Om du vänder dig inåt med varje skott är det mycket användbart att göra keystone-korrigeringar. Vanligtvis skulle du vilja krympa de inre kanterna på fotona och sedan beskära en del av toppen och botten för att jämna ut dem. Du kommer till keystone-redigeringsmenyn genom att trycka på knappen som ser ut så här:</value>
+    <value>Om du vänder dig inåt med varje skott är det mycket användbart att göra keystone-korrigeringar. Vanligtvis skulle du vilja krympa insidan av fotona och sedan beskära en del av toppen och botten för att jämna ut dem. Du kommer till keystone-redigeringsmenyn genom att trycka på knappen som ser ut så här:</value>
   </data>
   <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
     <value>Att vända sig inåt kallas för toe-in. Det kan orsaka en förkortande effekt som gör det svårt att smälta ihop bildens hörn. Den förkortande effekten är närvarande vid alla tillfällen i det verkliga livet, eftersom parallella linjer verkar konvergera när de går bort i fjärran från dig, men de artificiella perspektiven kan göra det konstigt.</value>
@@ -782,7 +782,7 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>För att ansluta igen senare, se till att du har Wi-Fi aktiverat och tryck sedan på anslutningsknappen på hemskärmen på båda enheterna.</value>
   </data>
   <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
-    <value>CrossCam kräver lokal nätverksåtkomst. CrossCam använder faktiskt inte det lokala nätverket, men iOS kräver att CrossCam får denna behörighet för att kunna använda Wi-Fi-antennen för att söka efter enheter. CrossCam kommer att be om detta tillstånd en gång - om tillståndet nekas måste du själv gå och vända omkopplaren i appen Inställningar.</value>
+    <value>CrossCam kräver lokal nätverksåtkomst. CrossCam använder faktiskt inte det lokala nätverket, men iOS kräver att CrossCam får denna behörighet för att kunna använda Wi-Fi-antennen för att söka efter enheter. CrossCam kommer att be om denna tillåtelse en gång - om tillståndet nekas måste du gå och vända omkopplaren i appen Inställningar själv.</value>
   </data>
   <data name="Page.Pairing.Location" xml:space="preserve">
     <value>CrossCam kommer att begära behörigheter och slå på komponenter efter behov för att ansluta dina enheter. Observera: CrossCam kräver platstillstånd och för att platstjänster ska vara påslagna på den primära enheten för att kunna ansluta till den sekundära enheten. Detta är helt enkelt ett Android-krav och ligger helt utanför min kontroll. CrossCam ANVÄNDER faktiskt inte din plats på något sätt, men eftersom handlingen att söka efter (och hitta) enheter i närheten teoretiskt sett skulle kunna användas för att grovt lokalisera dig, kräver CrossCam tillstånd för att komma åt din plats.</value>
@@ -902,7 +902,7 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>Lägg till kant</value>
   </data>
   <data name="Settings.Border.Prompt" xml:space="preserve">
-    <value>Uppmana att klippa bort kanten när den upptäcks under laddning</value>
+    <value>Uppmaning att klippa bort kanten när den upptäcks under laddning</value>
   </data>
   <data name="Settings.Border.Thickness" xml:space="preserve">
     <value>Kanttjocklek (tiondelar av procent av bredden)</value>
@@ -923,7 +923,7 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>Lås fokus och exponering för andra bilden till fokus och exponering från första bilden</value>
   </data>
   <data name="Settings.Camera.Pair" xml:space="preserve">
-    <value>Kopplingsknapp horisontell placering (när fångstknappen är centrerad)</value>
+    <value>Paraknapp horisontell placering (när inspelningsknappen är centrerad)</value>
   </data>
   <data name="Settings.Camera.PointFocus" xml:space="preserve">
     <value>Tryck för att peka fokus, dubbeltryck för att växla tillbaka till kontinuerlig fokus (eller spara eller rensa)</value>
@@ -1031,7 +1031,7 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>Fånga med en spegeldelningsmetod för en bild</value>
   </data>
   <data name="Settings.Preview.Width" xml:space="preserve">
-    <value>Maximal parallell bildbredd (punkter)</value>
+    <value>Maximal parallell vybildsbredd (punkter)</value>
   </data>
   <data name="Settings.Reset" xml:space="preserve">
     <value>Återställ till standardinställningar</value>
@@ -1103,7 +1103,7 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>Acceptera anslutning till</value>
   </data>
   <data name="Page.Camera.Confirm" xml:space="preserve">
-    <value>Bekräfta att koden matchar båda enheterna:</value>
+    <value>Bekräfta att koden matchar på båda enheterna:</value>
   </data>
   <data name="Page.Footer.CouldntOpen" xml:space="preserve">
     <value>Kunde inte öppna länken</value>
@@ -1152,5 +1152,8 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam är nu inne</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Spara automatiskt efter inspelning</value>
   </data>
 </root>

@@ -154,7 +154,7 @@
     <value>2) Démarrez l'anaglyphe en visualisant la première image avec l'aperçu qui apparaît à côté.</value>
   </data>
   <data name="Page.HowToUse.2cardboard" xml:space="preserve">
-    <value>2) Commencez le carton en regardant la première image avec l'aperçu qui apparaît à côté.</value>
+    <value>2) Démarrez le carton en regardant la première image avec l'aperçu qui apparaît à côté.</value>
   </data>
   <data name="Page.HowToUse.2cross" xml:space="preserve">
     <value>2) Lancez la visualisation croisée de la première image avec l'aperçu qui apparaît à côté.</value>
@@ -199,7 +199,7 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
     <value>Un court tutoriel YouTube</value>
   </data>
   <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Un tutoriel YouTube long, étrange mais utile</value>
+    <value>Un didacticiel YouTube long, étrange mais utile</value>
   </data>
   <data name="Page.Technique.CrossLink5" xml:space="preserve">
     <value>Un autre tutoriel YouTube</value>
@@ -507,7 +507,7 @@ Parfois, il est difficile de savoir si vous utilisez la méthode croisée ou par
 1) Cadrez et prenez la première photo.</value>
   </data>
   <data name="Page.HowToUse.P2" xml:space="preserve">
-    <value>3) Gardez votre téléphone stable devant vous et déplacez-vous lentement sur le côté dans la direction que CrossCam vous indique. Ne vous éloignez pas trop – un pouce ou moins pour chaque pied de votre cible. De plus, ne vous tournez pas du tout, glissez simplement sur le côté, ou peut-être même penchez-vous simplement.
+    <value>3) Gardez votre téléphone stable devant vous et déplacez-vous lentement sur le côté dans la direction que CrossCam vous indique. Ne vous éloignez pas trop – un pouce ou moins pour chaque pied de votre cible. De plus, ne vous tournez pas du tout, glissez simplement sur le côté ou peut-être même penchez-vous simplement.
 
 4) Alignez la première photo avec l'aperçu de la deuxième photo et prenez la deuxième photo lorsque vous aimez ce que vous voyez.
 
@@ -524,12 +524,12 @@ Autres choses que vous pouvez faire :
  • Appuyez sur la petite icône de dossier en bas pour charger une image en tant que côté ou pour charger une image stéréo complète.</value>
   </data>
   <data name="Page.Faq.Alignment" xml:space="preserve">
-    <value>Comment fonctionne l'alignement automatique ?</value>
+    <value>Comment fonctionne l’alignement automatique ?</value>
   </data>
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>L'alignement automatique tente d'aligner au mieux les paires d'images, mais il n'est pas parfait. La vision par ordinateur est meilleure dans certains domaines que l’œil humain, mais elle est également bien pire dans d’autres. Le monde qu’il voit est très différent de celui que nous voyons, mais il peut aussi voir de différentes manières. Les deux principales méthodes envisagées dans CrossCam sont le coefficient de corrélation amélioré (ECC) et l'utilisation de points clés.
 
-L'alignement ECC fonctionne essentiellement en essayant de s'assurer que les taches claires se chevauchent avec les taches claires et que les taches sombres se chevauchent avec les taches sombres lorsque les deux côtés sont superposés l'un sur l'autre. L'alignement ECC est accompagné d'un score de confiance destiné à aider à décider si l'alignement a été efficace. CrossCam est configuré pour rejeter l'alignement produit si la confiance est trop faible, mais vous pouvez configurer le seuil de réussite/échec de confiance sur la page Paramètres.
+L'alignement ECC fonctionne essentiellement en essayant de s'assurer que les taches claires se chevauchent avec les taches claires et que les taches sombres se chevauchent avec les taches sombres lorsque les deux côtés sont superposés. L'alignement ECC est accompagné d'un score de confiance destiné à aider à décider si l'alignement a été efficace. CrossCam est configuré pour rejeter l'alignement produit si la confiance est trop faible, mais vous pouvez configurer le seuil de réussite/échec de confiance sur la page Paramètres.
 
 L'alignement des points clés recherche les points d'intérêt tels que les coins, les bords, les points et les contrastes élevés et tente de les faire correspondre entre les deux côtés. Une fois les points correspondants, CrossCam peut utiliser divers algorithmes pour tenter de déformer les côtés afin que les points clés d'un côté soient tous aussi proches que possible de leurs points clés correspondants de l'autre côté.
 
@@ -561,7 +561,7 @@ Pour capturer des photos à l'aide de Cardboard, changez votre méthode d'affich
 
 Vous pouvez également capturer en utilisant n'importe quelle autre méthode de votre choix, puis basculer votre méthode de visualisation d'aperçu sur Carton et placer votre téléphone dans la visionneuse.
 
-Il existe de nombreux visualiseurs différents avec des propriétés différentes. Vous devrez peut-être modifier la distance de séparation du carton (sur la page Paramètres) pour rendre votre expérience plus confortable. Vous devrez peut-être également d'abord vous assurer que vous maîtrisez bien la capture de stéréogrammes de haute qualité avant de les rendre énormes et immersifs.</value>
+Il existe de nombreux visualiseurs différents avec des propriétés différentes. Vous devrez peut-être modifier la distance de séparation du carton (sur la page Paramètres) pour rendre votre expérience plus confortable. Vous devrez peut-être également vous assurer d'abord que vous maîtrisez bien la capture de stéréogrammes de haute qualité avant de les rendre énormes et immersifs.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Comment cela marche-t-il?</value>
@@ -616,7 +616,7 @@ Cette méthode fonctionnera également avec les reflets dans de grandes fenêtre
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Certains compromis/modifications doivent être effectués afin d'utiliser la méthode miroir. Tout cela peut être effectué manuellement dans CrossCam, mais l'alignement automatique tentera également de les faire pour vous :
  • Étant donné que la vue réfléchie parcourt une distance plus longue que la vue normale, le côté miroir devra être légèrement agrandi.
- • Il est probable qu'en utilisant la méthode du miroir, vous finirez par vous rapprocher, plutôt que de garder les perspectives parallèles - cela peut donner l'impression que le raccourci ressemble à un mauvais alignement vertical. Pour annuler cela, une correction trapézoïdale peut être effectuée, ce qui signifie réduire verticalement un côté de chacune des images.
+ • Il est probable qu'en utilisant la méthode du miroir, vous finirez par vous rapprocher plutôt que de garder les perspectives parallèles - cela peut donner l'impression que le raccourci ressemble à un mauvais alignement vertical. Pour annuler cela, une correction trapézoïdale peut être effectuée, ce qui signifie réduire verticalement un côté de chacune des images.
  • Le pincement aura également tendance à déplacer la fenêtre stéréo vers vous. Vous pouvez annuler cela et le placer où vous le souhaitez en recadrant les côtés.
  • Le miroir ne couvrira probablement pas entièrement la vue d'un côté, il faudra donc peut-être effectuer un recadrage pour supprimer les éléments non réfléchis.
 
@@ -648,7 +648,7 @@ Pour utiliser la méthode miroir, consultez l'autre question de la FAQ à ce suj
   <data name="Page.Faq.Why.Body" xml:space="preserve">
     <value>Alors que je commençais à m'intéresser à la stéréoscopie, il m'est arrivé de faire un voyage à Yellowstone. Pendant que j'étais là-bas, j'ai réalisé qu'il pourrait être amusant d'essayer d'utiliser une application mobile d'appareil photo 3D pour capturer des choses en 3D. J'ai été très déçu par les options existantes. J'ai découvert qu'ils exigeaient tous que vous fassiez deux captures, puis que vous découvriez si elles étaient bonnes. Ce n’était souvent pas le cas, car je devais à plusieurs reprises faire des suppositions complètes sur ma distance de séparation, ainsi que sur la qualité du sujet.
 
-Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer simplement fournir un aperçu en direct de la deuxième capture aux côtés de la première. J'avais déjà une formation en développement mobile, alors c'était juste une question d'y consacrer du temps. CrossCam a été formidable à utiliser juste pour moi afin de préserver mes souvenirs, et je suis également heureux de le partager avec vous.</value>
+Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer simplement fournir un aperçu en direct de la deuxième capture aux côtés de la première. J'avais déjà une formation en développement mobile, alors c'était juste une question d'y consacrer du temps. CrossCam a été génial pour moi de l'utiliser juste pour moi afin de préserver mes souvenirs, et je suis également heureux de le partager avec vous.</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
     <value>Que sont les wigglegrams ?</value>
@@ -666,7 +666,7 @@ Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer s
     <value>Vous pouvez désactiver l'alignement automatique.</value>
   </data>
   <data name="Page.Tips.Alignment.Body" xml:space="preserve">
-    <value>Si vous n'aimez pas les résultats de l'alignement automatique, désactivez-le simplement sur la page Paramètres ou en appuyant sur la petite icône du robot et vos images originales capturées seront restaurées.</value>
+    <value>Si vous n'aimez pas les résultats de l'alignement automatique, désactivez-le simplement sur la page Paramètres ou en appuyant sur la petite icône du robot et vos images capturées d'origine seront restaurées.</value>
   </data>
   <data name="Page.Tips.Donut" xml:space="preserve">
     <value>Le guide des beignets peut aider votre fenêtre.</value>
@@ -687,7 +687,7 @@ Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer s
     <value>Vous pouvez simplement vous pencher.</value>
   </data>
   <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>Parfois, au lieu de bouger complètement vos pieds vers la gauche ou la droite pour prendre des photos, il peut être plus facile de simplement vous tenir les pieds écartés et de vous pencher dans chaque direction, mais veillez à garder le téléphone de niveau et à la même hauteur. Le simple fait de vous pencher au lieu de bouger peut vous aider à ne pas vous déplacer trop loin et à garder votre objectif droit plus facilement.</value>
+    <value>Parfois, au lieu de bouger complètement vos pieds vers la gauche ou la droite pour prendre des photos, il peut être plus facile de simplement vous tenir les pieds écartés et de vous pencher dans chaque direction, mais veillez à garder le téléphone de niveau et à la même hauteur. Le simple fait de vous pencher au lieu de bouger peut vous aider à ne pas aller trop loin et à garder votre objectif droit plus facilement.</value>
   </data>
   <data name="Page.Tips.Lines" xml:space="preserve">
     <value>Les lignes d'alignement peuvent bouger.</value>
@@ -759,12 +759,12 @@ Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer s
     <value>Tester les versions préliminaires</value>
   </data>
   <data name="Button.Wi-Fi" xml:space="preserve">
-    <value>Assurez-vous que le Wi-Fi est activé sur les deux appareils (mais il n'a pas besoin d'être connecté à quoi que ce soit)</value>
+    <value>Assurez-vous que le Wi-Fi est activé sur les deux appareils (mais il n'est pas nécessaire qu'il soit connecté à quoi que ce soit)</value>
   </data>
   <data name="Page.Pairing.1" xml:space="preserve">
     <value>Si vous disposez de deux appareils sur lesquels CrossCam est installé, vous pouvez les connecter afin de prendre des photos simultanées sous deux perspectives. Prendre deux photos en même temps permet d'obtenir les meilleurs stéréogrammes possibles.
 
-Veuillez noter que cette fonctionnalité est encore expérimentale et peut rencontrer des problèmes. Cela peut ne pas fonctionner parfaitement tout le temps et cela peut épuiser votre batterie. Veuillez également noter qu'à l'heure actuelle, les appareils doivent être sur la même plate-forme pour pouvoir se connecter (les deux Android ou les deux iOS).
+Veuillez noter que cette fonctionnalité est encore expérimentale et peut rencontrer des problèmes. Il se peut que cela ne fonctionne pas parfaitement tout le temps et que cela puisse épuiser votre batterie. Veuillez également noter qu'à l'heure actuelle, les appareils doivent être sur la même plate-forme pour pouvoir se connecter (Android ou iOS).
 
 Une façon d'obtenir une synchronisation *parfaite* en utilisant un seul appareil et CrossCam consiste à utiliser la méthode du « miroir à prise unique ». Vous pouvez l'activer sur la page Paramètres et vous pouvez en savoir plus sur la page FAQ.
 
@@ -1028,7 +1028,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Force de correction de l'objectif</value>
   </data>
   <data name="Settings.Preview.Mirror" xml:space="preserve">
-    <value>Capturer à l'aide de la méthode de division miroir en un seul coup</value>
+    <value>Capturez à l'aide de la méthode de division miroir en un seul coup</value>
   </data>
   <data name="Settings.Preview.Width" xml:space="preserve">
     <value>Largeur maximale de l'image en vue parallèle (points)</value>
@@ -1088,10 +1088,10 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Enregistrez chaque côté séparément (sans modifications ni bordure pour un post-traitement plus facile, le côté gauche est enregistré en premier)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Enregistrez dans les sous-dossiers/albums dédiés « CrossCam {View Method} »</value>
+    <value>Enregistrez dans des sous-dossiers/albums dédiés « CrossCam {View Method} »</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
-    <value>Enregistrer la triple combinaison (avec modifications et bordure)</value>
+    <value>Enregistrer la combinaison triple (avec modifications et bordure)</value>
   </data>
   <data name="Button.Pair.Accept" xml:space="preserve">
     <value>Accepter</value>
@@ -1152,5 +1152,8 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam est maintenant disponible</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Enregistrer automatiquement après la capture</value>
   </data>
 </root>

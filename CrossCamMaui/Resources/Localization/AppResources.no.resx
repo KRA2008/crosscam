@@ -185,7 +185,7 @@
 
 For å se 3D i CrossCam (kalt "stereogrammer") kan du bruke røde/cyan 3D-briller, en Google Cardboard-visning, eller du kan gjøre "gratis visning" med bare øynene og skjermen. Det er to måter å frigjøre visning på, og CrossCam kan hjelpe deg med å lære dem begge. Du må fortelle CrossCam hvordan du skal se bildene, ellers vil det ikke fungere riktig. Ikke bekymre deg, du kan alltid endre dette igjen i Innstillinger.
 
-Hvis du er i stand til komfortabelt å krysse øynene, bør du prøve kryssmetoden først, ellers bør du prøve parallellmetoden. Hvis du er vant til Magic Eye™-bøker, er du sannsynligvis allerede i stand til å gjøre parallellmetoden, men du kan kanskje også gjøre kryssmetoden. Trykk på en metode nedenfor for å lære den, og sørg for å fortelle CrossCam hvilken som fungerer for deg ved å trykke på den tilsvarende VELG-knappen.
+Hvis du er i stand til å krysse øynene dine komfortabelt, bør du prøve kryssmetoden først, ellers bør du prøve parallellmetoden. Hvis du er vant til Magic Eye™-bøker, er du sannsynligvis allerede i stand til å gjøre parallellmetoden, men du kan også bruke kryssmetoden. Trykk på en metode nedenfor for å lære den, og sørg for å fortelle CrossCam hvilken som fungerer for deg ved å trykke på den tilsvarende VELG-knappen.
 
 Hvis du heller vil bruke 3D-briller eller en Cardboard-fremviser, kan du stille inn CrossCam til å bruke dem på Innstillinger-siden.</value>
   </data>
@@ -416,7 +416,7 @@ Hvis du heller vil bruke 3D-briller eller en Cardboard-fremviser, kan du stille 
     <value>VR</value>
   </data>
   <data name="Page.FovCorrection" xml:space="preserve">
-    <value>Synsfeltkorrigering</value>
+    <value>Korreksjon av synsfelt</value>
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Ulike enhetsmodeller kan ha forskjellige synsfelt. CrossCam vil hjelpe deg å korrigere for dette etter at du har tatt din første opptak. Ramme opp og fange noe med karakteristiske punkter nær toppen og bunnen av rammen, og sørg for at punktene er synlige på begge enhetene.</value>
@@ -431,7 +431,7 @@ Hvis du heller vil bruke 3D-briller eller en Cardboard-fremviser, kan du stille 
     <value>Nok en fin tekstopplæring</value>
   </data>
   <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Opplæring i Magic Frankfurter</value>
+    <value>Magic Frankfurter veiledning</value>
   </data>
   <data name="Page.Technique.ParallelLink5" xml:space="preserve">
     <value>En fin video om Magic Eye</value>
@@ -480,7 +480,7 @@ Noen ganger er det vanskelig å føle om du gjør kors- eller parallellmetoden m
     <value>For å korrigere for synsfeltforskjeller, zoom og skyv bildene slik at de karakteristiske punktene er på linje mellom de to bildene. Du kan dra de hvite linjene rundt for å hjelpe deg med å visualisere justeringen. Denne korrigeringen vil bli brukt på fremtidige forhåndsvisninger. Det vil bli lagret, men du kan tilbakestille det på Innstillinger-siden. Hvis du bruker identiske enheter, er det bare å lagre uten å justere.</value>
   </data>
   <data name="Page.Camera.FovTitle" xml:space="preserve">
-    <value>Synsfeltkorrigering</value>
+    <value>Korreksjon av synsfelt</value>
   </data>
   <data name="Page.Camera.KeyPoints" xml:space="preserve">
     <value>Viktige punkter</value>
@@ -529,11 +529,11 @@ Andre ting du kan gjøre:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Autojustering prøver å justere bildeparene så godt som mulig, men det er ikke perfekt. Datasyn er bedre på noen ting enn menneskelige øyne, men også mye dårligere på andre ting. Verden den ser er veldig annerledes enn den vi gjør, men den kan også se på noen forskjellige måter. De to hovedmåtene den ser i CrossCam er via den forbedrede korrelasjonskoeffisienten (ECC) og bruk av nøkkelpunkter.
 
-ECC-justering fungerer i hovedsak ved å prøve å sørge for at lyse flekker overlapper med lyse flekker og mørke flekker overlapper med mørke flekker når de to sidene er lagt over hverandre. ECC-justering kommer med en konfidenspoengsum som er ment å hjelpe med å avgjøre om justeringen var effektiv. CrossCam er satt opp til å avvise justeringen som produseres hvis konfidensen er for lav, men du kan konfigurere terskel for konfidens bestått/ikke bestått på Innstillinger-siden.
+ECC-justering fungerer i hovedsak ved å prøve å sørge for at lyse flekker overlapper med lyse flekker og mørke flekker overlapper med mørke flekker når de to sidene legges over hverandre. ECC-justering kommer med en konfidensscore som er ment å hjelpe med å avgjøre om justeringen var effektiv. CrossCam er satt opp til å avvise justeringen som produseres hvis konfidensen er for lav, men du kan konfigurere konfidensbestått/ikke bestått terskelen på Innstillinger-siden.
 
 Nøkkelpunktjustering ser etter interessepunkter som hjørner, kanter, prikker og høy kontrast og forsøker å matche dem mellom de to sidene. Når punktene er matchet, kan CrossCam bruke en rekke algoritmer for å forsøke å forvrenge sidene slik at nøkkelpunktene fra den ene siden er så nært som mulig til de tilsvarende nøkkelpunktene på den andre siden.
 
-CrossCam er programmert til å bruke keypoint-justering først, men det vil falle tilbake til ECC-justering når keypoint-justering mislykkes eller når opptak gjøres med enkeltbilds speildelingsmetoden. Du kan også konfigurere automatisk justering til alltid å bruke nøkkelpunktjustering eller alltid bruke ECC-justering på Innstillinger-siden.
+CrossCam er programmert til å bruke keypoint-justering først, men det vil falle tilbake til ECC-justering når keypoint-justering mislykkes eller når opptak gjøres med enkeltbilde-speildelingsmetoden. Du kan også konfigurere automatisk justering til alltid å bruke nøkkelpunktjustering eller alltid bruke ECC-justering på Innstillinger-siden.
 
 CrossCam vil vise justeringsresultatet på kameraskjermen under det lille robotikonet. Hvis den brukte ECC-justering, vil den vise konfidensprosenten. Hvis den brukte nøkkelpunktjustering, vil den vise "KP". Hvis begge justeringsmetodene mislyktes, vil den vise "F". Hvis du ikke liker resultatet av justeringen, kan du trykke på det lille robotikonet for å fjerne justeringen.</value>
   </data>
@@ -557,11 +557,11 @@ Min mening om det er at øynene dine ikke gjør noe utenfor deres daglige evner,
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
     <value>Hvis seeren din har en knapp som trykker på midten av skjermen, kan du bruke den til å ta bilder med Cardboard. Seeren din må også ha et hull som telefonens kamera kan se gjennom.
 
-For å ta bilder med Cardboard bytter du forhåndsvisningsmetoden (på Innstillinger-siden) til Cardboard, og går tilbake til kamerasiden og setter telefonen i fremviseren. Trykk på knappen for å fange, og når begge sider er fanget, trykk på knappen igjen for å lagre. Lagring i Cardboard-modus er kun ment å la deg laste inn bildene tilbake til CrossCam for senere visning, ikke for å se dem i fotoappen din gjennom visningen.
+For å ta bilder med Cardboard bytter du forhåndsvisningsmetoden (på Innstillinger-siden) til Cardboard, og går tilbake til kamerasiden og setter telefonen i fremviseren. Trykk på knappen for å fange, og når begge sider er fanget, trykk på knappen igjen for å lagre. Lagring i Cardboard-modus er kun ment å la deg laste inn bildene tilbake til CrossCam for visning senere, ikke for å se dem i fotoappen din gjennom visningen.
 
 Du kan også ta bilder med en hvilken som helst annen metode du vil, og deretter bytte forhåndsvisningsmetode til Cardboard og sette telefonen i fremviseren.
 
-Det er mange forskjellige seere der ute med forskjellige egenskaper. Det kan hende du må endre papp-separasjonsavstanden (på Innstillinger-siden) for å gjøre opplevelsen mer komfortabel. Du må kanskje også først sørge for at du er god til å fange stereogrammer av høy kvalitet før du gjør dem enorme og oppslukende.</value>
+Det er mange forskjellige seere der ute med forskjellige egenskaper. Det kan hende du må endre papp-separasjonsavstanden (på Innstillinger-siden) for å gjøre opplevelsen mer komfortabel. Du må kanskje også først sørge for at du er flink til å fange stereogrammer av høy kvalitet før du gjør dem enorme og oppslukende.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Hvordan virker dette?</value>
@@ -594,13 +594,13 @@ Det er mange forskjellige seere der ute med forskjellige egenskaper. Det kan hen
     <value>Hvorfor ser ikke 3D-en riktig ut ELLER hvorfor ser 3D-en omvendt ut?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Ved fri visning med enten kryss- eller parallellmetoden, er det viktig å se på bildene med samme metode som ble brukt til å lage dem. Ellers vil høyre øye se på perspektivet beregnet på venstre øye og omvendt. Dette gjør at dybden av bildet inverteres, fordi retningen til parallaksen har blitt byttet.
+    <value>Ved fri visning med enten kryss- eller parallellmetoden, er det viktig å se på bildene med samme metode som ble brukt til å lage dem. Ellers vil høyre øye se på perspektivet beregnet på venstre øye og omvendt. Dette gjør at dybden av bildet inverteres, fordi retningen til parallaksen er byttet.
 
 Parallaxe betyr at fra perspektivet til høyre øye, når objekter er lenger unna, ser de ut til å være lenger til høyre enn nærmere objekter sett fra venstre øye. Det er forvirrende når det beskrives i setningsformat, men veldig intuitivt når det demonstreres.
 
 For å demonstrere, hold en finger opp foran deg på omtrent armlengdes avstand, og hold deretter en annen finger med den andre hånden omtrent halvveis mellom den første fingeren og ansiktet ditt. Hvis du vekselvis lukker hvert øye og legger merke til hvor fingrene dine er, vil du se at hvert øye ser dem på forskjellige steder. Så naturlig nok, hvis hvert øye så den bevegelsen motsatt vei som det er ment, vil dybden bli invertert.
 
-Det er veldig lett å bruke feil visningsmetode ved et uhell fordi det viser seg at det er veldig vanskelig for folk flest å si om de krysser eller slapper av øynene bare ved å føle eller se på det forvirrende dobbeltbildet av verden som blir resultatet. I stedet er det best å enten få noen andre til å se på hva øynene dine gjør, eller prøve ut dette testerbildet:</value>
+Det er veldig lett å bruke feil visningsmetode ved et uhell fordi det viser seg at det er veldig vanskelig for de fleste å si om de krysser eller slapper av øynene bare ved å føle eller se på det forvirrende dobbeltbildet av verden som blir resultatet. I stedet er det best å enten få noen andre til å se på hva øynene dine gjør, eller prøve ut dette testerbildet:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>Mange mennesker har blitt ganske komfortable med å se Magic Eye™-bøker, som er ment å sees ved hjelp av parallellvisningsmetoden. Hvis du ser dem på kryss og tvers, ser de robuste 3D-objektene som skal dukke opp fra siden i stedet ut som hull. Begge metodene lar deg se *noe*, men hvis du ikke kunne fortelle hva det var, ser du sannsynligvis på dem.</value>
@@ -611,14 +611,14 @@ Det er veldig lett å bruke feil visningsmetode ved et uhell fordi det viser seg
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
     <value>Fotografering med speilmetoden deler rammen i to og utfører den nødvendige transformasjonen slik at du kan fange begge sider samtidig med en enkelt telefon og et vanlig håndholdt speil. For å bruke speilmetoden når du tar bilder, slå bryteren på for speilmodus på Innstillinger-siden (trykk på tannhjulikonet for å komme dit). Etter at du har slått på speilmodus, vil CrossCam fortelle deg hvilken side du skal holde speilet på. Hold speilet på den siden og mas med justeringen mellom telefonen og speilet og motivet. Med litt tålmodighet vil du kunne stille dem alle opp slik at speilet viser riktig perspektiv for en av sidene. Fordi bruk av speilmetoden deler bildet i to vertikalt, er det vanligvis best å fange i landskap med speilmetoden.
 
-Denne metoden vil også fungere med refleksjoner i store, rene vinduer, og også på stille innsjøer eller vannpytter (når telefonen er låst i stående format og snudd sidelengs).</value>
+Denne metoden vil også fungere med refleksjoner i store, rene vinduer, og også på stille innsjøer eller sølepytter (når telefonen er låst i stående og snudd sidelengs).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Det er noen kompromisser/redigeringer som må gjøres for å bruke speilmetoden. Disse kan alle gjøres manuelt i CrossCam, men automatisk justering vil også forsøke å gjøre dem for deg:
  • Fordi den reflekterte visningen reiser over en lengre avstand enn normal visning, må den speilvendte siden zoomes inn litt.
  • Det er sannsynlig at når du bruker speilmetoden vil du ende opp med å gå inn, i stedet for å holde perspektivene parallelle - dette kan føre til at forkorting ser ut som dårlig vertikal justering. For å angre det kan keystone-korreksjon gjøres, som betyr vertikal krymping av den ene siden av hvert av bildene.
  • Å gå inn vil også ha en tendens til å flytte stereovinduet mot deg. Du kan angre det og plassere det der du vil ha det ved å beskjære sidene.
- • Speilet vil sannsynligvis ikke dekke hele visningen av den ene siden, så det kan være nødvendig å beskjære noe for å fjerne ureflekterte biter.
+ • Speilet vil sannsynligvis ikke helt dekke utsikten til den ene siden, så det kan være nødvendig å beskjære noe for å fjerne ureflekterte biter.
 
 De beste speilene for dette har tynt glass. For det første er de lette, så de er lettere å holde i lange perioder. Den andre viktige tingen er at når du bruker speilet, vil du sannsynligvis rette speilet sidelengs i stedet for å se rett inn i det, da speil vanligvis brukes. Når de er orientert slik, kan speil med tykt glass ha noe uskarphet. Jo tynnere glasset er, desto mindre tydelig vil denne uskarpheten være. Slike speil kan også være av lav kvalitet på andre måter, så det er viktig å finne en god balanse.
 
@@ -634,7 +634,7 @@ Det er et par andre kompromisser som må aksepteres når du bruker speilopptaket
 
 For å bruke oppsettet med to telefoner, sjekk siden for sammenkoblingsoppsett, som du kan komme til fra Innstillinger-siden (trykk på tannhjulikonet).
 
-For å bruke speilmetoden, sjekk ut det andre FAQ-spørsmålet om det.</value>
+For å bruke speilmetoden, sjekk ut det andre vanlige spørsmålet om det.</value>
   </data>
   <data name="Page.Faq.Test" xml:space="preserve">
     <value>Hvordan kan jeg teste forhåndsversjoner av CrossCam?</value>
@@ -764,7 +764,7 @@ I løpet av de neste ukene førte min ulmende frustrasjon meg til å forestille 
   <data name="Page.Pairing.1" xml:space="preserve">
     <value>Hvis du har to enheter med CrossCam installert, kan du koble dem til for å ta bilder samtidig fra to perspektiver. Å ta to bilder samtidig gjør de beste stereogrammene mulig.
 
-Vær oppmerksom på at denne funksjonen fortsatt er eksperimentell og kan ha problemer. Det kan hende den ikke fungerer perfekt hele tiden, og den kan spise opp batteriet. Vær også oppmerksom på at enhetene for øyeblikket må være på samme plattform for å kunne koble til (både Android eller begge iOS).
+Vær oppmerksom på at denne funksjonen fortsatt er eksperimentell og kan ha problemer. Det kan hende det ikke fungerer perfekt hele tiden, og det kan spise opp batteriet. Vær også oppmerksom på at enhetene for øyeblikket må være på samme plattform for å kunne koble til (både Android eller begge iOS).
 
 En måte å få *perfekt* synkronisering ved å bruke bare en enkelt enhet og CrossCam er å bruke "single-shot mirror"-metoden. Du kan slå det på på Innstillinger-siden og du kan lese om det på FAQ-siden.
 
@@ -791,7 +791,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>En merknad om tillatelser:</value>
   </data>
   <data name="Page.Pairing.Title" xml:space="preserve">
-    <value>Sammenkobling</value>
+    <value>Paring</value>
   </data>
   <data name="Button.Back" xml:space="preserve">
     <value>&lt; Tilbake</value>
@@ -818,7 +818,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Automatisk justering</value>
   </data>
   <data name="Page.Settings.Analytics" xml:space="preserve">
-    <value>Del anonyme bruks- og feildata for å forbedre CrossCam</value>
+    <value>Del anonym bruk og feildata for å bidra til å forbedre CrossCam</value>
   </data>
   <data name="Page.Settings.Border" xml:space="preserve">
     <value>Grense</value>
@@ -839,7 +839,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Capture Guides</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Sammenkobling</value>
+    <value>Paring</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Forhåndsvisningsmetode</value>
@@ -848,7 +848,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Lagrer</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
-    <value>CrossCam er gratis å bruke, annonsefritt, åpen kildekode, samler ingen personlig informasjon fra deg og gir deg full tilgang til alle funksjoner. Jeg elsker å jobbe med CrossCam, men det tar mye tid og krefter. Jeg tjener ingen penger på CrossCam i det hele tatt bortsett fra tips folk kan bestemme seg for å sende meg.</value>
+    <value>CrossCam er gratis å bruke, annonsefritt, åpen kildekode, samler ingen personlig informasjon fra deg og gir deg full tilgang til alle funksjoner. Jeg elsker å jobbe med CrossCam, men det tar mye tid og krefter. Jeg tjener ingen penger på CrossCam i det hele tatt, bortsett fra tips folk kan bestemme seg for å sende meg.</value>
   </data>
   <data name="Page.TipMe.2" xml:space="preserve">
     <value>Hvis du liker CrossCam og er i stand til det, kan du vurdere å sende meg et tips.</value>
@@ -944,7 +944,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Maksimal sideavlingsandel</value>
   </data>
   <data name="Settings.Editing.TopCrop" xml:space="preserve">
-    <value>Maksimal topp-/bunnavlingsandel</value>
+    <value>Maksimal andel topp/bunn avling</value>
   </data>
   <data name="Settings.Editing.Zoom" xml:space="preserve">
     <value>Maksimal zoomproporsjon</value>
@@ -980,7 +980,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Nullstille</value>
   </data>
   <data name="Settings.Pair.Go" xml:space="preserve">
-    <value>Gå til side for sammenkobling</value>
+    <value>Gå til siden for sammenkobling</value>
   </data>
   <data name="Settings.Pair.NoRole" xml:space="preserve">
     <value>Rolle ikke valgt</value>
@@ -1118,7 +1118,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Enheten kunne ikke slå på Bluetooth. Unntak:</value>
   </data>
   <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
-    <value>Enheten kunne ikke søke etter enheter. Unntak:</value>
+    <value>Enheten klarte ikke å søke etter enheter. Unntak:</value>
   </data>
   <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
     <value>Stedstjenester er ikke aktivert. Kan ikke skanne etter enheter. Se sammenkoblingssiden for flere detaljer.</value>
@@ -1152,5 +1152,8 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam er nå inne</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Lagre automatisk etter fangst</value>
   </data>
 </root>

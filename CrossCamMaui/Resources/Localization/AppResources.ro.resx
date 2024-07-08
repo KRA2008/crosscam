@@ -250,7 +250,7 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
     <value>Nu-mi trimite e-mail acum</value>
   </data>
   <data name="Button.EmailMeNow" xml:space="preserve">
-    <value>Trimite-mi un e-mail acum</value>
+    <value>Trimite un e-mail acum</value>
   </data>
   <data name="Button.No" xml:space="preserve">
     <value>Nu</value>
@@ -403,7 +403,7 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
     <value>Stabil...</value>
   </data>
   <data name="Page.Camera.SureClear" xml:space="preserve">
-    <value>Sigur doriți să vă ștergeți fotografiile și să o luați de la capăt?</value>
+    <value>Sigur doriți să vă ștergeți pozele și să o luați de la capăt?</value>
   </data>
   <data name="Page.Camera.Syncing" xml:space="preserve">
     <value>Se sincronizează...</value>
@@ -495,7 +495,7 @@ Uneori este dificil să simți dacă faci metoda încrucișată sau paralelă î
     <value>Bun venit la CrossCam!</value>
   </data>
   <data name="Page.Camera.Directions" xml:space="preserve">
-    <value>Treceți la Direcții</value>
+    <value>Treci la Direcții</value>
   </data>
   <data name="Page.Camera.Technique" xml:space="preserve">
     <value>Tehnica de vizualizare</value>
@@ -533,7 +533,7 @@ Alinierea ECC funcționează, în esență, încercând să se asigure că pete 
 
 Alinierea punctelor cheie caută puncte de interes, cum ar fi colțuri, margini, puncte și contrast ridicat și încearcă să le potrivească între cele două laturi. Odată ce punctele sunt potrivite, CrossCam poate folosi o varietate de algoritmi pentru a încerca să deformeze părțile laterale, astfel încât punctele cheie dintr-o parte să fie toate cât mai aproape posibil de punctele cheie corespunzătoare de pe cealaltă parte.
 
-CrossCam este programat să folosească mai întâi alinierea punctului cheie, dar va reveni la alinierea ECC atunci când alinierea punctelor cheie nu reușește sau când capturarea se face cu metoda diviziunii în oglindă cu o singură fotografie. De asemenea, puteți configura alinierea automată pentru a utiliza întotdeauna alinierea punctului cheie sau pentru a utiliza întotdeauna alinierea ECC pe pagina Setări.
+CrossCam este programată să folosească mai întâi alinierea punctului cheie, dar va reveni la alinierea ECC atunci când alinierea punctelor cheie nu reușește sau când capturarea se face cu metoda diviziunii în oglindă cu o singură fotografie. De asemenea, puteți configura alinierea automată pentru a utiliza întotdeauna alinierea punctului cheie sau pentru a utiliza întotdeauna alinierea ECC pe pagina Setări.
 
 CrossCam va afișa rezultatul alinierii pe ecranul camerei sub pictograma robotului mic. Dacă a folosit alinierea ECC, va afișa procentul de încredere. Dacă a folosit alinierea punctului cheie, va afișa „KP”. Dacă ambele metode de aliniere au eșuat, va afișa „F”. Dacă nu vă place rezultatul alinierii, puteți apăsa pe pictograma robotului mic pentru a elimina alinierea.</value>
   </data>
@@ -579,7 +579,7 @@ Există mulți spectatori diferiți cu proprietăți diferite. Poate fi necesar 
     <value>Cum ai intrat în stereoscopie?</value>
   </data>
   <data name="Page.Faq.Into.Body1" xml:space="preserve">
-    <value>În timp ce îmi obțineam diploma de fizică, am avut ocazia să experimentez cu crearea propriilor holograme folosind lasere. Tipul de holograme pe care le făceam erau 3D, deoarece foloseau un rețea de difracție pentru a provoca interferențe distructive în lumina care se reflectă de pe suprafața unei plăci de sticlă, ceea ce face ca imaginea reflectată să arate diferit de la diferite locuri. Când fiecare dintre ochii noștri vede o imagine care pare să fie dintr-o perspectivă diferită (dacă nu sunt prea diferiți), creierul nostru percepe asta ca profunzime.</value>
+    <value>În timp ce îmi obțineam diploma de fizică, am avut ocazia să experimentez cu crearea propriilor mele holograme folosind lasere. Tipul de holograme pe care le făceam erau 3D, deoarece foloseau un rețea de difracție pentru a provoca interferențe distructive în lumina care se reflectă de pe suprafața unei plăci de sticlă, ceea ce face ca imaginea reflectată să arate diferit de la diferite locuri. Când fiecare dintre ochii noștri vede o imagine care pare să fie dintr-o perspectivă diferită (dacă nu sunt prea diferiți), creierul nostru percepe asta ca profunzime.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
     <value>Eram conștient de acel principiu al percepției stereoscopice de mult timp, dar în acel moment al vieții mele urmam și niște cursuri de programare, așa că am decis că vreau să încerc să fac un program simplu de calculator pentru desenul 3D stereoscopic. Acel efort a devenit StereoSketcher. Versiunea originală a fost scrisă în Java, dar am rescris-o cu Javascript și SVG și acum trăiește pe web</value>
@@ -598,9 +598,9 @@ Există mulți spectatori diferiți cu proprietăți diferite. Poate fi necesar 
 
 Paralaxa înseamnă că, din perspectiva ochiului tău drept, atunci când obiectele sunt mai departe, par a fi mai la dreapta decât obiectele mai apropiate când sunt văzute din ochiul stâng. Este confuz când este descris în format de propoziție, dar foarte intuitiv când este demonstrat.
 
-Pentru a demonstra, ține un deget în sus în fața ta, cam la lungimea brațului, apoi cu cealaltă mână ține un alt deget la jumătatea distanței dintre primul deget și față. Dacă închideți alternativ fiecare ochi și acordați atenție unde sunt degetele, veți vedea că fiecare ochi le vede în locuri diferite. Așadar, în mod natural, dacă fiecare ochi a văzut acea mișcare în sens invers în care ar trebui să o facă, adâncimea va fi inversată.
+Pentru a demonstra, ține un deget în sus în fața ta la aproximativ lungimea brațului, apoi cu cealaltă mână ține un alt deget la jumătatea distanței dintre primul deget și față. Dacă închideți alternativ fiecare ochi și acordați atenție unde sunt degetele, veți vedea că fiecare ochi le vede în locuri diferite. Așadar, în mod natural, dacă fiecare ochi a văzut acea mișcare în sens invers în care ar trebui să o facă, adâncimea va fi inversată.
 
-Este foarte ușor să folosești din greșeală o metodă de vizualizare greșită, deoarece se dovedește că este foarte greu pentru majoritatea oamenilor să-și dea seama dacă încrucișează sau își relaxează ochii doar simțind sau privind imaginea dublă confuză a lumii care rezultă. În schimb, cel mai bine este fie ca altcineva să se uite la ceea ce fac ochii tăi, fie să încerci această imagine de tester:</value>
+Este foarte ușor să folosești din greșeală metoda de vizionare greșită, deoarece se dovedește că este foarte greu pentru majoritatea oamenilor să-și dea seama dacă încrucișează sau își relaxează ochii doar simțind sau privind imaginea dublă confuză a lumii care rezultă. În schimb, cel mai bine este fie ca altcineva să se uite la ceea ce fac ochii tăi, fie să încerci această imagine de tester:</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>Mulți oameni s-au simțit destul de confortabili cu vizualizarea cărților Magic Eye™, care sunt destinate să fie vizualizate folosind metoda de vizualizare paralelă. Dacă le vizualizați încrucișat, atunci obiectele 3D robuste care ar trebui să iasă de pe pagină arată în schimb ca niște găuri. Ambele metode vă permit să vedeți *ceva*, dar dacă nu ați putut spune ce a fost, probabil că le vizionați încrucișat.</value>
@@ -616,7 +616,7 @@ Această metodă va funcționa și cu reflexii în ferestre mari și curate și,
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Există unele compromisuri/editări care trebuie făcute pentru a utiliza metoda oglindă. Toate acestea pot fi făcute manual în CrossCam, dar alinierea automată va încerca, de asemenea, să le facă pentru dvs.:
  • Deoarece vederea reflectată se deplasează pe o distanță mai mare decât vizualizarea normală, partea în oglindă va trebui să fie mărită puțin.
- • Este probabil ca atunci când utilizați metoda oglinzii, să ajungeți să vă îndreptați, mai degrabă decât să păstrați perspectivele paralele - acest lucru poate face ca scurtarea să arate ca o aliniere verticală proastă. Pentru a anula acest lucru, se poate face corecția keystone, ceea ce înseamnă micșorarea verticală a unei părți a fiecărei imagini.
+ • Este posibil ca atunci când utilizați metoda oglinzii, să ajungeți să vă îndreptați, mai degrabă decât să păstrați perspectivele paralele - acest lucru poate face ca scurtarea să arate ca o aliniere verticală proastă. Pentru a anula acest lucru, se poate face corecția keystone, ceea ce înseamnă micșorarea verticală a unei părți a fiecărei imagini.
  • Îndepărtarea va tinde, de asemenea, să miște fereastra stereo spre tine. Puteți anula acest lucru și îl puteți plasa unde doriți, decupând părțile laterale.
  • Probabil că oglinda nu va acoperi complet vederea unei laturi, așa că poate fi necesar să se efectueze o tăiere pentru a elimina bucățile nereflectate.
 
@@ -672,7 +672,7 @@ Pentru a utiliza metoda oglinzii, consultați celelalte întrebări frecvente de
     <value>Ghidul gogoșilor vă poate ajuta pe fereastra.</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Există un ghid experimental pe pagina Setări pe care îl puteți activa, care vă poate ajuta să vă păstrați fereastra stereo, maximizând în același timp lățimea utilizată. Prin întoarcerea la stânga și la dreapta, adâncimea gogoșii se va schimba în raport cu restul scenei - setați adâncimea gogoșii astfel încât să fie pe sau în spatele celui mai îndepărtat punct din scena dvs. Fiți atenți, folosirea lui pe scene mai mici poate face lucrurile dureroase (consultați sfatul de mai sus).</value>
+    <value>Există un ghid experimental pe pagina Setări pe care îl puteți activa, care vă poate ajuta să vă păstrați fereastra stereo, maximizând în același timp lățimea utilizată. Prin întoarcerea la stânga și la dreapta, adâncimea gogoșii se va schimba în raport cu restul scenei - setați adâncimea gogoșii astfel încât să fie pe sau în spatele celui mai îndepărtat punct din scena dvs. Fiți atenți, folosirea lui pe scene mai mici poate face lucrurile dureroase (vezi sfatul cheii de mai sus).</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Corecția keystone este necesară dacă vă îndreptați.</value>
@@ -705,7 +705,7 @@ Pentru a utiliza metoda oglinzii, consultați celelalte întrebări frecvente de
     <value>Activați modul rapid când sunteți cu alții.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Dacă explorezi cu alți oameni, este o idee bună să intri în modul rapid dezactivând alinierea automată și marginile și doar salvând după ce ai capturat fără a face nicio editare. Puteți oricând încărca, alinia automat și edita imaginile mai târziu. În acest fel, însoțitorii tăi nu trebuie să aștepte ca tu să-ți perfecționezi fotografiile la fața locului, dar poți fi totuși sigur că profunzimea pe care o dorești este cu adevărat acolo. Ai grijă să nu faci nicio editare grăbită înainte de prima salvare! De asemenea, puteți activa salvarea separată, care va ignora orice editare pe care o faceți.</value>
+    <value>Dacă explorezi împreună cu alte persoane, este o idee bună să intri în modul rapid dezactivând alinierea automată și marginile și doar salvând după ce ai capturat fără a face nicio editare. Puteți oricând încărca, alinia automat și edita imaginile mai târziu. În acest fel, însoțitorii tăi nu trebuie să aștepte ca tu să-ți perfecționezi pozele pe loc, dar poți fi totuși sigur că profunzimea pe care o dorești este cu adevărat acolo. Ai grijă să nu faci nicio editare grăbită înainte de prima salvare! De asemenea, puteți activa salvarea separată, care va ignora orice editare pe care o faceți.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Dacă mișcarea te face rău, stai nemișcat.</value>
@@ -771,7 +771,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
 Înainte ca două dispozitive să poată fi utilizate împreună, trebuie să le fie atribuite rolurile. Dispozitivul PRIMAR este cel care va afișa ambele previzualizări, va declanșa captura și va menține/salva capturile finale. Pentru a atribui roluri, navigați pe ambele dispozitive la această pagină și apoi urmați pașii de mai jos:</value>
   </data>
   <data name="Page.Pairing.2" xml:space="preserve">
-    <value>Dacă întâmpinați probleme, REȚINȚI:
+    <value>Dacă aveți probleme, REȚINEȚI:
  • După începerea procesului de asociere, butonul de asociere poate fi apăsat din nou în orice moment pentru a-l opri sau pentru a se deconecta.
  • Poate fi de ajutor să opriți asocierea pe ambele dispozitive și să o reporniți în același timp.
  • Vă poate ajuta să vă deconectați de la rețelele dvs. Wi-Fi sau de date în cazul în care acestea funcționează.
@@ -779,7 +779,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
  • CrossCam este software, nu hardware, așa că capturarea fotografiilor poate fi ușor desincronizată, în funcție de ce mai fac procesoarele și memoria în momentul exact în care este declanșată captura. Ca urmare, sincronizarea poate să nu fie uneori perfectă, dar în general ar trebui să fie foarte apropiată.</value>
   </data>
   <data name="Page.Pairing.Again" xml:space="preserve">
-    <value>Pentru a vă conecta din nou mai târziu, asigurați-vă că aveți Wi-Fi activat și apoi atingeți butonul de conectare de pe ecranul de start pe ambele dispozitive.</value>
+    <value>Pentru a vă conecta din nou mai târziu, asigurați-vă că aveți Wi-Fi activat și apoi atingeți butonul de conectare de pe ecranul de pornire pe ambele dispozitive.</value>
   </data>
   <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
     <value>CrossCam necesită permisiunea de acces la rețeaua locală. CrossCam nu folosește de fapt rețeaua locală, dar iOS necesită ca CrossCam să obțină această permisiune pentru a utiliza antena Wi-Fi pentru a scana dispozitive. CrossCam va cere această permisiune o dată - dacă permisiunea este refuzată, va trebui să mergeți și să comutați singur în aplicația Setări.</value>
@@ -956,7 +956,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Afișați ghidajul siguranțelor (un punct deasupra fiecărei părți)</value>
   </data>
   <data name="Settings.Guides.LineColor" xml:space="preserve">
-    <value>Linii colorate diferite</value>
+    <value>Diferite linii colorate</value>
   </data>
   <data name="Settings.Guides.Lines" xml:space="preserve">
     <value>Liniile vizibile</value>
@@ -995,7 +995,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Rol: primar</value>
   </data>
   <data name="Settings.Pair.Sample" xml:space="preserve">
-    <value>Numărul de probe de ceas (numărul mai mic va reduce timpul necesar pentru sincronizarea inițială, dar poate scădea precizia sincronizării)</value>
+    <value>Numărul de probe de ceas (numărul mai mic va reduce timpul necesar pentru sincronizarea inițială, dar poate scădea acuratețea sincronizării)</value>
   </data>
   <data name="Settings.Pair.Secondary" xml:space="preserve">
     <value>Secundar:</value>
@@ -1037,7 +1037,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Resetați la valorile implicite</value>
   </data>
   <data name="Settings.Saving.Alone" xml:space="preserve">
-    <value>Salvați singur prima față (fără editări sau chenar) (pentru partajarea ușoară a fotografiilor plat cu persoanele cu vizualizare plată)</value>
+    <value>Salvați singur prima față (fără modificări sau chenar) (pentru partajarea ușoară a fotografiilor plat cu persoanele cu vizualizare plată)</value>
   </data>
   <data name="Settings.Saving.Anaglyph" xml:space="preserve">
     <value>Salvați versiunea anaglifă roșie/cian (cu modificări, dar fără chenar)</value>
@@ -1152,5 +1152,8 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam este acum în</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Salvați automat după capturare</value>
   </data>
 </root>

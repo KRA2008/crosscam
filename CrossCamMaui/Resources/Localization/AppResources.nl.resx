@@ -187,7 +187,7 @@ Om 3D in CrossCam te zien ("stereogrammen" genoemd), kunt u een rood/cyaan 3D-br
 
 Als je gemakkelijk kunt kijken, moet je eerst de kruismethode proberen, anders moet je de parallelle methode proberen. Als je gewend bent aan Magic Eye™-boeken, kun je waarschijnlijk al de parallelle methode gebruiken, maar misschien kun je ook de kruismethode gebruiken. Tik op een methode hieronder om deze te leren, en zorg ervoor dat u CrossCam vertelt welke voor u werkt door op de overeenkomstige KIES-knop te drukken.
 
-Als u liever een 3D-bril of een Cardboard-viewer gebruikt, kunt u CrossCam zo instellen dat u deze gebruikt op de pagina Instellingen.</value>
+Als u liever een 3D-bril of een Cardboard-viewer gebruikt, kunt u CrossCam instellen om deze te gebruiken op de pagina Instellingen.</value>
   </data>
   <data name="Page.Technique.CrossLink1" xml:space="preserve">
     <value>Een leuke teksttutorial</value>
@@ -439,7 +439,7 @@ Als u liever een 3D-bril of een Cardboard-viewer gebruikt, kunt u CrossCam zo in
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Als je nog steeds problemen ondervindt, probeer dan je telefoon naar een donkere kamer te brengen, zodat je ogen alleen het beeld goed kunnen zien en waarop ze zich kunnen concentreren.
 
-Een ander ding dat je kunt proberen is het gebruik van tubes toiletpapier of je handen om het zo te maken dat elk oog alleen de kant van het beeld kan zien dat het zou moeten zien.
+Een ander ding dat je kunt proberen is het gebruik van wc-papierbuizen of je handen om het zo te maken dat elk oog alleen de kant van het beeld kan zien dat het zou moeten zien.
  • Voor dwarsaanzicht: houd een enkele buis tegen de brug van uw neus (gecentreerd tussen uw ogen) terwijl u deze naar het midden van het beeld voor u richt. Beweeg de buis langzaam in de richting van het scherm terwijl u met beide ogen door de buis probeert te kijken. Wanneer u met de tube de juiste positie bereikt, klikt de afbeelding op zijn plaats. Het kan helpen als u zich concentreert op het proberen naar de binnenkant van het uiteinde van de buis te kijken. Als je de juiste positie niet kunt vinden, probeer dan een grotere afbeelding of een kleinere tube.
  • Voor parallel zicht: houd een buisje voor elk oog, maar richt ze allebei zijwaarts, zodat je nauwelijks iets kunt zien. Draai tegelijkertijd de buizen langzaam naar binnen, zodat u meer van het beeld kunt zien. Op het moment dat je het grootste deel van het beeld kunt zien (bijna de helft met elk oog), probeer je ogen te ontspannen en de helften bij elkaar te brengen. Het kan helpen om een ​​grotere of kleinere afbeelding te gebruiken.
 
@@ -588,17 +588,17 @@ Er zijn veel verschillende kijkers met verschillende eigenschappen. Mogelijk moe
     <value>op deze link.</value>
   </data>
   <data name="Page.Faq.Into.Body4" xml:space="preserve">
-    <value>Het is op geen enkele manier populair, en het is misschien voor niemand anders dan voor mij gemakkelijk te gebruiken, maar het werkt. Terwijl ik aan StereoSketcher werkte, mocht ik experimenteren met de principes van stereoscopie, en ik raakte gecharmeerd van de manier waarop zo'n meeslepende en meeslepende ervaring kan worden geproduceerd met behulp van een paar eenvoudige regels.</value>
+    <value>Het is op geen enkele manier populair en misschien is het voor niemand anders dan voor mij gemakkelijk te gebruiken, maar het werkt. Terwijl ik aan StereoSketcher werkte, mocht ik experimenteren met de principes van stereoscopie, en ik raakte gecharmeerd van de manier waarop zo'n meeslepende en meeslepende ervaring kan worden geproduceerd met behulp van een paar eenvoudige regels.</value>
   </data>
   <data name="Page.Faq.Inverted" xml:space="preserve">
     <value>Waarom ziet de 3D er niet goed uit OF waarom ziet de 3D er omgekeerd uit?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Bij het vrij bekijken met de kruis- of parallelle methode is het belangrijk om de afbeeldingen te bekijken met dezelfde methode als waarmee ze zijn gemaakt. Anders kijkt uw rechteroog naar het perspectief dat bedoeld is voor het linkeroog en omgekeerd. Hierdoor wordt de diepte van het beeld omgekeerd, omdat de richting van de parallax is verwisseld.
+    <value>Bij het vrij bekijken met de kruis- of parallelle methode is het belangrijk om naar de foto's te kijken met dezelfde methode die werd gebruikt om ze te maken. Anders kijkt uw rechteroog naar het perspectief dat bedoeld is voor het linkeroog en omgekeerd. Hierdoor wordt de diepte van het beeld omgekeerd, omdat de richting van de parallax is verwisseld.
 
 Parallax betekent dat vanuit het perspectief van uw rechteroog, wanneer objecten verder weg zijn, ze verder naar rechts lijken te zijn dan objecten dichterbij, gezien vanuit uw linkeroog. Het is verwarrend als het in zinsvorm wordt beschreven, maar zeer intuïtief als het wordt gedemonstreerd.
 
-Om dit te demonstreren, houdt u één vinger ongeveer op armlengte voor u omhoog, en houdt u vervolgens met uw andere hand een andere vinger ongeveer halverwege tussen de wijsvinger en uw gezicht. Als je afwisselend elk oog sluit en let op waar je vingers zich bevinden, zul je zien dat elk oog ze op verschillende plaatsen ziet. Dus als elk oog die beweging in de tegenovergestelde richting ziet dan zou moeten, zal de diepte natuurlijk worden omgekeerd.
+Om dit te demonstreren, houdt u één vinger ongeveer op armlengte voor u omhoog en houdt u vervolgens met uw andere hand een andere vinger ongeveer halverwege tussen de wijsvinger en uw gezicht. Als je afwisselend elk oog sluit en let op waar je vingers zich bevinden, zul je zien dat elk oog ze op verschillende plaatsen ziet. Dus als elk oog die beweging in de tegenovergestelde richting ziet dan zou moeten, zal de diepte natuurlijk worden omgekeerd.
 
 Het is heel gemakkelijk om per ongeluk de verkeerde kijkmethode te gebruiken, omdat het voor de meeste mensen erg moeilijk blijkt te zijn om te bepalen of ze hun ogen kruisen of ontspannen, alleen maar door te voelen of door te kijken naar het verwarrende dubbele beeld van de wereld dat daaruit voortkomt. In plaats daarvan kunt u het beste iemand anders laten kijken naar wat uw ogen doen, of deze testerafbeelding uitproberen:</value>
   </data>
@@ -609,14 +609,14 @@ Het is heel gemakkelijk om per ongeluk de verkeerde kijkmethode te gebruiken, om
     <value>Hoe voer ik de "single-shot mirror"-methode uit?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Door vast te leggen met de spiegelmethode wordt het frame in tweeën gedeeld en wordt de vereiste transformatie uitgevoerd, zodat u beide kanten op hetzelfde moment kunt vastleggen met één telefoon en een gewone handspiegel. Om de spiegelmethode te gebruiken bij het vastleggen, zet u de schakelaar voor de spiegelmodus op de pagina Instellingen aan (tik op het tandwielpictogram om daar te komen). Nadat u de spiegelmodus hebt ingeschakeld, vertelt CrossCam u aan welke kant u uw spiegel moet houden. Houd je spiegel aan die kant en maak je druk over de uitlijning tussen je telefoon en de spiegel en je onderwerp. Met wat geduld kun je ze allemaal op een rij zetten, zodat de spiegel het juiste perspectief voor een van de zijkanten laat zien. Omdat het gebruik van de spiegelmethode uw afbeelding verticaal in tweeën splitst, kunt u meestal het beste landschapsfoto's maken met de spiegelmethode.
+    <value>Door vast te leggen met de spiegelmethode wordt het frame in tweeën gedeeld en wordt de vereiste transformatie uitgevoerd, zodat u beide zijden op hetzelfde moment kunt vastleggen met één telefoon en een gewone handspiegel. Om de spiegelmethode te gebruiken bij het vastleggen, zet u de schakelaar voor de spiegelmodus op de pagina Instellingen aan (tik op het tandwielpictogram om daar te komen). Nadat u de spiegelmodus hebt ingeschakeld, vertelt CrossCam u aan welke kant u uw spiegel moet houden. Houd je spiegel aan die kant en maak je druk over de uitlijning tussen je telefoon en de spiegel en je onderwerp. Met wat geduld kun je ze allemaal op een rij zetten, zodat de spiegel het juiste perspectief voor een van de zijkanten laat zien. Omdat het gebruik van de spiegelmethode uw afbeelding verticaal in tweeën splitst, kunt u meestal het beste landschapsfoto's maken met de spiegelmethode.
 
 Deze methode werkt ook met reflecties in grote, schone ramen, en ook op stille meren of plassen (wanneer de telefoon in portretstand is vergrendeld en opzij is gekanteld).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Er zijn enkele compromissen/wijzigingen die moeten worden aangebracht om de spiegelmethode te kunnen gebruiken. Deze kunnen allemaal handmatig worden gedaan in CrossCam, maar automatische uitlijning zal ook proberen dit voor u te doen:
  • Omdat het gereflecteerde beeld een langere afstand aflegt dan het normale beeld, zal de gespiegelde zijde iets moeten worden ingezoomd.
- • Het is waarschijnlijk dat wanneer u de spiegelmethode gebruikt, u uiteindelijk in het toespoor terechtkomt, in plaats van de perspectieven parallel te houden. Dit kan ervoor zorgen dat verkorting de indruk wekt van een slechte verticale uitlijning. Om dat ongedaan te maken, kan keystone-correctie worden uitgevoerd, wat betekent dat één zijde van elk van de afbeeldingen verticaal wordt verkleind.
+ • Het is waarschijnlijk dat wanneer u de spiegelmethode gebruikt, u uiteindelijk in het toespoor terechtkomt in plaats van de perspectieven parallel te houden. Dit kan ervoor zorgen dat verkorting de indruk wekt van een slechte verticale uitlijning. Om dat ongedaan te maken, kan keystone-correctie worden uitgevoerd, wat betekent dat één zijde van elk van de afbeeldingen verticaal wordt verkleind.
  • Bij toespoor zal het stereovenster ook naar u toe bewegen. Je kunt dat ongedaan maken en het plaatsen waar je het wilt hebben door de zijkanten bij te snijden.
  • De spiegel zal waarschijnlijk het zicht van één kant niet volledig bedekken, dus het kan nodig zijn om iets bij te snijden om niet-gereflecteerde delen te verwijderen.
 
@@ -660,7 +660,7 @@ In de loop van de volgende paar weken bracht mijn sluimerende frustratie me erto
     <value>Let op de horizontale lijnen, maar je kunt ook achteraf uitlijnen.</value>
   </data>
   <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
-    <value>Als u merkt dat het tijdens het maken van foto's onmogelijk is om zowel de bovenste als de onderste hulplijnen tegelijkertijd uit te lijnen, heeft u waarschijnlijk in een andere richting bewogen dan alleen opzij. Probeer dit op te lossen voordat u de foto's maakt, maar achteraf uitlijnen kan hierbij veel helpen.</value>
+    <value>Als u merkt dat het tijdens het maken van foto's onmogelijk is om zowel de bovenste als de onderste hulplijnen tegelijkertijd uit te lijnen, heeft u waarschijnlijk in een andere richting bewogen dan alleen maar opzij. Probeer dit op te lossen voordat u de foto's maakt, maar achteraf uitlijnen kan dit veel helpen.</value>
   </data>
   <data name="Page.Tips.Alignment" xml:space="preserve">
     <value>U kunt automatische uitlijning uitschakelen.</value>
@@ -672,7 +672,7 @@ In de loop van de volgende paar weken bracht mijn sluimerende frustratie me erto
     <value>De donutgids kan uw raam helpen.</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Er is een experimentele donutgids op de pagina Instellingen die u kunt inschakelen en waarmee u uw stereovenster kunt behouden terwijl u de bruikbare breedte maximaliseert. Door naar links en rechts te draaien verandert de diepte van de donut ten opzichte van de rest van de scène. Stel de diepte van de donut zo in dat deze zich op of achter het verste punt in uw scène bevindt. Wees voorzichtig, het gebruik ervan op kleinere scènes kan de zaken pijnlijk maken (zie keystone-tip hierboven).</value>
+    <value>Er is een experimentele donutgids op de pagina Instellingen die u kunt inschakelen en waarmee u uw stereovenster kunt behouden terwijl u de bruikbare breedte maximaliseert. Door naar links en rechts te draaien, verandert de diepte van de donut ten opzichte van de rest van de scène. Stel de diepte van de donut zo in dat deze zich op of achter het verste punt in uw scène bevindt. Wees voorzichtig, het gebruik ervan op kleinere scènes kan de zaken pijnlijk maken (zie keystone-tip hierboven).</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Trapeziumcorrectie is nodig als u toespoort.</value>
@@ -705,10 +705,10 @@ In de loop van de volgende paar weken bracht mijn sluimerende frustratie me erto
     <value>Schakel de snelle modus in als u met anderen bent.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Als u met andere mensen aan het verkennen bent, is het een goed idee om naar de snelle modus te gaan door de automatische uitlijning en randen uit te schakelen en de opname pas op te slaan zonder enige bewerking uit te voeren. U kunt de afbeeldingen altijd later laden, automatisch uitlijnen en bewerken. Zo hoeven uw begeleiders niet te wachten tot u ter plekke uw foto's perfectioneert, maar kunt u er toch op vertrouwen dat de gewenste diepgang ook echt aanwezig is. Pas op dat u geen overhaaste bewerkingen uitvoert voordat u de eerste keer opslaat! U kunt ook de afzonderlijke zijbesparing inschakelen, waardoor eventuele bewerkingen worden genegeerd.</value>
+    <value>Als u met andere mensen aan het verkennen bent, is het een goed idee om naar de snelle modus te gaan door de automatische uitlijning en randen uit te schakelen en de opname pas op te slaan zonder enige bewerking uit te voeren. U kunt de afbeeldingen altijd later laden, automatisch uitlijnen en bewerken. Zo hoeven uw begeleiders niet te wachten totdat u ter plekke uw foto's perfectioneert, maar kunt u er toch zeker van zijn dat de gewenste diepgang ook echt aanwezig is. Pas op dat u geen overhaaste bewerkingen uitvoert voordat u de eerste keer opslaat! U kunt ook de afzonderlijke zijbesparing inschakelen, waardoor eventuele bewerkingen worden genegeerd.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
-    <value>Als de beweging u ziek maakt, blijf dan stil staan.</value>
+    <value>Als de beweging je ziek maakt, blijf dan stil.</value>
   </data>
   <data name="Page.Tips.Sick.Body" xml:space="preserve">
     <value>Als je ziek wordt van alle bewegingen of het te moeilijk maakt om in 3D te kijken, begin dan pas met proberen het in 3D te zien nadat je een klein stukje bent verhuisd. Vergelijk vervolgens de afbeeldingen met elkaar en lijn de afbeeldingen uit met behulp van de horizontale lijnen zonder 3D-weergave. Begin vervolgens met 3D-weergave zodra u ze uitlijnt en stilhoudt.</value>
@@ -729,7 +729,7 @@ In de loop van de volgende paar weken bracht mijn sluimerende frustratie me erto
     <value>Voeg een rand toe en snijd bij om een ​​sterk stereovenster te maken.</value>
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Een interessant stereovenstereffect kan worden gecreëerd door twee dingen te doen: 1) schakel de rand in (op de pagina Instellingen) en 2) voor kruislings bekijken snijdt u de binnenranden van de afbeeldingen bij totdat de buitenrand zelf 3D wordt in de afbeelding (bijsnijden de BUITENKANTEN als u parallel kijkt). De sleutel is om de rechterrand van de linkerfoto iets bij te snijden voorbij wat de rechterrand van de rechterfoto van de scène laat zien, en omgekeerd. Het toevoegen van een rand kan worden gewijzigd op de pagina Instellingen. Als dit verwarrend is, knip dan gewoon een bosje van de binnenranden af, dan wordt het duidelijk. De bijsnijdknop voor de binnenranden ziet er als volgt uit:</value>
+    <value>Een interessant stereovenstereffect kan worden gecreëerd door twee dingen te doen: 1) schakel de rand in (op de pagina Instellingen) en 2) voor kruislings bekijken snijdt u de binnenranden van de afbeeldingen bij totdat de buitenrand zelf 3D wordt in de afbeelding (bijsnijden de BUITENKANTEN als u parallel kijkt). De sleutel is om de rechterrand van de linkerfoto iets bij te snijden tot voorbij wat de rechterrand van de rechterfoto van de scène laat zien, en omgekeerd. Het toevoegen van een rand kan worden gewijzigd op de pagina Instellingen. Als dit verwarrend is, knip dan gewoon een bosje van de binnenranden af, dan wordt het duidelijk. De bijsnijdknop voor de binnenranden ziet er als volgt uit:</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
     <value>Zie de code</value>
@@ -759,7 +759,7 @@ In de loop van de volgende paar weken bracht mijn sluimerende frustratie me erto
     <value>Test pre-releaseversies</value>
   </data>
   <data name="Button.Wi-Fi" xml:space="preserve">
-    <value>Zorg ervoor dat Wi-Fi op beide apparaten is ingeschakeld (maar dat het nergens mee verbonden hoeft te zijn)</value>
+    <value>Zorg ervoor dat wifi op beide apparaten is ingeschakeld (maar dat deze nergens mee verbonden hoeven te zijn)</value>
   </data>
   <data name="Page.Pairing.1" xml:space="preserve">
     <value>Als u twee apparaten heeft waarop CrossCam is geïnstalleerd, kunt u deze met elkaar verbinden om gelijktijdig foto's vanuit twee perspectieven te maken. Door twee foto's op hetzelfde moment te maken, ontstaan ​​de best mogelijke stereogrammen.
@@ -950,7 +950,7 @@ Voordat twee apparaten samen kunnen worden gebruikt, moeten hun rollen worden to
     <value>Maximaal zoomaandeel</value>
   </data>
   <data name="Settings.Guides.Donut" xml:space="preserve">
-    <value>Donutgids tonen (veroorzaakt toespoor, dus kan keystone-bewerking nodig zijn)</value>
+    <value>Donutgids tonen (veroorzaakt toespoor, dus mogelijk keystone-bewerking vereist)</value>
   </data>
   <data name="Settings.Guides.Fuse" xml:space="preserve">
     <value>Zekeringgeleider weergeven (een stip boven elke kant)</value>
@@ -1010,10 +1010,10 @@ Voordat twee apparaten samen kunnen worden gebruikt, moeten hun rollen worden to
     <value>Lenscorrectie/tonvervorming toevoegen (kan de framesnelheid verlagen)</value>
   </data>
   <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
-    <value>Voeg alleen lenscorrectie/tonvervorming toe aan de uiteindelijke beelden (kan de uiteindelijke weergave vertragen, maar versnelt het vastleggen)</value>
+    <value>Voeg alleen lenscorrectie/tonvervorming toe aan de uiteindelijke beelden (kan de uiteindelijke weergave vertragen, maar versnelt de opname)</value>
   </data>
   <data name="Settings.Preview.CardboardDistance" xml:space="preserve">
-    <value>Kartonnen scheidingsafstand</value>
+    <value>Scheidingsafstand van karton</value>
   </data>
   <data name="Settings.Preview.Downsize" xml:space="preserve">
     <value>Afbeelding verkleinen (kan de framesnelheid verhogen)</value>
@@ -1152,5 +1152,8 @@ Voordat twee apparaten samen kunnen worden gebruikt, moeten hun rollen worden to
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam is nu binnen</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Automatisch opslaan na het vastleggen</value>
   </data>
 </root>

@@ -388,7 +388,7 @@ Nếu bạn muốn sử dụng kính 3D hoặc thiết bị xem Cardboard, bạn
     <value>Tiết kiệm...</value>
   </data>
   <data name="Page.Camera.SecondaryOnLeft" xml:space="preserve">
-    <value>TRUNG HỌC TRÊN TRÁI</value>
+    <value>THỨ CẤP TRÊN TRÁI</value>
   </data>
   <data name="Page.Camera.SecondaryOnRight" xml:space="preserve">
     <value>THỨ CẤP TRÊN PHẢI</value>
@@ -440,8 +440,8 @@ Nếu bạn muốn sử dụng kính 3D hoặc thiết bị xem Cardboard, bạn
     <value>Nếu bạn vẫn gặp sự cố, hãy thử mang điện thoại vào phòng tối để thứ duy nhất mà mắt bạn có thể nhìn rõ và tập trung vào là hình ảnh.
 
 Một cách khác bạn có thể thử là sử dụng ống giấy vệ sinh hoặc dùng tay để làm sao cho mỗi mắt chỉ có thể nhìn thấy phía của hình ảnh mà nó phải nhìn.
- • Để xem chéo: giữ một ống duy nhất dựa vào sống mũi của bạn (chính giữa hai mắt của bạn) trong khi hướng nó vào giữa hình ảnh trước mặt bạn. Từ từ di chuyển ống về phía màn hình trong khi cố gắng nhìn xuống ống bằng cả hai mắt. Khi bạn đặt ống vào đúng vị trí, hình ảnh sẽ khớp vào đúng vị trí. Có thể giúp tập trung vào việc cố gắng nhìn vào bên trong đầu kia của ống. Nếu bạn không tìm được vị trí phù hợp, hãy thử sử dụng hình ảnh lớn hơn hoặc ống nhỏ hơn.
- • Để nhìn song song: cầm một ống trước mỗi mắt nhưng hướng cả hai mắt sang một bên để bạn khó có thể nhìn thấy gì. Đồng thời, từ từ xoay các ống vào trong để bạn có thể bắt đầu nhìn thấy nhiều hình ảnh hơn. Thời điểm bạn có thể nhìn thấy hầu hết hình ảnh (gần một nửa bằng mỗi mắt), hãy cố gắng thư giãn mắt và đưa hai nửa lại gần nhau. Việc sử dụng hình ảnh lớn hơn hoặc nhỏ hơn có thể hữu ích.
+ • Để xem chéo: giữ một ống duy nhất dựa vào sống mũi của bạn (ở giữa hai mắt của bạn) trong khi hướng nó vào giữa hình ảnh trước mặt bạn. Từ từ di chuyển ống về phía màn hình trong khi cố gắng nhìn xuống ống bằng cả hai mắt. Khi bạn đặt ống vào đúng vị trí, hình ảnh sẽ khớp vào đúng vị trí. Có thể giúp tập trung vào việc cố gắng nhìn vào bên trong đầu kia của ống. Nếu bạn không tìm được vị trí phù hợp, hãy thử sử dụng hình ảnh lớn hơn hoặc ống nhỏ hơn.
+ • Để nhìn song song: cầm một ống trước mỗi mắt nhưng hướng cả hai ống ra ngoài để bạn khó có thể nhìn thấy gì. Đồng thời, từ từ xoay các ống vào trong để bạn có thể bắt đầu nhìn thấy nhiều hình ảnh hơn. Thời điểm bạn có thể nhìn thấy hầu hết hình ảnh (gần một nửa bằng mỗi mắt), hãy cố gắng thư giãn mắt và đưa hai nửa lại gần nhau. Việc sử dụng hình ảnh lớn hơn hoặc nhỏ hơn có thể hữu ích.
 
 Có một bài tập dễ dàng mà bạn có thể thực hiện để thực hành kết hợp với chế độ xem chéo hoặc song song. Lấy bút đánh dấu và vẽ một phần khuôn mặt cười lên mỗi hình thu nhỏ của bạn (hoặc một cặp que kem hoặc dụng cụ ấn lưỡi). Ví dụ, một bên vẽ một mắt và miệng, bên kia vẽ mắt và mũi. Sau đó, bạn có thể giơ chúng lên trước mặt và thực hành ghép hai hình ảnh lại với nhau để hoàn thành khuôn mặt cười.
 
@@ -521,7 +521,7 @@ Những việc khác bạn có thể làm:
  • Nhấn vào biểu tượng bánh răng ở phía trên bên phải màn hình camera để mở trang Cài đặt. Nó chứa đầy những điều thú vị.
  • Có một trang Mẹo hay mà bạn có thể truy cập bằng cách nhấn vào biểu tượng bánh hamburger ở phía trên bên trái màn hình máy ảnh. Trang này có thể giúp bạn tạo ra những bức ảnh đẹp.
  • Nếu bạn muốn di chuyển theo hướng khác cho lần bắn thứ hai hoặc muốn đổi bên, chỉ cần vuốt.
- • Nhấn vào biểu tượng thư mục nhỏ ở phía dưới để tải hình ảnh ở dạng cạnh hoặc tải hình ảnh âm thanh nổi đầy đủ.</value>
+ • Nhấn vào biểu tượng thư mục nhỏ ở phía dưới để tải hình ảnh ở một bên hoặc tải hình ảnh âm thanh nổi đầy đủ.</value>
   </data>
   <data name="Page.Faq.Alignment" xml:space="preserve">
     <value>Tự động căn chỉnh hoạt động như thế nào?</value>
@@ -529,7 +529,7 @@ Những việc khác bạn có thể làm:
   <data name="Page.Faq.Alignment.Body" xml:space="preserve">
     <value>Tự động căn chỉnh cố gắng căn chỉnh các cặp hình ảnh tốt nhất có thể nhưng nó không hoàn hảo. Thị giác máy tính tốt hơn ở một số thứ so với mắt người, nhưng cũng kém hơn rất nhiều ở những thứ khác. Thế giới mà nó nhìn thấy rất khác so với thế giới chúng ta thấy, nhưng nó cũng có thể nhìn theo một số cách khác nhau. Hai cách chính mà nó nhìn thấy trong CrossCam là thông qua hệ số tương quan nâng cao (ECC) và sử dụng các điểm chính.
 
-Căn chỉnh ECC về cơ bản hoạt động bằng cách cố gắng đảm bảo các mảng sáng chồng lên nhau với các mảng sáng và các mảng tối chồng lên nhau với các mảng tối khi hai mặt được chồng lên nhau. Căn chỉnh ECC đi kèm với điểm tin cậy nhằm giúp quyết định liệu việc căn chỉnh có hiệu quả hay không. CrossCam được thiết lập để từ chối căn chỉnh được tạo ra nếu độ tin cậy quá thấp, nhưng bạn có thể định cấu hình ngưỡng đạt/không đạt độ tin cậy trên trang Cài đặt.
+Về cơ bản, căn chỉnh ECC hoạt động bằng cách cố gắng đảm bảo các mảng sáng chồng lên nhau với các mảng sáng và các mảng tối chồng lên nhau với các mảng tối khi hai mặt được chồng lên nhau. Căn chỉnh ECC đi kèm với điểm tin cậy nhằm giúp quyết định xem việc căn chỉnh có hiệu quả hay không. CrossCam được thiết lập để từ chối căn chỉnh được tạo ra nếu độ tin cậy quá thấp, nhưng bạn có thể định cấu hình ngưỡng đạt/không đạt độ tin cậy trên trang Cài đặt.
 
 Căn chỉnh điểm chính tìm kiếm các điểm quan tâm như góc, cạnh, dấu chấm và độ tương phản cao, đồng thời cố gắng khớp chúng giữa hai bên. Sau khi các điểm được khớp, CrossCam có thể sử dụng nhiều thuật toán khác nhau để cố gắng làm cong các bên sao cho các điểm chính ở một bên càng gần với các điểm chính tương ứng của chúng ở phía bên kia càng tốt.
 
@@ -555,7 +555,7 @@ CrossCam sẽ hiển thị kết quả căn chỉnh trên màn hình camera bên
     <value>Làm cách nào để sử dụng CrossCam với Google Cardboard?</value>
   </data>
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
-    <value>Nếu thiết bị xem của bạn có nút nhấn vào giữa màn hình thì bạn có thể sử dụng nút đó để chụp bằng Cardboard. Thiết bị xem của bạn cũng cần phải có một lỗ để camera của điện thoại có thể nhìn xuyên qua.
+    <value>Nếu thiết bị xem của bạn có nút nhấn vào giữa màn hình, bạn có thể sử dụng nút đó để chụp bằng Cardboard. Thiết bị xem của bạn cũng sẽ cần phải có một lỗ để camera của điện thoại có thể nhìn xuyên qua.
 
 Để chụp ảnh bằng Cardboard, hãy chuyển Phương thức xem trước của bạn (trên trang Cài đặt) sang Cardboard, sau đó quay lại trang máy ảnh và gắn điện thoại của bạn vào trình xem. Nhấn nút để chụp, khi chụp được cả hai bên thì nhấn lại nút để lưu. Lưu ở chế độ Cardboard chỉ nhằm mục đích cho phép bạn tải lại hình ảnh vào CrossCam để xem sau chứ không phải để xem chúng trong ứng dụng ảnh của bạn thông qua trình xem.
 
@@ -567,7 +567,7 @@ Có rất nhiều người xem khác nhau với các thuộc tính khác nhau. B
     <value>Cái này hoạt động ra sao?</value>
   </data>
   <data name="Page.Faq.How.Body1" xml:space="preserve">
-    <value>Hiệu ứng 3D mà CrossCam sử dụng là một nguyên tắc được nghiên cứu kỹ lưỡng được gọi là phương pháp soi nổi và phương pháp mà bạn lác mắt (hoặc thư giãn chúng) để xem hai bên được gọi là xem tự do. Khi chúng ta nhìn quanh thế giới, mỗi mắt chúng ta nhìn từ một góc độ khác nhau. Trong phương pháp soi nổi, tất cả những gì chúng ta làm là thể hiện một góc nhìn (nhân tạo) cho mỗi mắt và bộ não của chúng ta sẽ làm phần còn lại. Có rất nhiều cách khác nhau để làm cho mỗi mắt nhìn thấy một hình ảnh khác nhau. Đây là</value>
+    <value>Hiệu ứng 3D mà CrossCam sử dụng là một nguyên tắc được nghiên cứu kỹ lưỡng được gọi là phương pháp soi nổi và phương pháp mà bạn lác mắt (hoặc thư giãn chúng) để xem hai bên được gọi là xem tự do. Khi chúng ta nhìn xung quanh thế giới, mỗi mắt chúng ta nhìn từ một góc độ khác nhau. Trong phương pháp soi nổi, tất cả những gì chúng ta làm là thể hiện một góc nhìn (nhân tạo) cho mỗi mắt và bộ não của chúng ta sẽ làm phần còn lại. Có rất nhiều cách khác nhau để làm cho mỗi mắt nhìn thấy một hình ảnh khác nhau. Đây là</value>
   </data>
   <data name="Page.Faq.How.Body2" xml:space="preserve">
     <value>một liên kết Wikipedia về kính lập thể</value>
@@ -596,7 +596,7 @@ Có rất nhiều người xem khác nhau với các thuộc tính khác nhau. B
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
     <value>Khi xem tự do bằng phương pháp chéo hoặc song song, điều quan trọng là phải xem các bức ảnh bằng cùng một phương pháp đã được sử dụng để tạo ra chúng. Nếu không, mắt phải của bạn sẽ nhìn vào phối cảnh dành cho mắt trái và ngược lại. Điều này làm cho độ sâu của hình ảnh bị đảo ngược vì hướng thị sai đã bị hoán đổi.
 
-Thị sai có nghĩa là từ góc nhìn của mắt phải, khi các vật ở xa hơn thì chúng dường như ở xa hơn về phía bên phải so với các vật ở gần hơn khi nhìn từ mắt trái của bạn. Nó khó hiểu khi được mô tả ở dạng câu, nhưng rất trực quan khi được trình bày.
+Thị sai có nghĩa là từ góc nhìn của mắt phải, khi các vật ở xa hơn, chúng dường như ở xa hơn về phía bên phải so với các vật ở gần hơn khi nhìn từ mắt trái của bạn. Nó khó hiểu khi được mô tả ở dạng câu, nhưng rất trực quan khi được trình bày.
 
 Để làm mẫu, hãy giơ một ngón tay lên trước mặt bạn với độ dài khoảng một cánh tay, sau đó dùng tay kia giữ một ngón tay khác cách khoảng giữa ngón tay đầu tiên và khuôn mặt của bạn. Nếu bạn lần lượt nhắm từng mắt lại và chú ý đến vị trí của các ngón tay, bạn sẽ thấy mỗi mắt nhìn thấy chúng ở những vị trí khác nhau. Vì vậy, một cách tự nhiên, nếu mỗi mắt nhìn thấy chuyển động đó theo hướng ngược lại thì độ sâu sẽ bị đảo ngược.
 
@@ -609,14 +609,14 @@ Rất dễ vô tình sử dụng sai phương pháp xem vì hóa ra hầu hết 
     <value>Làm cách nào để thực hiện phương pháp "gương một lần"?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Chụp bằng phương pháp gương sẽ chia khung hình làm đôi và thực hiện chuyển đổi cần thiết để bạn có thể chụp cả hai bên cùng một lúc bằng một chiếc điện thoại và một chiếc gương cầm tay thông thường. Để sử dụng phương pháp phản chiếu khi chụp, hãy bật công tắc cho chế độ phản chiếu trên trang Cài đặt (nhấn vào biểu tượng bánh răng để đến đó). Sau khi bạn bật chế độ gương, CrossCam sẽ cho bạn biết nên đặt gương ở phía nào. Giữ gương của bạn ở phía đó và loay hoay với việc căn chỉnh giữa điện thoại với gương và chủ thể của bạn. Với một chút kiên nhẫn, bạn sẽ có thể xếp tất cả chúng thẳng hàng sao cho gương hiển thị góc nhìn chính xác cho một trong các cạnh. Vì sử dụng phương pháp phản chiếu sẽ chia hình ảnh của bạn làm đôi theo chiều dọc nên tốt nhất bạn nên chụp ảnh phong cảnh bằng phương pháp phản chiếu.
+    <value>Chụp bằng phương pháp gương sẽ chia khung hình làm đôi và thực hiện chuyển đổi cần thiết để bạn có thể chụp cả hai bên cùng lúc bằng một chiếc điện thoại và một chiếc gương cầm tay thông thường. Để sử dụng phương pháp phản chiếu khi chụp, hãy bật công tắc cho chế độ phản chiếu trên trang Cài đặt (nhấn vào biểu tượng bánh răng để đến đó). Sau khi bạn bật chế độ gương, CrossCam sẽ cho bạn biết nên đặt gương ở phía nào. Giữ gương của bạn ở phía đó và loay hoay với việc căn chỉnh giữa điện thoại với gương và chủ thể của bạn. Với một chút kiên nhẫn, bạn sẽ có thể xếp tất cả chúng thẳng hàng sao cho gương hiển thị góc nhìn chính xác cho một trong các cạnh. Vì sử dụng phương pháp phản chiếu sẽ chia hình ảnh của bạn làm đôi theo chiều dọc nên tốt nhất bạn nên chụp ảnh phong cảnh bằng phương pháp phản chiếu.
 
 Phương pháp này cũng sẽ hiệu quả với hình ảnh phản chiếu trong các cửa sổ lớn, sạch sẽ cũng như trên mặt hồ hoặc vũng nước tĩnh lặng (khi điện thoại được khóa ở chế độ dọc và lật sang một bên).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
-    <value>Có một số thỏa hiệp/chỉnh sửa cần được thực hiện để sử dụng phương pháp nhân bản. Tất cả những việc này có thể được thực hiện thủ công trong CrossCam, nhưng việc căn chỉnh tự động cũng sẽ cố gắng thực hiện chúng cho bạn:
- • Vì chế độ xem được phản chiếu di chuyển trên một khoảng cách dài hơn so với chế độ xem bình thường nên mặt được phản chiếu sẽ cần phải được phóng to một chút.
- • Có khả năng là khi sử dụng phương pháp soi gương, bạn sẽ đi đến chỗ hướng vào trong, thay vì giữ các phối cảnh song song - điều này có thể khiến cho việc thu gọn hình ảnh trông giống như căn chỉnh theo chiều dọc không tốt. Để hoàn tác điều đó, có thể thực hiện chỉnh sửa keystone, nghĩa là thu nhỏ một bên của mỗi hình ảnh theo chiều dọc.
+    <value>Có một số thỏa hiệp/chỉnh sửa cần được thực hiện để sử dụng phương pháp nhân bản. Tất cả những việc này có thể được thực hiện thủ công trong CrossCam, nhưng tính năng căn chỉnh tự động cũng sẽ cố gắng thực hiện chúng cho bạn:
+ • Vì chế độ xem được phản chiếu di chuyển trên một khoảng cách xa hơn so với chế độ xem bình thường nên mặt được phản chiếu sẽ cần được phóng to một chút.
+ • Có khả năng là khi sử dụng phương pháp soi gương, bạn sẽ đi đến chỗ hướng vào trong, thay vì giữ các phối cảnh song song - điều này có thể khiến cho việc thu gọn hình ảnh trông giống như sự căn chỉnh theo chiều dọc không tốt. Để hoàn tác điều đó, có thể thực hiện chỉnh sửa keystone, nghĩa là thu nhỏ một bên của mỗi hình ảnh theo chiều dọc.
  • Ngón chân cũng sẽ có xu hướng di chuyển cửa sổ âm thanh nổi về phía bạn. Bạn có thể hoàn tác điều đó và đặt nó ở nơi bạn muốn bằng cách cắt các cạnh.
  • Gương có thể sẽ không che phủ hoàn toàn tầm nhìn của một bên, vì vậy có thể cần phải thực hiện một số thao tác cắt xén để loại bỏ các phần không phản chiếu.
 
@@ -648,7 +648,7 @@ Có một số thỏa hiệp khác phải được chấp nhận khi sử dụng
   <data name="Page.Faq.Why.Body" xml:space="preserve">
     <value>Khi tôi bắt đầu quan tâm đến phương pháp soi nổi, tôi tình cờ có một chuyến đi tới Yellowstone. Khi ở đó, tôi nhận ra rằng sẽ rất thú vị khi thử sử dụng ứng dụng di động có camera 3D để chụp mọi thứ ở đó ở dạng 3D. Tôi đã rất thất vọng bởi các lựa chọn hiện có. Tôi thấy tất cả họ đều yêu cầu bạn thực hiện hai lần chụp và sau đó tìm hiểu xem chúng có tốt không. Chúng thường không như vậy, vì tôi phải liên tục đưa ra những phỏng đoán hoàn chỉnh về khoảng cách tách biệt của mình cũng như chất lượng của đối tượng.
 
-Trong vài tuần tiếp theo, sự thất vọng âm ỉ của tôi khiến tôi tưởng tượng đơn giản là cung cấp bản xem trước trực tiếp của ảnh chụp thứ hai cùng với ảnh chụp đầu tiên. Tôi đã có kiến ​​thức nền tảng về phát triển thiết bị di động nên vấn đề chỉ là dành thời gian. CrossCam thật tuyệt vời đối với tôi khi sử dụng cho riêng mình để lưu giữ những kỷ niệm và tôi cũng rất vui được chia sẻ nó với bạn.</value>
+Trong vài tuần tiếp theo, nỗi thất vọng âm ỉ khiến tôi tưởng tượng đơn giản là cung cấp bản xem trước trực tiếp của ảnh chụp thứ hai cùng với ảnh chụp đầu tiên. Tôi đã có kiến ​​thức nền tảng về phát triển thiết bị di động nên vấn đề chỉ là dành thời gian. CrossCam thật tuyệt vời đối với tôi khi sử dụng cho riêng mình để lưu giữ những kỷ niệm và tôi cũng rất vui được chia sẻ nó với bạn.</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
     <value>Đồ thị lung tung là gì?</value>
@@ -705,7 +705,7 @@ Trong vài tuần tiếp theo, sự thất vọng âm ỉ của tôi khiến tô
     <value>Bật chế độ nhanh khi bạn ở cùng người khác.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Nếu bạn đang khám phá với những người khác, bạn nên chuyển sang chế độ nhanh bằng cách tắt tính năng tự động căn chỉnh và đường viền, đồng thời chỉ lưu sau khi đã chụp mà không thực hiện bất kỳ chỉnh sửa nào. Bạn luôn có thể tải, tự động căn chỉnh và chỉnh sửa ảnh sau. Bằng cách đó, những người bạn đồng hành của bạn không phải đợi bạn hoàn thiện những bức ảnh của mình ngay tại chỗ mà vẫn có thể tự tin rằng chiều sâu bạn mong muốn thực sự có ở đó. Chỉ cần cẩn thận để không thực hiện bất kỳ chỉnh sửa vội vàng nào trước lần lưu đầu tiên! Bạn cũng có thể bật tính năng lưu bên riêng biệt để bỏ qua mọi chỉnh sửa bạn thực hiện.</value>
+    <value>Nếu bạn đang khám phá với những người khác, bạn nên chuyển sang chế độ nhanh bằng cách tắt tính năng tự động căn chỉnh và đường viền, đồng thời chỉ lưu sau khi đã chụp mà không thực hiện bất kỳ chỉnh sửa nào. Bạn luôn có thể tải, tự động căn chỉnh và chỉnh sửa ảnh sau. Bằng cách đó, những người bạn đồng hành của bạn không phải đợi bạn hoàn thiện những bức ảnh của mình ngay tại chỗ, nhưng bạn vẫn có thể tự tin rằng chiều sâu bạn mong muốn thực sự có ở đó. Chỉ cần cẩn thận để không thực hiện bất kỳ chỉnh sửa vội vàng nào trước lần lưu đầu tiên! Bạn cũng có thể bật tính năng lưu bên riêng biệt để bỏ qua mọi chỉnh sửa bạn thực hiện.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Nếu cử động khiến bạn buồn nôn, hãy giữ yên.</value>
@@ -729,7 +729,7 @@ Trong vài tuần tiếp theo, sự thất vọng âm ỉ của tôi khiến tô
     <value>Thêm đường viền và cắt để tạo một cửa sổ âm thanh nổi mạnh mẽ.</value>
   </data>
   <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Bạn có thể tạo hiệu ứng cửa sổ âm thanh nổi thú vị bằng cách thực hiện hai việc: 1) bật đường viền (trên trang Cài đặt) và 2) để xem chéo, cắt các cạnh bên trong của hình ảnh cho đến khi chính cạnh bên ngoài trở thành 3D trong ảnh (cắt các cạnh BÊN NGOÀI nếu bạn đang xem song song). Điều quan trọng là cắt cạnh phải của ảnh bên trái một chút so với cạnh phải của ảnh bên phải thể hiện cảnh đó và ngược lại. Thêm đường viền được bật trên trang Cài đặt. Nếu điều này gây nhầm lẫn, chỉ cần cắt bớt một loạt các cạnh bên trong và nó sẽ bắt đầu rõ ràng. Nút cắt các cạnh bên trong trông như thế này:</value>
+    <value>Bạn có thể tạo hiệu ứng cửa sổ âm thanh nổi thú vị bằng cách thực hiện hai việc: 1) bật đường viền (trên trang Cài đặt) và 2) để xem chéo, cắt các cạnh bên trong của hình ảnh cho đến khi chính cạnh ngoài trở thành 3D trong ảnh (cắt các cạnh BÊN NGOÀI nếu bạn đang xem song song). Điều quan trọng là cắt cạnh phải của ảnh bên trái một chút so với cạnh phải của ảnh bên phải thể hiện cảnh đó và ngược lại. Thêm đường viền được bật trên trang Cài đặt. Nếu điều này gây nhầm lẫn, chỉ cần cắt bớt một loạt các cạnh bên trong và nó sẽ bắt đầu rõ ràng. Nút cắt các cạnh bên trong trông như thế này:</value>
   </data>
   <data name="Button.Code" xml:space="preserve">
     <value>Xem mã</value>
@@ -785,7 +785,7 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>CrossCam yêu cầu quyền truy cập mạng cục bộ. CrossCam không thực sự sử dụng mạng cục bộ nhưng iOS yêu cầu CrossCam phải có quyền này để sử dụng ăng-ten Wi-Fi nhằm quét tìm thiết bị. CrossCam sẽ yêu cầu quyền này một lần - nếu quyền bị từ chối, bạn sẽ phải tự mình bật công tắc trong ứng dụng Cài đặt.</value>
   </data>
   <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam sẽ yêu cầu quyền và bật nguồn các thành phần khi cần để kết nối thiết bị của bạn. Xin lưu ý: CrossCam yêu cầu quyền truy cập vị trí và bật dịch vụ định vị trên thiết bị chính để kết nối với thiết bị phụ. Đây đơn giản là một yêu cầu của Android và hoàn toàn nằm ngoài tầm kiểm soát của tôi. CrossCam thực tế không SỬ DỤNG vị trí của bạn theo bất kỳ cách nào nhưng vì về mặt lý thuyết, hành động tìm kiếm (và tìm kiếm) các thiết bị lân cận có thể được sử dụng để xác định vị trí đại khái của bạn nên CrossCam yêu cầu quyền truy cập vào vị trí của bạn.</value>
+    <value>CrossCam sẽ yêu cầu quyền và bật nguồn các thành phần khi cần để kết nối thiết bị của bạn. Xin lưu ý: CrossCam yêu cầu quyền truy cập vị trí và bật dịch vụ định vị trên thiết bị chính để kết nối với thiết bị phụ. Đây đơn giản là một yêu cầu của Android và hoàn toàn nằm ngoài tầm kiểm soát của tôi. CrossCam thực tế không SỬ DỤNG vị trí của bạn theo bất kỳ cách nào nhưng vì về mặt lý thuyết, hành động tìm kiếm (và tìm kiếm) các thiết bị lân cận có thể được sử dụng để định vị đại khái vị trí của bạn nên CrossCam yêu cầu quyền truy cập vào vị trí của bạn.</value>
   </data>
   <data name="Page.Pairing.Permissions" xml:space="preserve">
     <value>Lưu ý về quyền:</value>
@@ -848,7 +848,7 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>Tiết kiệm</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
-    <value>CrossCam sử dụng miễn phí, không có quảng cáo, nguồn mở, không thu thập thông tin cá nhân từ bạn và cung cấp cho bạn quyền truy cập đầy đủ vào mọi tính năng. Tôi thích làm việc trên CrossCam nhưng nó tốn rất nhiều thời gian và công sức. Tôi hoàn toàn không kiếm được tiền từ CrossCam ngoại trừ những lời khuyên mà mọi người có thể quyết định gửi cho tôi.</value>
+    <value>CrossCam sử dụng miễn phí, không có quảng cáo, nguồn mở, không thu thập thông tin cá nhân từ bạn và cung cấp cho bạn toàn quyền truy cập vào mọi tính năng. Tôi thích làm việc trên CrossCam nhưng nó tốn rất nhiều thời gian và công sức. Tôi hoàn toàn không kiếm được tiền từ CrossCam ngoại trừ những lời khuyên mà mọi người có thể quyết định gửi cho tôi.</value>
   </data>
   <data name="Page.TipMe.2" xml:space="preserve">
     <value>Nếu bạn thích CrossCam và có khả năng, vui lòng cân nhắc gửi mẹo cho tôi.</value>
@@ -911,7 +911,7 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>Buộc API camera1 (có thể hữu ích nếu bạn gặp phải vấn đề lạ nhưng sẽ dẫn đến chức năng bị hạn chế, yêu cầu buộc thoát/khởi động lại để có hiệu lực)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
-    <value>Buộc API camera2 (phải có trên Android 6 trở lên, có thể hữu ích nếu bạn gặp lỗi nhưng có thể mắc nhiều lỗi hơn, yêu cầu buộc thoát/khởi động lại để có hiệu lực)</value>
+    <value>Buộc API camera2 (phải có trên Android 6 trở lên, có thể hữu ích nếu bạn gặp lỗi nhưng có thể mắc lỗi nhiều hơn, yêu cầu buộc thoát/khởi động lại để có hiệu lực)</value>
   </data>
   <data name="Settings.Camera.LandscapeCaptureHorizontal" xml:space="preserve">
     <value>Vị trí nút chụp phong cảnh nằm ngang</value>
@@ -971,7 +971,7 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>Chụp thời lượng đếm ngược (hẹn giờ)</value>
   </data>
   <data name="Settings.Pair.Fov" xml:space="preserve">
-    <value>Hiệu chỉnh trường nhìn</value>
+    <value>Chỉnh sửa trường nhìn</value>
   </data>
   <data name="Settings.Pair.FovNotSet" xml:space="preserve">
     <value>Chưa đặt hiệu chỉnh FOV (chụp ảnh bằng các thiết bị đã ghép nối để thực hiện quá trình thiết lập).</value>
@@ -1121,10 +1121,10 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>Thiết bị không thể tìm kiếm thiết bị. Ngoại lệ:</value>
   </data>
   <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
-    <value>Dịch vụ định vị chưa được kích hoạt. Không thể quét tìm thiết bị. Xem trang ghép nối để biết thêm chi tiết.</value>
+    <value>Dịch vụ định vị chưa được kích hoạt. Không thể quét thiết bị. Xem trang ghép nối để biết thêm chi tiết.</value>
   </data>
   <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
-    <value>Quyền vị trí không được cấp. Không thể quét tìm thiết bị. Xem trang ghép nối để biết thêm chi tiết.</value>
+    <value>Quyền vị trí không được cấp. Không thể quét thiết bị. Xem trang ghép nối để biết thêm chi tiết.</value>
   </data>
   <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
     <value>Ghép nối không được hỗ trợ trên thiết bị này. Ngoại lệ:</value>
@@ -1152,5 +1152,8 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam hiện đã có mặt</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Tự động lưu sau khi chụp</value>
   </data>
 </root>

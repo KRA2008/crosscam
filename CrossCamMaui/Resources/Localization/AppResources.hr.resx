@@ -124,7 +124,7 @@
     <value>UČITE KRIŽ</value>
   </data>
   <data name="Button.LearnParallel" xml:space="preserve">
-    <value>UČI PARALELNO</value>
+    <value>UČITE PARALELNO</value>
   </data>
   <data name="Button.MorePictures" xml:space="preserve">
     <value>Pogledajte više slika</value>
@@ -139,7 +139,7 @@
     <value>Podržite programera</value>
   </data>
   <data name="Button.TapCross" xml:space="preserve">
-    <value>DATI OVDJE ZA ODABRANJE KRIŽA</value>
+    <value>DATI OVDJE ZA ODABOR KRIŽA</value>
   </data>
   <data name="Button.TapParallel" xml:space="preserve">
     <value>DODIRNITE OVDJE DA ODABERETE PARALELNO</value>
@@ -185,7 +185,7 @@
 
 Da biste vidjeli 3D u CrossCam-u (koji se naziva "stereogrami"), možete koristiti crvene/cijan 3D naočale, Google Cardboard preglednik ili možete "besplatno gledati" koristeći samo oči i zaslon. Postoje dva načina besplatnog gledanja, a CrossCam vam može pomoći da naučite oba. Morate reći CrossCamu kako ćete gledati slike ili neće raditi kako treba. Ne brinite, to uvijek možete ponovo promijeniti u Postavkama.
 
-Ako možete udobno prekrižiti oči, prvo biste trebali isprobati metodu križanja, inače pokušajte paralelnu metodu. Ako ste navikli na knjige Magic Eye™, vjerojatno već znate raditi paralelnu metodu, ali možda ćete također moći raditi i križnu metodu. Dodirnite donju metodu da je naučite i svakako recite CrossCam-u koja vam odgovara pritiskom odgovarajućeg gumba ODABERI.
+Ako možete udobno prekrižiti oči, prvo biste trebali isprobati metodu križanja, inače pokušajte s paralelnom metodom. Ako ste navikli na knjige Magic Eye™, vjerojatno već znate raditi paralelnu metodu, ali možda ćete također moći raditi i križnu metodu. Dodirnite donju metodu da je naučite i svakako recite CrossCam-u koja vam odgovara pritiskom odgovarajuće tipke ODABERI.
 
 Ako biste radije koristili 3D naočale ili Cardboard preglednik, možete postaviti CrossCam da ih koristi na stranici postavki.</value>
   </data>
@@ -289,7 +289,7 @@ Ako biste radije koristili 3D naočale ili Cardboard preglednik, možete postavi
     <value>Odredište spremanja nije moguće pronaći. Odaberite neki drugi na stranici postavki.</value>
   </data>
   <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
-    <value>Što ste učinili neposredno prije nego što se pogreška dogodila? Opišite čak i male stvari.\n\n\n\n\n\nJe li CrossCam i dalje radio nakon pogreške? Ako nije, kako je pokvaren?\n\n\n\n\n\nDogađa li se to opetovano?\n\n\n\n\n\nMožete li prisiliti da se pogreška dogodi naredbom? Ako da, kako?\n\n\n\n\n\n</value>
+    <value>Što ste učinili prije nego što se pogreška dogodila? Opišite čak i male stvari.\n\n\n\n\n\nJe li CrossCam i dalje radio nakon pogreške? Ako nije, kako je pokvaren?\n\n\n\n\n\nDogađa li se to opetovano?\n\n\n\n\n\nMožete li prisiliti da se pogreška dogodi naredbom? Ako da, kako?\n\n\n\n\n\n</value>
   </data>
   <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
     <value>Preokreni u pejzaž kada je u kartonskom načinu rada.</value>
@@ -440,12 +440,12 @@ Ako biste radije koristili 3D naočale ili Cardboard preglednik, možete postavi
     <value>Ako i dalje imate problema, pokušajte odnijeti telefon u mračnu prostoriju tako da jedino što vaše oči mogu dobro vidjeti i na što se fokusirati je slika.
 
 Još jedna stvar koju možete pokušati je koristiti cijevi od toaletnog papira ili ruke kako biste napravili tako da svako oko može vidjeti samo onu stranu slike koju bi trebalo vidjeti.
- • Za poprečni pogled: držite jednu cijev na hrptu nosa (centrirano između očiju) dok je usmjeravate u središte slike ispred sebe. Polako pomičite cijev prema ekranu dok pokušavate pogledati niz cijev s oba oka. Kada postignete pravi položaj s cijevi, slika bi trebala sjednuti na svoje mjesto. Može pomoći ako se koncentrirate na pokušaj gledanja unutrašnjosti udaljenog kraja cijevi. Ako ne možete pronaći pravi položaj, pokušajte koristiti veću sliku ili manju cijev.
- • Za paralelni pogled: držite cijev ispred svakog oka, ali oba usmjerite prema van, tako da jedva možete vidjeti bilo što. Polako istovremeno okrećite cijevi prema unutra kako biste mogli vidjeti veći dio slike. U trenutku kada možete vidjeti veći dio slike (gotovo pola sa svakim okom), pokušajte opustiti oči i spojiti polovice. Može pomoći korištenje veće ili manje slike.
+ • Za poprečni pogled: držite jednu cijev na hrptu nosa (centrirano između očiju) dok je usmjeravate u središte slike ispred sebe. Polako pomičite cijev prema ekranu dok pokušavate pogledati niz cijev s oba oka. Kada postignete pravi položaj s cijevi, slika bi trebala sjednuti na svoje mjesto. Može pomoći ako se koncentrirate na pokušaj gledanja unutrašnjosti udaljenog kraja cijevi. Ako ne možete pronaći pravi položaj, pokušajte upotrijebiti veću sliku ili manju cijev.
+ • Za paralelni pogled: držite cijev ispred svakog oka, ali oba usmjerite prema van, tako da jedva možete vidjeti bilo što. Polako okrećite cijevi prema unutra u isto vrijeme tako da možete početi vidjeti veći dio slike. U trenutku kada možete vidjeti veći dio slike (gotovo pola sa svakim okom), pokušajte opustiti oči i spojiti polovice. Može pomoći korištenje veće ili manje slike.
 
 Postoji jednostavna vježba koju možete učiniti da uvježbate spajanje s križnim ili paralelnim gledanjem. Uzmite marker i nacrtajte dio smajlića na svakoj od svojih sličica (ili par štapića za sladoled ili stiskača jezika). Na primjer, s jedne strane nacrtajte jedno oko i usta, a s druge strane nacrtajte oko i nos. Zatim ih možete držati ispred sebe i vježbati spajanje dviju slika kako biste dovršili smajlić.
 
-Ja osobno preferiram unakrsno paralelno jer slike mogu biti veće, ali obje metode rade. Ako želite eksperimentirati s većim paralelnim slikama, možete kontrolirati veličinu na stranici Postavke.
+Ja osobno preferiram križanje paralelno jer slike mogu biti veće, ali obje metode rade. Ako želite eksperimentirati s većim paralelnim slikama, možete kontrolirati veličinu na stranici Postavke.
 
 Ponekad je teško osjetiti radite li križnu ili paralelnu metodu dok to radite. Možete zamoliti nekog drugog da vam promatra oči dok to radite ili možete pogledati sliku ispod kao test:</value>
   </data>
@@ -495,7 +495,7 @@ Ponekad je teško osjetiti radite li križnu ili paralelnu metodu dok to radite.
     <value>Dobrodošli u CrossCam!</value>
   </data>
   <data name="Page.Camera.Directions" xml:space="preserve">
-    <value>Preskoči na upute</value>
+    <value>Prijeđi na upute</value>
   </data>
   <data name="Page.Camera.Technique" xml:space="preserve">
     <value>Tehnika gledanja</value>
@@ -511,7 +511,7 @@ Ponekad je teško osjetiti radite li križnu ili paralelnu metodu dok to radite.
 
 4) Poravnajte prvu sliku s pregledom druge slike i snimite drugu sliku kada vam se svidi ono što vidite.
 
-5) CrossCam će automatski poravnati vaše slike nakon što ih snimite, ali nije savršeno, ako vam se ne sviđa kako su bile poravnate, možete isključiti automatsko poravnavanje dodirom ikone malog robota. CrossCam također ima mnoštvo opcija ručnog uređivanja do kojih možete doći dodirivanjem ikone olovke.
+5) CrossCam će automatski poravnati vaše slike nakon što ih snimite, ali nije savršeno, ako vam se ne sviđa kako su bile poravnate, možete isključiti automatsko poravnavanje dodirom male ikone robota. CrossCam također ima mnoštvo opcija ručnog uređivanja do kojih možete doći dodirivanjem ikone olovke.
 
 6) Dodirnite kvačicu kada budete spremni za spremanje.
 
@@ -519,7 +519,7 @@ Ponekad je teško osjetiti radite li križnu ili paralelnu metodu dok to radite.
 Ostale stvari koje možete učiniti:
  • Dodirnite jednom za fokusiranje na točku, dodirnite dvaput za povratak na kontinuirano automatsko fokusiranje.
  • Dodirnite ikonu zupčanika u gornjem desnom kutu zaslona kamere kako biste otvorili stranicu s postavkama. Pun je zanimljivih stvari.
- • Postoji zgodna stranica sa savjetima do koje možete doći dodirivanjem ikone hamburgera u gornjem lijevom kutu zaslona kamere koja vam može pomoći da svoje fotografije učinite sjajnima.
+ • Postoji lijepa stranica sa savjetima do koje možete doći dodirivanjem ikone hamburgera u gornjem lijevom kutu zaslona kamere koja vam može pomoći da svoje fotografije učinite sjajnima.
  • Ako biste se radije pomaknuli u drugom smjeru za drugu snimku ili biste htjeli zamijeniti strane, samo prijeđite prstom.
  • Dodirnite malu ikonu mape na dnu za učitavanje slike kao strane ili za učitavanje cijele stereo slike.</value>
   </data>
@@ -541,13 +541,13 @@ CrossCam će prikazati rezultat poravnanja na zaslonu kamere ispod ikone malog r
     <value>Je li to loše za moje oči?</value>
   </data>
   <data name="Page.Faq.Bad.Body1" xml:space="preserve">
-    <value>Ne znam, ali mislim da nije. Međutim, ako se osjećate loše, samo uzmite pauzu. Praksom se nelagoda obično smanjuje. Bilo koja metoda gledanja mogla bi uzrokovati nelagodu zbog efekta koji se naziva sukob vergencije i akomodacije. Evo</value>
+    <value>Ne znam, ali mislim da nije. Međutim, ako se osjećate loše, samo uzmite pauzu. Praksom se nelagoda obično smanjuje. Bilo koja metoda gledanja mogla bi izazvati nelagodu zbog efekta koji se naziva sukob vergencije i akomodacije. Evo</value>
   </data>
   <data name="Page.Faq.Bad.Body2" xml:space="preserve">
     <value>poveznica na Wikipediju o sukobu vergencije i akomodacije.</value>
   </data>
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
-    <value>Ako koristite metodu ukrštenih očiju, taj osjećaj može biti i zbog toga što vaše oči nisu navikle na pokazivanje kao da gledaju u nešto tako blizu tako dugo vremena. Prilikom unakrsnog gledanja, vaše oči konvergiraju u točki otprilike na pola puta između vaših očiju i zaslona. Ako bi vam i dugo gledanje u nešto što je blizu stvaralo nelagodu, imamo svoje objašnjenje.
+    <value>Ako koristite metodu ukrštenih očiju, taj osjećaj može biti i zbog toga što vaše oči nisu navikle na pokazivanje kao da gledaju nešto tako blizu tako dugo vremena. Prilikom unakrsnog gledanja, vaše oči konvergiraju u točki otprilike na pola puta između vaših očiju i zaslona. Ako bi vam i dugo gledanje u nešto što je blizu stvaralo nelagodu, imamo svoje objašnjenje.
 
 Moje mišljenje o tome je da vaše oči ne rade ništa izvan svojih svakodnevnih mogućnosti, ali kombinirate dvije različite sposobnosti koje se obično ne koriste na taj način. Fokusirate svoje leće na nešto na jednom mjestu na što je inače ugodno fokusirati se i usmjeravate oči negdje gdje im je inače ugodno usmjeriti ih, ali mjesto gdje vaše leće fokusiraju i gdje vam se oči spajaju jednostavno nije ista poanta. Ne vidim kako bi to moglo biti loše za tebe sve dok ti se vid još ne razvija.</value>
   </data>
@@ -557,7 +557,7 @@ Moje mišljenje o tome je da vaše oči ne rade ništa izvan svojih svakodnevnih
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
     <value>Ako vaš preglednik ima gumb koji pritišće središte zaslona, ​​možete ga koristiti za snimanje pomoću Cardboarda. Vaš će promatrač također morati imati rupu kroz koju može vidjeti kamera vašeg telefona.
 
-Za snimanje fotografija pomoću Cardboarda, prebacite svoj način pregledavanja (na stranici Postavke) na Cardboard, zatim se vratite na stranicu kamere i stavite telefon u preglednik. Pritisnite gumb za snimanje, a kada su obje strane snimljene, ponovno pritisnite gumb za spremanje. Spremanje u načinu rada Cardboard ima samo za cilj omogućiti učitavanje slika natrag u CrossCam za kasnije gledanje, a ne za njihovo gledanje u aplikaciji za fotografije putem preglednika.
+Za snimanje fotografija pomoću Cardboarda, prebacite svoj način pregledavanja (na stranici postavki) na Cardboard, zatim se vratite na stranicu kamere i stavite telefon u preglednik. Pritisnite gumb za snimanje, a kada su obje strane snimljene, ponovno pritisnite gumb za spremanje. Spremanje u načinu rada Cardboard ima samo za cilj omogućiti učitavanje slika natrag u CrossCam za kasnije gledanje, a ne za njihovo gledanje u aplikaciji za fotografije putem preglednika.
 
 Također možete snimati bilo kojom drugom metodom koju želite, a zatim prebacite svoj način pregledavanja na Cardboard i stavite telefon u preglednik.
 
@@ -596,7 +596,7 @@ Postoji mnogo različitih gledatelja s različitim svojstvima. Možda ćete mora
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
     <value>Kada slobodno gledate križnom ili paralelnom metodom, važno je gledati slike koristeći istu metodu koja je korištena za njihovo stvaranje. Inače će vaše desno oko gledati u perspektivi predviđenoj za lijevo oko i obrnuto. Ovo čini dubinu slike invertiranom jer je smjer paralakse zamijenjen.
 
-Paralaksa znači da iz perspektive vašeg desnog oka, kada su objekti udaljeniji, čini se da su dalje udesno od bližih objekata kada ih gledate lijevim okom. Zbunjujuće je kada se opisuje u obliku rečenice, ali je vrlo intuitivno kada se demonstrira.
+Paralaksa znači da iz perspektive vašeg desnog oka, kada su objekti udaljeniji, čini se da su dalje udesno nego bliži objekti kada ih gledate lijevim okom. Zbunjujuće je kada se opisuje u obliku rečenice, ali je vrlo intuitivno kada se demonstrira.
 
 Za demonstraciju, držite jedan prst ispred sebe otprilike na udaljenosti ruke, a zatim drugom rukom držite drugi prst otprilike na pola puta između prvog prsta i vašeg lica. Ako naizmjenično zatvorite oba oka i obratite pozornost na to gdje su vam prsti, vidjet ćete da ih svako oko vidi na različitim mjestima. Dakle, prirodno, ako svako oko vidi taj pokret suprotno od onoga što bi trebalo, dubina će biti obrnuta.
 
@@ -609,7 +609,7 @@ Vrlo je lako slučajno upotrijebiti krivu metodu gledanja jer se pokazalo da je 
     <value>Kako mogu izvesti metodu "single-shot mirror"?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Snimanje zrcalnom metodom dijeli okvir na pola i vrši potrebnu transformaciju tako da možete snimiti obje strane u istom trenutku pomoću jednog telefona i običnog ručnog zrcala. Za korištenje zrcalne metode pri snimanju, uključite zrcalni način rada na stranici Postavke (dodirnite ikonu zupčanika da biste došli tamo). Nakon što uključite način rada ogledala, CrossCam će vam reći na kojoj strani da držite ogledalo. Držite zrcalo na toj strani i mučite se oko poravnanja telefona, zrcala i subjekta. Uz malo strpljenja, moći ćete ih sve poredati tako da ogledalo pokazuje ispravnu perspektivu za jednu od strana. Budući da korištenje zrcalne metode vašu sliku okomito dijeli na pola, obično je najbolje snimati u pejzažu zrcalnom metodom.
+    <value>Snimanje zrcalnom metodom dijeli okvir na pola i vrši potrebnu transformaciju tako da možete snimiti obje strane u istom trenutku pomoću jednog telefona i običnog ručnog zrcala. Za korištenje zrcalne metode pri snimanju, uključite zrcalni način rada na stranici s postavkama (dodirnite ikonu zupčanika da dođete tamo). Nakon što uključite način rada ogledala, CrossCam će vam reći na kojoj strani da držite ogledalo. Držite zrcalo na toj strani i mučite se oko poravnanja telefona, zrcala i subjekta. Uz malo strpljenja, moći ćete ih sve poredati tako da ogledalo pokazuje ispravnu perspektivu za jednu od strana. Budući da korištenje zrcalne metode vašu sliku okomito dijeli na pola, obično je najbolje snimati u pejzažu zrcalnom metodom.
 
 Ova će metoda također funkcionirati s odrazima u velikim, čistim prozorima, kao i na mirnim jezerima ili lokvama (kada je telefon zaključan u portretnom položaju i okrenut na stranu).</value>
   </data>
@@ -620,7 +620,7 @@ Ova će metoda također funkcionirati s odrazima u velikim, čistim prozorima, k
  • Toeing-in također će težiti pomicanju stereo prozora prema vama. To možete poništiti i postaviti ga gdje želite obrezivanjem strana.
  • Ogledalo vjerojatno neće u potpunosti pokriti pogled s jedne strane, pa će možda biti potrebno izvršiti neko obrezivanje kako bi se uklonili nereflektirani dijelovi.
 
-Najbolja ogledala za to imaju tanko staklo. Kao prvo, lagani su, pa ih je lakše držati dulje vrijeme. Druga važna stvar je da kada koristite zrcalo, vjerojatno ćete ga usmjeriti postrance umjesto da gledate ravno u njega kao što se zrcala obično koriste. Kada su tako orijentirana, ogledala s debelim staklom mogu biti zamućena. Što je staklo tanje, to će zamućenje biti manje vidljivo. Ovakva ogledala također mogu biti loše kvalitete u drugim aspektima, stoga je važno pronaći dobar balans.
+Najbolja ogledala za to imaju tanko staklo. Kao prvo, lagani su, pa ih je lakše držati dulje vrijeme. Druga važna stvar je da kada koristite zrcalo vjerojatno ćete ga usmjeriti postrance umjesto da gledate ravno u njega kao što se zrcala obično koriste. Kada su tako orijentirana, ogledala s debelim staklom mogu biti zamućena. Što je staklo tanje, to će zamućenje biti manje vidljivo. Ovakva ogledala također mogu biti loše kvalitete u drugim aspektima, stoga je važno pronaći dobar balans.
 
 Postoji još nekoliko kompromisa koji se moraju prihvatiti kada se koristi zrcalno snimanje, a koji se ne mogu popraviti u izmjenama od strane CrossCam-a:
  • Budući da pogled na dvije strane prelazi malo različite udaljenosti, potreban fokus za svaku stranu bit će malo drugačiji, tako da će jedna strana uvijek biti malo mutna. Taj će učinak biti više ili manje vidljiv ovisno o udaljenosti do objekta i dubinskoj oštrini leće.
@@ -672,13 +672,13 @@ Tijekom sljedećih nekoliko tjedana moja tinjajuća frustracija navela me da zam
     <value>Vodič za krafne može pomoći vašem prozoru.</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Postoji eksperimentalna krafna vodiča na stranici postavki koju možete uključiti i koja vam može pomoći da sačuvate svoj stereo prozor dok maksimalno povećavate korisnu širinu. Okretanjem lijevo i desno dubina krafne će se promijeniti u odnosu na ostatak scene - postavite dubinu krafne tako da bude na ili iza najudaljenije točke u vašoj sceni. Budite oprezni, korištenje na manjim scenama može učiniti stvari bolnima (pogledajte tipični tip iznad).</value>
+    <value>Na stranici s postavkama postoji eksperimentalni vodič koji možete uključiti i koji vam može pomoći da sačuvate svoj stereo prozor dok maksimalno povećavate korisnu širinu. Okretanjem lijevo i desno dubina krafne će se promijeniti u odnosu na ostatak scene - postavite dubinu krafne tako da bude na ili iza najudaljenije točke u vašoj sceni. Budite oprezni, korištenje na manjim scenama može učiniti stvari bolnima (pogledajte tipični tip iznad).</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Korekcija trapezoida je potrebna ako ulazite.</value>
   </data>
   <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
-    <value>Ako se sa svakim snimkom okrenete prema unutra, vrlo je korisno napraviti trapezoidne korekcije. Obično želite smanjiti unutarnje rubove fotografija, a zatim izrezati dio s vrha i dna kako biste ih izravnali. Do izbornika za uređivanje trapezoida dolazite pritiskom na gumb koji izgleda ovako:</value>
+    <value>Ako se sa svakim snimkom okrenete prema unutra, vrlo je korisno napraviti trapezoidne korekcije. Obično želite smanjiti unutarnje rubove fotografija, a zatim izrezati dio s vrha i dna kako biste ih izravnali. Do izbornika za uređivanje trapezoida dolazite tako da dodirnete gumb koji izgleda ovako:</value>
   </data>
   <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
     <value>Okretanje prema unutra naziva se toe-in. Može uzrokovati efekt skraćivanja koji otežava spajanje kutova slike. Efekt skraćivanja prisutan je u svakom trenutku u stvarnom životu, jer se čini da se paralelne linije spajaju dok odlaze u daljinu od vas, ali umjetne perspektive mogu to učiniti čudnim.</value>
@@ -723,7 +723,7 @@ Tijekom sljedećih nekoliko tjedana moja tinjajuća frustracija navela me da zam
     <value>Ne okreći se.</value>
   </data>
   <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Kada se pomaknete, pokušajte uopće ne okretati telefon u bilo kojem smjeru, uključujući prirodnu tendenciju da se okrenete prema subjektu dok se pomičete u stranu. Bit će potrebna određena rotacija (ponekad), ali pokušajte je svesti na minimum. Zamislite da je telefon postavljen na ravnu vodoravnu šinu i može samo kliziti. Okretanje prema unutra može uzrokovati efekt skraćivanja zbog kojeg je kutove teško spojiti.</value>
+    <value>Kada se pomaknete, pokušajte uopće ne okretati telefon u bilo kojem smjeru, uključujući prirodnu tendenciju da se okrenete prema subjektu dok se pomičete u stranu. Bit će potrebna određena rotacija (ponekad), ali pokušajte je svesti na minimum. Zamislite da je telefon postavljen na ravnu vodoravnu šinu i može samo kliziti. Okretanje prema unutra može uzrokovati efekt skraćivanja zbog kojeg se kutovi teško spajaju.</value>
   </data>
   <data name="Page.Tips.Window" xml:space="preserve">
     <value>Dodajte obrub i obrežite kako biste napravili snažan stereo prozor.</value>
@@ -747,13 +747,13 @@ Tijekom sljedećih nekoliko tjedana moja tinjajuća frustracija navela me da zam
     <value>Vratite se na zaslon kamere na oba uređaja i dodirnite gumb za uparivanje u donjem kutu</value>
   </data>
   <data name="Button.Primary" xml:space="preserve">
-    <value>DATI OVDJE NA PRIMARNOM</value>
+    <value>TAČNITE OVDJE NA PRIMARNI</value>
   </data>
   <data name="Button.Privacy" xml:space="preserve">
     <value>Politika privatnosti</value>
   </data>
   <data name="Button.Secondary" xml:space="preserve">
-    <value>TAPI OVDJE NA SEKUNDARNOM</value>
+    <value>TAČNITE OVDJE NA SEKUNDARNOM</value>
   </data>
   <data name="Button.Test" xml:space="preserve">
     <value>Testirajte verzije prije izdanja</value>
@@ -762,7 +762,7 @@ Tijekom sljedećih nekoliko tjedana moja tinjajuća frustracija navela me da zam
     <value>Provjerite je li Wi-Fi omogućen na oba uređaja (ali ne mora biti povezan ni s čim)</value>
   </data>
   <data name="Page.Pairing.1" xml:space="preserve">
-    <value>Ako imate dva uređaja s instaliranim CrossCamom, možete ih povezati kako biste istovremeno snimali fotografije iz dvije perspektive. Snimanje dvije fotografije u istom trenutku daje najbolje moguće stereograme.
+    <value>Ako imate dva uređaja s instaliranim CrossCamom, možete ih spojiti kako biste istovremeno snimali fotografije iz dvije perspektive. Snimanje dvije fotografije u istom trenutku daje najbolje moguće stereograme.
 
 Imajte na umu da je ova značajka još uvijek eksperimentalna i da može imati problema. Možda neće raditi savršeno cijelo vrijeme i može vam trošiti bateriju. Također imajte na umu da u ovom trenutku uređaji moraju biti iste platforme kako bi se mogli povezati (oba Android ili oba iOS).
 
@@ -772,9 +772,9 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
   </data>
   <data name="Page.Pairing.2" xml:space="preserve">
     <value>Ako imate problema, NAPOMENA:
- • Nakon početka procesa uparivanja, gumb za uparivanje se može ponovno dodirnuti u bilo kojem trenutku da biste ga zaustavili ili prekinuli vezu.
+ • Nakon početka postupka uparivanja, gumb za uparivanje se može ponovno dodirnuti u bilo kojem trenutku da biste ga zaustavili ili prekinuli vezu.
  • Može pomoći zaustaviti uparivanje na oba uređaja i ponovno ga pokrenuti u isto vrijeme.
- • Može vam pomoći da prekinete vezu s Wi-Fi ili podatkovnom mrežom u slučaju da se poigravaju.
+ • Može pomoći da prekinete vezu s Wi-Fi ili podatkovnom mrežom u slučaju da se ponašaju pretjerano.
  • Svaka je kamera drugačija. Te razlike mogu uključivati ​​kutno vidno polje, fokus, ekspoziciju i ponašanje ravnoteže bijele boje, vrijeme itd. Čak će se i dva ista modela telefona ponašati malo drugačije. Više volim koristiti par identičnih starih telefona (u mom slučaju, par iPhonea 6).
  • CrossCam je softver, a ne hardver, tako da snimanje fotografija može biti malo neusklađeno, ovisno o tome što još procesori i memorija rade u točnom trenutku kada se snimanje pokrene. Kao rezultat toga, sinkronizacija ponekad možda nije savršena, ali općenito bi trebala biti vrlo blizu.</value>
   </data>
@@ -812,7 +812,7 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Pogledajte slike koje sam snimio</value>
   </data>
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
-    <value>Paralelni pogled Subreddit</value>
+    <value>Subreddit paralelnog prikaza</value>
   </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Automatsko poravnanje</value>
@@ -908,7 +908,7 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Debljina obruba (desetine postotka širine)</value>
   </data>
   <data name="Settings.Camera.Camera1" xml:space="preserve">
-    <value>Prisilni Camera1 API (može biti od pomoći ako se suočite s čudnim situacijama, ali rezultirat će ograničenom funkcionalnošću, zahtijeva prisilno isključivanje/ponovno pokretanje da bi stupio na snagu)</value>
+    <value>Force camera1 API (može biti od pomoći ako se susrećete s čudom, ali rezultirat će ograničenom funkcionalnošću, zahtijeva prisilno isključivanje/ponovno pokretanje da bi stupio na snagu)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
     <value>Force camera2 API (mora biti na Androidu 6 ili novijoj verziji, može biti od pomoći ako imate pogreške, ali može napraviti više, zahtijeva prisilni prekid/ponovno pokretanje da bi stupio na snagu)</value>
@@ -974,7 +974,7 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Korekcija vidnog polja</value>
   </data>
   <data name="Settings.Pair.FovNotSet" xml:space="preserve">
-    <value>Korekcija vidnog polja nije postavljena (napravite snimanje s uparenim uređajima da prođete kroz postavljanje).</value>
+    <value>Korekcija vidnog polja nije postavljena (napravite snimanje s uparenim uređajima da biste prošli kroz postavljanje).</value>
   </data>
   <data name="Settings.Pair.FovReset" xml:space="preserve">
     <value>Resetiraj</value>
@@ -998,7 +998,7 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Broj uzorka sata (niži broj će smanjiti vrijeme potrebno za početnu sinkronizaciju, ali može smanjiti točnost sinkronizacije)</value>
   </data>
   <data name="Settings.Pair.Secondary" xml:space="preserve">
-    <value>Sekundarno:</value>
+    <value>Sekundarni:</value>
   </data>
   <data name="Settings.Pair.SecondaryRole" xml:space="preserve">
     <value>Uloga: sekundarna</value>
@@ -1031,7 +1031,7 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Snimite metodom zrcalne podjele jednog snimka</value>
   </data>
   <data name="Settings.Preview.Width" xml:space="preserve">
-    <value>Maksimalna širina slike paralelnog prikaza (točke)</value>
+    <value>Maksimalna širina slike paralelnog pogleda (točke)</value>
   </data>
   <data name="Settings.Reset" xml:space="preserve">
     <value>Vrati na zadane postavke</value>
@@ -1152,5 +1152,8 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam je sada tu</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Spremi automatski nakon snimanja</value>
   </data>
 </root>

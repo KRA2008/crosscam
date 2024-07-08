@@ -73,7 +73,7 @@
     <Label Grid.Row="2"
            Grid.Column="0"
            Grid.ColumnSpan="3"
-           Text="Save automatically after capturing"/>
+           Text="{x:Static localization:AppResources.Settings_Saving_InstantSave}"/>
     <Switch Grid.Row="2"
             Grid.Column="3"
             IsToggled="{Binding Settings.InstantSave}"/>

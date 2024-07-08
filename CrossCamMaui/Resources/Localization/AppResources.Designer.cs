@@ -2790,6 +2790,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save automatically after capturing.
+        /// </summary>
+        internal static string Settings_Saving_InstantSave {
+            get {
+                return ResourceManager.GetString("Settings.Saving.InstantSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Saving will happen in order from top to bottom).
         /// </summary>
         internal static string Settings_Saving_Order {

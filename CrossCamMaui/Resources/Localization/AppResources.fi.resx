@@ -250,7 +250,7 @@ Jos haluat mieluummin käyttää 3D-laseja tai Cardboard-katselulaitetta, voit a
     <value>Älä lähetä minulle sähköpostia nyt</value>
   </data>
   <data name="Button.EmailMeNow" xml:space="preserve">
-    <value>Lähetä minulle sähköpostia nyt</value>
+    <value>Lähetä minulle nyt sähköpostia</value>
   </data>
   <data name="Button.No" xml:space="preserve">
     <value>Ei</value>
@@ -441,9 +441,9 @@ Jos haluat mieluummin käyttää 3D-laseja tai Cardboard-katselulaitetta, voit a
 
 Toinen asia, jota voit kokeilla, on käyttää wc-paperiputkia tai käsiäsi sen tekemiseen, jotta jokainen silmä voi nähdä vain sen puolen kuvasta, jonka sen on tarkoitus nähdä.
  • Poikkinäkymä: pidä yhtä putkea nenäsi vasten (keskellä silmien välissä) ja osoita se edessäsi olevan kuvan keskelle. Siirrä putkea hitaasti näyttöä kohti yrittäessäsi katsoa putkesta alas molemmilla silmillä. Kun saavutat putken kanssa oikean asennon, kuvan pitäisi napsahtaa paikalleen. Se voi auttaa keskittymään yrittäessäsi katsoa putken etäpään sisäpuolta. Jos et löydä oikeaa sijaintia, kokeile käyttää suurempaa kuvaa tai pienempää putkea.
- • Rinnakkaiskuvaus: pidä putkea kummankin silmän edessä, mutta suuntaa ne molemmat ulospäin, jotta et näe juuri mitään. Käännä putkia hitaasti sisäänpäin samanaikaisesti, jotta voit alkaa nähdä enemmän kuvaa. Kun näet suurimman osan kuvasta (melkein puolet kummallakin silmällä), yritä rentouttaa silmiäsi ja tuoda puolikkaat yhteen. Suuremman tai pienemmän kuvan käyttäminen voi auttaa.
+ • Rinnakkaiskuvaus: pidä putki kummankin silmän edessä, mutta suuntaa ne molemmat ulospäin, jotta et näe juuri mitään. Käännä putkia hitaasti sisäänpäin samanaikaisesti, jotta voit alkaa nähdä enemmän kuvaa. Kun näet suurimman osan kuvasta (melkein puolet kummallakin silmällä), yritä rentouttaa silmiäsi ja tuoda puolikkaat yhteen. Suuremman tai pienemmän kuvan käyttäminen voi auttaa.
 
-On olemassa helppo harjoitus, jonka avulla voit harjoitella sulattamista joko risti- tai rinnakkaiskatselulla. Ota tussi ja piirrä osa hymiökasvoja jokaiseen pikkukuvaasi (tai pari mehupuikkoa tai kielenpainatusta). Piirrä esimerkiksi toiselle puolelle yksi silmä ja suu, ja toiselle puolelle silmä ja nenä. Voit sitten pitää niitä ylhäällä edessäsi ja harjoitella kahden kuvan yhdistämistä yhteen saadaksesi hymiön kasvot valmiiksi.
+On olemassa helppo harjoitus harjoitellaksesi sulattamista joko risti- tai rinnakkaiskatselulla. Ota tussi ja piirrä osa hymiötä jokaiseen pikkukuvaasi (tai pari mehupuikkoa tai kielenpainatusta). Piirrä esimerkiksi toiselle puolelle yksi silmä ja suu, ja toiselle puolelle silmä ja nenä. Voit sitten pitää niitä ylhäällä edessäsi ja harjoitella kahden kuvan yhdistämistä yhteen saadaksesi hymiön kasvot valmiiksi.
 
 Itse pidän parempana ristiin rinnakkain, koska kuvat voivat olla suurempia, mutta molemmat menetelmät toimivat. Jos haluat kokeilla suurempia rinnakkaiskuvia, voit säätää kokoa Asetukset-sivulla.
 
@@ -477,7 +477,7 @@ Joskus on vaikeaa tuntea, teetkö risti- vai rinnakkaismenetelmää, kun teet si
     <value>Kolminkertaistaa</value>
   </data>
   <data name="Page.Camera.FovExplain" xml:space="preserve">
-    <value>Korjaa näkökentän erot zoomaamalla ja liu'uttamalla kuvia niin, että erottuva pisteet ovat kahden kuvan välissä. Voit vetämällä valkoisia viivoja ympäriinsä, jotta voit visualisoida kohdistuksen. Tätä korjausta sovelletaan tuleviin esikatseluihin. Se tallennetaan, mutta voit nollata sen Asetukset-sivulla. Jos käytät identtisiä laitteita, tallenna vain säätämättä.</value>
+    <value>Korjaa näkökentän erot zoomaamalla ja liu'uttamalla kuvia niin, että erottuva pisteet ovat kahden kuvan välissä. Voit vetämällä valkoisia viivoja ympäriinsä, jotta voit visualisoida kohdistuksen. Tätä korjausta sovelletaan tuleviin esikatseluihin. Se tallennetaan, mutta voit nollata sen Asetukset-sivulla. Jos käytät identtisiä laitteita, säästä vain säätämättä.</value>
   </data>
   <data name="Page.Camera.FovTitle" xml:space="preserve">
     <value>Näkökentän korjaus</value>
@@ -555,13 +555,13 @@ Minun mielipiteeni on, että silmäsi eivät tee mitään jokapäiväisten kykyj
     <value>Kuinka käytän CrossCamia Google Cardboardin kanssa?</value>
   </data>
   <data name="Page.Faq.Cardboard.Body" xml:space="preserve">
-    <value>Jos katsojassasi on painike, joka painaa näytön keskiosaa, voit käyttää sitä Cardboard-kuvaukseen. Katsojassa on myös oltava reikä, josta puhelimen kamera näkee läpi.
+    <value>Jos katsojassasi on painike, joka painaa näytön keskiosaa, voit käyttää sitä Cardboard-kuvaukseen. Katsojassa on myös oltava reikä, jonka läpi puhelimen kamera näkee.
 
 Jos haluat ottaa valokuvia Cardboardilla, vaihda esikatselukatselumenetelmäksi (Asetukset-sivulla) Cardboardiin, palaa sitten kamerasivulle ja aseta puhelin katselulaitteeseen. Paina painiketta siepataksesi, ja kun molemmat puolet on kaapattu, paina painiketta uudelleen tallentaaksesi. Cardboard-tilassa tallentaminen on tarkoitettu vain siihen, että voit ladata kuvat takaisin CrossCamiin myöhempää katselua varten, ei katsoaksesi niitä valokuvasovelluksessasi katselulaitteen kautta.
 
-Voit myös kuvata millä tahansa muulla haluamallasi menetelmällä, vaihtaa sitten esikatselumenetelmäksi Cardboard ja laittaa puhelimesi katseluohjelmaan.
+Voit myös tallentaa millä tahansa muulla haluamallasi menetelmällä, vaihtaa sitten esikatselukatselumenetelmäksi Cardboard ja laittaa puhelimesi katseluohjelmaan.
 
-Siellä on monia erilaisia ​​katsojia, joilla on erilaisia ​​ominaisuuksia. Sinun on ehkä muutettava Cardboard-erotusetäisyyttä (Asetukset-sivulla), jotta käyttökokemuksesi olisi mukavampaa. Sinun on ehkä myös ensin varmistettava, että olet hyvä laadukkaiden stereogrammien tallentamisessa, ennen kuin teet niistä komeaa ja mukaansatempaavaa.</value>
+Siellä on monia erilaisia ​​katsojia, joilla on erilaisia ​​ominaisuuksia. Saatat joutua muuttamaan Cardboard-erotusetäisyyttä (Asetukset-sivulla), jotta käyttökokemuksesi olisi mukavampaa. Sinun on ehkä myös ensin varmistettava, että olet hyvä laadukkaiden stereogrammien tallentamisessa, ennen kuin teet niistä komeaa ja mukaansatempaavaa.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Miten tämä toimii?</value>
@@ -588,7 +588,7 @@ Siellä on monia erilaisia ​​katsojia, joilla on erilaisia ​​ominaisuuks
     <value>tässä linkissä.</value>
   </data>
   <data name="Page.Faq.Into.Body4" xml:space="preserve">
-    <value>Se ei ole millään tavalla suosittu, eikä kenenkään muun kuin minun käyttäminen välttämättä ole helppoa, mutta se toimii. StereoSketcheriä työskennellessäni sain kokeilla stereoskopian periaatteita ja ihastuin tapaan, jolla tällainen mukaansatempaava ja mukaansatempaava kokemus voidaan tuottaa muutamalla yksinkertaisella säännöllä.</value>
+    <value>Se ei ole millään tavalla suosittu, eikä kenenkään muun kuin minun käyttäminen välttämättä ole helppoa, mutta se toimii. Työskennellessään StereoSketcherin parissa sain kokeilla stereoskopian periaatteita ja ihastuin tapaan, jolla tällainen mukaansatempaava ja mukaansatempaava kokemus voidaan tuottaa muutamalla yksinkertaisella säännöllä.</value>
   </data>
   <data name="Page.Faq.Inverted" xml:space="preserve">
     <value>Miksi 3D ei näytä oikealta TAI miksi 3D näyttää käänteiseltä?</value>
@@ -609,21 +609,21 @@ On erittäin helppoa käyttää vahingossa väärää katselumenetelmää, koska
     <value>Kuinka teen yhden kuvan peilikuvan?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>Peilikuvaus jakaa kehyksen kahtia ja tekee tarvittavan muunnoksen, jotta voit kuvata molemmat puolet samalla hetkellä yhdellä puhelimella ja tavallisella kädessä pidettävällä peilillä. Jos haluat käyttää peilikuvaa kuvattaessa, käännä peilitilan kytkin päälle Asetukset-sivulla (napauta rataskuvaketta päästäksesi sinne). Kun otat peilitilan käyttöön, CrossCam kertoo, kummalla puolella peiliä pitää pitää. Pidä peiliäsi sillä puolella ja vaivaa puhelimen ja peilin ja kohteen välistä kohdistusta. Kärsivällisyydellä voit asettaa ne kaikki riviin niin, että peili näyttää oikean perspektiivin jommallakummalla puolella. Koska peilimenetelmän käyttäminen jakaa kuvan puoliksi pystysuunnassa, on yleensä parasta ottaa vaakasuuntaan peilimenetelmällä.
+    <value>Peilimenetelmällä kuvaaminen jakaa kehyksen kahtia ja tekee tarvittavan muunnoksen, jotta voit kuvata molemmat puolet samalla hetkellä yhdellä puhelimella ja tavallisella kädessä pidettävällä peilillä. Jos haluat käyttää peilikuvaa kuvattaessa, käännä peilitilan kytkin päälle Asetukset-sivulla (napauta rataskuvaketta päästäksesi sinne). Kun otat peilitilan käyttöön, CrossCam kertoo, kummalla puolella peiliä pitää pitää. Pidä peiliäsi sillä puolella ja vaivaa puhelimen ja peilin ja kohteen välistä kohdistusta. Jonkin verran kärsivällisyyttä noudattaen pystyt asettamaan ne kaikki riviin niin, että peili näyttää oikean perspektiivin yhdelle sivulle. Koska peilimenetelmän käyttäminen jakaa kuvan puoliksi pystysuunnassa, on yleensä parasta ottaa vaakasuuntaan peilimenetelmällä.
 
 Tämä menetelmä toimii myös heijastusten kanssa suurissa, puhtaissa ikkunoissa ja myös hiljaisissa järvissä tai lätäköissä (kun puhelin on lukittuna pystyasentoon ja käännetty sivuttain).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Joitakin kompromisseja/muokkauksia on tehtävä, jotta peilimenetelmää voidaan käyttää. Nämä kaikki voidaan tehdä manuaalisesti CrossCamissa, mutta myös automaattinen kohdistus yrittää tehdä ne puolestasi:
  • Koska heijastuva näkymä kulkee pidemmän matkan kuin normaali näkymä, peilattua puolta on zoomattava hieman.
- • On todennäköistä, että peilimenetelmää käytettäessä päädyt osumaan sisään sen sijaan, että pidät perspektiivit yhdensuuntaisina - tämä voi saada lyhennyksen näyttämään huonolta pystysuuntaukselta. Tämän kumoamiseksi voidaan tehdä trapetsikorjaus, mikä tarkoittaa kunkin kuvan toisen puolen kutistamista pystysuunnassa.
+ • On todennäköistä, että peilimenetelmää käytettäessä päädyt osumaan sisään sen sijaan, että pidät perspektiivit yhdensuuntaisina - tämä voi saada lyhennyksen näyttämään huonolta pystysuoralta kohdistukselta. Tämän kumoamiseksi voidaan tehdä trapetsikorjaus, mikä tarkoittaa kunkin kuvan toisen puolen kutistamista pystysuunnassa.
  • Toeing-in myös taipumus siirtää stereoikkunaa sinua kohti. Voit kumota sen ja sijoittaa sen haluamaasi paikkaan leikkaamalla sivuja.
  • Peili ei luultavasti peitä näkymää kokonaan toiselta puolelta, joten heijastamattomien palasten poistaminen saattaa olla tarpeen.
 
 Parhaat peilit tähän ovat ohut lasi. Ensinnäkin ne ovat kevyitä, joten niitä on helpompi pitää kädessä pitkiä aikoja. Toinen tärkeä asia on, että peiliä käytettäessä suuntaat todennäköisesti peilin sivuttain sen sijaan, että katsoisit suoraan siihen, koska peilit ovat tyypillisesti käytössä. Näin suunnattuna paksun lasin peileissä voi olla jonkin verran epäselvyyttä. Mitä ohuempi lasi, sitä vähemmän ilmeinen tämä sumeus on. Tällaiset peilit voivat olla myös muilta osin huonolaatuisia, joten on tärkeää löytää hyvä tasapaino.
 
 On olemassa pari muuta kompromissia, jotka on hyväksyttävä käytettäessä peilikuvaa, joita ei voi korjata CrossCamin muokkauksissa:
- • Koska näkymä molemmista puolista kulkee hieman eri etäisyyksillä, kummallakin puolella tarvittava tarkennus on hieman erilainen, joten toinen puoli on aina hieman epäselvä. Tämä vaikutus on enemmän tai vähemmän havaittavissa riippuen etäisyydestä kohteeseen ja objektiivin syväterävyydestä.
+ • Koska näkymä molemmilta puolilta kulkee hieman eri etäisyyksillä, kummallakin puolella tarvittava tarkennus on hieman erilainen, joten toinen puoli on aina hieman epäselvä. Tämä vaikutus on enemmän tai vähemmän havaittavissa riippuen etäisyydestä kohteeseen ja objektiivin syväterävyydestä.
  • Mikään peili ei ole todella 100 % tehokas, joten peiliä käyttävä puoli voi olla hieman tummempi. Tämä vaihtelee peilin laadun mukaan.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
@@ -648,7 +648,7 @@ Jos haluat käyttää peilimenetelmää, tutustu toiseen usein kysyttyyn kysymyk
   <data name="Page.Faq.Why.Body" xml:space="preserve">
     <value>Kun aloin kiinnostua stereoskopiasta, satuin tekemään matkan Yellowstoneen. Siellä ollessani tajusin, että voisi olla hauskaa yrittää käyttää 3D-kameramobiilisovellusta asioiden kuvaamiseen 3D-muodossa. Olin erittäin pettynyt olemassa oleviin vaihtoehtoihin. Huomasin, että ne kaikki vaativat sinua tekemään kaksi kaappausta ja sitten myöhemmin selvittämään, olivatko ne hyviä. Usein ne eivät olleet, sillä minun piti toistuvasti tehdä täydellisiä arvauksia etäisyysetäisyydestäni ja kohteen laadusta.
 
-Seuraavien viikkojen aikana kiehuva turhautumiseni sai minut kuvittelemaan vain suoran esikatselun toisesta kuvakaappauksesta ensimmäisen rinnalla. Minulla oli jo tausta mobiilikehityksestä, joten sitten oli vain ajan kysymys. CrossCamia on ollut mahtava käyttää vain itselleni muistojen säilyttämiseen, ja olen iloinen voidessani jakaa sen myös teidän kanssanne.</value>
+Seuraavien viikkojen aikana kiehuva turhautumiseni sai minut kuvittelemaan yksinkertaisesti esittäväni suoran esikatselun toisesta kuvakaappauksesta ensimmäisen rinnalla. Minulla oli jo tausta mobiilikehityksestä, joten sitten oli vain ajan kysymys. CrossCamia on ollut mahtava käyttää vain itselleni muistojen säilyttämiseen, ja olen iloinen voidessani jakaa sen myös teidän kanssanne.</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
     <value>Mitä heilutukset ovat?</value>
@@ -678,7 +678,7 @@ Seuraavien viikkojen aikana kiehuva turhautumiseni sai minut kuvittelemaan vain 
     <value>Keystone-korjaus tarvitaan, jos lähdet sisään.</value>
   </data>
   <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
-    <value>Jos käännyt sisäänpäin jokaisen laukauksen yhteydessä, on erittäin hyödyllistä tehdä trapetsikorjauksia. Tyypillisesti haluat kutistaa kuvien sisäreunoja ja rajata niitä sitten ylä- ja alareunasta tasataksesi ne. Pääset Keystone-muokkausvalikkoon napauttamalla painiketta, joka näyttää tältä:</value>
+    <value>Jos käännyt sisäänpäin jokaisen laukauksen yhteydessä, on erittäin hyödyllistä tehdä trapetsikorjauksia. Yleensä haluat kutistaa valokuvien sisäreunoja ja rajata niitä sitten ylä- ja alareunasta tasataksesi ne. Pääset Keystone-muokkausvalikkoon napauttamalla painiketta, joka näyttää tältä:</value>
   </data>
   <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
     <value>Sisään kääntymistä kutsutaan toe-in. Se voi aiheuttaa ennakoivan vaikutuksen, joka vaikeuttaa kuvan kulmien yhdistämistä. Lyhennysvaikutus on läsnä aina tosielämässä, koska yhdensuuntaiset viivat näyttävät yhtenevän, kun ne lähtevät etäisyyteen sinusta, mutta keinotekoiset perspektiivit voivat tehdä siitä oudot.</value>
@@ -705,7 +705,7 @@ Seuraavien viikkojen aikana kiehuva turhautumiseni sai minut kuvittelemaan vain 
     <value>Ota pikatila käyttöön, kun olet muiden kanssa.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Jos tutkit asiaa muiden ihmisten kanssa, on hyvä idea siirtyä pikatilaan poistamalla automaattinen kohdistus ja reunukset käytöstä ja tallentamalla vain, kun olet kuvannut ilman muokkausta. Voit aina ladata, kohdistaa ja muokata kuvia myöhemmin. Näin kumppanisi ei tarvitse odottaa, että viimeistelet kuviasi paikan päällä, mutta voit silti olla varma, että haluamasi syvyys on todella olemassa. Varo, ettet tee hätiköityjä muokkauksia ennen ensimmäistä tallennusta! Voit myös ottaa käyttöön erillisen puolen tallennuksen, joka jättää huomioimatta tekemäsi muokkaukset.</value>
+    <value>Jos tutkit asiaa muiden ihmisten kanssa, on hyvä idea siirtyä nopeaan tilaan poistamalla automaattinen kohdistus ja reunukset käytöstä ja tallentamalla vain, kun olet kuvannut ilman muokkausta. Voit aina ladata, kohdistaa ja muokata kuvia myöhemmin. Näin kumppanisi ei tarvitse odottaa, että viimeistelet kuviasi paikan päällä, mutta voit silti olla varma, että haluamasi syvyys on todella siellä. Varo, ettet tee hätiköityjä muokkauksia ennen ensimmäistä tallennusta! Voit myös ottaa käyttöön erillisen puolen tallennuksen, joka jättää huomioimatta tekemäsi muokkaukset.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>Jos liike saa sinut sairaaksi, pysy paikallaan.</value>
@@ -768,15 +768,15 @@ Huomaa, että tämä ominaisuus on vielä kokeellinen ja siinä voi olla ongelmi
 
 Yksi tapa saada *täydellinen* synkronointi käyttämällä vain yhtä laitetta ja CrossCamia on käyttää "single-shot mirror" -menetelmää. Voit ottaa sen käyttöön Asetukset-sivulla ja voit lukea siitä UKK-sivulta.
 
-Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määritettävä. ENSISIJAINEN laite näyttää molemmat esikatselut, käynnistää kaappauksen ja pitää/tallentaa lopulliset kaappaukset. Voit määrittää roolit siirtymällä molemmilla laitteilla tälle sivulle ja noudattamalla alla olevia ohjeita:</value>
+Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määritettävä. ENSISIJAINEN laite näyttää molemmat esikatselut, laukaisee kaappauksen ja pitää/tallentaa lopulliset kaappaukset. Voit määrittää roolit siirtymällä molemmilla laitteilla tälle sivulle ja noudattamalla alla olevia ohjeita:</value>
   </data>
   <data name="Page.Pairing.2" xml:space="preserve">
     <value>Jos sinulla on ongelmia, HUOMAA:
  • Kun pariliitosprosessi on aloitettu, pariliitospainiketta voidaan napauttaa uudelleen milloin tahansa lopettaaksesi sen tai katkaistaksesi yhteyden.
  • Parinmuodostuksen lopettaminen molemmissa laitteissa voi auttaa ja käynnistää se uudelleen samanaikaisesti.
- • Yhteyden katkaiseminen Wi-Fi- tai dataverkkoosi voi auttaa, jos ne toimivat.
+ • Yhteyden katkaiseminen Wi-Fi- tai dataverkkoosi saattaa auttaa, jos ne toimivat.
  • Jokainen kamera on erilainen. Näitä eroja voivat olla esimerkiksi näkökulmakulma, tarkennus, valotus ja valkotasapainon käyttäytyminen, ajoitus ja paljon muuta. Jopa kaksi saman mallin puhelinta käyttäytyy hieman eri tavalla. Käytän mieluummin paria identtisiä vanhoja puhelimia (minun tapauksessani iPhone 6 -paria).
- • CrossCam on ohjelmisto, ei laitteisto, joten kuvien ottaminen saattaa olla hieman epätahdista riippuen siitä, mitä muuta prosessorit ja muisti tekevät kaappauksen käynnistymishetkellä. Tämän seurauksena synkronointi ei ehkä joskus ole täydellinen, mutta sen pitäisi yleensä olla hyvin läheinen.</value>
+ • CrossCam on ohjelmisto, ei laitteisto, joten kuvien ottaminen saattaa olla hieman epätahdista riippuen siitä, mitä muuta prosessori ja muisti tekevät kaappauksen alkamishetkellä. Tämän seurauksena synkronointi ei ehkä joskus ole täydellinen, mutta sen pitäisi yleensä olla hyvin läheinen.</value>
   </data>
   <data name="Page.Pairing.Again" xml:space="preserve">
     <value>Jos haluat muodostaa yhteyden myöhemmin uudelleen, varmista, että Wi-Fi on käytössä, ja napauta sitten molempien laitteiden aloitusnäytössä olevaa yhteyspainiketta.</value>
@@ -833,7 +833,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Muokkaus</value>
   </data>
   <data name="Page.Settings.ErrorEmail" xml:space="preserve">
-    <value>Kehotetaan lähettää sähköpostia, kun virheitä ilmenee</value>
+    <value>Kehotus lähettää sähköpostia virheiden sattuessa</value>
   </data>
   <data name="Page.Settings.Guides" xml:space="preserve">
     <value>Kaappausoppaat</value>
@@ -905,10 +905,10 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Kehote leikkaamaan reuna pois, kun se havaitaan latauksen aikana</value>
   </data>
   <data name="Settings.Border.Thickness" xml:space="preserve">
-    <value>Reunuksen paksuus (leveyden prosenttiosuuksia)</value>
+    <value>Reunuksen paksuus (leveyden prosentin kymmenesosia)</value>
   </data>
   <data name="Settings.Camera.Camera1" xml:space="preserve">
-    <value>Force camera1 API (voi olla hyödyllistä, jos kohtaat outoja asioita, mutta se johtaa rajoitettuun toimintaan, vaatii pakotetun sulkemisen/uudelleenkäynnistyksen voimaantulon)</value>
+    <value>Force camera1 API (voi olla hyödyllistä, jos kohtaat outoja asioita, mutta se johtaa rajoitettuun toimintaan, vaatii pakollisen sulkemisen/uudelleenkäynnistyksen tullakseen voimaan)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
     <value>Force camera2 API (täytyy olla Android 6:ssa tai uudemmassa, saattaa olla hyödyllistä, jos kohtaat virheitä, mutta saattaa tehdä enemmänkin, edellyttää pakollista sulkemista/uudelleenkäynnistystä, jotta se tulee voimaan)</value>
@@ -917,7 +917,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Maisemakaappauspainikkeen vaakasuora sijoitus</value>
   </data>
   <data name="Settings.Camera.LandscapeCaptureVertical" xml:space="preserve">
-    <value>Maisemakaappauspainikkeen pystysuuntainen sijoitus</value>
+    <value>Maisemakaappauspainikkeen pystysuora sijoitus</value>
   </data>
   <data name="Settings.Camera.Lock" xml:space="preserve">
     <value>Lukitse tarkennus ja valotus toista kuvaa varten tarkentamaan ja valottamaan ensimmäisestä kuvasta</value>
@@ -974,7 +974,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Näkökentän korjaus</value>
   </data>
   <data name="Settings.Pair.FovNotSet" xml:space="preserve">
-    <value>FOV-korjausta ei ole asetettu (tee kaappaus pariliitetyillä laitteilla, jotta voit käydä asennuksen läpi).</value>
+    <value>FOV-korjausta ei ole asetettu (käy asennuksen läpi tekemällä kaappaus laiteparilla).</value>
   </data>
   <data name="Settings.Pair.FovReset" xml:space="preserve">
     <value>Nollaa</value>
@@ -1073,7 +1073,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Tallenna yhdistetty rinnakkaisnäkymäversio (muokkauksilla ja reunuksella)</value>
   </data>
   <data name="Settings.Saving.Quad" xml:space="preserve">
-    <value>Tallenna quad-yhdistelmä (muokkauksilla ja reunuksella)</value>
+    <value>Tallenna neliöyhdistelmä (muokkauksilla ja reunuksella)</value>
   </data>
   <data name="Settings.Saving.Reset" xml:space="preserve">
     <value>Nollaa</value>
@@ -1100,7 +1100,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Peruuttaa</value>
   </data>
   <data name="Page.Camera.AcceptConnection" xml:space="preserve">
-    <value>Hyväksy yhteys kohteeseen</value>
+    <value>Hyväksy yhteys</value>
   </data>
   <data name="Page.Camera.Confirm" xml:space="preserve">
     <value>Varmista, että koodi täsmää molemmissa laitteissa:</value>
@@ -1152,5 +1152,8 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam on nyt mukana</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Tallenna automaattisesti kaappauksen jälkeen</value>
   </data>
 </root>

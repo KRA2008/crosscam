@@ -183,9 +183,9 @@
   <data name="Page.Technique.P1" xml:space="preserve">
     <value>Jika anda mahu melihat ini sekali lagi, ketik ikon hamburger (tiga baris) di bahagian atas sebelah kiri skrin kamera dan ketik "Bantuan".
 
-Untuk melihat 3D dalam CrossCam (dipanggil "stereogram") anda boleh menggunakan cermin mata 3D merah/cyan, pemapar Google Cardboard atau anda boleh melakukan "tontonan percuma" hanya menggunakan mata dan skrin anda. Terdapat dua cara untuk paparan percuma, dan CrossCam boleh membantu anda mempelajari kedua-duanya. Anda perlu memberitahu CrossCam bagaimana anda akan melihat gambar atau ia tidak akan berfungsi dengan betul. Jangan risau, anda sentiasa boleh menukar ini sekali lagi dalam Tetapan.
+Untuk melihat 3D dalam CrossCam (dipanggil "stereogram") anda boleh menggunakan cermin mata 3D merah/cyan, pemapar Google Cardboard atau anda boleh melakukan "tontonan percuma" hanya menggunakan mata dan skrin anda. Terdapat dua cara untuk melihat secara percuma, dan CrossCam boleh membantu anda mempelajari kedua-duanya. Anda perlu memberitahu CrossCam bagaimana anda akan melihat gambar atau ia tidak akan berfungsi dengan betul. Jangan risau, anda sentiasa boleh menukar ini sekali lagi dalam Tetapan.
 
-Jika anda boleh menyilangkan mata dengan selesa, anda harus mencuba kaedah silang dahulu, jika tidak, anda harus mencuba kaedah selari. Jika anda sudah biasa dengan buku Magic Eye™, anda mungkin sudah boleh melakukan kaedah selari, tetapi anda juga mungkin boleh melakukan kaedah silang. Ketik kaedah di bawah untuk mempelajarinya dan pastikan anda memberitahu CrossCam yang mana yang sesuai untuk anda dengan menekan butang PILIH yang sepadan.
+Jika anda boleh menyilang mata dengan selesa, anda harus mencuba kaedah silang dahulu, jika tidak, anda harus mencuba kaedah selari. Jika anda sudah biasa dengan buku Magic Eye™, anda mungkin sudah boleh melakukan kaedah selari, tetapi anda juga mungkin boleh melakukan kaedah silang. Ketik kaedah di bawah untuk mempelajarinya dan pastikan anda memberitahu CrossCam yang mana yang sesuai untuk anda dengan menekan butang PILIH yang sepadan.
 
 Jika anda lebih suka menggunakan cermin mata 3D atau pemapar Cardboard, anda boleh menetapkan CrossCam untuk menggunakannya pada halaman Tetapan.</value>
   </data>
@@ -211,13 +211,13 @@ Jika anda lebih suka menggunakan cermin mata 3D atau pemapar Cardboard, anda bol
     <value>Jika imej di atas tidak muat pada skrin anda, putar telefon anda kepada landskap - CrossCam cuba menjadikan pasangan imej di atas saiz paling mudah untuk ini. Anda tidak semestinya perlu menggunakan CrossCam dalam landskap, tetapi imej bersaiz sempurna menjadikan pembelajaran teknik lebih mudah.</value>
   </data>
   <data name="Page.Technique.Parallel2" xml:space="preserve">
-    <value>Rehatkan mata anda dan lihat "melalui" sepasang gambar di atas seperti anda sedang mengezon dengan mata anda menghala ke gambar. Anda sepatutnya mula melihat 3 gambar dengan gambar 3D di tengah, sedikit seperti ini:</value>
+    <value>Rehatkan mata anda dan lihat "melalui" sepasang gambar di atas seperti anda sedang mengezonkan dengan mata anda menunjuk ke arah gambar. Anda sepatutnya mula melihat 3 gambar dengan gambar 3D di tengah, sedikit seperti ini:</value>
   </data>
   <data name="Page.Technique.Parallel3" xml:space="preserve">
     <value>Jika anda mula melihat 4 gambar, anda telah pergi terlalu jauh. Cuba gerakkan mata anda sedikit jika anda mendapati diri anda pada ketika itu lagi. Bersantai terlalu jauh akan kelihatan seperti ini:</value>
   </data>
   <data name="Page.Technique.Parallel4" xml:space="preserve">
-    <value>Jika anda menghadapi masalah, cuba letakkan skrin anda tepat pada muka anda dengan sepasang gambar di hadapan mata anda. Bersantai dan lihat "melalui" skrin dan kemudian tarik perlahan skrin anda dari wajah anda sambil memastikan mata anda santai. Akhirnya imej harus "klik" menjadi fokus.</value>
+    <value>Jika anda menghadapi masalah, cuba letakkan skrin anda tepat pada muka anda dengan sepasang gambar di hadapan mata anda. Bersantai dan lihat "melalui" skrin dan kemudian perlahan-lahan tarik skrin anda menjauhi wajah anda sambil memastikan mata anda santai. Akhirnya imej harus "klik" menjadi fokus.</value>
   </data>
   <data name="Page.Technique.Parallel5" xml:space="preserve">
     <value>Jika anda masih terus melihat empat imej, tingkatkan "Lebar imej paparan selari maksimum" pada halaman Tetapan.</value>
@@ -439,7 +439,7 @@ Jika anda lebih suka menggunakan cermin mata 3D atau pemapar Cardboard, anda bol
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Jika anda masih menghadapi masalah, cuba bawa telefon anda ke bilik gelap supaya satu-satunya perkara yang mata anda boleh melihat dengan baik dan fokus ialah imej.
 
-Satu lagi perkara yang anda boleh cuba ialah menggunakan tiub kertas tandas atau tangan anda untuk membuatnya supaya setiap mata hanya dapat melihat bahagian tepi imej yang sepatutnya dilihat.
+Satu lagi perkara yang anda boleh cuba ialah menggunakan tiub kertas tandas atau tangan anda untuk membuatnya supaya setiap mata hanya boleh melihat bahagian tepi imej yang sepatutnya dilihat.
  • Untuk pandangan silang: pegang satu tiub pada batang hidung anda (berpusat di antara mata anda) sambil menghalakannya ke tengah-tengah imej di hadapan anda. Perlahan-lahan gerakkan tiub ke arah skrin sambil cuba melihat ke bawah tiub dengan kedua-dua mata. Apabila anda mencapai kedudukan yang betul dengan tiub, imej harus masuk ke tempatnya. Ia mungkin membantu untuk menumpukan perhatian pada cuba melihat bahagian dalam bahagian paling hujung tiub. Jika anda tidak dapat mencari kedudukan yang betul, cuba gunakan imej yang lebih besar atau tiub yang lebih kecil.
  • Untuk pandangan selari: pegang tiub di hadapan setiap mata, tetapi halakan kedua-duanya keluar ke sisi, supaya anda hampir tidak dapat melihat apa-apa. Pusingkan tiub ke dalam perlahan-lahan pada masa yang sama supaya anda boleh mula melihat lebih banyak imej. Apabila anda boleh melihat sebahagian besar imej (hampir separuh dengan setiap mata), cuba berehat mata anda dan kumpulkan bahagian tersebut. Ia mungkin membantu untuk menggunakan imej yang lebih besar atau lebih kecil.
 
@@ -549,7 +549,7 @@ CrossCam akan memaparkan hasil penjajaran pada skrin kamera di bawah ikon robot 
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
     <value>Jika anda menggunakan kaedah juling, perasaan itu juga mungkin disebabkan mata anda tidak biasa menunjuk seolah-olah mereka melihat sesuatu yang begitu dekat untuk sekian lama. Apabila melihat silang, mata anda menumpu pada satu titik kira-kira separuh antara mata anda dan skrin. Jika melihat sesuatu yang tertutup untuk masa yang lama juga akan menyebabkan anda tidak selesa, kami mempunyai penjelasan kami.
 
-Pendapat saya mengenainya ialah mata anda tidak melakukan apa-apa di luar keupayaan harian mereka, tetapi anda menggabungkan dua kebolehan berbeza yang biasanya tidak digunakan dengan cara itu. Anda memfokuskan kanta anda pada sesuatu di satu tempat yang biasanya selesa untuk difokuskan dan anda menghalakan mata anda ke tempat yang biasanya selesa untuk dihalakan, tetapi tempat di mana kanta anda memfokus dan tempat mata anda menumpu bukan perkara yang sama. Saya tidak nampak bagaimana ia boleh menjadi buruk untuk anda selagi penglihatan anda masih belum berkembang.</value>
+Pendapat saya mengenainya ialah mata anda tidak melakukan apa-apa di luar keupayaan harian mereka, tetapi anda menggabungkan dua kebolehan berbeza yang biasanya tidak digunakan dengan cara itu. Anda memfokuskan kanta anda pada sesuatu di satu tempat yang biasanya selesa untuk difokuskan dan anda menghalakan mata anda ke tempat yang biasanya selesa untuk dihalakan, tetapi tempat di mana kanta anda memfokus dan tempat mata anda menumpu bukanlah perkara yang sama. Saya tidak nampak bagaimana ia boleh menjadi buruk untuk anda selagi penglihatan anda masih belum berkembang.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
     <value>Bagaimanakah cara saya menggunakan CrossCam dengan Google Cardboard?</value>
@@ -594,11 +594,11 @@ Terdapat banyak penonton yang berbeza di luar sana dengan sifat yang berbeza. An
     <value>Mengapa 3D tidak kelihatan betul ATAU mengapa 3D kelihatan songsang?</value>
   </data>
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
-    <value>Apabila tontonan percuma dengan sama ada kaedah silang atau selari, adalah penting untuk melihat gambar menggunakan kaedah yang sama yang digunakan untuk menciptanya. Jika tidak, mata kanan anda akan melihat perspektif yang dimaksudkan untuk mata kiri dan sebaliknya. Ini menjadikan kedalaman imej terbalik, kerana arah paralaks telah ditukar.
+    <value>Apabila tontonan percuma dengan kaedah silang atau selari, adalah penting untuk melihat gambar menggunakan kaedah yang sama yang digunakan untuk menciptanya. Jika tidak, mata kanan anda akan melihat perspektif yang dimaksudkan untuk mata kiri dan sebaliknya. Ini menjadikan kedalaman imej terbalik, kerana arah paralaks telah ditukar.
 
 Paralaks bermaksud bahawa dari perspektif mata kanan anda, apabila objek berada lebih jauh ia kelihatan lebih jauh ke kanan berbanding objek yang lebih dekat apabila dilihat dari mata kiri anda. Ia mengelirukan apabila diterangkan dalam format ayat, tetapi sangat intuitif apabila ditunjukkan.
 
-Untuk menunjukkan, pegang satu jari ke atas di hadapan anda kira-kira panjang lengan, kemudian dengan tangan anda yang lain pegang jari lain kira-kira separuh antara jari pertama dan muka anda. Jika anda menutup setiap mata secara bergilir-gilir dan perhatikan di mana jari anda berada, anda akan melihat bahawa setiap mata melihatnya di tempat yang berbeza. Jadi secara semulajadi, jika setiap mata melihat pergerakan itu dengan cara yang bertentangan dengan cara yang sepatutnya, kedalaman akan terbalik.
+Untuk menunjukkan, pegang satu jari di hadapan anda pada jarak lebih kurang lengan, kemudian dengan tangan anda yang lain pegang jari lain kira-kira separuh antara jari pertama dan muka anda. Jika anda menutup setiap mata secara bergilir-gilir dan perhatikan di mana jari anda berada, anda akan melihat bahawa setiap mata melihatnya di tempat yang berbeza. Jadi secara semulajadi, jika setiap mata melihat pergerakan itu dengan cara yang bertentangan dengan cara yang sepatutnya, kedalaman akan terbalik.
 
 Sangat mudah untuk menggunakan kaedah tontonan yang salah secara tidak sengaja kerana ternyata sangat sukar bagi kebanyakan orang untuk mengetahui sama ada mereka melintasi atau merehatkan mata mereka hanya dengan merasakan atau dengan melihat imej berganda dunia yang mengelirukan yang terhasil. Sebaliknya, sebaiknya minta orang lain melihat apa yang dilakukan oleh mata anda atau cuba imej penguji ini:</value>
   </data>
@@ -615,12 +615,12 @@ Kaedah ini juga akan berfungsi dengan pantulan dalam tingkap yang besar dan bers
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Terdapat beberapa kompromi/suntingan yang perlu dibuat untuk menggunakan kaedah cermin. Ini semua boleh dilakukan secara manual dalam CrossCam, tetapi penjajaran automatik juga akan cuba melakukannya untuk anda:
- • Oleh kerana pandangan yang dicerminkan bergerak dalam jarak yang lebih jauh daripada pandangan biasa, bahagian yang dicerminkan perlu dizum masuk sedikit.
- • Berkemungkinan besar apabila menggunakan kaedah cermin, anda akhirnya akan menjejakkan kaki, dan bukannya mengekalkan perspektif selari - ini boleh menyebabkan pemendekan kelihatan seperti penjajaran menegak yang buruk. Untuk membuat asalnya, pembetulan keystone boleh dilakukan, yang bermaksud mengecut secara menegak satu sisi setiap imej.
+ • Oleh kerana pandangan yang dicerminkan bergerak pada jarak yang lebih jauh daripada pandangan biasa, bahagian yang dicerminkan perlu dizum masuk sedikit.
+ • Berkemungkinan besar apabila menggunakan kaedah cermin, anda akhirnya akan menjejakkan kaki ke dalam, dan bukannya mengekalkan perspektif selari - ini boleh menyebabkan pemendekan kelihatan seperti penjajaran menegak yang buruk. Untuk membuat asalnya, pembetulan keystone boleh dilakukan, yang bermaksud mengecut secara menegak satu sisi setiap imej.
  • Toeing-in juga akan cenderung untuk mengalihkan tetingkap stereo ke arah anda. Anda boleh membuat asalnya dan meletakkannya di tempat yang anda inginkan dengan memangkas bahagian tepi.
  • Cermin mungkin tidak akan menutup sepenuhnya pandangan satu sisi, jadi beberapa pemangkasan mungkin perlu dilakukan untuk mengeluarkan bit yang tidak dipantulkan.
 
-Cermin terbaik untuk ini mempunyai kaca nipis. Untuk satu perkara ia ringan, jadi ia lebih mudah untuk dipegang untuk tempoh yang lama. Perkara penting yang lain ialah apabila menggunakan cermin, anda mungkin akan menghalakan cermin ke sisi daripada melihat terus ke dalamnya kerana cermin biasanya digunakan. Apabila berorientasikan seperti itu, cermin dengan kaca tebal mungkin mempunyai sedikit kekaburan. Semakin nipis kaca, semakin kurang jelas kekaburan ini. Cermin jenis ini mungkin juga berkualiti rendah dari segi lain, jadi penting untuk mencari keseimbangan yang baik.
+Cermin terbaik untuk ini mempunyai kaca nipis. Untuk satu perkara ia ringan, jadi ia lebih mudah untuk dipegang untuk tempoh yang lama. Perkara penting yang lain ialah apabila menggunakan cermin, anda mungkin akan menghalakan cermin ke sisi dan bukannya melihat terus ke dalamnya kerana cermin biasanya digunakan. Apabila berorientasikan seperti itu, cermin dengan kaca tebal mungkin mempunyai sedikit kekaburan. Semakin nipis kaca, semakin kurang jelas kekaburan ini. Cermin jenis ini mungkin juga berkualiti rendah dari segi lain, jadi penting untuk mencari keseimbangan yang baik.
 
 Terdapat beberapa kompromi lain yang perlu diterima apabila menggunakan penangkapan cermin yang tidak boleh diperbaiki dalam pengeditan oleh CrossCam:
  • Oleh kerana pandangan kedua-dua belah menempuh jarak yang sedikit berbeza, tumpuan yang diperlukan untuk setiap sisi akan berbeza sedikit, jadi satu sisi akan sentiasa kabur sedikit. Kesan ini akan menjadi lebih atau kurang ketara bergantung pada jarak ke subjek dan kedalaman medan kanta.
@@ -646,7 +646,7 @@ Untuk menggunakan kaedah cermin, lihat soalan FAQ lain mengenainya.</value>
     <value>Mengapa anda membuat CrossCam?</value>
   </data>
   <data name="Page.Faq.Why.Body" xml:space="preserve">
-    <value>Semasa saya mula berminat dengan stereoskop saya kebetulan pergi ke Yellowstone. Semasa saya berada di sana, saya menyedari mungkin menyeronokkan untuk mencuba menggunakan aplikasi mudah alih kamera 3D untuk menangkap sesuatu di sana dalam 3D. Saya sangat kecewa dengan pilihan sedia ada. Saya dapati mereka semua memerlukan anda untuk membuat dua tangkapan dan kemudian mengetahui sama ada ia bagus. Mereka selalunya tidak, kerana saya perlu berulang kali membuat tekaan lengkap tentang jarak pemisahan saya, serta kualiti subjek.
+    <value>Semasa saya mula berminat dengan stereoskop saya kebetulan pergi ke Yellowstone. Semasa saya berada di sana, saya menyedari mungkin menyeronokkan untuk mencuba menggunakan aplikasi mudah alih kamera 3D untuk menangkap sesuatu di sana dalam 3D. Saya sangat kecewa dengan pilihan sedia ada. Saya dapati mereka semua memerlukan anda membuat dua tangkapan dan kemudian mengetahui sama ada ia bagus. Mereka selalunya tidak, kerana saya perlu berulang kali membuat tekaan lengkap tentang jarak pemisahan saya, serta kualiti subjek.
 
 Dalam beberapa minggu akan datang, kekecewaan saya yang memuncak menyebabkan saya membayangkan hanya menyediakan pratonton langsung tangkapan kedua bersama yang pertama. Saya sudah mempunyai latar belakang dalam pembangunan mudah alih, jadi ia hanya perlu meluangkan masa. CrossCam sangat bagus untuk saya gunakan hanya untuk diri saya sendiri untuk mengekalkan kenangan, dan saya gembira untuk berkongsi dengan anda juga.</value>
   </data>
@@ -672,7 +672,7 @@ Dalam beberapa minggu akan datang, kekecewaan saya yang memuncak menyebabkan say
     <value>Panduan donat boleh membantu tingkap anda.</value>
   </data>
   <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Terdapat donat panduan percubaan pada halaman Tetapan yang boleh anda hidupkan yang boleh membantu anda mengekalkan tetingkap stereo anda sambil memaksimumkan lebar yang boleh digunakan. Dengan membelok ke kiri dan ke kanan, kedalaman pada donat akan berubah berbanding dengan pemandangan yang lain - tetapkan kedalaman donat supaya ia sama ada di atas atau di belakang titik paling jauh dalam pemandangan anda. Berhati-hati, menggunakannya pada adegan yang lebih kecil boleh membuat keadaan menyakitkan (lihat petua kunci di atas).</value>
+    <value>Terdapat donat panduan percubaan pada halaman Tetapan yang boleh anda hidupkan yang boleh membantu anda mengekalkan tetingkap stereo anda sambil memaksimumkan lebar yang boleh digunakan. Dengan membelok ke kiri dan ke kanan kedalaman pada donat akan berubah berbanding dengan pemandangan yang lain - tetapkan kedalaman donat supaya ia sama ada di atas atau di belakang titik paling jauh dalam pemandangan anda. Berhati-hati, menggunakannya pada adegan yang lebih kecil boleh membuat keadaan menyakitkan (lihat petua kunci di atas).</value>
   </data>
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Pembetulan Keystone diperlukan jika anda masuk ke dalam.</value>
@@ -776,7 +776,7 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
  • Ia mungkin membantu untuk menghentikan pemasangan pada kedua-dua peranti dan mulakan semula pada masa yang sama.
  • Ia mungkin membantu untuk memutuskan sambungan daripada Wi-Fi atau rangkaian data anda sekiranya ia bertindak.
  • Setiap kamera adalah berbeza. Perbezaan ini boleh termasuk medan pandangan sudut, fokus, pendedahan dan gelagat imbangan putih, masa dan banyak lagi. Malah dua model telefon yang sama akan berkelakuan sedikit berbeza. Saya lebih suka menggunakan sepasang telefon lama yang sama (dalam kes saya, sepasang iPhone 6).
- • CrossCam ialah perisian, bukan perkakasan, jadi merakam foto mungkin sedikit tidak segerak bergantung pada perkara lain yang dilakukan oleh pemproses dan memori pada saat yang tepat tangkapan dicetuskan. Akibatnya, penyegerakan mungkin kadangkala tidak sempurna, tetapi pada umumnya ia sepatutnya sangat rapat.</value>
+ • CrossCam ialah perisian, bukan perkakasan, jadi merakam foto mungkin sedikit tidak segerak bergantung pada perkara lain yang dilakukan oleh pemproses dan memori pada saat yang tepat tangkapan dicetuskan. Akibatnya, penyegerakan mungkin kadangkala tidak sempurna, tetapi secara amnya ia sepatutnya sangat rapat.</value>
   </data>
   <data name="Page.Pairing.Again" xml:space="preserve">
     <value>Untuk menyambung semula kemudian, pastikan anda mendayakan Wi-Fi dan kemudian hanya ketik butang sambung pada skrin utama pada kedua-dua peranti.</value>
@@ -830,7 +830,7 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
     <value>Tetapkan semula kepada Lalai</value>
   </data>
   <data name="Page.Settings.Editing" xml:space="preserve">
-    <value>Suntingan</value>
+    <value>Mengedit</value>
   </data>
   <data name="Page.Settings.ErrorEmail" xml:space="preserve">
     <value>Gesa untuk menghantar e-mel apabila ralat berlaku</value>
@@ -965,7 +965,7 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
     <value>Panduan guling kelihatan</value>
   </data>
   <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
-    <value>Tangkap momen kelewatan tambahan (ms) (menambahkan kelewatan tambahan pada momen tangkapan sasaran pada peranti ini sahaja)</value>
+    <value>Tangkap momen kelewatan tambahan (ms) (menambah kelewatan tambahan pada momen tangkapan sasaran pada peranti ini sahaja)</value>
   </data>
   <data name="Settings.Pair.Countdown" xml:space="preserve">
     <value>Tangkap panjang kira detik (pemasa)</value>
@@ -995,7 +995,7 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
     <value>Peranan: Utama</value>
   </data>
   <data name="Settings.Pair.Sample" xml:space="preserve">
-    <value>Kiraan sampel jam (bilangan yang lebih rendah akan mengurangkan masa yang diperlukan untuk penyegerakan awal tetapi mungkin mengurangkan ketepatan penyegerakan)</value>
+    <value>Kiraan sampel jam (nombor yang lebih rendah akan mengurangkan masa yang diperlukan untuk penyegerakan awal tetapi mungkin mengurangkan ketepatan penyegerakan)</value>
   </data>
   <data name="Settings.Pair.Secondary" xml:space="preserve">
     <value>Menengah:</value>
@@ -1064,7 +1064,7 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
     <value>Simpan ke dalam subfolder/album "CrossCam" khusus</value>
   </data>
   <data name="Settings.Saving.Grayscale" xml:space="preserve">
-    <value>Simpan versi anaglyph merah/cyan skala kelabu (dengan suntingan tetapi tiada sempadan)</value>
+    <value>Simpan versi anaglyph merah/sian skala kelabu (dengan suntingan tetapi tiada sempadan)</value>
   </data>
   <data name="Settings.Saving.Order" xml:space="preserve">
     <value>(Penyimpanan akan berlaku mengikut urutan dari atas ke bawah)</value>
@@ -1152,5 +1152,8 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam kini masuk</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Simpan secara automatik selepas menangkap</value>
   </data>
 </root>

@@ -185,7 +185,7 @@
 
 Untuk melihat 3D di CrossCam (disebut "stereogram") Anda dapat menggunakan kacamata 3D merah/cyan, penampil Google Cardboard, atau Anda dapat melakukan "melihat bebas" hanya dengan menggunakan mata dan layar Anda. Ada dua cara untuk melihat secara gratis, dan CrossCam dapat membantu Anda mempelajari keduanya. Anda perlu memberi tahu CrossCam bagaimana Anda akan melihat gambarnya atau gambar itu tidak akan berfungsi dengan baik. Jangan khawatir, Anda selalu dapat mengubahnya lagi di Setelan.
 
-Jika Anda dapat menjulingkan mata dengan nyaman, sebaiknya coba metode menyilang terlebih dahulu, jika tidak sebaiknya coba metode paralel. Jika Anda terbiasa dengan buku Magic Eye™, Anda mungkin sudah bisa melakukan metode paralel, namun Anda mungkin juga bisa melakukan metode silang. Ketuk metode di bawah ini untuk mempelajarinya, dan pastikan untuk memberi tahu CrossCam mana yang cocok untuk Anda dengan menekan tombol PILIH yang sesuai.
+Jika Anda dapat menjulingkan mata dengan nyaman, sebaiknya coba metode menyilang terlebih dahulu, jika tidak sebaiknya coba metode paralel. Jika Anda terbiasa dengan buku Magic Eye™, Anda mungkin sudah bisa melakukan metode paralel, namun Anda mungkin juga bisa melakukan metode silang. Ketuk metode di bawah untuk mempelajarinya, dan pastikan untuk memberi tahu CrossCam mana yang cocok untuk Anda dengan menekan tombol PILIH yang sesuai.
 
 Jika Anda lebih suka menggunakan kacamata 3D atau penampil Cardboard, Anda dapat mengatur CrossCam untuk menggunakannya di halaman Pengaturan.</value>
   </data>
@@ -439,7 +439,7 @@ Jika Anda lebih suka menggunakan kacamata 3D atau penampil Cardboard, Anda dapat
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Jika Anda masih mengalami masalah, coba bawa ponsel Anda ke ruangan gelap sehingga satu-satunya hal yang dapat dilihat dan fokuskan mata Anda dengan baik hanyalah gambarnya.
 
-Hal lain yang bisa Anda coba adalah menggunakan tabung tisu toilet atau tangan Anda untuk membuatnya sehingga setiap mata hanya dapat melihat sisi gambar yang seharusnya dilihatnya.
+Hal lain yang bisa Anda coba adalah menggunakan tabung tisu toilet atau tangan Anda untuk membuatnya sehingga setiap mata hanya bisa melihat sisi gambar yang seharusnya dilihatnya.
  • Untuk tampilan silang: tempelkan satu selang pada pangkal hidung (di tengah-tengah antara mata) sambil mengarahkannya ke tengah gambar di depan Anda. Gerakkan tabung secara perlahan ke arah layar sambil mencoba melihat ke bawah tabung dengan kedua mata. Ketika Anda mencapai posisi yang tepat dengan tabung, gambar akan masuk ke tempatnya. Mungkin membantu untuk berkonsentrasi mencoba melihat bagian dalam ujung tabung. Jika Anda tidak dapat menemukan posisi yang tepat, coba gunakan gambar yang lebih besar atau tabung yang lebih kecil.
  • Untuk pandangan paralel: pegang tabung di depan masing-masing mata, namun arahkan keduanya ke samping, sehingga Anda hampir tidak dapat melihat apa pun. Putar tabung secara perlahan ke dalam secara bersamaan sehingga Anda dapat mulai melihat gambar lebih banyak. Saat Anda dapat melihat sebagian besar gambar (hampir setengahnya dengan setiap mata), cobalah untuk rilekskan mata Anda dan satukan bagiannya. Mungkin membantu jika menggunakan gambar yang lebih besar atau lebih kecil.
 
@@ -519,7 +519,7 @@ Terkadang sulit untuk merasakan apakah Anda melakukan metode silang atau paralel
 Hal lain yang dapat Anda lakukan:
  • Ketuk sekali untuk fokus pada suatu titik, ketuk dua kali untuk beralih kembali ke fokus otomatis berkelanjutan.
  • Ketuk ikon roda gigi di kanan atas layar kamera untuk membuka halaman Pengaturan. Penuh dengan hal menarik.
- • Ada halaman Tip bagus yang bisa Anda buka dengan mengetuk ikon hamburger di kiri atas layar kamera yang dapat membantu Anda menjadikan gambar Anda bagus.
+ • Ada halaman Tip bagus yang dapat Anda buka dengan mengetuk ikon hamburger di kiri atas layar kamera yang dapat membantu Anda menjadikan gambar Anda bagus.
  • Jika Anda lebih memilih untuk bergerak ke arah lain untuk pengambilan gambar kedua atau ingin menukar sisi, cukup usap saja.
  • Ketuk ikon folder kecil di bagian bawah untuk memuat gambar sebagai samping atau untuk memuat gambar stereo penuh.</value>
   </data>
@@ -549,7 +549,7 @@ CrossCam akan menampilkan hasil penyelarasan pada layar kamera di bawah ikon rob
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
     <value>Jika Anda menggunakan metode mata juling, perasaan tersebut mungkin juga disebabkan karena mata Anda tidak terbiasa menunjuk seolah-olah sedang melihat sesuatu yang begitu dekat dalam waktu yang lama. Saat melihat silang, mata Anda bertemu pada titik sekitar setengah antara mata Anda dan layar. Jika melihat sesuatu dalam jarak dekat dalam waktu lama juga membuat Anda tidak nyaman, kami punya penjelasannya.
 
-Pendapat saya adalah bahwa mata Anda tidak melakukan apa pun di luar kemampuannya sehari-hari, tetapi Anda menggabungkan dua kemampuan berbeda yang biasanya tidak digunakan seperti itu. Anda memfokuskan lensa Anda pada sesuatu di satu tempat yang biasanya nyaman untuk difokuskan, dan Anda mengarahkan mata Anda ke suatu tempat yang biasanya nyaman bagi mereka untuk menunjuk, tetapi tempat di mana lensa Anda fokus dan di mana mata Anda bertemu. bukanlah hal yang sama. Saya tidak melihat hal itu bisa berdampak buruk bagi Anda selama penglihatan Anda belum berkembang.</value>
+Pendapat saya adalah bahwa mata Anda tidak melakukan apa pun di luar kemampuannya sehari-hari, tetapi Anda menggabungkan dua kemampuan berbeda yang biasanya tidak digunakan seperti itu. Anda memfokuskan lensa Anda pada sesuatu di satu tempat yang biasanya nyaman untuk difokuskan, dan Anda mengarahkan mata Anda ke suatu tempat yang biasanya nyaman bagi mereka untuk menunjuk, tapi tempat di mana lensa Anda fokus dan di mana mata Anda bertemu. bukanlah hal yang sama. Saya tidak melihat hal itu bisa berdampak buruk bagi Anda selama penglihatan Anda belum berkembang.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
     <value>Bagaimana cara menggunakan CrossCam dengan Google Cardboard?</value>
@@ -579,7 +579,7 @@ Ada banyak pemirsa berbeda di luar sana dengan properti berbeda. Anda mungkin pe
     <value>Bagaimana Anda masuk ke stereoskopi?</value>
   </data>
   <data name="Page.Faq.Into.Body1" xml:space="preserve">
-    <value>Saat saya mendapatkan gelar fisika, saya berkesempatan bereksperimen dengan membuat hologram sendiri menggunakan laser. Jenis hologram yang saya buat adalah 3D karena menggunakan kisi difraksi yang menyebabkan interferensi destruktif pada cahaya yang dipantulkan pada permukaan pelat kaca, yang menyebabkan gambar yang dipantulkan terlihat berbeda dari tempat berbeda. Ketika masing-masing mata kita melihat gambar yang tampak dari sudut pandang yang berbeda (jika tidak terlalu berbeda), otak kita menganggapnya sebagai kedalaman.</value>
+    <value>Saat saya mendapatkan gelar fisika, saya berkesempatan bereksperimen dengan membuat hologram sendiri menggunakan laser. Jenis hologram yang saya buat adalah 3D karena menggunakan kisi difraksi yang menyebabkan interferensi destruktif pada cahaya yang dipantulkan pada permukaan pelat kaca, yang menyebabkan gambar yang dipantulkan terlihat berbeda dari tempat berbeda. Ketika masing-masing mata kita melihat gambar yang tampak seperti itu dari sudut pandang yang berbeda (jika tidak terlalu berbeda), otak kita menganggapnya sebagai kedalaman.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
     <value>Saya telah menyadari prinsip persepsi stereoskopis itu sejak lama, tetapi pada saat itu dalam hidup saya, saya juga mengambil beberapa kelas pemrograman, jadi saya memutuskan ingin mencoba membuat program komputer sederhana untuk menggambar 3D stereoskopis. Upaya itu menjadi StereoSketcher. Versi aslinya ditulis di Java, tetapi saya menulis ulang dengan Javascript dan SVG dan sekarang ada di web</value>
@@ -596,7 +596,7 @@ Ada banyak pemirsa berbeda di luar sana dengan properti berbeda. Anda mungkin pe
   <data name="Page.Faq.Inverted.Body1" xml:space="preserve">
     <value>Saat menonton bebas dengan metode silang atau paralel, penting untuk melihat gambar menggunakan metode yang sama seperti yang digunakan untuk membuatnya. Jika tidak, mata kanan Anda akan melihat perspektif yang diperuntukkan bagi mata kiri dan sebaliknya. Hal ini membuat kedalaman gambar menjadi terbalik, karena arah paralaks telah ditukar.
 
-Paralaks berarti jika dilihat dari sudut pandang mata kanan, benda yang berada jauh akan tampak lebih ke kanan dibandingkan benda yang lebih dekat jika dilihat dengan mata kiri. Ini membingungkan ketika dijelaskan dalam format kalimat, namun sangat intuitif ketika ditunjukkan.
+Paralaks artinya dari sudut pandang mata kanan, jika benda berada jauh, benda tersebut tampak lebih ke kanan dibandingkan benda yang lebih dekat jika dilihat dengan mata kiri. Ini membingungkan ketika dijelaskan dalam format kalimat, namun sangat intuitif ketika ditunjukkan.
 
 Untuk mendemonstrasikannya, pegang satu jari di depan Anda kira-kira sepanjang lengan, lalu dengan tangan yang lain pegang jari lainnya sekitar setengah jalan antara jari pertama dan wajah Anda. Jika Anda menutup setiap mata secara bergantian dan memperhatikan di mana jari-jari Anda berada, Anda akan melihat bahwa setiap mata melihatnya di tempat yang berbeda. Jadi wajar saja, jika setiap mata melihat gerakan itu berlawanan dengan yang seharusnya, kedalamannya akan terbalik.
 
@@ -616,7 +616,7 @@ Metode ini juga dapat digunakan pada pantulan di jendela yang besar dan bersih, 
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Ada beberapa kompromi/pengeditan yang perlu dilakukan untuk menggunakan metode mirror. Ini semua dapat dilakukan secara manual di CrossCam, namun penyelarasan otomatis juga akan mencoba melakukannya untuk Anda:
  • Karena tampilan pantulan menempuh jarak yang lebih jauh dibandingkan tampilan normal, sisi cermin perlu diperbesar sedikit.
- • Kemungkinan besar ketika menggunakan metode cermin, Anda akan berakhir dengan posisi sejajar, dan bukannya menjaga perspektif tetap sejajar - hal ini dapat menyebabkan pemendekan tampak seperti penyelarasan vertikal yang buruk. Untuk membatalkannya, dapat dilakukan koreksi keystone, yang berarti mengecilkan satu sisi setiap gambar secara vertikal.
+ • Kemungkinan besar ketika menggunakan metode cermin, Anda akan berakhir dengan posisi sejajar, alih-alih menjaga perspektif tetap paralel - hal ini dapat menyebabkan pemendekan tampak seperti penyelarasan vertikal yang buruk. Untuk membatalkannya, dapat dilakukan koreksi keystone, yang berarti mengecilkan satu sisi setiap gambar secara vertikal.
  • Toe-in juga akan cenderung menggerakkan jendela stereo ke arah Anda. Anda dapat membatalkannya dan menempatkannya di tempat yang Anda inginkan dengan memotong sisinya.
  • Cermin mungkin tidak sepenuhnya menutupi tampilan satu sisi, jadi beberapa pemotongan mungkin perlu dilakukan untuk menghilangkan bagian yang tidak dipantulkan.
 
@@ -660,7 +660,7 @@ Selama beberapa minggu berikutnya, rasa frustrasi saya yang membara membuat saya
     <value>Perhatikan garis horizontal, tetapi Anda juga dapat menyelaraskannya setelahnya.</value>
   </data>
   <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
-    <value>Jika Anda menemukan bahwa saat mengambil gambar, tidak mungkin membuat garis panduan atas dan bawah sejajar pada saat yang sama, Anda mungkin bergerak ke arah lain selain ke samping. Cobalah untuk memperbaikinya sebelum mengambil gambar, tetapi menyelaraskan setelah kejadian dapat sangat membantu.</value>
+    <value>Jika Anda menemukan bahwa saat mengambil gambar, tidak mungkin membuat garis panduan atas dan bawah sejajar pada saat yang sama, Anda mungkin bergerak ke arah lain selain ke samping. Cobalah untuk memperbaikinya sebelum mengambil gambar, namun menyelaraskan setelah kejadian dapat sangat membantu.</value>
   </data>
   <data name="Page.Tips.Alignment" xml:space="preserve">
     <value>Anda dapat menonaktifkan penyelarasan otomatis.</value>
@@ -779,7 +779,7 @@ Sebelum dua perangkat dapat digunakan bersama, peran mereka harus ditetapkan. Pe
  • CrossCam merupakan perangkat lunak, bukan perangkat keras, jadi pengambilan foto mungkin sedikit tidak sinkron tergantung pada apa lagi yang dilakukan prosesor dan memori pada saat pengambilan dipicu. Akibatnya, sinkronisasi terkadang tidak sempurna, namun umumnya harus sangat dekat.</value>
   </data>
   <data name="Page.Pairing.Again" xml:space="preserve">
-    <value>Untuk menyambung lagi nanti, pastikan Anda mengaktifkan Wi-Fi lalu ketuk tombol sambungkan di layar beranda kedua perangkat.</value>
+    <value>Untuk menyambung lagi nanti, pastikan Anda mengaktifkan Wi-Fi lalu cukup ketuk tombol sambungkan di layar beranda kedua perangkat.</value>
   </data>
   <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
     <value>CrossCam memerlukan izin Akses Jaringan Lokal. CrossCam sebenarnya tidak menggunakan jaringan lokal, namun iOS mengharuskan CrossCam mendapatkan izin ini agar dapat menggunakan antena Wi-Fi untuk memindai perangkat. CrossCam akan meminta izin ini satu kali - jika izin ditolak, Anda harus membuka sendiri tombol di aplikasi Pengaturan.</value>
@@ -1085,7 +1085,7 @@ Sebelum dua perangkat dapat digunakan bersama, peran mereka harus ditetapkan. Pe
     <value>Menyimpan ke:</value>
   </data>
   <data name="Settings.Saving.Separate" xml:space="preserve">
-    <value>Simpan setiap sisi secara terpisah (tanpa editan atau pembatas untuk memudahkan pemrosesan postingan, sisi kiri disimpan terlebih dahulu)</value>
+    <value>Simpan masing-masing sisi secara terpisah (tanpa editan atau pembatas untuk memudahkan pemrosesan postingan, sisi kiri disimpan terlebih dahulu)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
     <value>Simpan ke dalam subfolder/album khusus "CrossCam {View Method}".</value>
@@ -1152,5 +1152,8 @@ Sebelum dua perangkat dapat digunakan bersama, peran mereka harus ditetapkan. Pe
   </data>
   <data name="Page.Technique.SetMode" xml:space="preserve">
     <value>CrossCam sekarang sudah masuk</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Simpan secara otomatis setelah pengambilan</value>
   </data>
 </root>
