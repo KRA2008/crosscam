@@ -216,10 +216,13 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                     try
                     {
                         var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
-                        if (Build.VERSION.SdkInt >= BuildVersionCodes.M && !settings.IsForceCamera1Enabled) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.M) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
                         {
-                            var level = FindCamera2();
-                            _useCamera2 = level != (int)InfoSupportedHardwareLevel.Legacy || settings.IsForceCamera2Enabled;
+                            var level = FindCamera2(); // this triggers some sort of initialization that allows the surface to become available, even for camera1. i don't know.
+                            _useCamera2 = 
+                                (level != (int)InfoSupportedHardwareLevel.Legacy || 
+                                settings.IsForceCamera2Enabled) &&
+                                !settings.IsForceCamera1Enabled;
                         }
                     }
                     catch (Exception ex)
@@ -451,15 +454,16 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         {
             try
             {
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.M &&
-                    await RequestBasicPermissions())
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
                 {
-                    _textureView = new MyTextureView(Context);
-                    _textureView.SurfaceTextureListener = this;
-                    _textureView.SetOnTouchListener(this);
-
-                    SetNativeControl(_textureView);
+                    await RequestBasicPermissions();
                 }
+
+                _textureView = new MyTextureView(Context);
+                _textureView.SurfaceTextureListener = this;
+                _textureView.SetOnTouchListener(this);
+
+                SetNativeControl(_textureView);
             }
             catch (Exception e)
             {
@@ -659,7 +663,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 
                         matrix.MapRect(targetFocusRect);
                         var roundedRect = new RectF();
-                        //targetFocusRect.Round(roundedRect); //TODO: what happened?
+                        roundedRect = targetFocusRect.Round();
 
                         if (parameters.MaxNumFocusAreas > 0 &&
                             parameters.SupportedFocusModes != null &&
