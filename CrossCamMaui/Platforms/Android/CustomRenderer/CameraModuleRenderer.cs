@@ -498,6 +498,11 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
 
             //Debug.WriteLine("### previewSize: " + );
+            try
+            {
+                _cameraModule.PreviewImage?.Frame?.Dispose();
+            }
+            catch {}
             _cameraModule.PreviewImage = new IncomingFrame
             {
                 Frame = bitmap.ToSKBitmap(),
