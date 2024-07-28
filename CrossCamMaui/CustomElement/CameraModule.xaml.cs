@@ -90,7 +90,12 @@ namespace CrossCam.CustomElement
         public IncomingFrame PreviewImage
         {
             get => (IncomingFrame)GetValue(PreviewImageProperty);
-            set => SetValue(PreviewImageProperty, value);
+            set
+            {
+                var previousImage = (IncomingFrame)GetValue(PreviewImageProperty);
+                previousImage?.Frame?.Dispose();
+                SetValue(PreviewImageProperty, value);
+            }
         }
 
         public bool CaptureTrigger
