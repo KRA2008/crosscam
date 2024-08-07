@@ -393,11 +393,10 @@
 	  <Folder Include="Platforms\Android\Resources\drawable-xhdpi\" />
 	  <Folder Include="Platforms\Android\Resources\drawable-xxxhdpi\" />
 	  <Folder Include="Platforms\Android\Resources\drawable\" />
-	  <Folder Include="Platforms\Android\Resources\layout\" />
 	  <Folder Include="Platforms\Android\Resources\drawable-hdpi\" />
 	  <Folder Include="Platforms\Android\Resources\drawable-xhdpi\" />
-	  <Folder Include="Platforms\Android\Resources\layout\" />
 	  <Folder Include="Platforms\Android\Resources\drawable-xxxhdpi\" />
+	  <Folder Include="Platforms\Android\Resources\layout\" />
 	  <Folder Include="Platforms\iOS\Resources\" />
 	</ItemGroup>
 

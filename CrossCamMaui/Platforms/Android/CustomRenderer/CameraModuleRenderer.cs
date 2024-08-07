@@ -48,7 +48,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         private Camera _camera1;
 
         private Activity _activity;
-        private MyTextureView _textureView;
+        private TextureView _textureView;
         private SurfaceTexture _surfaceTexture;
         private CameraModule _cameraModule;
         private GestureDetector _gestureDetector;
@@ -216,13 +216,14 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                     try
                     {
                         var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
-                        if (Build.VERSION.SdkInt >= BuildVersionCodes.M) // camera2 is introduced in 21, but i need the af cancel trigger which is 23
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
                         {
-                            var level = FindCamera2(); // this triggers some sort of initialization that allows the surface to become available, even for camera1. i don't know.
+                            var level = FindCamera2(); // this allows the surface to become available by setting _cameraModule.PreviewAspectRatio for some reason. doing that for camera1 should be pulled out and done elsewhere.
                             _useCamera2 = 
                                 (level != (int)InfoSupportedHardwareLevel.Legacy || 
                                 settings.IsForceCamera2Enabled) &&
-                                !settings.IsForceCamera1Enabled;
+                                !settings.IsForceCamera1Enabled &&
+                                Build.VERSION.SdkInt >= BuildVersionCodes.M; //camera2 added in L, but i need autofocus cancel trigger in M
                         }
                     }
                     catch (Exception ex)
@@ -1127,17 +1128,16 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             var characteristics = _cameraManager.GetCameraCharacteristics(_camera2Id);
             var level = (int)characteristics.Get(CameraCharacteristics.InfoSupportedHardwareLevel);
 
-            if (level == (int)InfoSupportedHardwareLevel.Legacy)
-            {
-                return level;
-            }
-
             _camera2SensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
 
             var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics
                 .ScalerStreamConfigurationMap);
 
-            var highResSizes = map.GetHighResolutionOutputSizes((int)ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
+            List<Size> highResSizes = null;
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                highResSizes = map.GetHighResolutionOutputSizes((int)ImageFormatType.Jpeg)?.Where(p => p.Width > p.Height).ToList();
+            }
             var normalSizes = map.GetOutputSizes((int)ImageFormatType.Jpeg).Where(p => p.Width > p.Height).ToList();
 
             var allSizes = highResSizes != null ? highResSizes.Concat(normalSizes) : normalSizes;
@@ -1179,7 +1179,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 return (int)InfoSupportedHardwareLevel.Legacy; // cannot find appropriate sizes with camera2. fall back to camera1.
             }
 
-            _cameraModule.PreviewAspectRatio = 
+            _cameraModule.PreviewAspectRatio =
                 Math.Max(_preview2Size.Width, _preview2Size.Height) /
                 (Math.Min(_preview2Size.Width, _preview2Size.Height) * 1d);
             _stateListener = new CameraStateListener(this);
