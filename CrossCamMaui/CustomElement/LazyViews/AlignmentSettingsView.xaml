@@ -64,7 +64,7 @@
        IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
     <Switch Grid.Column="2"
         Grid.Row="2"
-        IsToggled="{Binding Settings.AlignmentSettings.ForceKeypoints2}"
+        IsToggled="{Binding Settings.AlignmentSettings.ForceKeypoints3}"
         IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
 
     <Label Grid.Column="0"
@@ -74,7 +74,7 @@
        IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
     <Switch Grid.Column="2"
         Grid.Row="3"
-        IsToggled="{Binding Settings.AlignmentSettings.ForceEcc}"
+        IsToggled="{Binding Settings.AlignmentSettings.ForceEcc2}"
         IsVisible="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"/>
 
     <Label Grid.Column="0"

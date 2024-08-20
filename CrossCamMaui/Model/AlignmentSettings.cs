@@ -20,31 +20,25 @@
                 }
             }
         }
-        private bool _forceKeypoints2;
-        public bool ForceKeypoints2
+        private bool _forceKeypoints3;
+        public bool ForceKeypoints3
         {
-            get => _forceKeypoints2;
+            get => _forceKeypoints3;
             set
             {
-                _forceKeypoints2 = value;
-                if (value)
-                {
-                    ForceEcc = false;
-                }
+                _forceKeypoints3 = value;
+                ForceEcc2 = !value;
             }
         }
 
-        private bool _forceEcc;
-        public bool ForceEcc
+        private bool _forceEcc2;
+        public bool ForceEcc2
         {
-            get => _forceEcc;
+            get => _forceEcc2;
             set
             {
-                _forceEcc = value;
-                if (value)
-                {
-                    ForceKeypoints2 = false;
-                }
+                _forceEcc2 = value;
+                ForceKeypoints3 = !value;
             }
         }
 
@@ -73,7 +67,7 @@
             IsAutomaticAlignmentOn = true;
             ShowAdvancedAlignmentSettings1 = false;
 
-            ForceEcc = false;
+            ForceEcc2 = true;
             DownsizePercentage2 = 50;
             EccEpsilonLevel = 3;
             EccIterations = 50;
@@ -85,7 +79,7 @@
             DrawKeypointMatches = false;
             DrawResultWarpedByOpenCv = false;
 
-            ForceKeypoints2 = false;
+            ForceKeypoints3 = false;
             DiscardOutliersByDistance2 = true;
             DiscardOutliersBySlope2 = true;
             MinimumKeypoints2 = 50;

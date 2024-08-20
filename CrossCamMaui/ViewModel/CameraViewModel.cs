@@ -2120,7 +2120,7 @@ namespace CrossCam.ViewModel
                     {
                         await Task.Run(() =>
                         {
-                            if (Settings.AlignmentSettings.ForceEcc)
+                            if (Settings.AlignmentSettings.ForceEcc2)
                             {
                                 try
                                 {
