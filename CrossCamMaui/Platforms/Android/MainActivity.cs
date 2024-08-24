@@ -177,6 +177,7 @@ namespace CrossCam.Platforms.Android
                         if (stream != null) await stream.CopyToAsync(memoryStream);
 
                         PickPhotoTaskCompletionSource?.SetResult(new[] {memoryStream.ToArray(), null});
+                        return;
                     }
                     else
                     {
@@ -190,6 +191,7 @@ namespace CrossCam.Platforms.Android
                                 {"contentResolver",ContentResolver?.ToString()}
                             });
                         }
+                        return;
                     }
                 }
                 else if (requestCode == (int) RequestCodes.BrowseDirectoriesRequestCode)
@@ -211,7 +213,7 @@ namespace CrossCam.Platforms.Android
             }
             catch (System.Exception ex)
             {
-                PickPhotoTaskCompletionSource?.SetResult(null);
+                PickPhotoTaskCompletionSource?.TrySetResult(null);
                 Crashes.TrackError(ex);
             }
         }
