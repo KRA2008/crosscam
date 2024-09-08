@@ -86,8 +86,8 @@
                          RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
                          StopPreviewTrigger="{Binding StopPreviewTrigger}"
                          PreviewAspectRatio="{Binding PreviewAspectRatio}"/>
-        <skia:SKCanvasView AbsoluteLayout.LayoutBounds="0,0,1,1"
-                           AbsoluteLayout.LayoutFlags="All" 
+        <skia:SKCanvasView AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
+                           AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
                            x:Name="_canvas"
                            Touch="_canvas_OnTouch"
                            EnableTouchEvents="True"
