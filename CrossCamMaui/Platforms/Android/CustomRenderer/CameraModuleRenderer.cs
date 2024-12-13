@@ -3,6 +3,7 @@ using System.Timers;
 using _Microsoft.Android.Resource.Designer;
 using Android.App;
 using Android.Content;
+using Android.Gms.Common.Util.Concurrent;
 using Android.Graphics;
 using Android.Hardware;
 using Android.Hardware.Camera2;
@@ -17,7 +18,9 @@ using CrossCam.Page;
 using CrossCam.Platforms.Android.CustomRenderer.Camera2Listeners;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
+using Emgu.CV.Platform.Maui.UI;
 using Java.Lang;
+using Java.Util.Concurrent;
 using Microsoft.AppCenter.Crashes.Android;
 using SkiaSharp;
 using SkiaSharp.Views.Android;
@@ -1102,11 +1105,28 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 {
                     var cameraChars = _cameraManager.GetCameraCharacteristics(cameraId);
                     var direction = (int)cameraChars.Get(CameraCharacteristics.LensFacing);
-                    _cameraModule.AvailableCameras.Add(new AvailableCamera
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.Q &&
+                        ((int[])cameraChars.Get(CameraCharacteristics.RequestAvailableCapabilities)).ToList().Contains((int)RequestAvailableCapabilities.LogicalMultiCamera))
                     {
-                        CameraId = cameraId,
-                        IsFront = direction == (int)LensFacing.Front
-                    });
+                        var physicalIds = cameraChars.PhysicalCameraIds.ToArray();
+                        for (int ii = 0; ii < physicalIds.Length; ii++)
+                        {
+                            _cameraModule.AvailableCameras.Add(new AvailableCamera
+                            {
+                                CameraId = cameraId,
+                                PhysicalId = physicalIds[ii],
+                                IsFront = direction == (int)LensFacing.Front
+                            });
+                        }
+                    } 
+                    else
+                    {
+                        _cameraModule.AvailableCameras.Add(new AvailableCamera
+                        {
+                            CameraId = cameraId,
+                            IsFront = direction == (int)LensFacing.Front
+                        });
+                    }
                 }
             }
 
@@ -1249,36 +1269,53 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                 _finalCaptureImageReader = ImageReader.NewInstance(_picture2Size.Width, _picture2Size.Height, ImageFormatType.Jpeg, 1);
                 _finalCaptureImageReader.SetOnImageAvailableListener(_imageAvailableListener, _backgroundHandler);
 
-                _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface },
-                    new CameraCaptureStateListener
+                var stateListener = new CameraCaptureStateListener
+                {
+                    OnConfigureFailedAction = session => { },
+                    OnConfiguredAction = session =>
                     {
-                        OnConfigureFailedAction = session => { },
-                        OnConfiguredAction = session =>
+                        try
                         {
-                            try
-                            {
-                                if (_camera2Device == null) return;
+                            if (_camera2Device == null) return;
 
-                                _camera2Session = session;
-                                _previewRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
-                                _previewRequestBuilder.AddTarget(_surface);
+                            _camera2Session = session;
+                            _previewRequestBuilder = _camera2Device.CreateCaptureRequest(CameraTemplate.Preview);
+                            _previewRequestBuilder.AddTarget(_surface);
 
-                                _camera2State = CameraState.Preview;
-                                _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
+                            _camera2State = CameraState.Preview;
+                            _previewRequestBuilder.SetTag(CameraState.Preview.ToString());
 
-                                _previewRequestBuilder.Set(CaptureRequest.ControlAfMode,
-                                    new Integer((int) ControlAFMode.ContinuousPicture));
+                            _previewRequestBuilder.Set(CaptureRequest.ControlAfMode,
+                                new Integer((int) ControlAFMode.ContinuousPicture));
 
-                                session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener,
-                                    _backgroundHandler);
-                            }
-                            catch (Exception ex)
-                            {
-                                _cameraModule.Error = ex;
-                            }
+                            session.SetRepeatingRequest(_previewRequestBuilder.Build(), _previewCaptureListener,
+                                _backgroundHandler);
                         }
-                    },
-                    null);
+                        catch (Exception ex)
+                        {
+                            _cameraModule.Error = ex;
+                        }
+                    }
+                };
+
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
+                {
+                    var previewConfig = new OutputConfiguration(_surface);
+                    var captureConfig = new OutputConfiguration(_finalCaptureImageReader.Surface);
+                    if (_cameraModule.ChosenCamera.PhysicalId != null)
+                    {
+                        captureConfig.SetPhysicalCameraId(_cameraModule.ChosenCamera.PhysicalId);
+                        previewConfig.SetPhysicalCameraId(_cameraModule.ChosenCamera.PhysicalId);
+                    }
+                    var configuration = new SessionConfiguration((int) SessionType.Regular,
+                        new List<OutputConfiguration>() {previewConfig, captureConfig}, Executors.NewSingleThreadExecutor(), stateListener);
+                    _camera2Device.CreateCaptureSession(configuration);
+                }
+                else
+                {
+                    _camera2Device.CreateCaptureSession(new List<Surface> { _surface, _finalCaptureImageReader.Surface },
+                        stateListener, null);
+                }
                 _openingCamera2 = false;
             }
             catch (Exception e)

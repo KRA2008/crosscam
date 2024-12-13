@@ -18,6 +18,7 @@ namespace CrossCam.ViewModel
     {
         public bool IsFront { get; set; }
         public string CameraId { get; set; }
+        public string PhysicalId { get; set; }
         private string _displayName;
         public string DisplayName
         {
