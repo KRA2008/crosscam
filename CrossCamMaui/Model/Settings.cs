@@ -205,6 +205,7 @@ namespace CrossCam.Model
 
         public bool PromptForErrorEmails { get; set; }
         public bool IsAnalyticsEnabled { get; set; }
+        public bool ForceEnglish { get; set; }
 
         [Obsolete("Use SaveForRedCyanAnaglyph - kept for backward compatibility")]
         public bool RedCyanAnaglyphMode { get => SaveForRedCyanAnaglyph; set => SaveForRedCyanAnaglyph = value; }
@@ -383,6 +384,7 @@ namespace CrossCam.Model
 
             PromptForErrorEmails = false;
             IsAnalyticsEnabled = true;
+            ForceEnglish = false;
 
             AlignmentSettings.ResetToDefaults();
             EditsSettings.ResetToDefaults();

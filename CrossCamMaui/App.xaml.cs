@@ -3,8 +3,12 @@ using CrossCam.Platforms.Windows.CustomRenderer;
 #else
 using FreshMvvm.Maui;
 #endif
+using CrossCam.Model;
 using CrossCam.ViewModel;
+using CrossCam.Wrappers;
 using Microsoft.AppCenter.Analytics;
+using System.Globalization;
+using CrossCam.Resources.Localization;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CrossCam
@@ -20,6 +24,12 @@ namespace CrossCam
         public App()
         {
             InitializeComponent();
+            var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+            if (settings.ForceEnglish)
+            {
+                CultureInfo.CurrentUICulture = new CultureInfo("en-US", false);
+                AppResources.Culture = CultureInfo.CurrentUICulture;
+            }
 #if !__WINDOWS__
             var cameraPage = FreshPageModelResolver.ResolvePageModel<CameraViewModel>();
             _cameraViewModel = (CameraViewModel)cameraPage.BindingContext;

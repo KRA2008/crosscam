@@ -172,6 +172,13 @@
             <ce:HorizontalDivider/>
 
             <StackLayout Orientation="Horizontal">
+                <Label Text="Force English Language (requires an app force-close and restart to take effect)"/>
+                <Switch IsToggled="{Binding Settings.ForceEnglish}"/>
+            </StackLayout>
+
+            <ce:HorizontalDivider/>
+
+            <StackLayout Orientation="Horizontal">
                 <Label Text="{x:Static localization:AppResources.Page_Settings_ErrorEmail}"/>
                 <Switch IsToggled="{Binding Settings.PromptForErrorEmails}"/>
             </StackLayout>
