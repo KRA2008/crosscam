@@ -540,6 +540,8 @@ namespace CrossCam.ViewModel
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
 
+            MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => AutoconnectIfOn());
+
             LoadPhotoCommand = new Command(async () =>
             {
                 SendCommandStartAnalyticsEvent(nameof(LoadPhotoCommand));
@@ -1919,6 +1921,18 @@ namespace CrossCam.ViewModel
 
             await Task.Delay(100);
             await EvaluateAndShowWelcomePopup();
+
+            AutoconnectIfOn();
+        }
+
+        private void AutoconnectIfOn()
+        {
+            if (Settings.PairSettings.Autoconnect &&
+                PairOperator.PairStatus == PairStatus.Disconnected &&
+                Settings.PairSettings.IsPairedPrimary.HasValue)
+            {
+                PairCommand.Execute(null);
+            }
         }
 
         private async void ShowFovPreparationPopup()

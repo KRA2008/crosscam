@@ -23,6 +23,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <Label Grid.Column="0"
@@ -108,23 +109,32 @@
         <Entry Text="{Binding Settings.PairSettings.CaptureMomentExtraDelayMs}"/>
     </Frame>
 
+    <Label Grid.Column="0"
+           Grid.Row="7"
+           Text="{x:Static localization:AppResources.Settings_Pair_Autoconnect}"
+           IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"/>
+    <Switch Grid.Column="1"
+            Grid.Row="7" 
+            IsToggled="{Binding Settings.PairSettings.Autoconnect}"
+            IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"/>
+
     <Button Grid.Column="0"
         Grid.ColumnSpan="2"
-        Grid.Row="7" 
+        Grid.Row="8" 
         Text="{x:Static localization:AppResources.Settings_Reset}"
         Command="{Binding ResetPairToDefaults}"
         IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
     <Label Grid.Column="0"
        Grid.ColumnSpan="2"
-       Grid.Row="8"
+       Grid.Row="9"
        Text="{x:Static localization:AppResources.Settings_Pair_Fov}"
        HorizontalOptions="CenterAndExpand"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
 
     <Grid Grid.Column="0"
       Grid.ColumnSpan="2"
-      Grid.Row="9"
+      Grid.Row="10"
       ColumnSpacing="0"
       RowSpacing="0"
       IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">

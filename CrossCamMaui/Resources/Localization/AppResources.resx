@@ -1159,4 +1159,7 @@ Before two devices can be used together their roles have to be assigned. The PRI
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Save automatically after capturing</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Automatically connect when camera page opens</value>
+  </data>
 </root>

@@ -33,6 +33,8 @@
 
         public uint CaptureMomentExtraDelayMs { get; set; }
 
+        public bool Autoconnect { get; set; }
+
         public sealed override void ResetToDefaults()
         {
             //IsPairedPrimary = null; //deliberately do NOT reset this.
@@ -48,6 +50,8 @@
             CaptureMomentExtraDelayMs = 0;
 
             TimeoutSeconds = 30;
+
+            Autoconnect = false;
         }
     }
 }

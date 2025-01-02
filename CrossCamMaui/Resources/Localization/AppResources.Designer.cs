@@ -2484,6 +2484,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatically connect when camera page opens.
+        /// </summary>
+        internal static string Settings_Pair_Autoconnect {
+            get {
+                return ResourceManager.GetString("Settings.Pair.Autoconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Capture moment extra delay (ms) (adds an extra delay to the target capture moment on this device only).
         /// </summary>
         internal static string Settings_Pair_CaptureDelay {
