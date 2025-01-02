@@ -923,7 +923,7 @@ namespace CrossCam.ViewModel
                         var fuseGuideImageHeightModifier = Math.Max(fuseGuideMarginHeight - borderThickness, 0);
 
                         joinedImageSize.Height += fuseGuideImageHeightModifier;
-                        quadHeight += fuseGuideImageHeightModifier + 2 * borderThickness;
+                        quadHeight += 2 * fuseGuideImageHeightModifier + 2 * borderThickness;
                         quadOffset += fuseGuideImageHeightModifier + borderThickness;
 
                         tripleOffset *= Settings.ResolutionProportion / 100f;
