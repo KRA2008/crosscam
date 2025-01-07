@@ -1569,7 +1569,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pairing.
+        ///   Looks up a localized string similar to Device Pairing.
         /// </summary>
         internal static string Page_Settings_Pairing {
             get {
@@ -1587,7 +1587,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving.
+        ///   Looks up a localized string similar to Image Saving.
         /// </summary>
         internal static string Page_Settings_Saving {
             get {

@@ -842,13 +842,13 @@ Before two devices can be used together their roles have to be assigned. The PRI
     <value>Capture Guides</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Pairing</value>
+    <value>Device Pairing</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Preview Viewing Method</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Saving</value>
+    <value>Image Saving</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam is free to use, ad-free, open-source, collects no personal information from you, and gives you full access to every feature. I love working on CrossCam but it takes a lot of time and effort. I make no money from CrossCam at all except tips people might decide to send me.</value>
