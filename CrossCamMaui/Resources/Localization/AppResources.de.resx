@@ -1156,4 +1156,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Nach der Aufnahme automatisch speichern</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Automatisch verbinden, wenn die Kameraseite geöffnet wird</value>
+  </data>
 </root>

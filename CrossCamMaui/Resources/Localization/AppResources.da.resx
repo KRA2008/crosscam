@@ -1156,4 +1156,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Gem automatisk efter optagelse</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Tilslut automatisk, når kamerasiden åbnes</value>
+  </data>
 </root>

@@ -1156,4 +1156,7 @@
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>कैप्चर करने के बाद स्वचालित रूप से सहेजें</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>कैमरा पेज खुलने पर स्वचालित रूप से कनेक्ट करें</value>
+  </data>
 </root>

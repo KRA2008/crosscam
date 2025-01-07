@@ -1156,4 +1156,7 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Simpan secara automatik selepas menangkap</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Sambung secara automatik apabila halaman kamera dibuka</value>
+  </data>
 </root>

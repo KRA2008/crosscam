@@ -1156,4 +1156,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>捕捉後自動儲存</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>相機頁面開啟時自動連接</value>
+  </data>
 </root>

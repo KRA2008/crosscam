@@ -1156,4 +1156,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Tallenna automaattisesti kaappauksen jälkeen</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Muodosta yhteys automaattisesti, kun kamerasivu avautuu</value>
+  </data>
 </root>

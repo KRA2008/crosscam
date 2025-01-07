@@ -1156,4 +1156,7 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>캡처 후 자동 저장</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>카메라 페이지가 열리면 자동으로 연결됩니다.</value>
+  </data>
 </root>

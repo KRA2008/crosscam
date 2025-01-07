@@ -1156,4 +1156,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Enregistrer automatiquement après la capture</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Se connecter automatiquement lorsque la page de l'appareil photo s'ouvre</value>
+  </data>
 </root>

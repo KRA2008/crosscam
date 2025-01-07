@@ -1156,4 +1156,7 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Salvar automaticamente após a captura</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Conectar automaticamente quando a página da câmera abrir</value>
+  </data>
 </root>

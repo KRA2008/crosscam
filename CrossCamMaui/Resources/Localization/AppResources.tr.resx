@@ -1156,4 +1156,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Yakaladıktan sonra otomatik olarak kaydet</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Kamera sayfası açıldığında otomatik olarak bağlan</value>
+  </data>
 </root>

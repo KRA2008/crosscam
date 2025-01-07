@@ -1156,4 +1156,7 @@ Pred použitím dvoch zariadení spolu je potrebné priradiť ich roly. PRIMÁRN
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Uložiť automaticky po nasnímaní</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Automaticky sa pripojiť, keď sa otvorí stránka fotoaparátu</value>
+  </data>
 </root>

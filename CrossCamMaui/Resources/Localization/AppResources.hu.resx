@@ -1156,4 +1156,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Automatikus mentés a rögzítés után</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Automatikus csatlakozás a kamera oldalának megnyitásakor</value>
+  </data>
 </root>

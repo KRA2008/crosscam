@@ -1156,4 +1156,7 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Spara automatiskt efter inspelning</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Anslut automatiskt när kamerasidan öppnas</value>
+  </data>
 </root>

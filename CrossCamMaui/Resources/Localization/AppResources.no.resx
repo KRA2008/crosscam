@@ -1156,4 +1156,7 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
   <data name="Settings.Saving.InstantSave" xml:space="preserve">
     <value>Lagre automatisk etter fangst</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Koble til automatisk når kamerasiden åpnes</value>
+  </data>
 </root>
