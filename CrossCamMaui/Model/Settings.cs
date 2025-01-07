@@ -311,6 +311,8 @@ namespace CrossCam.Model
         public uint BorderWidthProportion { get; set; }
         public uint MaximumParallelWidth { get; set; }
 
+        public AvailableCamera ChosenCamera { get; set; }
+
         public CardboardSettings CardboardSettings { get; set; }
         public AlignmentSettings AlignmentSettings { get; set; }
         public EditsSettings EditsSettings { get; set; }
@@ -385,6 +387,8 @@ namespace CrossCam.Model
             PromptForErrorEmails = false;
             IsAnalyticsEnabled = true;
             ForceEnglish = false;
+
+            ChosenCamera = null;
 
             AlignmentSettings.ResetToDefaults();
             EditsSettings.ResetToDefaults();

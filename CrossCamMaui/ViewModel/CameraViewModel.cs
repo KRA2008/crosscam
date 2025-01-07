@@ -185,7 +185,11 @@ namespace CrossCam.ViewModel
         public Command<CameraSettingMode> SetCameraSettingModeCommand { get; set; }
         public bool CameraSettingsVisible { get; set; }
         public ObservableCollection<AvailableCamera> AvailableCameras { get; set; }
-        public AvailableCamera ChosenCamera { get; set; }
+        public AvailableCamera ChosenCamera
+        {
+            get => Settings.ChosenCamera;
+            set => Settings.ChosenCamera = value;
+        }
 
         public Command NavigateToSettingsCommand { get; set; }
         public Command NavigateToHamburgerPageCommand { get; set; }
@@ -1621,6 +1625,9 @@ namespace CrossCam.ViewModel
                     break;
                 case nameof(Settings.MaximumParallelWidth):
                     RaisePropertyChanged(nameof(CanvasRectangle));
+                    break;
+                case nameof(Settings.ChosenCamera):
+                    PersistentStorage.Save(PersistentStorage.SETTINGS_KEY,Settings);
                     break;
             }
 
