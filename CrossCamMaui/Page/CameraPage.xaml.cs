@@ -268,9 +268,9 @@ namespace CrossCam.Page
         {
             if (!_viewModel.IsBusy)
             {
-                var seconds = _gyroscopeStopwatch.ElapsedTicks / 10000000f;
-                _cardboardViewVert -= e.Reading.AngularVelocity.Y * seconds;
-                _cardboardViewHor += e.Reading.AngularVelocity.X * seconds;
+                var seconds = _gyroscopeStopwatch.Elapsed.TotalSeconds;
+                _cardboardViewVert -= (float)(e.Reading.AngularVelocity.Y * seconds);
+                _cardboardViewHor += (float)(e.Reading.AngularVelocity.X * seconds);
                 _gyroscopeStopwatch.Restart();
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
