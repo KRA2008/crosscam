@@ -839,13 +839,13 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>Capture-Anleitungen</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Paarung</value>
+    <value>Gerätekopplung</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Vorschau-Anzeigemethode</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Sparen</value>
+    <value>Bildspeicherung</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>Die Nutzung von CrossCam ist kostenlos, werbefrei, Open Source, erfasst keine persönlichen Daten von Ihnen und bietet Ihnen vollen Zugriff auf alle Funktionen. Ich liebe die Arbeit an CrossCam, aber es kostet viel Zeit und Mühe. Ich verdiene überhaupt kein Geld mit CrossCam, außer Trinkgeldern, die mir die Leute vielleicht schicken.</value>

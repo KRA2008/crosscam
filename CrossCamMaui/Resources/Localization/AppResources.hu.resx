@@ -839,13 +839,13 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
     <value>Rögzítési útmutatók</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Párosítás</value>
+    <value>Eszközpárosítás</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Megtekintési mód előnézete</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Megtakarítás</value>
+    <value>Kép mentése</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>A CrossCam ingyenesen használható, reklámmentes, nyílt forráskódú, nem gyűjt személyes adatokat Öntől, és minden funkcióhoz teljes hozzáférést biztosít. Szeretek a CrossCammel dolgozni, de ez sok időt és erőfeszítést igényel. Egyáltalán nem keresek pénzt a CrossCam segítségével, kivéve azokat a tippeket, amelyeket az emberek úgy döntenek, hogy küldenek nekem.</value>

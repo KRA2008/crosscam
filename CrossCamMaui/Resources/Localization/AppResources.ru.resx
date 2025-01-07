@@ -839,13 +839,13 @@ CrossCam отобразит результат выравнивания на э�
     <value>Захват направляющих</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Сопряжение</value>
+    <value>Сопряжение устройств</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Метод предварительного просмотра</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Сохранение</value>
+    <value>Сохранение изображения</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam бесплатен в использовании, не содержит рекламы, имеет открытый исходный код, не собирает от вас никакой личной информации и предоставляет вам полный доступ ко всем функциям. Мне нравится работать над CrossCam, но это требует много времени и усилий. Я вообще не зарабатываю денег на CrossCam, за исключением чаевых, которые люди могут мне прислать.</value>

@@ -839,13 +839,13 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>Hướng dẫn chụp</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Ghép nối</value>
+    <value>Ghép nối thiết bị</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Xem trước phương pháp xem</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Tiết kiệm</value>
+    <value>Lưu hình ảnh</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam sử dụng miễn phí, không có quảng cáo, nguồn mở, không thu thập thông tin cá nhân từ bạn và cung cấp cho bạn toàn quyền truy cập vào mọi tính năng. Tôi thích làm việc trên CrossCam nhưng nó tốn rất nhiều thời gian và công sức. Tôi hoàn toàn không kiếm được tiền từ CrossCam ngoại trừ những lời khuyên mà mọi người có thể quyết định gửi cho tôi.</value>

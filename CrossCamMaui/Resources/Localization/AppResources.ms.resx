@@ -839,13 +839,13 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
     <value>Panduan Tangkap</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Berpasangan</value>
+    <value>Berpasangan Peranti</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Kaedah Melihat Pratonton</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Menyimpan</value>
+    <value>Penjimatan Imej</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam adalah percuma untuk digunakan, bebas iklan, sumber terbuka, tidak mengumpul maklumat peribadi daripada anda dan memberi anda akses penuh kepada setiap ciri. Saya suka bekerja pada CrossCam tetapi ia memerlukan banyak masa dan usaha. Saya tidak menjana wang daripada CrossCam sama sekali kecuali petua orang mungkin memutuskan untuk menghantar saya.</value>

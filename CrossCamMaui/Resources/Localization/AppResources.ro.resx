@@ -839,13 +839,13 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Ghiduri de captură</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Împerechere</value>
+    <value>Împerecherea dispozitivului</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Previzualizarea metodei de vizualizare</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Economisire</value>
+    <value>Salvarea imaginii</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam este gratuit, fără reclame, cu sursă deschisă, nu colectează informații personale de la dvs. și vă oferă acces deplin la fiecare funcție. Îmi place să lucrez la CrossCam, dar necesită mult timp și efort. Nu câștig bani din CrossCam, cu excepția sfaturilor pe care oamenii ar putea decide să-mi trimită.</value>

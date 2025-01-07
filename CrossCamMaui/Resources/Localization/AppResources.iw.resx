@@ -839,13 +839,13 @@ CrossCam תציג את תוצאת היישור על מסך המצלמה מתחת
     <value>מדריכי לכידה</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>צִמוּד</value>
+    <value>התאמת מכשיר</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>שיטת צפייה בתצוגה מקדימה</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>חִסָכוֹן</value>
+    <value>שמירת תמונה</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam חופשית לשימוש, נטולת מודעות, קוד פתוח, אינה אוספת ממך מידע אישי ומעניקה לך גישה מלאה לכל תכונה. אני אוהב לעבוד על CrossCam אבל זה לוקח הרבה זמן ומאמץ. אני לא מרוויח כסף מ-CrossCam בכלל למעט טיפים שאנשים עשויים להחליט לשלוח לי.</value>

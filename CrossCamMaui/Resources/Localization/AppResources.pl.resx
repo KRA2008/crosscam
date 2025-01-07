@@ -839,13 +839,13 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Przewodniki po przechwytywaniu</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Łączenie w pary</value>
+    <value>Parowanie urządzeń</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Metoda przeglądania podglądu</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Oszczędność</value>
+    <value>Zapisywanie obrazu</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam jest darmowy, wolny od reklam, ma otwarte oprogramowanie, nie zbiera od Ciebie żadnych danych osobowych i zapewnia pełny dostęp do każdej funkcji. Uwielbiam pracować nad CrossCam, ale zajmuje to dużo czasu i wysiłku. W ogóle nie zarabiam na CrossCam, z wyjątkiem napiwków, które ludzie mogliby mi wysłać.</value>

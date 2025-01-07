@@ -839,13 +839,13 @@
     <value>कैप्चर गाइड</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>बाँधना</value>
+    <value>डिवाइस पेयरिंग</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>पूर्वावलोकन देखने की विधि</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>सहेजा जा रहा है</value>
+    <value>छवि सहेजा जा रहा है</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>क्रॉसकैम उपयोग करने के लिए मुफ़्त है, विज्ञापन-मुक्त, ओपन-सोर्स है, आपसे कोई व्यक्तिगत जानकारी एकत्र नहीं करता है, और आपको हर सुविधा तक पूर्ण पहुंच प्रदान करता है। मुझे क्रॉसकैम पर काम करना पसंद है लेकिन इसमें बहुत समय और मेहनत लगती है। मैं क्रॉसकैम से कोई पैसा नहीं कमाता, सिवाय उन युक्तियों के जो लोग मुझे भेजने का निर्णय ले सकते हैं।</value>

@@ -839,13 +839,13 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
     <value>Guies de captura</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Maridatge</value>
+    <value>Vinculació de dispositius</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Mètode de visualització prèvia</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Estalvi</value>
+    <value>Desa d'imatges</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam és d'ús gratuït, sense anuncis, de codi obert, no recopila informació personal sobre vostè i us ofereix accés complet a totes les funcions. M'encanta treballar amb CrossCam, però requereix molt de temps i esforç. No guanyo diners amb CrossCam, excepte pels consells que la gent podria decidir enviar-me.</value>

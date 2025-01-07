@@ -839,13 +839,13 @@ Voordat twee apparaten samen kunnen worden gebruikt, moeten hun rollen worden to
     <value>Gidsen vastleggen</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Koppelen</value>
+    <value>Apparaat koppelen</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Voorbeeldweergavemethode</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Besparing</value>
+    <value>Afbeelding opslaan</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam is gratis te gebruiken, reclamevrij, open-source, verzamelt geen persoonlijke gegevens van u en geeft u volledige toegang tot elke functie. Ik werk graag aan CrossCam, maar het kost veel tijd en moeite. Ik verdien helemaal geen geld met CrossCam, behalve tips die mensen mij misschien willen sturen.</value>

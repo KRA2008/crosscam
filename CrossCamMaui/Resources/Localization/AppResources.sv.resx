@@ -839,13 +839,13 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>Fånga guider</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Parning</value>
+    <value>Enhetsparning</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Förhandsgranska visningsmetod</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Sparande</value>
+    <value>Spara bild</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam är gratis att använda, annonsfritt, öppen källkod, samlar ingen personlig information från dig och ger dig full tillgång till alla funktioner. Jag älskar att arbeta med CrossCam men det tar mycket tid och ansträngning. Jag tjänar inga pengar alls på CrossCam förutom tips som folk kan tänka sig att skicka till mig.</value>

@@ -839,13 +839,13 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Guides de capture</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Couplage</value>
+    <value>Couplage d'appareils</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Méthode de visualisation d'aperçu</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Économie</value>
+    <value>Enregistrement d'images</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam est gratuit, sans publicité, open source, ne collecte aucune information personnelle vous concernant et vous donne un accès complet à toutes les fonctionnalités. J'adore travailler sur CrossCam mais cela demande beaucoup de temps et d'efforts. Je ne gagne aucun argent avec CrossCam, à l'exception des pourboires que les gens pourraient décider de m'envoyer.</value>

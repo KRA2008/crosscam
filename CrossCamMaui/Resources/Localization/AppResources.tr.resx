@@ -839,13 +839,13 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
     <value>Yakalama Kılavuzları</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Eşleştirme</value>
+    <value>Cihaz Eşleştirme</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Önizleme Görüntüleme Yöntemi</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Kaydediliyor</value>
+    <value>Görüntü Kaydetme</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam'in kullanımı ücretsizdir, reklamsızdır, açık kaynaktır, sizden hiçbir kişisel bilgi toplamaz ve her özelliğe tam erişim sağlar. CrossCam üzerinde çalışmayı seviyorum ama çok fazla zaman ve çaba gerektiriyor. İnsanların bana göndermeye karar verebileceği ipuçları dışında CrossCam'den hiç para kazanmıyorum.</value>

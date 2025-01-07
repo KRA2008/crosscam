@@ -839,13 +839,13 @@
     <value>Οδηγοί λήψης</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Σύζευξη</value>
+    <value>Σύζευξη συσκευής</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Προεπισκόπηση μεθόδου προβολής</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Οικονομία</value>
+    <value>Αποθήκευση εικόνας</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>Το CrossCam είναι δωρεάν στη χρήση, χωρίς διαφημίσεις, ανοιχτού κώδικα, δεν συλλέγει προσωπικά στοιχεία από εσάς και σας παρέχει πλήρη πρόσβαση σε κάθε δυνατότητα. Μου αρέσει να δουλεύω στο CrossCam αλλά χρειάζεται πολύς χρόνος και προσπάθεια. Δεν βγάζω καθόλου χρήματα από το CrossCam εκτός από συμβουλές που μπορεί να αποφασίσουν να μου στείλουν οι άνθρωποι.</value>

@@ -839,13 +839,13 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
     <value>캡처 가이드</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>편성</value>
+    <value>장치 페어링</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>미리보기 보기 방법</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>절약</value>
+    <value>이미지 저장</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam은 무료로 사용할 수 있고 광고가 없으며 오픈 소스이며 귀하로부터 개인 정보를 수집하지 않으며 모든 기능에 대한 전체 액세스를 제공합니다. 저는 CrossCam 작업을 좋아하지만 많은 시간과 노력이 필요합니다. 사람들이 나에게 보내기로 결정한 팁을 제외하고는 CrossCam에서 전혀 돈을 벌지 못합니다.</value>

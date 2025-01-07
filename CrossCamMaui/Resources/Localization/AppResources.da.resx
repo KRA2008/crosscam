@@ -839,13 +839,13 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Capture Guides</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Parring</value>
+    <value>Enhedsparring</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Visningsmetode for forhåndsvisning</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Gemmer</value>
+    <value>Billedlagring</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam er gratis at bruge, annoncefri, open source, indsamler ingen personlige oplysninger fra dig og giver dig fuld adgang til alle funktioner. Jeg elsker at arbejde på CrossCam, men det tager meget tid og kræfter. Jeg tjener ingen penge på CrossCam overhovedet, undtagen tip, som folk måske beslutter at sende mig.</value>

@@ -839,13 +839,13 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Vodiči za snimanje</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Uparivanje</value>
+    <value>Uparivanje uređaja</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Način pregledavanja pregleda</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Spremanje</value>
+    <value>Spremanje slike</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam je besplatan za korištenje, bez reklama, otvorenog koda, ne prikuplja nikakve osobne podatke od vas i daje vam puni pristup svakoj značajki. Volim raditi na CrossCam-u, ali oduzima puno vremena i truda. Uopće ne zarađujem od CrossCama osim savjeta koje bi mi ljudi mogli poslati.</value>

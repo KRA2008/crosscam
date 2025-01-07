@@ -839,13 +839,13 @@ CrossCam відобразить результат вирівнювання на
     <value>Посібники для захоплення</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Створення пари</value>
+    <value>Сполучення пристрою</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Спосіб попереднього перегляду</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Збереження</value>
+    <value>Збереження зображення</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam є безкоштовним у використанні, без реклами, з відкритим кодом, не збирає вашу особисту інформацію та надає вам повний доступ до кожної функції. Я люблю працювати над CrossCam, але це вимагає багато часу та зусиль. Я взагалі не заробляю на CrossCam, окрім підказок, які люди можуть мені надіслати.</value>

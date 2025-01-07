@@ -839,13 +839,13 @@ Pred použitím dvoch zariadení spolu je potrebné priradiť ich roly. PRIMÁRN
     <value>Sprievodcovia zachytením</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Párovanie</value>
+    <value>Párovanie zariadenia</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Metóda zobrazenia ukážky</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Ukladanie</value>
+    <value>Ukladanie obrázka</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam je bezplatný, bez reklám, s otvoreným zdrojom, nezhromažďuje od vás žiadne osobné informácie a poskytuje vám úplný prístup ku každej funkcii. Milujem prácu na CrossCam, ale vyžaduje si to veľa času a úsilia. Z CrossCam nezarábam vôbec žiadne peniaze okrem tipov, ktoré by sa mi ľudia mohli rozhodnúť poslať.</value>

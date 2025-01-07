@@ -839,7 +839,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>捕捉指南</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>配對</value>
+    <value>裝置配對</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>預覽觀看方式</value>

@@ -839,13 +839,13 @@ Cardboard を使用して写真をキャプチャするには、プレビュー�
     <value>攻略ガイド</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>ペアリング</value>
+    <value>デバイスのペアリング</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>プレビューの閲覧方法</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>保存</value>
+    <value>画像の保存</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam は無料で使用でき、広告なし、オープンソースであり、ユーザーから個人情報を収集せず、すべての機能に完全にアクセスできます。 CrossCam で作業するのは大好きですが、多くの時間と労力がかかります。 CrossCam からは、人々が私に送ってくれるかもしれないヒント以外はまったく稼いでいません。</value>

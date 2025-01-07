@@ -839,13 +839,13 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
     <value>Guias de captura</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Emparelhamento</value>
+    <value>Emparelhamento de dispositivos</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Método de visualização prévia</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Salvando</value>
+    <value>Salvamento de imagem</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam é de uso gratuito, sem anúncios, de código aberto, não coleta informações pessoais suas e oferece acesso total a todos os recursos. Adoro trabalhar no CrossCam, mas exige muito tempo e esforço. Não ganho nenhum dinheiro com o CrossCam, exceto dicas que as pessoas podem decidir me enviar.</value>

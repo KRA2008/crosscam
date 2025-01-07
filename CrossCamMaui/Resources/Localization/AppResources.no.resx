@@ -839,13 +839,13 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
     <value>Capture Guides</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Paring</value>
+    <value>Enhetssammenkobling</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Forhåndsvisningsmetode</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Lagrer</value>
+    <value>Bildelagring</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam er gratis å bruke, annonsefritt, åpen kildekode, samler ingen personlig informasjon fra deg og gir deg full tilgang til alle funksjoner. Jeg elsker å jobbe med CrossCam, men det tar mye tid og krefter. Jeg tjener ingen penger på CrossCam i det hele tatt, bortsett fra tips folk kan bestemme seg for å sende meg.</value>

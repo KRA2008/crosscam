@@ -839,13 +839,13 @@ CrossCam จะแสดงผลการจัดตำแหน่งบน�
     <value>คู่มือการจับภาพ</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>กำลังจับคู่</value>
+    <value>การจับคู่อุปกรณ์</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>ดูตัวอย่างวิธีการดู</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>ประหยัด</value>
+    <value>การบันทึกรูปภาพ</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam ใช้งานได้ฟรี ไม่มีโฆษณา เป็นโอเพ่นซอร์ส ไม่รวบรวมข้อมูลส่วนบุคคลจากคุณ และให้คุณเข้าถึงทุกฟีเจอร์ได้อย่างเต็มที่ ฉันชอบทำงานกับ CrossCam แต่ต้องใช้เวลาและความพยายามมาก ฉันไม่สร้างรายได้จาก CrossCam เลย ยกเว้นทิปที่คนอื่นอาจตัดสินใจส่งให้ฉัน</value>

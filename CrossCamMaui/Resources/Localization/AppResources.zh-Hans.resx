@@ -839,13 +839,13 @@ CrossCam 将在小机器人图标下方的相机屏幕上显示对齐结果。�
     <value>捕捉指南</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>配对</value>
+    <value>设备配对</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>预览观看方式</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>保存</value>
+    <value>图像保存</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam 可免费使用、无广告、开源，不会收集您的个人信息，并让您可以完全使用所有功能。我喜欢在 CrossCam 上工作，但这需要花费大量的时间和精力。除了人们可能决定给我的小费外，我根本没有从 CrossCam 中赚到钱。</value>

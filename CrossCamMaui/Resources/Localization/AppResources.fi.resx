@@ -839,13 +839,13 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
     <value>Kaappausoppaat</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>Pariliitos</value>
+    <value>Laitteen pariliitos</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>Esikatselumenetelmä</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>Tallentaa</value>
+    <value>Kuvan tallennus</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam on ilmainen käyttää, ilman mainoksia, avoimen lähdekoodin, ei kerää henkilökohtaisia ​​tietoja sinulta ja antaa sinulle täyden pääsyn kaikkiin ominaisuuksiin. Pidän CrossCamin parissa työskentelemisestä, mutta se vie paljon aikaa ja vaivaa. En tienaa CrossCamista lainkaan rahaa, paitsi vinkkejä, joita ihmiset saattavat päättää lähettää minulle.</value>

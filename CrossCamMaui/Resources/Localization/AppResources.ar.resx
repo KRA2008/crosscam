@@ -839,13 +839,13 @@
     <value>أدلة الالتقاط</value>
   </data>
   <data name="Page.Settings.Pairing" xml:space="preserve">
-    <value>الاقتران</value>
+    <value>إقران الجهاز</value>
   </data>
   <data name="Page.Settings.Preview" xml:space="preserve">
     <value>معاينة طريقة العرض</value>
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
-    <value>إنقاذ</value>
+    <value>حفظ الصورة</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam مجاني للاستخدام، وخالي من الإعلانات، ومفتوح المصدر، ولا يجمع أي معلومات شخصية منك، ويمنحك الوصول الكامل إلى كل ميزة. أحب العمل على CrossCam ولكنه يتطلب الكثير من الوقت والجهد. لا أجني أي أموال من CrossCam على الإطلاق باستثناء النصائح التي قد يقرر الناس إرسالها لي.</value>
