@@ -596,11 +596,11 @@ namespace CrossCam.Page
             {
                 surface.Canvas.Clear();
 
-                left = _viewModel.LeftBitmap;
+                left = _viewModel.LeftBitmapScreensized;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
                 leftOrientation = SKEncodedOrigin.Default;
                 isLeftFrontFacing = false;
-                right = _viewModel.RightBitmap;
+                right = _viewModel.RightBitmapScreensized;
                 rightAlignment = _viewModel.RightAlignmentTransform;
                 rightOrientation = SKEncodedOrigin.Default;
                 isRightFrontFacing = false;
@@ -611,7 +611,7 @@ namespace CrossCam.Page
                     clearCanvas &&
                     _viewModel.LeftBitmap != null)
                 {
-                    left = _viewModel.LeftBitmap;
+                    left = _viewModel.LeftBitmapScreensized;
                     leftAlignment = _viewModel.LeftAlignmentTransform;
                     leftOrientation = SKEncodedOrigin.Default;
                     isLeftFrontFacing = false;
@@ -636,7 +636,7 @@ namespace CrossCam.Page
                     clearCanvas &&
                     _viewModel.RightBitmap != null)
                 {
-                    right = _viewModel.RightBitmap;
+                    right = _viewModel.RightBitmapScreensized;
                     rightAlignment = _viewModel.RightAlignmentTransform;
                     rightOrientation = SKEncodedOrigin.Default;
                     isRightFrontFacing = false;

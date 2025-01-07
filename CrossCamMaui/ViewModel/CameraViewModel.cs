@@ -19,6 +19,7 @@ using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Maui.Layouts;
+using Device = Microsoft.AppCenter.Device;
 
 namespace CrossCam.ViewModel
 {
@@ -60,6 +61,7 @@ namespace CrossCam.ViewModel
             set => _leftAlignmentTransform = value;
         }
         public SKBitmap LeftBitmap { get; set; }
+        public SKBitmap LeftBitmapScreensized { get; set; }
         public Command RetakeLeftCommand { get; set; }
         
         private SKMatrix _rightAlignmentTransform;
@@ -76,6 +78,7 @@ namespace CrossCam.ViewModel
             set => _rightAlignmentTransform = value;
         }
         public SKBitmap RightBitmap { get; set; }
+        public SKBitmap RightBitmapScreensized { get; set; }
         public Command RetakeRightCommand { get; set; }
 
         public string AlignmentConfidence { get; set; }
@@ -2359,6 +2362,7 @@ namespace CrossCam.ViewModel
             if (bitmap == null) return;
             
             LeftBitmap = bitmap;
+            LeftBitmapScreensized = ShrinkBitmapToScreenSize(bitmap);
             WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
 
             if (stepForward)
@@ -2409,6 +2413,7 @@ namespace CrossCam.ViewModel
             if (bitmap == null) return;
 
             RightBitmap = bitmap;
+            RightBitmapScreensized = ShrinkBitmapToScreenSize(bitmap);
             WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
 
             if (stepForward)
@@ -2452,6 +2457,22 @@ namespace CrossCam.ViewModel
                     }
                 }
             }
+        }
+
+        private SKBitmap ShrinkBitmapToScreenSize(SKBitmap bitmap)
+        {
+            var smallerDimBitmap = Math.Min(bitmap.Width, bitmap.Height);
+            var smallerDimScreen = Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+            var downsizeProportion = smallerDimBitmap / smallerDimScreen;
+            var newWidth = bitmap.Width / downsizeProportion;
+            var newHeight = bitmap.Height / downsizeProportion;
+
+            var shrunk = new SKBitmap((int)newWidth,
+                (int) newHeight);
+            using var canvas = new SKCanvas(shrunk);
+            canvas.DrawBitmap(
+                bitmap, new SKRect(0,0,shrunk.Width,shrunk.Height));
+            return shrunk;
         }
 
         // TODO: remove this eventually, but right now it only happens once on final capture
@@ -2927,9 +2948,11 @@ namespace CrossCam.ViewModel
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
 
             LeftBitmap = null;
+            LeftBitmapScreensized = null;
             LeftAlignmentTransform = SKMatrix.Identity;
 
             RightBitmap = null;
+            RightBitmapScreensized = null;
             RightAlignmentTransform = SKMatrix.Identity;
             
             LocalCapturedFrame = null;
