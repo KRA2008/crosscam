@@ -479,39 +479,34 @@ namespace CrossCam.Platforms.Android.CustomRenderer
         {
             if (!_textureView.IsAvailable) return;
 
-            Bitmap bitmap;
             try
             {
-                bitmap = _textureView.Bitmap;
+                using var bitmap = _textureView.Bitmap;
                 //_textureView.GetBitmap(0, 0); // TODO: can downsize here, good?
+
+                var origin = _useCamera2 ? GetOrientationCamera2() : 0;
+
+                if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
+                    Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1 &&
+                    bitmap != null)
+                {
+                    using var stream = new MemoryStream();
+                    bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
+                    _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray(), (byte)origin);
+                }
+
+                _cameraModule.PreviewImage = new IncomingFrame
+                {
+                    Frame = bitmap.ToSKBitmap(),
+                    IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
+                    Orientation = origin
+                };
             }
             catch (Error e)
             {
                 Crashes.TrackError(e);
                 return;
             }
-            var origin = _useCamera2 ? GetOrientationCamera2() : 0;
-
-            if (_cameraModule.PairOperator.PairStatus == PairStatus.Connected &&
-                Interlocked.Exchange(ref _readyToCapturePreviewFrameInterlocked, 0) == 1 &&
-                bitmap != null)
-            {
-                using var stream = new MemoryStream();
-                bitmap.Compress(Bitmap.CompressFormat.Jpeg, 50, stream);
-                _cameraModule.PairOperator.SendLatestPreviewFrame(stream.ToArray(), (byte) origin);
-            }
-
-            //Debug.WriteLine("### previewSize: " + );
-            var previousFrame = _cameraModule.PreviewImage;
-            _cameraModule.PreviewImage = new IncomingFrame
-            {
-                Frame = bitmap.ToSKBitmap(),
-                IsFrontFacing = _cameraModule.ChosenCamera.IsFront,
-                Orientation = origin
-            };
-            previousFrame?.Frame?.Dispose();
-            bitmap?.Recycle();
-            bitmap?.Dispose();
         }
         
         private SKEncodedOrigin GetOrientationCamera2()
