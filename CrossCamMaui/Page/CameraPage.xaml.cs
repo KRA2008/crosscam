@@ -604,10 +604,21 @@ namespace CrossCam.Page
             if (_viewModel.LeftCapture != null &&
                 _viewModel.RightCapture != null)
             {
-                left = _viewModel.LeftCapture;
-                leftAlignment = _viewModel.LeftAlignmentTransform;
-                right = _viewModel.RightCapture;
-                rightAlignment = _viewModel.RightAlignmentTransform;
+                if (_viewModel.Settings.Mode != DrawMode.Cardboard)
+                {
+                    left = _viewModel.LeftCapture;
+                    leftAlignment = _viewModel.LeftAlignmentTransform;
+                    right = _viewModel.RightCapture;
+                    rightAlignment = _viewModel.RightAlignmentTransform;
+                }
+                else
+                {
+                    _viewModel.GenerateCardboardCacheIfNeeded();
+                    left = _viewModel.LeftCaptureCardboardCached;
+                    leftAlignment = _viewModel.LeftAlignmentTransformCardboardCached ?? SKMatrix.Identity;
+                    right = _viewModel.RightCaptureCardboardCached;
+                    rightAlignment = _viewModel.RightAlignmentTransformCardboardCached ?? SKMatrix.Identity;
+                }
             }
             else
             {

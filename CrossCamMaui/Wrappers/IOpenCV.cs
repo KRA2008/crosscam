@@ -388,9 +388,9 @@ namespace CrossCam.Wrappers
                         out keystoned13, out keystoned23);
                 }
 
-                result.TransformMatrix1 = UpscaleSkMatrix(keystoned11.PostConcat(keystoned12).PostConcat(keystoned13), 1 / (settings.DownsizePercentage2 / 100f));
+                result.TransformMatrix1 = ScaleSkMatrix(keystoned11.PostConcat(keystoned12).PostConcat(keystoned13), 1 / (settings.DownsizePercentage2 / 100f));
 
-                result.TransformMatrix2 = UpscaleSkMatrix(
+                result.TransformMatrix2 = ScaleSkMatrix(
                                      verted1.PostConcat(hored1).PostConcat(rotated1).PostConcat(zoomed1).PostConcat(keystoned21)
                         .PostConcat(verted2).PostConcat(hored2).PostConcat(rotated2).PostConcat(zoomed2).PostConcat(keystoned22)
                         .PostConcat(verted3).PostConcat(hored3).PostConcat(rotated3).PostConcat(zoomed3).PostConcat(keystoned23), 1 / (settings.DownsizePercentage2 / 100f));
@@ -857,7 +857,7 @@ namespace CrossCam.Wrappers
             return netOffset;
         }
 
-        private static SKMatrix UpscaleSkMatrix(SKMatrix skMatrix, float upscaleFactor)
+        public static SKMatrix ScaleSkMatrix(SKMatrix skMatrix, float upscaleFactor)
         {
             var scaleMatrix = new SKMatrix(
                 upscaleFactor, 0, 0,
@@ -936,7 +936,7 @@ namespace CrossCam.Wrappers
 
             if (upscaleFactor != 1)
             {
-                skMatrix = UpscaleSkMatrix(skMatrix, upscaleFactor);
+                skMatrix = ScaleSkMatrix(skMatrix, upscaleFactor);
             }
 
             return skMatrix;

@@ -19,6 +19,7 @@ using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Maui.Layouts;
+using AndroidX.Lifecycle;
 
 namespace CrossCam.ViewModel
 {
@@ -46,6 +47,19 @@ namespace CrossCam.ViewModel
 
         public bool CaptureSuccessTrigger { get; set; }
 
+        private SKMatrix? _leftAlignmentTransformCardboardCached;
+        public SKMatrix? LeftAlignmentTransformCardboardCached
+        {
+            get
+            {
+                if (Settings.AlignmentSettings.IsAutomaticAlignmentOn)
+                {
+                    return _leftAlignmentTransformCardboardCached;
+                }
+                return SKMatrix.Identity;
+            }
+            set => _leftAlignmentTransformCardboardCached = value;
+        }
         private SKMatrix _leftAlignmentTransform;
         public SKMatrix LeftAlignmentTransform
         {
@@ -57,11 +71,38 @@ namespace CrossCam.ViewModel
                 }
                 return SKMatrix.Identity;
             }
-            set => _leftAlignmentTransform = value;
+            set
+            {
+                _leftAlignmentTransform = value;
+                LeftAlignmentTransformCardboardCached = null;
+            }
         }
-        public SKBitmap LeftCapture { get; set; }
+        private SKBitmap _leftCapture;
+        public SKBitmap LeftCapture
+        {
+            get => _leftCapture;
+            set
+            {
+                _leftCapture = value;
+                LeftCaptureCardboardCached = null;
+            }
+        }
+        public SKBitmap LeftCaptureCardboardCached { get; private set; }
         public Command RetakeLeftCommand { get; set; }
-        
+
+        private SKMatrix? _rightAlignmentTransformCardboardCached;
+        public SKMatrix? RightAlignmentTransformCardboardCached
+        {
+            get
+            {
+                if (Settings.AlignmentSettings.IsAutomaticAlignmentOn)
+                {
+                    return _rightAlignmentTransformCardboardCached;
+                }
+                return SKMatrix.Identity;
+            }
+            set => _rightAlignmentTransformCardboardCached = value;
+        }
         private SKMatrix _rightAlignmentTransform;
         public SKMatrix RightAlignmentTransform
         {
@@ -73,9 +114,23 @@ namespace CrossCam.ViewModel
                 }
                 return SKMatrix.Identity;
             }
-            set => _rightAlignmentTransform = value;
+            set
+            {
+                _rightAlignmentTransform = value;
+                RightAlignmentTransformCardboardCached = null;
+            }
         }
-        public SKBitmap RightCapture { get; set; }
+        private SKBitmap _rightCapture;
+        public SKBitmap RightCapture
+        {
+            get => _rightCapture;
+            set
+            {
+                _rightCapture = value;
+                RightCaptureCardboardCached = null;
+            }
+        }
+        public SKBitmap RightCaptureCardboardCached { get; private set; }
         public Command RetakeRightCommand { get; set; }
 
         public string AlignmentConfidence { get; set; }
@@ -2486,6 +2541,39 @@ namespace CrossCam.ViewModel
                     }
                 }
             }
+        }
+
+        public void GenerateCardboardCacheIfNeeded()
+        {
+            if (RightCaptureCardboardCached == null ||
+                LeftCaptureCardboardCached == null ||
+                LeftAlignmentTransformCardboardCached == null ||
+                RightAlignmentTransformCardboardCached == null)
+            {
+                RightCaptureCardboardCached = ShrinkBitmapToScreenSize(RightCapture);
+                var rightProportion = RightCaptureCardboardCached.Width / (1f * RightCapture.Width);
+                RightAlignmentTransformCardboardCached = OpenCv.ScaleSkMatrix(RightAlignmentTransform, rightProportion);
+
+                LeftCaptureCardboardCached = ShrinkBitmapToScreenSize(LeftCapture);
+                var leftProportion = LeftCaptureCardboardCached.Width / (1f * LeftCapture.Width);
+                LeftAlignmentTransformCardboardCached = OpenCv.ScaleSkMatrix(LeftAlignmentTransform, leftProportion);
+            }
+        }
+
+        private SKBitmap ShrinkBitmapToScreenSize(SKBitmap bitmap)
+        {
+            var smallerDimBitmap = Math.Min(bitmap.Width, bitmap.Height);
+            var smallerDimScreen = Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
+            var downsizeProportion = smallerDimBitmap / smallerDimScreen;
+            var newWidth = bitmap.Width / downsizeProportion;
+            var newHeight = bitmap.Height / downsizeProportion;
+
+            var shrunk = new SKBitmap((int)newWidth,
+                (int)newHeight);
+            using var canvas = new SKCanvas(shrunk);
+            canvas.DrawBitmap(
+                bitmap, new SKRect(0, 0, shrunk.Width, shrunk.Height));
+            return shrunk;
         }
 
         // TODO: remove this eventually, but right now it only happens once on final capture
