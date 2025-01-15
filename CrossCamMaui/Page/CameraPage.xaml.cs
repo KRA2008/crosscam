@@ -460,7 +460,7 @@ namespace CrossCam.Page
                         _canvas.InvalidateSurface();
                     });
                     break;
-                case nameof(CameraViewModel.LeftBitmap):
+                case nameof(CameraViewModel.LeftCapture):
                 case nameof(CameraViewModel.LeftAlignmentTransform):
                     ProcessDoubleTap();
                     _newLeftCapture = true;
@@ -470,7 +470,7 @@ namespace CrossCam.Page
                         _canvas.InvalidateSurface();
                     });
                     break;
-                case nameof(CameraViewModel.RightBitmap):
+                case nameof(CameraViewModel.RightCapture):
                 case nameof(CameraViewModel.RightAlignmentTransform):
                     ProcessDoubleTap();
                     _newRightCapture = true;
@@ -524,13 +524,13 @@ namespace CrossCam.Page
 
         private void CardboardCheckAndSaveOrientationSnapshot()
         {
-            if (_viewModel.LeftBitmap == null ||
-                _viewModel.RightBitmap == null)
+            if (_viewModel.LeftCapture == null ||
+                _viewModel.RightCapture == null)
             {
                 _cardboardHomeVert = _cardboardHomeHor = null;
             } 
-            else if (_viewModel?.LeftBitmap != null &&
-                     _viewModel.RightBitmap != null &&
+            else if (_viewModel?.LeftCapture != null &&
+                     _viewModel.RightCapture != null &&
                      !_cardboardHomeVert.HasValue &&
                      !_cardboardHomeHor.HasValue &&
                      _viewModel.Settings.Mode == DrawMode.Cardboard)
@@ -559,7 +559,7 @@ namespace CrossCam.Page
 
         private void OnCanvasInvalidated(object sender, SKPaintSurfaceEventArgs e)
 	    {
-            //Debug.WriteLine("### left: " + _viewModel.LeftBitmap + " right: " + _viewModel.RightBitmap + " preview: " + _viewModel.LocalPreviewFrame + " captured: " + _viewModel.LocalCapturedFrame);
+            //Debug.WriteLine("### left: " + _viewModel.LeftCapture + " right: " + _viewModel.RightCapture + " preview: " + _viewModel.LocalPreviewFrame + " captured: " + _viewModel.LocalCapturedFrame);
             var surface = e.Surface;
 
             var clearCanvas = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
@@ -569,8 +569,8 @@ namespace CrossCam.Page
                               _forceCanvasClear;
             _forceCanvasClear = false;
 
-            if (_viewModel.LeftBitmap == null &&
-                _viewModel.RightBitmap == null)
+            if (_viewModel.LeftCapture == null &&
+                _viewModel.RightCapture == null)
             {
                 surface.Canvas.Clear();
                 _cardboardHomeHor = null;
@@ -591,16 +591,16 @@ namespace CrossCam.Page
             var isLeftFrontFacing = false;
             var isRightFrontFacing = false;
 
-            if (_viewModel.LeftBitmap != null &&
-                _viewModel.RightBitmap != null)
+            if (_viewModel.LeftCapture != null &&
+                _viewModel.RightCapture != null)
             {
                 surface.Canvas.Clear();
 
-                left = _viewModel.LeftBitmapScreensized;
+                left = _viewModel.LeftCapture;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
                 leftOrientation = SKEncodedOrigin.Default;
                 isLeftFrontFacing = false;
-                right = _viewModel.RightBitmapScreensized;
+                right = _viewModel.RightCapture;
                 rightAlignment = _viewModel.RightAlignmentTransform;
                 rightOrientation = SKEncodedOrigin.Default;
                 isRightFrontFacing = false;
@@ -609,9 +609,9 @@ namespace CrossCam.Page
             {
                 if (_newLeftCapture || 
                     clearCanvas &&
-                    _viewModel.LeftBitmap != null)
+                    _viewModel.LeftCapture != null)
                 {
-                    left = _viewModel.LeftBitmapScreensized;
+                    left = _viewModel.LeftCapture;
                     leftAlignment = _viewModel.LeftAlignmentTransform;
                     leftOrientation = SKEncodedOrigin.Default;
                     isLeftFrontFacing = false;
@@ -634,9 +634,9 @@ namespace CrossCam.Page
 
                 if (_newRightCapture || 
                     clearCanvas &&
-                    _viewModel.RightBitmap != null)
+                    _viewModel.RightCapture != null)
                 {
-                    right = _viewModel.RightBitmapScreensized;
+                    right = _viewModel.RightCapture;
                     rightAlignment = _viewModel.RightAlignmentTransform;
                     rightOrientation = SKEncodedOrigin.Default;
                     isRightFrontFacing = false;
@@ -660,8 +660,8 @@ namespace CrossCam.Page
 
             if (_viewModel.Settings.IsCaptureInMirrorMode &&
                 _viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected &&
-                (_viewModel.LeftBitmap == null ||
-                _viewModel.RightBitmap == null))
+                (_viewModel.LeftCapture == null ||
+                _viewModel.RightCapture == null))
             {
                 left = right = _viewModel.LocalPreviewFrame?.Frame;
                 leftOrientation = rightOrientation = _viewModel.LocalPreviewFrame?.Orientation;
@@ -669,8 +669,8 @@ namespace CrossCam.Page
             }
 
             if (_viewModel.Settings.Mode == DrawMode.Cardboard &&
-                _viewModel.LeftBitmap == null &&
-                _viewModel.RightBitmap == null)
+                _viewModel.LeftCapture == null &&
+                _viewModel.RightCapture == null)
             {
                 if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected)
                 {
@@ -1361,7 +1361,7 @@ namespace CrossCam.Page
             //Debug.WriteLine("### Panned! Total: " + e.TotalX + "," + e.TotalY + " Status: " + e.StatusType);
             if (_viewModel.WorkflowStage != WorkflowStage.View) return;
 
-            var aspectRatio = _viewModel.LeftBitmap.Height / (1f * _viewModel.LeftBitmap.Width);
+            var aspectRatio = _viewModel.LeftCapture.Height / (1f * _viewModel.LeftCapture.Width);
 
             var xProp = e.TotalX / (Width / 2f);
             var yProp = e.TotalY / (aspectRatio * Width / 2f);

@@ -19,7 +19,6 @@ using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Maui.Layouts;
-using Device = Microsoft.AppCenter.Device;
 
 namespace CrossCam.ViewModel
 {
@@ -60,8 +59,7 @@ namespace CrossCam.ViewModel
             }
             set => _leftAlignmentTransform = value;
         }
-        public SKBitmap LeftBitmap { get; set; }
-        public SKBitmap LeftBitmapScreensized { get; set; }
+        public SKBitmap LeftCapture { get; set; }
         public Command RetakeLeftCommand { get; set; }
         
         private SKMatrix _rightAlignmentTransform;
@@ -77,8 +75,7 @@ namespace CrossCam.ViewModel
             }
             set => _rightAlignmentTransform = value;
         }
-        public SKBitmap RightBitmap { get; set; }
-        public SKBitmap RightBitmapScreensized { get; set; }
+        public SKBitmap RightCapture { get; set; }
         public Command RetakeRightCommand { get; set; }
 
         public string AlignmentConfidence { get; set; }
@@ -258,8 +255,8 @@ namespace CrossCam.ViewModel
 
         public bool RestartPreviewTrigger { get; set; }
         public bool StopPreviewTrigger { get; set; }
-        public bool IsNothingCaptured => LeftBitmap == null && RightBitmap == null;
-        public bool AreBothSidesCaptured => LeftBitmap != null && RightBitmap != null;
+        public bool IsNothingCaptured => LeftCapture == null && RightCapture == null;
+        public bool AreBothSidesCaptured => LeftCapture != null && RightCapture != null;
 
         private bool _isClearPromptOpen;
 
@@ -294,7 +291,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        public bool ShouldLeftLeftRetakeBeVisible => LeftBitmap != null &&
+        public bool ShouldLeftLeftRetakeBeVisible => LeftCapture != null &&
                                                      (WorkflowStage == WorkflowStage.Final ||
                                                       WorkflowStage == WorkflowStage.Capture &&
                                                       (Settings.PortraitCaptureButtonPosition ==
@@ -305,17 +302,17 @@ namespace CrossCam.ViewModel
                                                       Settings.PairSettings.IsPairedPrimary.HasValue &&
                                                       Settings.PairSettings.IsPairedPrimary.Value &&
                                                       PairOperator.PairStatus == PairStatus.Connected);
-        public bool ShouldLeftRightRetakeBeVisible => LeftBitmap != null && 
+        public bool ShouldLeftRightRetakeBeVisible => LeftCapture != null && 
                                                       WorkflowStage == WorkflowStage.Capture && 
                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left ||
                                                       WorkflowStage == WorkflowStage.Final && 
                                                       Settings.PairSettings.IsPairedPrimary.HasValue && 
                                                       Settings.PairSettings.IsPairedPrimary.Value && 
                                                       PairOperator.PairStatus == PairStatus.Connected;
-        public bool ShouldRightLeftRetakeBeVisible => RightBitmap != null && 
+        public bool ShouldRightLeftRetakeBeVisible => RightCapture != null && 
                                                       WorkflowStage == WorkflowStage.Capture && 
                                                       Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Right;
-        public bool ShouldRightRightRetakeBeVisible => RightBitmap != null && 
+        public bool ShouldRightRightRetakeBeVisible => RightCapture != null && 
                                                        (WorkflowStage == WorkflowStage.Final || 
                                                         WorkflowStage == WorkflowStage.Capture && 
                                                         (Settings.PortraitCaptureButtonPosition == PortraitCaptureButtonPosition.Left || 
@@ -340,7 +337,7 @@ namespace CrossCam.ViewModel
                                                 PairOperatorBindable.PairStatus == PairStatus.Connected);
         public bool ShouldSettingsAndHelpBeVisible => !IsBusy && 
                                                       WorkflowStage != WorkflowStage.View;
-        public bool IsExactlyOnePictureTaken => LeftBitmap == null ^ RightBitmap == null;
+        public bool IsExactlyOnePictureTaken => LeftCapture == null ^ RightCapture == null;
         public bool ShouldCaptureButtonBeVisible => WorkflowStage == WorkflowStage.Capture &&
                                                     PairOperatorBindable.PairStatus != PairStatus.Connecting &&
                                                     (PairOperatorBindable.PairStatus == PairStatus.Connected &&
@@ -458,12 +455,12 @@ namespace CrossCam.ViewModel
         {
             get
             {
-                if (LeftBitmap != null &&
-                    RightBitmap != null &&
+                if (LeftCapture != null &&
+                    RightCapture != null &&
                     Settings.Mode != DrawMode.Parallel)
                 {
-                    var size = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftBitmap, LeftAlignmentTransform,
-                        RightBitmap, RightAlignmentTransform);
+                    var size = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftCapture, LeftAlignmentTransform,
+                        RightCapture, RightAlignmentTransform);
                     return size.Width > size.Height;
                 }
 
@@ -570,13 +567,13 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        if (RightBitmap == null)
+                        if (RightCapture == null)
                         {
                             FullWipe();
                         }
                         else
                         {
-                            LeftBitmap = null;
+                            LeftCapture = null;
                             ClearEverythingButCaptures();
                             CameraColumn = 0;
                             TryTriggerMovementHint();
@@ -601,13 +598,13 @@ namespace CrossCam.ViewModel
                     }
                     else
                     {
-                        if (LeftBitmap == null)
+                        if (LeftCapture == null)
                         {
                             FullWipe();
                         }
                         else
                         {
-                            RightBitmap = null;
+                            RightCapture = null;
                             ClearEverythingButCaptures();
                             CameraColumn = 1;
                             TryTriggerMovementHint();
@@ -814,7 +811,7 @@ namespace CrossCam.ViewModel
                     WorkflowStage == WorkflowStage.Edits ||
                     obj is bool forced && forced)
                 {
-                    (LeftBitmap, RightBitmap) = (RightBitmap, LeftBitmap);
+                    (LeftCapture, RightCapture) = (RightCapture, LeftCapture);
                     (LeftAlignmentTransform, RightAlignmentTransform) = (RightAlignmentTransform, LeftAlignmentTransform);
 
                     if (WorkflowStage == WorkflowStage.Capture)
@@ -890,26 +887,26 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "separate sides"}
                             });
-                            var leftWidth = LeftBitmap.Width;
-                            var leftHeight = LeftBitmap.Height;
+                            var leftWidth = LeftCapture.Width;
+                            var leftHeight = LeftCapture.Height;
 
                             using var tempSurface =
                                 SKSurface.Create(new SKImageInfo(leftWidth, leftHeight));
                             using var canvas = tempSurface.Canvas;
 
-                            canvas.DrawBitmap(LeftBitmap, 0, 0);
+                            canvas.DrawBitmap(LeftCapture, 0, 0);
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
 
                             canvas.Clear();
 
-                            canvas.DrawBitmap(RightBitmap, 0, 0);
+                            canvas.DrawBitmap(RightCapture, 0, 0);
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
                         }
 
                         var joinedImageSize = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings,
-                            LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
+                            LeftCapture, LeftAlignmentTransform, RightCapture, RightAlignmentTransform);
 
                         var tripleWidth = joinedImageSize.Width * 1.5f;
                         var quadHeight = joinedImageSize.Height * 2f;
@@ -960,8 +957,8 @@ namespace CrossCam.ViewModel
                             
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                LeftCapture, LeftAlignmentTransform,
+                                RightCapture, RightAlignmentTransform,
                                 Settings,
                                 Edits, 
                                 DrawMode.Cross, WasCapturePaired);
@@ -983,8 +980,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                LeftCapture, LeftAlignmentTransform,
+                                RightCapture, RightAlignmentTransform,
                                 Settings, 
                                 Edits, 
                                 DrawMode.Parallel, WasCapturePaired, withSwap: true);
@@ -1016,7 +1013,7 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "first side"}
                             });
-                            var targetBitmap = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
+                            var targetBitmap = Settings.IsCaptureLeftFirst ? LeftCapture : RightCapture;
 
                             var width = targetBitmap.Width;
                             var height = targetBitmap.Height;
@@ -1042,8 +1039,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSurface, 
-                                LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                LeftCapture, LeftAlignmentTransform,
+                                RightCapture, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross, WasCapturePaired);
@@ -1071,8 +1068,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doublePlainSurface, 
-                                LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                LeftCapture, LeftAlignmentTransform,
+                                RightCapture, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross, WasCapturePaired);
@@ -1084,8 +1081,8 @@ namespace CrossCam.ViewModel
 
                             DrawTool.DrawImagesOnCanvas(
                                 doubleSwapSurface, 
-                                LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                LeftCapture, LeftAlignmentTransform,
+                                RightCapture, RightAlignmentTransform,
                                 Settings,
                                 Edits,
                                 DrawMode.Cross, WasCapturePaired, withSwap: true);
@@ -1108,7 +1105,7 @@ namespace CrossCam.ViewModel
                                 {SAVE_TYPE, "cardboard"}
                             });
                             var finalSize = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings,
-                                LeftBitmap, LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
+                                LeftCapture, LeftAlignmentTransform, RightCapture, RightAlignmentTransform);
 
                             using var tempSurface = SKSurface.Create(new SKImageInfo((int)finalSize.Width, (int)finalSize.Height));
                             using var canvas = tempSurface.Canvas;
@@ -1120,8 +1117,8 @@ namespace CrossCam.ViewModel
                             Settings.SaveWithFuseGuide = false;
 
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
-                                LeftBitmap, LeftAlignmentTransform,
-                                RightBitmap, RightAlignmentTransform,
+                                LeftCapture, LeftAlignmentTransform,
+                                RightCapture, RightAlignmentTransform,
                                 Settings, Edits, DrawMode.Parallel, WasCapturePaired, withSwap: Settings.Mode == DrawMode.Cross ||
                                 Settings.Mode == DrawMode.RedCyanAnaglyph ||
                                 Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
@@ -1396,7 +1393,7 @@ namespace CrossCam.ViewModel
                         PairOperator.PairStatus == PairStatus.Connected)
                     {
                         WasCapturePaired = true;
-                        if (LeftBitmap == null && RightBitmap == null)
+                        if (LeftCapture == null && RightCapture == null)
                         {
                             WorkflowStage = WorkflowStage.Loading;
                         }
@@ -1525,14 +1522,14 @@ namespace CrossCam.ViewModel
                     RaisePropertyChanged(nameof(ShouldViewButtonBeVisible));
                     RaisePropertyChanged(nameof(ShouldClearEditButtonBeVisible));
                     break;
-                case nameof(LeftBitmap):
+                case nameof(LeftCapture):
                     RaisePropertyChanged(nameof(IsNothingCaptured));
                     RaisePropertyChanged(nameof(AreBothSidesCaptured));
                     RaisePropertyChanged(nameof(ShouldLeftLeftRetakeBeVisible));
                     RaisePropertyChanged(nameof(ShouldLeftRightRetakeBeVisible));
                     RaisePropertyChanged(nameof(IsExactlyOnePictureTaken));
                     break;
-                case nameof(RightBitmap):
+                case nameof(RightCapture):
                     RaisePropertyChanged(nameof(IsNothingCaptured));
                     RaisePropertyChanged(nameof(AreBothSidesCaptured));
                     RaisePropertyChanged(nameof(ShouldRightLeftRetakeBeVisible));
@@ -1828,7 +1825,7 @@ namespace CrossCam.ViewModel
                 {
                     await Task.Delay(2000);
                     string loadType;
-                    if (RightBitmap == null ^ LeftBitmap == null)
+                    if (RightCapture == null ^ LeftCapture == null)
                     {
                         loadType = _singleSide;
                     }
@@ -1920,8 +1917,8 @@ namespace CrossCam.ViewModel
                  (Settings.Mode == DrawMode.Parallel ||
                   Settings.Mode == DrawMode.Cardboard) && 
                  WasCaptureCross) && 
-                LeftBitmap != null && 
-                RightBitmap != null)
+                LeftCapture != null && 
+                RightCapture != null)
             {
                 SwapSidesCommand.Execute(true);
                 WasCaptureCross = !WasCaptureCross;
@@ -2000,17 +1997,17 @@ namespace CrossCam.ViewModel
 
         private void TryTriggerMovementHint(bool suppressWhenPaired = false)
         {
-            if (LeftBitmap == null ^ RightBitmap == null && 
+            if (LeftCapture == null ^ RightCapture == null && 
                 !Settings.IsCaptureInMirrorMode ||
                 PairOperator.PairStatus == PairStatus.Connected &&
                 Settings.PairSettings.IsPairedPrimary.HasValue &&
                 Settings.PairSettings.IsPairedPrimary.Value &&
-                RightBitmap == null &&
-                LeftBitmap == null &&
+                RightCapture == null &&
+                LeftCapture == null &&
                 !suppressWhenPaired || 
                 Settings.IsCaptureInMirrorMode &&
-                RightBitmap == null &&
-                LeftBitmap == null)
+                RightCapture == null &&
+                LeftCapture == null)
             {
                 if (Settings.Mode == DrawMode.Cardboard)
                 {
@@ -2025,8 +2022,8 @@ namespace CrossCam.ViewModel
 
         private async Task DrawAnaglyph(bool grayscale)
         {
-            var overlayedSize = DrawTool.CalculateOverlayedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftBitmap,
-                LeftAlignmentTransform, RightBitmap, RightAlignmentTransform);
+            var overlayedSize = DrawTool.CalculateOverlayedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftCapture,
+                LeftAlignmentTransform, RightCapture, RightAlignmentTransform);
             using var tempSurface =
                 SKSurface.Create(new SKImageInfo((int)overlayedSize.Width, (int)overlayedSize.Height));
             var canvas = tempSurface.Canvas;
@@ -2034,8 +2031,8 @@ namespace CrossCam.ViewModel
 
             DrawTool.DrawImagesOnCanvas(
                 tempSurface, 
-                LeftBitmap, LeftAlignmentTransform,
-                RightBitmap, RightAlignmentTransform,
+                LeftCapture, LeftAlignmentTransform,
+                RightCapture, RightAlignmentTransform,
                 Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph, WasCapturePaired);
 
             await SaveSurfaceSnapshot(tempSurface, grayscale ? AppResources.SaveModes_GrayscaleAnaglyph : AppResources.SaveModes_Anaglyph);
@@ -2125,8 +2122,8 @@ namespace CrossCam.ViewModel
         private async void AutoAlign()
         {
             if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
-                LeftBitmap != null &&
-                RightBitmap != null &&
+                LeftCapture != null &&
+                RightCapture != null &&
                 _isAlignmentInvalid &&
                 0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
             {
@@ -2138,8 +2135,8 @@ namespace CrossCam.ViewModel
                 AlignedResult alignedResult = null;
                 if (openCv?.IsOpenCvSupported() == true)
                 {
-                    var firstImage = Settings.IsCaptureLeftFirst ? LeftBitmap : RightBitmap;
-                    var secondImage = Settings.IsCaptureLeftFirst ? RightBitmap : LeftBitmap;
+                    var firstImage = Settings.IsCaptureLeftFirst ? LeftCapture : RightCapture;
+                    var secondImage = Settings.IsCaptureLeftFirst ? RightCapture : LeftCapture;
                     try
                     {
                         await Task.Run(() =>
@@ -2368,13 +2365,12 @@ namespace CrossCam.ViewModel
         {
             if (bitmap == null) return;
             
-            LeftBitmap = bitmap;
-            LeftBitmapScreensized = ShrinkBitmapToScreenSize(bitmap);
-            WasCapturePortrait = LeftBitmap.Width < LeftBitmap.Height;
+            LeftCapture = bitmap;
+            WasCapturePortrait = LeftCapture.Width < LeftCapture.Height;
 
             if (stepForward)
             {
-                if (RightBitmap == null)
+                if (RightCapture == null)
                 {
                     if (withMovementTrigger)
                     {
@@ -2419,13 +2415,12 @@ namespace CrossCam.ViewModel
         {
             if (bitmap == null) return;
 
-            RightBitmap = bitmap;
-            RightBitmapScreensized = ShrinkBitmapToScreenSize(bitmap);
-            WasCapturePortrait = RightBitmap.Width < RightBitmap.Height;
+            RightCapture = bitmap;
+            WasCapturePortrait = RightCapture.Width < RightCapture.Height;
 
             if (stepForward)
             {
-                if (LeftBitmap == null)
+                if (LeftCapture == null)
                 {
                     if (withMovementTrigger)
                     {
@@ -2466,22 +2461,6 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private SKBitmap ShrinkBitmapToScreenSize(SKBitmap bitmap)
-        {
-            var smallerDimBitmap = Math.Min(bitmap.Width, bitmap.Height);
-            var smallerDimScreen = Math.Min(DeviceDisplay.MainDisplayInfo.Width, DeviceDisplay.MainDisplayInfo.Height);
-            var downsizeProportion = smallerDimBitmap / smallerDimScreen;
-            var newWidth = bitmap.Width / downsizeProportion;
-            var newHeight = bitmap.Height / downsizeProportion;
-
-            var shrunk = new SKBitmap((int)newWidth,
-                (int) newHeight);
-            using var canvas = new SKCanvas(shrunk);
-            canvas.DrawBitmap(
-                bitmap, new SKRect(0,0,shrunk.Width,shrunk.Height));
-            return shrunk;
-        }
-
         // TODO: remove this eventually, but right now it only happens once on final capture
         // TODO: and is necessary to use ECC alignment.
 
@@ -2494,70 +2473,70 @@ namespace CrossCam.ViewModel
                 _isFovCorrected = true;
                 float leftRatio;
                 float rightRatio;
-                if (LeftBitmap.Width < LeftBitmap.Height) //portrait
+                if (LeftCapture.Width < LeftCapture.Height) //portrait
                 {
-                    leftRatio = LeftBitmap.Height / (1f * LeftBitmap.Width);
-                    rightRatio = RightBitmap.Height / (1f * RightBitmap.Width);
+                    leftRatio = LeftCapture.Height / (1f * LeftCapture.Width);
+                    rightRatio = RightCapture.Height / (1f * RightCapture.Width);
                 }
                 else //landscape
                 {
-                    leftRatio = LeftBitmap.Width / (1f * LeftBitmap.Height);
-                    rightRatio = RightBitmap.Width / (1f * RightBitmap.Height);
+                    leftRatio = LeftCapture.Width / (1f * LeftCapture.Height);
+                    rightRatio = RightCapture.Width / (1f * RightCapture.Height);
                 }
                 if (leftRatio != rightRatio)
                 {
-                    if (LeftBitmap.Height > LeftBitmap.Width) // portrait
+                    if (LeftCapture.Height > LeftCapture.Width) // portrait
                     {
                         if (leftRatio < rightRatio) // right is taller
                         {
-                            var newWidth = (int)(LeftBitmap.Height / rightRatio);
-                            var corrected = new SKBitmap(newWidth, LeftBitmap.Height);
+                            var newWidth = (int)(LeftCapture.Height / rightRatio);
+                            var corrected = new SKBitmap(newWidth, LeftCapture.Height);
                             using var canvas = new SKCanvas(corrected);
                             canvas.DrawBitmap(
-                                LeftBitmap,
-                                new SKRect((LeftBitmap.Width - newWidth) / 2f, 0, LeftBitmap.Width - (LeftBitmap.Width - newWidth) / 2f, LeftBitmap.Height),
-                                new SKRect(0, 0, newWidth, LeftBitmap.Height));
+                                LeftCapture,
+                                new SKRect((LeftCapture.Width - newWidth) / 2f, 0, LeftCapture.Width - (LeftCapture.Width - newWidth) / 2f, LeftCapture.Height),
+                                new SKRect(0, 0, newWidth, LeftCapture.Height));
 
-                            LeftBitmap = corrected;
+                            LeftCapture = corrected;
                         }
                         else
                         {
-                            var newWidth = (int)(RightBitmap.Height / leftRatio);
-                            var corrected = new SKBitmap(newWidth, RightBitmap.Height);
+                            var newWidth = (int)(RightCapture.Height / leftRatio);
+                            var corrected = new SKBitmap(newWidth, RightCapture.Height);
                             using var canvas = new SKCanvas(corrected);
                             canvas.DrawBitmap(
-                                RightBitmap,
-                                new SKRect((RightBitmap.Width - newWidth) / 2f, 0, RightBitmap.Width - (RightBitmap.Width - newWidth) / 2f, RightBitmap.Height),
-                                new SKRect(0, 0, newWidth, RightBitmap.Height));
+                                RightCapture,
+                                new SKRect((RightCapture.Width - newWidth) / 2f, 0, RightCapture.Width - (RightCapture.Width - newWidth) / 2f, RightCapture.Height),
+                                new SKRect(0, 0, newWidth, RightCapture.Height));
 
-                            RightBitmap = corrected;
+                            RightCapture = corrected;
                         }
                     }
                     else //landscape
                     {
                         if (leftRatio > rightRatio) // left is wider
                         {
-                            var newHeight = (int)(RightBitmap.Width * leftRatio);
-                            var corrected = new SKBitmap(RightBitmap.Width, newHeight);
+                            var newHeight = (int)(RightCapture.Width * leftRatio);
+                            var corrected = new SKBitmap(RightCapture.Width, newHeight);
                             using var canvas = new SKCanvas(corrected);
                             canvas.DrawBitmap(
-                                RightBitmap,
-                                new SKRect(0, (RightBitmap.Height - newHeight) / 2f, RightBitmap.Width, RightBitmap.Height - (RightBitmap.Height - newHeight) / 2f),
-                                new SKRect(0, 0, RightBitmap.Width, newHeight));
+                                RightCapture,
+                                new SKRect(0, (RightCapture.Height - newHeight) / 2f, RightCapture.Width, RightCapture.Height - (RightCapture.Height - newHeight) / 2f),
+                                new SKRect(0, 0, RightCapture.Width, newHeight));
 
-                            RightBitmap = corrected;
+                            RightCapture = corrected;
                         }
                         else
                         {
-                            var newHeight = (int)(LeftBitmap.Width * rightRatio);
-                            var corrected = new SKBitmap(LeftBitmap.Width, newHeight);
+                            var newHeight = (int)(LeftCapture.Width * rightRatio);
+                            var corrected = new SKBitmap(LeftCapture.Width, newHeight);
                             using var canvas = new SKCanvas(corrected);
                             canvas.DrawBitmap(
-                                LeftBitmap,
-                                new SKRect(0, (LeftBitmap.Height - newHeight) / 2f, LeftBitmap.Width, LeftBitmap.Height - (LeftBitmap.Height - newHeight) / 2f),
-                                new SKRect(0, 0, LeftBitmap.Width, newHeight));
+                                LeftCapture,
+                                new SKRect(0, (LeftCapture.Height - newHeight) / 2f, LeftCapture.Width, LeftCapture.Height - (LeftCapture.Height - newHeight) / 2f),
+                                new SKRect(0, 0, LeftCapture.Width, newHeight));
 
-                            LeftBitmap = corrected;
+                            LeftCapture = corrected;
                         }
                     }
                 }
@@ -2572,11 +2551,11 @@ namespace CrossCam.ViewModel
                         zoomAmount = Settings.PairSettings.FovPrimaryCorrection + 1;
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                            LeftCapture = ZoomBitmap(zoomAmount, LeftCapture);
                         }
                         else
                         {
-                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                            RightCapture = ZoomBitmap(zoomAmount, RightCapture);
                         }
                     }
                     else
@@ -2584,35 +2563,35 @@ namespace CrossCam.ViewModel
                         zoomAmount = Settings.PairSettings.FovSecondaryCorrection + 1;
                         if (Settings.IsCaptureLeftFirst)
                         {
-                            RightBitmap = ZoomBitmap(zoomAmount, RightBitmap);
+                            RightCapture = ZoomBitmap(zoomAmount, RightCapture);
                         }
                         else
                         {
-                            LeftBitmap = ZoomBitmap(zoomAmount, LeftBitmap);
+                            LeftCapture = ZoomBitmap(zoomAmount, LeftCapture);
                         }
                     }
                 }
 
 
-                if (LeftBitmap.Width < RightBitmap.Width)
+                if (LeftCapture.Width < RightCapture.Width)
                 {
-                    var corrected = new SKBitmap(LeftBitmap.Width, LeftBitmap.Height);
+                    var corrected = new SKBitmap(LeftCapture.Width, LeftCapture.Height);
                     using var canvas = new SKCanvas(corrected);
                     canvas.DrawBitmap(
-                        RightBitmap,
-                        new SKRect(0, 0, LeftBitmap.Width, LeftBitmap.Height));
+                        RightCapture,
+                        new SKRect(0, 0, LeftCapture.Width, LeftCapture.Height));
 
-                    RightBitmap = corrected;
+                    RightCapture = corrected;
                 }
-                else if (RightBitmap.Width < LeftBitmap.Width)
+                else if (RightCapture.Width < LeftCapture.Width)
                 {
-                    var corrected = new SKBitmap(RightBitmap.Width, RightBitmap.Height);
+                    var corrected = new SKBitmap(RightCapture.Width, RightCapture.Height);
                     using var surface = new SKCanvas(corrected);
                     surface.DrawBitmap(
-                        LeftBitmap,
-                        new SKRect(0, 0, RightBitmap.Width, RightBitmap.Height));
+                        LeftCapture,
+                        new SKRect(0, 0, RightCapture.Width, RightCapture.Height));
 
-                    LeftBitmap = corrected;
+                    LeftCapture = corrected;
                 }
             }
         }
@@ -2954,12 +2933,10 @@ namespace CrossCam.ViewModel
         {
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
 
-            LeftBitmap = null;
-            LeftBitmapScreensized = null;
+            LeftCapture = null;
             LeftAlignmentTransform = SKMatrix.Identity;
 
-            RightBitmap = null;
-            RightBitmapScreensized = null;
+            RightCapture = null;
             RightAlignmentTransform = SKMatrix.Identity;
             
             LocalCapturedFrame = null;
