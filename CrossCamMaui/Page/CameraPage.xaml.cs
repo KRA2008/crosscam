@@ -257,10 +257,17 @@ namespace CrossCam.Page
 
         private async void StartAccelerometerCycling()
         {
-            while (Accelerometer.IsMonitoring)
+            try
             {
-                await Task.Delay(SENSOR_FRAME_DELAY);
-                UpdateLevelFromAccelerometerData();
+                while (Accelerometer.IsMonitoring)
+                {
+                    await Task.Delay(SENSOR_FRAME_DELAY);
+                    UpdateLevelFromAccelerometerData();
+                }
+            }
+            catch (Exception e)
+            {
+                _viewModel.Error = e;
             }
         }
 

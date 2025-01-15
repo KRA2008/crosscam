@@ -1900,36 +1900,43 @@ namespace CrossCam.ViewModel
 
         protected override async void ViewIsAppearing(object sender, EventArgs e)
         {
-            base.ViewIsAppearing(sender, e);
-            DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
-            _deviceDisplayWrapper.HoldScreenOn();
-            TryTriggerMovementHint();
-
-            if (WorkflowStage == WorkflowStage.Final)
+            try
             {
-                AutoAlign();
-            }
+                base.ViewIsAppearing(sender, e);
+                DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
+                _deviceDisplayWrapper.HoldScreenOn();
+                TryTriggerMovementHint();
 
-            if (((Settings.Mode == DrawMode.Cross || 
-                  Settings.Mode == DrawMode.RedCyanAnaglyph || 
-                  Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) && 
-                 !WasCaptureCross ||
-                 (Settings.Mode == DrawMode.Parallel ||
-                  Settings.Mode == DrawMode.Cardboard) && 
-                 WasCaptureCross) && 
-                LeftCapture != null && 
-                RightCapture != null)
+                if (WorkflowStage == WorkflowStage.Final)
+                {
+                    AutoAlign();
+                }
+
+                if (((Settings.Mode == DrawMode.Cross ||
+                      Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                      Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                     !WasCaptureCross ||
+                     (Settings.Mode == DrawMode.Parallel ||
+                      Settings.Mode == DrawMode.Cardboard) &&
+                     WasCaptureCross) &&
+                    LeftCapture != null &&
+                    RightCapture != null)
+                {
+                    SwapSidesCommand.Execute(true);
+                    WasCaptureCross = !WasCaptureCross;
+                }
+
+                PairOperator.CurrentCoreMethods = CoreMethods;
+
+                await Task.Delay(100);
+                await EvaluateAndShowWelcomePopup();
+
+                AutoconnectIfOn();
+            }
+            catch (Exception ex)
             {
-                SwapSidesCommand.Execute(true);
-                WasCaptureCross = !WasCaptureCross;
+                Error = ex;
             }
-
-            PairOperator.CurrentCoreMethods = CoreMethods;
-
-            await Task.Delay(100);
-            await EvaluateAndShowWelcomePopup();
-
-            AutoconnectIfOn();
         }
 
         private void AutoconnectIfOn()
@@ -1944,17 +1951,24 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovPreparationPopup()
         {
-            if (!Settings.PairSettings.IsFovCorrectionSet &&
-                Settings.PairSettings.IsPairedPrimary.HasValue &&
-                Settings.PairSettings.IsPairedPrimary.Value &&
-                PairOperator.PairStatus == PairStatus.Connected)
+            try
             {
-                await MainThread.InvokeOnMainThreadAsync(async () =>
+                if (!Settings.PairSettings.IsFovCorrectionSet &&
+                    Settings.PairSettings.IsPairedPrimary.HasValue &&
+                    Settings.PairSettings.IsPairedPrimary.Value &&
+                    PairOperator.PairStatus == PairStatus.Connected)
                 {
-                    await CoreMethods.DisplayAlert(AppResources.Page_FovCorrection,
-                        AppResources.Page_FovCorrectionExplain,
-                        AppResources.Button_OK);
-                });
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await CoreMethods.DisplayAlert(AppResources.Page_FovCorrection,
+                            AppResources.Page_FovCorrectionExplain,
+                            AppResources.Button_OK);
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                Error = e;
             }
         }
 
@@ -2121,40 +2135,52 @@ namespace CrossCam.ViewModel
 
         private async void AutoAlign()
         {
-            if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
-                LeftCapture != null &&
-                RightCapture != null &&
-                _isAlignmentInvalid &&
-                0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
+            try
             {
-                _isAlignmentInvalid = false;
-                WorkflowStage = WorkflowStage.AutomaticAlign;
-
-                var openCv = DependencyService.Get<IOpenCv>();
-
-                AlignedResult alignedResult = null;
-                if (openCv?.IsOpenCvSupported() == true)
+                if (Settings.AlignmentSettings.IsAutomaticAlignmentOn &&
+                    LeftCapture != null &&
+                    RightCapture != null &&
+                    _isAlignmentInvalid &&
+                    0 == Interlocked.Exchange(ref _alignmentThreadLock, 1))
                 {
-                    var firstImage = Settings.IsCaptureLeftFirst ? LeftCapture : RightCapture;
-                    var secondImage = Settings.IsCaptureLeftFirst ? RightCapture : LeftCapture;
-                    try
-                    {
-                        await Task.Run(() =>
-                        {
-                            if (Settings.AlignmentSettings.ForceEcc2)
-                            {
-                                try
-                                {
-                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
-                                        firstImage,
-                                        secondImage,
-                                        Settings.AlignmentSettings);
-                                }
-                                catch (Exception e)
-                                {
-                                    Error = e;
+                    _isAlignmentInvalid = false;
+                    WorkflowStage = WorkflowStage.AutomaticAlign;
 
-                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                    var openCv = DependencyService.Get<IOpenCv>();
+
+                    AlignedResult alignedResult = null;
+                    if (openCv?.IsOpenCvSupported() == true)
+                    {
+                        var firstImage = Settings.IsCaptureLeftFirst ? LeftCapture : RightCapture;
+                        var secondImage = Settings.IsCaptureLeftFirst ? RightCapture : LeftCapture;
+                        try
+                        {
+                            await Task.Run(() =>
+                            {
+                                if (Settings.AlignmentSettings.ForceEcc2)
+                                {
+                                    try
+                                    {
+                                        alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                            firstImage,
+                                            secondImage,
+                                            Settings.AlignmentSettings);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Error = e;
+
+                                        alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                                            firstImage,
+                                            secondImage,
+                                            Settings.AlignmentSettings,
+                                            Settings.IsCaptureLeftFirst &&
+                                            Settings.Mode != DrawMode.Parallel ||
+                                            !Settings.IsCaptureLeftFirst &&
+                                            Settings.Mode == DrawMode.Parallel);
+                                    }
+
+                                    alignedResult ??= openCv.CreateAlignedSecondImageKeypoints(
                                         firstImage,
                                         secondImage,
                                         Settings.AlignmentSettings,
@@ -2163,183 +2189,184 @@ namespace CrossCam.ViewModel
                                         !Settings.IsCaptureLeftFirst &&
                                         Settings.Mode == DrawMode.Parallel);
                                 }
+                                else
+                                {
+                                    try
+                                    {
+                                        alignedResult = openCv.CreateAlignedSecondImageKeypoints(
+                                            firstImage,
+                                            secondImage,
+                                            Settings.AlignmentSettings,
+                                            Settings.IsCaptureLeftFirst &&
+                                            Settings.Mode != DrawMode.Parallel ||
+                                            !Settings.IsCaptureLeftFirst &&
+                                            Settings.Mode == DrawMode.Parallel);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Error = e;
 
-                                alignedResult ??= openCv.CreateAlignedSecondImageKeypoints(
-                                    firstImage,
-                                    secondImage,
-                                    Settings.AlignmentSettings,
-                                    Settings.IsCaptureLeftFirst &&
-                                    Settings.Mode != DrawMode.Parallel ||
-                                    !Settings.IsCaptureLeftFirst &&
-                                    Settings.Mode == DrawMode.Parallel);
+                                        alignedResult = openCv.CreateAlignedSecondImageEcc(
+                                            firstImage,
+                                            secondImage,
+                                            Settings.AlignmentSettings);
+                                    }
+
+                                    alignedResult ??= openCv.CreateAlignedSecondImageEcc(
+                                        firstImage,
+                                        secondImage,
+                                        Settings.AlignmentSettings);
+                                }
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                            Error = e;
+                        }
+
+                        if (alignedResult != null)
+                        {
+                            ClearEdits();
+                            if (alignedResult.Confidence > 0)
+                            {
+                                AlignmentConfidence = alignedResult.Confidence + "%";
                             }
                             else
                             {
-                                try
-                                {
-                                    alignedResult = openCv.CreateAlignedSecondImageKeypoints(
-                                        firstImage,
-                                        secondImage,
-                                        Settings.AlignmentSettings,
-                                        Settings.IsCaptureLeftFirst &&
-                                        Settings.Mode != DrawMode.Parallel ||
-                                        !Settings.IsCaptureLeftFirst &&
-                                        Settings.Mode == DrawMode.Parallel);
-                                }
-                                catch (Exception e)
-                                {
-                                    Error = e;
-
-                                    alignedResult = openCv.CreateAlignedSecondImageEcc(
-                                        firstImage,
-                                        secondImage,
-                                        Settings.AlignmentSettings);
-                                }
-
-                                alignedResult ??= openCv.CreateAlignedSecondImageEcc(
-                                    firstImage,
-                                    secondImage,
-                                    Settings.AlignmentSettings);
-                            }
-                        });
-                    }
-                    catch (Exception e)
-                    {
-                        Error = e;
-                    }
-
-                    if (alignedResult != null)
-                    {
-                        ClearEdits();
-                        if (alignedResult.Confidence > 0)
-                        {
-                            AlignmentConfidence = alignedResult.Confidence + "%";
-                        }
-                        else
-                        {
-                            AlignmentConfidence = "KP";
-                        }
-
-                        if (Settings.AlignmentSettings.DrawKeypointMatches &&
-                            alignedResult.DrawnDirtyMatches != null)
-                        {
-                            var countPoint = new SKPoint(0, alignedResult.DrawnDirtyMatches.Height / 16f);
-                            var countPaint = new SKPaint
-                            {
-                                Color = SKColor.Parse("#00ff00"),
-                                TextSize = alignedResult.DrawnDirtyMatches.Height / 16f
-                            };
-                            using var dirtyMatchesSurface = SKSurface.Create(new SKImageInfo(
-                                alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height));
-
-                            var dirtyMatchesCanvas = dirtyMatchesSurface.Canvas;
-                            dirtyMatchesCanvas.Clear();
-                            
-                            if (DeviceInfo.Platform == DevicePlatform.iOS && IsViewInverted)
-                            {
-                                dirtyMatchesCanvas.RotateDegrees(180);
-                                dirtyMatchesCanvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width,
-                                    -1f * alignedResult.DrawnDirtyMatches.Height);
+                                AlignmentConfidence = "KP";
                             }
 
-                            dirtyMatchesCanvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
-
-                            dirtyMatchesCanvas.DrawText(
-                                alignedResult.DirtyMatchesCount.ToString(),
-                                countPoint,
-                                countPaint);
-
-                            await SaveSurfaceSnapshot(dirtyMatchesSurface, AppResources.Page_Camera_KeyPoints);
-                            
-
-                            if ((Settings.AlignmentSettings.DiscardOutliersBySlope2 || 
-                                 Settings.AlignmentSettings.DiscardOutliersByDistance2) && 
-                                alignedResult.DrawnCleanMatches != null)
+                            if (Settings.AlignmentSettings.DrawKeypointMatches &&
+                                alignedResult.DrawnDirtyMatches != null)
                             {
-                                using var cleanMatchesSurface =
-                                    SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width,
-                                        alignedResult.DrawnCleanMatches.Height));
-                                var cleanMatchesCanvas = cleanMatchesSurface.Canvas;
-                                cleanMatchesCanvas.Clear();
-                                
+                                var countPoint = new SKPoint(0, alignedResult.DrawnDirtyMatches.Height / 16f);
+                                var countPaint = new SKPaint
+                                {
+                                    Color = SKColor.Parse("#00ff00"),
+                                    TextSize = alignedResult.DrawnDirtyMatches.Height / 16f
+                                };
+                                using var dirtyMatchesSurface = SKSurface.Create(new SKImageInfo(
+                                    alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height));
+
+                                var dirtyMatchesCanvas = dirtyMatchesSurface.Canvas;
+                                dirtyMatchesCanvas.Clear();
+
                                 if (DeviceInfo.Platform == DevicePlatform.iOS && IsViewInverted)
                                 {
-                                    cleanMatchesCanvas.RotateDegrees(180);
-                                    cleanMatchesCanvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width,
-                                        -1f * alignedResult.DrawnCleanMatches.Height);
+                                    dirtyMatchesCanvas.RotateDegrees(180);
+                                    dirtyMatchesCanvas.Translate(-1f * alignedResult.DrawnDirtyMatches.Width,
+                                        -1f * alignedResult.DrawnDirtyMatches.Height);
                                 }
 
-                                cleanMatchesCanvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
-                                cleanMatchesCanvas.DrawText(
-                                    alignedResult.CleanMatchesCount.ToString(),
+                                dirtyMatchesCanvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
+
+                                dirtyMatchesCanvas.DrawText(
+                                    alignedResult.DirtyMatchesCount.ToString(),
                                     countPoint,
                                     countPaint);
 
-                                await SaveSurfaceSnapshot(cleanMatchesSurface, AppResources.Page_Camera_KeyPoints);
+                                await SaveSurfaceSnapshot(dirtyMatchesSurface, AppResources.Page_Camera_KeyPoints);
+
+
+                                if ((Settings.AlignmentSettings.DiscardOutliersBySlope2 ||
+                                     Settings.AlignmentSettings.DiscardOutliersByDistance2) &&
+                                    alignedResult.DrawnCleanMatches != null)
+                                {
+                                    using var cleanMatchesSurface =
+                                        SKSurface.Create(new SKImageInfo(alignedResult.DrawnCleanMatches.Width,
+                                            alignedResult.DrawnCleanMatches.Height));
+                                    var cleanMatchesCanvas = cleanMatchesSurface.Canvas;
+                                    cleanMatchesCanvas.Clear();
+
+                                    if (DeviceInfo.Platform == DevicePlatform.iOS && IsViewInverted)
+                                    {
+                                        cleanMatchesCanvas.RotateDegrees(180);
+                                        cleanMatchesCanvas.Translate(-1f * alignedResult.DrawnCleanMatches.Width,
+                                            -1f * alignedResult.DrawnCleanMatches.Height);
+                                    }
+
+                                    cleanMatchesCanvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
+                                    cleanMatchesCanvas.DrawText(
+                                        alignedResult.CleanMatchesCount.ToString(),
+                                        countPoint,
+                                        countPaint);
+
+                                    await SaveSurfaceSnapshot(cleanMatchesSurface, AppResources.Page_Camera_KeyPoints);
+                                }
                             }
-                        }
 
-                        if (alignedResult.Warped1 != null &&
-                            alignedResult.Warped2 != null &&
-                            Settings.AlignmentSettings.DrawResultWarpedByOpenCv)
-                        {
-                            using var surface =
-                                SKSurface.Create(new SKImageInfo(alignedResult.Warped1.Width * 2, alignedResult.Warped1.Height));
-                            surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
-                            surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
-                            var textBlob = SKTextBlob.Create(Settings.AlignmentSettings.DownsizePercentage2 + " " + alignedResult.MethodName, new SKFont
+                            if (alignedResult.Warped1 != null &&
+                                alignedResult.Warped2 != null &&
+                                Settings.AlignmentSettings.DrawResultWarpedByOpenCv)
                             {
-                                Size = alignedResult.Warped1.Height / 5f
-                            });
-                            surface.Canvas.DrawText(textBlob, alignedResult.Warped1.Height / 5f, alignedResult.Warped1.Height / 5f, new SKPaint
-                            {
-                                Color = SKColor.Parse("#00ff00"),
-                                TextSize = alignedResult.Warped1.Height / 5f,
-                                Style = SKPaintStyle.Fill
-                            });
+                                using var surface =
+                                    SKSurface.Create(new SKImageInfo(alignedResult.Warped1.Width * 2,
+                                        alignedResult.Warped1.Height));
+                                surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
+                                surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
+                                var textBlob = SKTextBlob.Create(
+                                    Settings.AlignmentSettings.DownsizePercentage2 + " " + alignedResult.MethodName,
+                                    new SKFont
+                                    {
+                                        Size = alignedResult.Warped1.Height / 5f
+                                    });
+                                surface.Canvas.DrawText(textBlob, alignedResult.Warped1.Height / 5f,
+                                    alignedResult.Warped1.Height / 5f, new SKPaint
+                                    {
+                                        Color = SKColor.Parse("#00ff00"),
+                                        TextSize = alignedResult.Warped1.Height / 5f,
+                                        Style = SKPaintStyle.Fill
+                                    });
 
-                            await SaveSurfaceSnapshot(surface, AppResources.Page_Camera_Warped);
-                        }
-
-                        if (Settings.IsCaptureLeftFirst)
-                        {
-                            if (!alignedResult.TransformMatrix1.IsIdentity)
-                            {
-                                LeftAlignmentTransform = alignedResult.TransformMatrix1;
+                                await SaveSurfaceSnapshot(surface, AppResources.Page_Camera_Warped);
                             }
-                            RightAlignmentTransform = alignedResult.TransformMatrix2;
+
+                            if (Settings.IsCaptureLeftFirst)
+                            {
+                                if (!alignedResult.TransformMatrix1.IsIdentity)
+                                {
+                                    LeftAlignmentTransform = alignedResult.TransformMatrix1;
+                                }
+
+                                RightAlignmentTransform = alignedResult.TransformMatrix2;
+                            }
+                            else
+                            {
+                                if (!alignedResult.TransformMatrix1.IsIdentity)
+                                {
+                                    RightAlignmentTransform = alignedResult.TransformMatrix1;
+                                }
+
+                                LeftAlignmentTransform = alignedResult.TransformMatrix2;
+                            }
+
+                            if (Settings.IsCaptureInMirrorMode)
+                            {
+                                MirrorModeAutoAlignWarningTrigger = !MirrorModeAutoAlignWarningTrigger;
+                            }
                         }
                         else
                         {
-                            if (!alignedResult.TransformMatrix1.IsIdentity)
-                            {
-                                RightAlignmentTransform = alignedResult.TransformMatrix1;
-                            }
-                            LeftAlignmentTransform = alignedResult.TransformMatrix2;
-                        }
-
-                        if (Settings.IsCaptureInMirrorMode)
-                        {
-                            MirrorModeAutoAlignWarningTrigger = !MirrorModeAutoAlignWarningTrigger;
+                            AlignmentConfidence = "F";
+                            ApplyFovCorrectionToZoom();
+                            AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
                         }
                     }
                     else
                     {
-                        AlignmentConfidence = "F";
+                        AlignmentConfidence = "n/a";
                         ApplyFovCorrectionToZoom();
-                        AlignmentFailFadeTrigger = !AlignmentFailFadeTrigger;
+                        AutomaticAlignmentNotSupportedTrigger = !AutomaticAlignmentNotSupportedTrigger;
                     }
-                }
-                else
-                {
-                    AlignmentConfidence = "n/a";
-                    ApplyFovCorrectionToZoom();
-                    AutomaticAlignmentNotSupportedTrigger = !AutomaticAlignmentNotSupportedTrigger;
-                }
 
-                WorkflowStage = WorkflowStage.Final;
+                    WorkflowStage = WorkflowStage.Final;
 
-                _alignmentThreadLock = 0;
+                    _alignmentThreadLock = 0;
+                }
+            }
+            catch (Exception e)
+            {
+                Error = e;
             }
         }
 
@@ -2618,10 +2645,18 @@ namespace CrossCam.ViewModel
 
         private async void ShowFovDialog()
         {
-            await MainThread.InvokeOnMainThreadAsync(async () =>
+            try
             {
-                await CoreMethods.DisplayAlert(AppResources.Page_Camera_FovTitle, AppResources.Page_Camera_FovExplain, AppResources.Button_OK);
-            });
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    await CoreMethods.DisplayAlert(AppResources.Page_Camera_FovTitle,
+                        AppResources.Page_Camera_FovExplain, AppResources.Button_OK);
+                });
+            }
+            catch (Exception e)
+            {
+                Error = e;
+            }
         }
 
         private static SKBitmap GetHalfOfImage(SKBitmap original, bool wantLeft, bool clipBorder, SKEncodedOrigin orientationToCorrect = SKEncodedOrigin.Default, bool withMirror = false, bool isFrontFacing = false)
