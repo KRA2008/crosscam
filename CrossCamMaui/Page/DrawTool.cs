@@ -880,19 +880,20 @@ namespace CrossCam.Page
                 var cardboardClipRect =
                     FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod)
                         .Matrix.MapRect(clipRect);
-
+                
+                var halfScreenWidth = (float)(Math.Max(DisplayWidth, DisplayHeight) / 2f);
                 if (isLeft)
                 {
-                    if (cardboardClipRect.Right > DisplayWidth / 2f)
+                    if (cardboardClipRect.Right > halfScreenWidth)
                     {
-                        cardboardClipRect.Right = (float)(DisplayWidth / 2f);
+                        cardboardClipRect.Right = halfScreenWidth;
                     }
                 }
                 else
                 {
-                    if (cardboardClipRect.Left < DisplayWidth / 2f)
+                    if (cardboardClipRect.Left < halfScreenWidth)
                     {
-                        cardboardClipRect.Left = (float)(DisplayWidth / 2f);
+                        cardboardClipRect.Left = halfScreenWidth;
                     }
                 }
                 canvas.ClipRect(cardboardClipRect);
