@@ -566,13 +566,16 @@ namespace CrossCam.Page
                               _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
                               _viewModel.Settings.FullscreenCapturing ||
                               _viewModel.Settings.FullscreenEditing ||
-                              _forceCanvasClear;
+                              _forceCanvasClear ||
+                              (_viewModel.LeftCapture == null &&
+                               _viewModel.RightCapture == null) ||
+                              (_viewModel.LeftCapture != null &&
+                               _viewModel.RightCapture != null);
             _forceCanvasClear = false;
 
             if (_viewModel.LeftCapture == null &&
                 _viewModel.RightCapture == null)
             {
-                surface.Canvas.Clear();
                 _cardboardHomeHor = null;
                 _cardboardHomeVert = null;
             }
@@ -586,24 +589,18 @@ namespace CrossCam.Page
             SKBitmap right = null;
             var leftAlignment = SKMatrix.Identity;
             var rightAlignment = SKMatrix.Identity;
-            SKEncodedOrigin? leftOrientation = SKEncodedOrigin.Default;
-            SKEncodedOrigin? rightOrientation = SKEncodedOrigin.Default;
+            SKEncodedOrigin? leftOrientation = null;
+            SKEncodedOrigin? rightOrientation = null;
             var isLeftFrontFacing = false;
             var isRightFrontFacing = false;
 
             if (_viewModel.LeftCapture != null &&
                 _viewModel.RightCapture != null)
             {
-                surface.Canvas.Clear();
-
                 left = _viewModel.LeftCapture;
                 leftAlignment = _viewModel.LeftAlignmentTransform;
-                leftOrientation = SKEncodedOrigin.Default;
-                isLeftFrontFacing = false;
                 right = _viewModel.RightCapture;
                 rightAlignment = _viewModel.RightAlignmentTransform;
-                rightOrientation = SKEncodedOrigin.Default;
-                isRightFrontFacing = false;
             }
             else
             {
@@ -612,9 +609,6 @@ namespace CrossCam.Page
                     _viewModel.LeftCapture != null)
                 {
                     left = _viewModel.LeftCapture;
-                    leftAlignment = _viewModel.LeftAlignmentTransform;
-                    leftOrientation = SKEncodedOrigin.Default;
-                    isLeftFrontFacing = false;
                     _newLeftCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 0 &&
@@ -637,9 +631,6 @@ namespace CrossCam.Page
                     _viewModel.RightCapture != null)
                 {
                     right = _viewModel.RightCapture;
-                    rightAlignment = _viewModel.RightAlignmentTransform;
-                    rightOrientation = SKEncodedOrigin.Default;
-                    isRightFrontFacing = false;
                     _newRightCapture = false;
                 }
                 else if (_viewModel.CameraColumn == 1 &&
