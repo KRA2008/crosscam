@@ -19,7 +19,6 @@ using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Maui.Layouts;
-using AndroidX.Lifecycle;
 
 namespace CrossCam.ViewModel
 {
@@ -538,9 +537,11 @@ namespace CrossCam.ViewModel
                 if (PairOperator.IsPrimary &&
                     PairOperator.PairStatus == PairStatus.Connected)
                 {
-                    if ((Settings.Mode == DrawMode.Parallel &&
+                    if (((Settings.Mode == DrawMode.Parallel ||
+                          Settings.Mode == DrawMode.Cardboard) &&
                          Settings.IsCaptureLeftFirst) ||
                         Settings.Mode != DrawMode.Parallel &&
+                        Settings.Mode != DrawMode.Cardboard &&
                         !Settings.IsCaptureLeftFirst)
                     {
                         return AppResources.Page_Camera_SecondaryOnRight;
@@ -551,9 +552,11 @@ namespace CrossCam.ViewModel
 
                 if (Settings.IsCaptureInMirrorMode)
                 {
-                    if ((Settings.Mode == DrawMode.Parallel &&
+                    if (((Settings.Mode == DrawMode.Parallel ||
+                          Settings.Mode == DrawMode.Cardboard) &&
                          Settings.IsCaptureLeftFirst) ||
                         Settings.Mode != DrawMode.Parallel &&
+                        Settings.Mode != DrawMode.Cardboard &&
                         !Settings.IsCaptureLeftFirst)
                     {
                         return AppResources.Page_Camera_MirrorOnRight;
@@ -562,9 +565,11 @@ namespace CrossCam.ViewModel
                     return AppResources.Page_Camera_MirrorOnLeft;
                 }
 
-                if ((Settings.Mode == DrawMode.Parallel &&
+                if (((Settings.Mode == DrawMode.Parallel ||
+                      Settings.Mode == DrawMode.Cardboard) &&
                      Settings.IsCaptureLeftFirst) ||
                     Settings.Mode != DrawMode.Parallel &&
+                    Settings.Mode != DrawMode.Cardboard &&
                     !Settings.IsCaptureLeftFirst)
                 {
                     return AppResources.Page_Camera_MoveRight;
