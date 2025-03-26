@@ -10,8 +10,6 @@ using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using SkiaSharp;
 using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
@@ -594,6 +592,7 @@ namespace CrossCam.ViewModel
             _deviceDisplayWrapper = DependencyService.Get<IDeviceDisplayWrapper>();
 
             Settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
+            Analytics.Initialize(Settings);
             TotalSavesCompleted = PersistentStorage.LoadOrDefault(PersistentStorage.TOTAL_SAVES_KEY, 0);
             Edits = new Edits(Settings);
             Explore = new Explore();
@@ -2557,11 +2556,14 @@ namespace CrossCam.ViewModel
             {
                 RightCaptureCardboardCached = ShrinkBitmapToScreenSize(RightCapture);
                 var rightProportion = RightCaptureCardboardCached.Width / (1f * RightCapture.Width);
+#if __ANDROID__ || __IOS__ || __WINDOWS__
                 RightAlignmentTransformCardboardCached = OpenCv.ScaleSkMatrix(RightAlignmentTransform, rightProportion);
-
+#endif
                 LeftCaptureCardboardCached = ShrinkBitmapToScreenSize(LeftCapture);
                 var leftProportion = LeftCaptureCardboardCached.Width / (1f * LeftCapture.Width);
+#if __ANDROID__ || __IOS__ || __WINDOWS__
                 LeftAlignmentTransformCardboardCached = OpenCv.ScaleSkMatrix(LeftAlignmentTransform, leftProportion);
+#endif
             }
         }
 

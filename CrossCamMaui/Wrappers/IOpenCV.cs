@@ -14,7 +14,6 @@ using Color = System.Drawing.Color;
 using Math = System.Math;
 using PointF = System.Drawing.PointF;
 using CrossCam.Page;
-using Microsoft.AppCenter.Crashes;
 #endif
 #if __ANDROID__
 using SkiaSharp.Views.Android;

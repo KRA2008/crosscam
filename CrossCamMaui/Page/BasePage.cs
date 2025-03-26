@@ -1,5 +1,5 @@
-﻿using FreshMvvm.Maui;
-using Microsoft.AppCenter.Analytics;
+﻿using CrossCam.Wrappers;
+using FreshMvvm.Maui;
 
 namespace CrossCam.Page
 {

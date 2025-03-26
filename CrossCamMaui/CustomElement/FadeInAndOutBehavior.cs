@@ -1,9 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
+﻿using CrossCam.Wrappers;
 
 namespace CrossCam.CustomElement
 {

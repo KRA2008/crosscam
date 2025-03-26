@@ -1159,4 +1159,7 @@
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>कैमरा पेज खुलने पर स्वचालित रूप से कनेक्ट करें</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

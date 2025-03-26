@@ -1,5 +1,4 @@
 ﻿using CrossCam.Wrappers;
-using Microsoft.AppCenter.Crashes;
 using StoreKit;
 using UIKit;
 

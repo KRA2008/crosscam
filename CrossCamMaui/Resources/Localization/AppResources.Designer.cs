@@ -1695,6 +1695,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A tutorial made by a CrossCam user.
+        /// </summary>
+        internal static string Page_Technique_CrossLink7 {
+            get {
+                return ResourceManager.GetString("Page.Technique.CrossLink7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CROSS VIEWING.
         /// </summary>
         internal static string Page_Technique_CrossViewing {

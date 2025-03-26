@@ -1159,4 +1159,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Kamera sayfası açıldığında otomatik olarak bağlan</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

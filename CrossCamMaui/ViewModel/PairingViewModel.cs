@@ -1,7 +1,6 @@
 ﻿using CrossCam.Model;
 using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
-using Microsoft.AppCenter.Analytics;
 
 namespace CrossCam.ViewModel
 {

@@ -1159,4 +1159,7 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automatisch verbinden, wenn die Kameraseite geöffnet wird</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

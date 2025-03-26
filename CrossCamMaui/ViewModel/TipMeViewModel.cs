@@ -1,5 +1,5 @@
 ﻿using CrossCam.Model;
-using Microsoft.AppCenter.Crashes;
+using CrossCam.Wrappers;
 using Newtonsoft.Json;
 
 namespace CrossCam.ViewModel

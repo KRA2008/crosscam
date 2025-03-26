@@ -114,6 +114,9 @@
                             <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink6}"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
+                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink7}"
+                                    Command="{Binding OpenLinkCommand}"
+                                    CommandParameter="https://moultano.wordpress.com/2025/02/24/you-should-make-cross-views/"/>
 
                             <Label Text=" "/>
                             <Button Text="{x:Static localization:AppResources.Page_Technique_Practice}"

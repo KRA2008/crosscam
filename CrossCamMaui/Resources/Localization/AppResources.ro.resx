@@ -1159,4 +1159,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Conectați-vă automat când se deschide pagina camerei</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

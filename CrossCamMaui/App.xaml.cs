@@ -6,7 +6,6 @@ using FreshMvvm.Maui;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
-using Microsoft.AppCenter.Analytics;
 using System.Globalization;
 using CrossCam.Resources.Localization;
 
@@ -17,7 +16,6 @@ namespace CrossCam
     {
         public const string APP_PAUSING_EVENT = "appPausing";
         public const string APP_UNPAUSING_EVENT = "appUnpausing";
-        public static bool IsAnalyticsInDebugMode = false;
 
         private static CameraViewModel _cameraViewModel;
 
@@ -46,15 +44,12 @@ namespace CrossCam
 
         public static void SendDebugEvent(string moment, string details = null)
         {
-            if (IsAnalyticsInDebugMode)
+            var dictionary = new Dictionary<string, string>()
             {
-                var dictionary = new Dictionary<string, string>()
-                {
-                    {"moment", moment},
-                    {"details", details}
-                };
-                Analytics.TrackEvent("DEBUG", dictionary);
-            }
+                {"moment", moment},
+                {"details", details}
+            };
+            Analytics.TrackEvent("DEBUG", dictionary);
         }
 
         protected override void OnSleep()

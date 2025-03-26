@@ -21,7 +21,6 @@ using CrossCam.Wrappers;
 using Emgu.CV.Platform.Maui.UI;
 using Java.Lang;
 using Java.Util.Concurrent;
-using Microsoft.AppCenter.Crashes.Android;
 using SkiaSharp;
 using SkiaSharp.Views.Android;
 using Boolean = Java.Lang.Boolean;
@@ -471,7 +470,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
             catch (Exception e)
             {
-                Microsoft.AppCenter.Crashes.Crashes.TrackError(e);
+                Crashes.TrackError(e);
             }
         }
 

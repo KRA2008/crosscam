@@ -1159,4 +1159,7 @@ Sebelum dua perangkat dapat digunakan bersama, peran mereka harus ditetapkan. Pe
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Hubungkan secara otomatis saat halaman kamera terbuka</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

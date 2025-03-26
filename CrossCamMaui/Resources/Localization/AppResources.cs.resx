@@ -1159,4 +1159,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automaticky se připojit, když se otevře stránka fotoaparátu</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

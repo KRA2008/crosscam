@@ -4,7 +4,6 @@ using Android.Provider;
 using AndroidX.DocumentFile.Provider;
 using CrossCam.Wrappers;
 using Java.Lang;
-using Microsoft.AppCenter.Crashes;
 using Environment = Android.OS.Environment;
 using Exception = System.Exception;
 using Path = System.IO.Path;

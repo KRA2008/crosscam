@@ -1,6 +1,6 @@
 ﻿using CrossCam.Resources.Localization;
 using CrossCam.ViewModel;
-using Microsoft.AppCenter.Crashes;
+using CrossCam.Wrappers;
 
 namespace CrossCam.CustomElement
 {

@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using CrossCam.CustomElement;
 using CrossCam.Wrappers;
 using Foundation;
-using Microsoft.AppCenter.Analytics;
 using MultipeerConnectivity;
 using UIKit;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;

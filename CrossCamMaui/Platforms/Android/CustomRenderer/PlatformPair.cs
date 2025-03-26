@@ -7,7 +7,6 @@ using AndroidX.AppCompat.App;
 using CrossCam.CustomElement;
 using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
-using Microsoft.AppCenter.Analytics;
 using Debug = System.Diagnostics.Debug;
 using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Strategy = Android.Gms.Nearby.Connection.Strategy;

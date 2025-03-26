@@ -1,6 +1,5 @@
 ﻿using CrossCam.Wrappers;
 using Foundation;
-using Microsoft.AppCenter.Crashes;
 using Photos;
 using UIKit;
 // ReSharper disable HeuristicUnreachableCode

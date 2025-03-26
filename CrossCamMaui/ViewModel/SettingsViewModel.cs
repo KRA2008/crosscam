@@ -2,9 +2,6 @@
 using System.Net;
 using CrossCam.Model;
 using CrossCam.Wrappers;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using CommunityToolkit.Maui.Views;
 
 namespace CrossCam.ViewModel
@@ -119,22 +116,6 @@ namespace CrossCam.ViewModel
             {
                 await CoreMethods.PushPageModel<FaqViewModel>(section);
             });
-
-            SetAnalyticsToDebugModeCommand = new Command(async () =>
-            {
-                App.IsAnalyticsInDebugMode = true;
-                if (await Analytics.IsEnabledAsync())
-                {
-                    var id = await AppCenter.GetInstallIdAsync();
-                    Analytics.TrackEvent("start DEBUG: " + id);
-                    await CoreMethods.DisplayAlert("Activated", "Please send a screenshot of this to the developer: " + id, "OK");
-                }
-                else
-                {
-                    await CoreMethods.DisplayAlert("Analytics are turned off",
-                        "Reactivate analytics in order to activate verbose mode", "OK");
-                }
-            }); 
             
             CloseOtherExpandersCommand = new Command(e =>
             {
@@ -154,7 +135,6 @@ namespace CrossCam.ViewModel
             Settings.CardboardSettings.PropertyChanged += HandleSettingsPropertyChanged;
             Settings.EditsSettings.PropertyChanged += HandleSettingsPropertyChanged;
             Settings.PairSettings.PropertyChanged += HandleSettingsPropertyChanged;
-            CheckAnalyticsEnabledStatus();
             ValidateSwitchStatuses();
 
             ExternalDirectory = _directorySelector.GetExternalSaveDirectory();
@@ -178,37 +158,8 @@ namespace CrossCam.ViewModel
             CameraViewModel.PairOperator.CurrentCoreMethods = CoreMethods;
         }
 
-        private async void CheckAnalyticsEnabledStatus()
-        {
-            try
-            {
-                Settings.IsAnalyticsEnabled = await Analytics.IsEnabledAsync();
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
-        }
-
-        private async void SetAnalyticsEnabledStatus()
-        {
-            try
-            {
-                await Analytics.SetEnabledAsync(Settings.IsAnalyticsEnabled);
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
-        }
-
         private void HandleSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e?.PropertyName == nameof(Settings.IsAnalyticsEnabled))
-            {
-                SetAnalyticsEnabledStatus();
-            }
-
             SaveSettings();
         }
 

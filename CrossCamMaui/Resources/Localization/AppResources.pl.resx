@@ -1159,4 +1159,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automatyczne łączenie po otwarciu strony kamery</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>

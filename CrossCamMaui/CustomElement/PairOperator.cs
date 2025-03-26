@@ -7,7 +7,6 @@ using CrossCam.Resources.Localization;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using FreshMvvm.Maui;
-using Microsoft.AppCenter.Crashes;
 using Timer = System.Timers.Timer;
 
 namespace CrossCam.CustomElement

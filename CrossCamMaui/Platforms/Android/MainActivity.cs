@@ -10,11 +10,7 @@ using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using CrossCam.Platforms.Android.CustomRenderer;
 using Java.Lang;
-#if !DEBUG
-using Microsoft.AppCenter;
-#endif
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
+using CrossCam.Wrappers;
 using Xamarin.Google.Android.Play.Core.Review;
 using Xamarin.Google.Android.Play.Core.Review.Testing;
 using Debug = System.Diagnostics.Debug;
@@ -79,10 +75,6 @@ namespace CrossCam.Platforms.Android
 
         protected override void OnCreate(Bundle bundle)
         {
-#if !DEBUG
-            AppCenter.Start("febfa1c4-10aa-4087-9594-71d287579841", // plz don't abuse this.
-                typeof(Analytics), typeof(Crashes));
-#endif
             base.OnCreate(bundle);
 
             DeviceDisplay.MainDisplayInfoChanged += SetFullscreen; 

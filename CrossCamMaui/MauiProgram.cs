@@ -23,6 +23,20 @@ public static class MauiProgram
         builder
             .UseMauiCommunityToolkit()
             .UseSkiaSharp()
+#if __ANDROID__ || __IOS__
+            .UseSentry(options =>
+            {
+#if DEBUG
+                options.Environment = "debug";
+#elif RELEASE
+                options.Environment = "production";
+#endif
+                options.Debug = false;
+                options.Dsn =
+                    "https://3d07d78dc844f0b51267d73284fc6920@o4509030368477184.ingest.us.sentry.io/4509030386827264";
+                options.IsGlobalModeEnabled = true;
+            })
+#endif
             .UseMauiApp<App>();
 
         builder.ConfigureMauiHandlers(handlers =>

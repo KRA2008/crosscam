@@ -1159,4 +1159,7 @@ CrossCam відобразить результат вирівнювання на
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Автоматичне підключення, коли відкривається сторінка камери</value>
   </data>
+  <data name="Page.Technique.CrossLink7" xml:space="preserve">
+    <value />
+  </data>
 </root>
