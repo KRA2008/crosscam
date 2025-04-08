@@ -1160,6 +1160,6 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Se connecter automatiquement lorsque la page de l'appareil photo s'ouvre</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Un tutoriel réalisé par un utilisateur de CrossCam</value>
   </data>
 </root>

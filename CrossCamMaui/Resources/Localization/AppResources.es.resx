@@ -1160,6 +1160,6 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
     <value>Conectarse automáticamente cuando se abre la página de la cámara</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Un tutorial hecho por una usuaria de CrossCam.</value>
   </data>
 </root>

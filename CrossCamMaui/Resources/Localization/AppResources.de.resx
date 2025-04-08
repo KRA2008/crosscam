@@ -1160,6 +1160,6 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
     <value>Automatisch verbinden, wenn die Kameraseite geöffnet wird</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Ein Tutorial eines CrossCam-Benutzers</value>
   </data>
 </root>

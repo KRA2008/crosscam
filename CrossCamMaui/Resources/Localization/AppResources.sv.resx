@@ -1160,6 +1160,6 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
     <value>Anslut automatiskt när kamerasidan öppnas</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>En handledning gjord av en CrossCam-användare</value>
   </data>
 </root>

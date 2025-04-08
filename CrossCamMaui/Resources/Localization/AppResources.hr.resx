@@ -1160,6 +1160,6 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
     <value>Automatski se poveži kada se otvori stranica kamere</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Vodič koji je napravio korisnik CrossCam-a</value>
   </data>
 </root>

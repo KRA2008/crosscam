@@ -1163,6 +1163,6 @@ Before two devices can be used together their roles have to be assigned. The PRI
     <value>Automatically connect when camera page opens</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>A tutorial made by a CrossCam user</value>
   </data>
 </root>

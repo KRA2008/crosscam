@@ -1160,6 +1160,6 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
     <value>Tilslut automatisk, når kamerasiden åbnes</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>En tutorial lavet af en CrossCam-bruger</value>
   </data>
 </root>

@@ -1160,6 +1160,6 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
     <value>카메라 페이지가 열리면 자동으로 연결됩니다.</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>CrossCam 사용자가 만든 튜토리얼</value>
   </data>
 </root>

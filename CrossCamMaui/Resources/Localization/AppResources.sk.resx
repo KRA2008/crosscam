@@ -1160,6 +1160,6 @@ Pred použitím dvoch zariadení spolu je potrebné priradiť ich roly. PRIMÁRN
     <value>Automaticky sa pripojiť, keď sa otvorí stránka fotoaparátu</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Návod vytvorený používateľom CrossCam</value>
   </data>
 </root>

@@ -1160,6 +1160,6 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
     <value>相機頁面開啟時自動連接</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>CrossCam用戶製作的教學課程</value>
   </data>
 </root>

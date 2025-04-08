@@ -1160,6 +1160,6 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
     <value>Automatyczne łączenie po otwarciu strony kamery</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Poradnik wykonany przez użytkownika CrossCam</value>
   </data>
 </root>

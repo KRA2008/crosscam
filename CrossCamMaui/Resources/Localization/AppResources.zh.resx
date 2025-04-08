@@ -1160,6 +1160,6 @@ CrossCam 将在小机器人图标下方的相机屏幕上显示对齐结果。�
     <value>相机页面打开时自动连接</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>CrossCam用户制作的教程</value>
   </data>
 </root>

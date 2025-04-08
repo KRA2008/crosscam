@@ -1160,6 +1160,6 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
     <value>Tự động kết nối khi trang camera mở</value>
   </data>
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value />
+    <value>Hướng dẫn được thực hiện bởi người dùng CrossCam</value>
   </data>
 </root>
