@@ -5,7 +5,7 @@ jobs:
 - job: iOS
   displayName: 'iOS'
   pool:
-    vmImage: 'macos-14' ###  14 is later than 'latest' as of 2/23/2024
+    vmImage: 'macos-15' ###  explicit is later than 'latest' as of 4/7/2025
 
   steps:
   - task: UseDotNet@2
