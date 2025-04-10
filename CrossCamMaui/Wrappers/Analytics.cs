@@ -27,6 +27,15 @@ namespace CrossCam.Wrappers
             }
         }
 
+        public static ITransactionTracer StartTransaction(string name, string operation)
+        {
+            return SentrySdk.StartTransaction(name, operation);
+        }
+
+        public static void StopTransaction(ITransactionTracer transaction)
+        {
+            transaction.Finish();
+        }
     }
 
     public static class Crashes
