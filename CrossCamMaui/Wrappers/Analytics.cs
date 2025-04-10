@@ -15,7 +15,6 @@ namespace CrossCam.Wrappers
         {
             if (Settings?.IsAnalyticsEnabled == true)
             {
-                SentrySdk.CaptureMessage(name);
                 SentrySdk.AddBreadcrumb(name);
             }
         }
@@ -24,7 +23,6 @@ namespace CrossCam.Wrappers
         {
             if (Settings?.IsAnalyticsEnabled == true)
             {
-                SentrySdk.CaptureMessage(name);
                 SentrySdk.AddBreadcrumb(name,data: dict);
             }
         }
