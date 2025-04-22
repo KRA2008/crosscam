@@ -666,7 +666,7 @@ Over the next few weeks my simmering frustration led me to imagine simply provid
     <value>If you find that while taking pictures it's impossible to make both the upper and lower guide lines line up at the same time, you probably moved in some direction other than just to the side. Try to fix this before taking the pictures, but aligning after the fact can help this a lot.</value>
   </data>
   <data name="Page.Tips.Alignment" xml:space="preserve">
-    <value>You can turn off auto alignment.</value>
+    <value>You can turn off auto-alignment.</value>
   </data>
   <data name="Page.Tips.Alignment.Body" xml:space="preserve">
     <value>If you don't like the results of the automatic alignment, just turn it off on the Settings page or by tapping on the little robot icon and your original captured pictures will be restored.</value>
@@ -708,7 +708,7 @@ Over the next few weeks my simmering frustration led me to imagine simply provid
     <value>Turn on quick mode when you're with others.</value>
   </data>
   <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>If you're exploring with other people it's a good idea to go into fast mode by turning off auto alignment and and borders and just saving once you've captured without doing any editing. You can always load, auto align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate side saving which will ignore any editing you do.</value>
+    <value>If you're exploring with other people it's a good idea to go into fast mode by turning off auto-alignment and borders and turning on auto-saving. You can always load, auto-align, and edit the pictures later. That way your companions don't have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate side saving which will ignore any editing you do.</value>
   </data>
   <data name="Page.Tips.Sick" xml:space="preserve">
     <value>If the movement makes you sick, hold still.</value>

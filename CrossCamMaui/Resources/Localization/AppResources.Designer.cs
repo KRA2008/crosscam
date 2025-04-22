@@ -1953,7 +1953,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can turn off auto alignment..
+        ///   Looks up a localized string similar to You can turn off auto-alignment..
         /// </summary>
         internal static string Page_Tips_Alignment {
             get {
@@ -2079,7 +2079,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you&apos;re exploring with other people it&apos;s a good idea to go into fast mode by turning off auto alignment and and borders and just saving once you&apos;ve captured without doing any editing. You can always load, auto align, and edit the pictures later. That way your companions don&apos;t have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate s [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to If you&apos;re exploring with other people it&apos;s a good idea to go into fast mode by turning off auto-alignment and borders and turning on auto-saving. You can always load, auto-align, and edit the pictures later. That way your companions don&apos;t have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate side saving which will ignore any editing [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Page_Tips_Quick_Body {
             get {

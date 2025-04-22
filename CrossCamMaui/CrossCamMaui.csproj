@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-ios;net8.0;net8.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
+		<TargetFrameworks>net9.0-ios;net9.0;net9.0-android</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.22621.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
 		<!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
@@ -13,7 +13,7 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
-		<OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
+		<OutputType Condition="'$(TargetFramework)' != 'net9.0'">Exe</OutputType>
 		<RootNamespace>CrossCam</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -47,7 +47,7 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
 	  <Deterministic>False</Deterministic>
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
 	  <AndroidStoreUncompressedFileExtensions></AndroidStoreUncompressedFileExtensions>
@@ -57,7 +57,7 @@
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net9.0-android|AnyCPU'">
 	  <Deterministic>False</Deterministic>
 	  <AndroidEnableMultiDex>True</AndroidEnableMultiDex>
 	  <AndroidStoreUncompressedFileExtensions />
@@ -67,7 +67,7 @@
 	  <AndroidKeyStore>False</AndroidKeyStore>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
 	  <Deterministic>False</Deterministic>
 	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
 	  <EnableSGenConc>True</EnableSGenConc>
@@ -82,7 +82,7 @@
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net9.0-ios|AnyCPU'">
 	  <Deterministic>False</Deterministic>
 	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
 	  <EnableSGenConc>True</EnableSGenConc>
@@ -98,7 +98,7 @@
       <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
 	  <EnableLLVM>True</EnableLLVM>
 	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
 	  <AndroidUseAapt2>True</AndroidUseAapt2>
@@ -110,7 +110,7 @@
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
 	  <EnableSGenConc>True</EnableSGenConc>
 	  <MtouchDebug>False</MtouchDebug>
 	  <BuildIpa>True</BuildIpa>
@@ -123,33 +123,33 @@
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-windows10.0.19041.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net9.0-windows10.0.19041.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.22621.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.22621.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);EMGU;__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net8.0-windows10.0.22621.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net9.0-windows10.0.22621.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.22621.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.22621.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'" />
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'" />
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
 	  <ProvisioningType>manual</ProvisioningType>
 	  <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
 	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
@@ -190,16 +190,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Condition="'$(TargetFramework)' != 'net8.0'" Include="Emgu.CV.runtime.maui" Version="4.8.0.5324" />
-		<PackageReference Include="Microsoft.Maui.Core" Version="8.0.6" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="Emgu.CV.runtime.maui" Version="4.10.0.5680" />
+		<PackageReference Include="Microsoft.Maui.Core" Version="9.0.60" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.00" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
 		<PackageReference Include="Sentry.Maui" Version="5.4.0" />
-		<PackageReference Condition="'$(TargetFramework)' != 'net8.0'" Include="SkiaSharp.Views" Version="2.88.7" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="SkiaSharp.Views" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.7" />
@@ -335,37 +335,37 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.0.0.1</Version>
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="8.0.6" />
 	  <PackageReference Include="Xamarin.AndroidX.Annotation">
-	  	<Version>1.7.1</Version>
+	  	<Version>1.9.1.2</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
-	  	<Version>1.6.1.7</Version>
+	  	<Version>1.7.0.5</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
 	  	<Version>1.1.0.2</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Core">
-	  	<Version>1.12.0.3</Version>
+	  	<Version>1.15.0.2</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Browser">
-	  	<Version>1.7.0.1</Version>
+	  	<Version>1.8.0.8</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen">
 	  	<Version>1.0.1.5</Version>
 	  </PackageReference>
-	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.6.2.1" />
-	  <PackageReference Include="Xamarin.Google.Android.Material" Version="1.10.0.2" />
+	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.5.2" />
+	  <PackageReference Include="Xamarin.Google.Android.Material" Version="1.12.0.2" />
 	  <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.22" />
-	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.6" />
-	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.24" />
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.5" />
+	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.33" />
 	  <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.6.0.2" />
 	  <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
-	  	<Version>1.1.0.22</Version>
+	  	<Version>1.2.0.5</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.Google.Android.Play.Review">
 	  	<Version>2.0.1.6</Version>
@@ -376,18 +376,18 @@
 	  <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-ios'">
 		<Reference Include="Microsoft.iOS">
-			<HintPath>C:\Program Files\dotnet\packs\Microsoft.iOS.Ref\17.2.8043\ref\net8.0\Microsoft.iOS.dll</HintPath>
+			<HintPath>C:\Program Files\dotnet\packs\Microsoft.iOS.Ref\17.2.8043\ref\net9.0\Microsoft.iOS.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net9.0-android')) != true">
 		<Compile Remove="**\Android\**\*.cs" />
 		<None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-ios')) != true">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net9.0-ios')) != true">
 		<Compile Remove="**\iOS\**\*.cs" />
 		<None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
@@ -416,7 +416,7 @@
 
 	<ItemGroup>
 	  <Reference Include="Microsoft.Maui">
-	    <HintPath>..\..\..\NuGet\global-packages\microsoft.maui.core\8.0.6\lib\net8.0-windows10.0.19041\Microsoft.Maui.dll</HintPath>
+	    <HintPath>..\..\..\NuGet\global-packages\microsoft.maui.core\8.0.6\lib\net9.0-windows10.0.19041\Microsoft.Maui.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
