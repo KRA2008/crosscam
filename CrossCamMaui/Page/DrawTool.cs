@@ -765,13 +765,13 @@ namespace CrossCam.Page
             var xCorrectionToOrigin = x + width / 2f;
             var yCorrectionToOrigin = y + height / 2f;
 
-            using var transform4D = SKMatrix44.CreateIdentity();
+            var transform4D = SKMatrix44.CreateIdentity();
 
             if (Math.Abs(rotation) > 0)
             {
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
                 transform4D.PostConcat(SKMatrix44.CreateRotationDegrees(0, 0, 1, rotation));
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin, 0));
             }
 
             if (Math.Abs(keystone) > 0)
@@ -786,9 +786,9 @@ namespace CrossCam.Page
 
             if (Math.Abs(zoom) > 0)
             {
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslation(-xCorrectionToOrigin, -yCorrectionToOrigin, 0));
                 transform4D.PostConcat(SKMatrix44.CreateScale(1 + zoom, 1 + zoom, 0));
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(xCorrectionToOrigin, yCorrectionToOrigin, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslation(xCorrectionToOrigin, yCorrectionToOrigin, 0));
             }
 
             if (Math.Abs(alignment) > 0)
@@ -796,7 +796,7 @@ namespace CrossCam.Page
                 var yCorrection = isLeft
                     ? alignment > 0 ? -alignment * height : 0
                     : alignment < 0 ? alignment * height : 0;
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(0, yCorrection, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslation(0, yCorrection, 0));
             }
 
             transform4D.PostConcat(FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod));
@@ -809,10 +809,10 @@ namespace CrossCam.Page
             var axisPositionX = keystoneRotation > 0 ? x : x + width;
 
             var keystoneTransform = SKMatrix44.CreateIdentity();
-            keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(-axisPositionX, -yCorrectionToOrigin, 0));
+            keystoneTransform.PostConcat(SKMatrix44.CreateTranslation(-axisPositionX, -yCorrectionToOrigin, 0));
             keystoneTransform.PostConcat(SKMatrix44.CreateRotationDegrees(0, 1, 0, keystoneRotation));
             keystoneTransform.PostConcat(MakePerspective(width));
-            keystoneTransform.PostConcat(SKMatrix44.CreateTranslate(axisPositionX, yCorrectionToOrigin, 0));
+            keystoneTransform.PostConcat(SKMatrix44.CreateTranslation(axisPositionX, yCorrectionToOrigin, 0));
 
             var leftPoint = new SKPoint(x, 0);
             var rightPoint = new SKPoint(x + width, 0);
@@ -824,7 +824,7 @@ namespace CrossCam.Page
             var widthChange = width - newWidth;
 
             keystoneTransform.PostConcat(
-                SKMatrix44.CreateTranslate((keystoneRotation > 0 ? 1 : -1) * widthChange / 2f, 0, 0));
+                SKMatrix44.CreateTranslation((keystoneRotation > 0 ? 1 : -1) * widthChange / 2f, 0, 0));
 
             return keystoneTransform;
         }
@@ -944,7 +944,7 @@ namespace CrossCam.Page
                 Math.Abs(cardboardVertDelta) > 0 ||
                 Math.Abs(cardboardSeparationMod) > 0)
             {
-                transform4D.PostConcat(SKMatrix44.CreateTranslate(-cardboardHorDelta + cardboardSeparationMod, -cardboardVertDelta, 0));
+                transform4D.PostConcat(SKMatrix44.CreateTranslation(-cardboardHorDelta + cardboardSeparationMod, -cardboardVertDelta, 0));
             }
             return transform4D;
         }
