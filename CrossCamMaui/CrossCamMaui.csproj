@@ -150,9 +150,9 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'" />
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
-	  <ProvisioningType>automatic</ProvisioningType>
-	  <CodesignKey>Apple Development: Created via API (R4A4JM399F)</CodesignKey>
-	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
+	  <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
 	</PropertyGroup>
 
 	<ItemGroup>
