@@ -5,6 +5,14 @@
       xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
       x:Class="CrossCam.CustomElement.LazyViews.EditingSettingsView"
       x:DataType="vm:SettingsViewModel">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Border">
+                <Setter Property="BackgroundColor"
+                        Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="65"/>
@@ -17,57 +25,69 @@
         <RowDefinition Height="60"/>
         <RowDefinition Height="60"/>
         <RowDefinition Height="60"/>
+        <RowDefinition Height="60"/>
     </Grid.RowDefinitions>
 
-    <Label Grid.Row="0"
-       Grid.Column="0"
-       Text="{x:Static localization:AppResources.Settings_Editing_Zoom}"/>
-    <Frame Grid.Row="0"
-       Grid.Column="1">
-        <Entry Text="{Binding Settings.EditsSettings.ZoomMax}"/>
-    </Frame>
+    <StackLayout Grid.Row="0"
+                 Grid.Column="0"
+                 Orientation="Horizontal">
+        <Image Source="ghost.png"
+               WidthRequest="30"/>
+        <Label Text="{x:Static localization:AppResources.Page_Settings_Fullscreen}"/>
+    </StackLayout>
+    <Switch Grid.Row="0" 
+            Grid.Column="1" 
+            IsToggled="{Binding Settings.FullscreenEditing}"/>
 
     <Label Grid.Row="1"
        Grid.Column="0"
-       Text="{x:Static localization:AppResources.Settings_Editing_SideCrop}"/>
-    <Frame Grid.Row="1"
+       Text="{x:Static localization:AppResources.Settings_Editing_Zoom}"/>
+    <Border Grid.Row="1"
        Grid.Column="1">
-        <Entry Text="{Binding Settings.EditsSettings.SideCropMax}"/>
-    </Frame>
+        <Entry Text="{Binding Settings.EditsSettings.ZoomMax}"/>
+    </Border>
 
     <Label Grid.Row="2"
        Grid.Column="0"
-       Text="{x:Static localization:AppResources.Settings_Editing_TopCrop}"/>
-    <Frame Grid.Row="2"
-       Grid.Column="1">
-        <Entry Text="{Binding Settings.EditsSettings.TopOrBottomCropMax}"/>
-    </Frame>
+       Text="{x:Static localization:AppResources.Settings_Editing_SideCrop}"/>
+    <Border Grid.Row="2"
+            Grid.Column="1">
+        <Entry Text="{Binding Settings.EditsSettings.SideCropMax}"/>
+    </Border>
 
     <Label Grid.Row="3"
        Grid.Column="0"
-       Text="{x:Static localization:AppResources.Settings_Editing_Align}"/>
-    <Frame Grid.Row="3"
-       Grid.Column="1">
-        <Entry Text="{Binding Settings.EditsSettings.VerticalAlignmentMax}"/>
-    </Frame>
+       Text="{x:Static localization:AppResources.Settings_Editing_TopCrop}"/>
+    <Border Grid.Row="3"
+            Grid.Column="1">
+        <Entry Text="{Binding Settings.EditsSettings.TopOrBottomCropMax}"/>
+    </Border>
 
     <Label Grid.Row="4"
        Grid.Column="0"
-       Text="{x:Static localization:AppResources.Settings_Editing_Rotation}"/>
-    <Frame Grid.Row="4"
-       Grid.Column="1">
-        <Entry Text="{Binding Settings.EditsSettings.RotationMax}"/>
-    </Frame>
+       Text="{x:Static localization:AppResources.Settings_Editing_Align}"/>
+    <Border Grid.Row="4"
+            Grid.Column="1">
+        <Entry Text="{Binding Settings.EditsSettings.VerticalAlignmentMax}"/>
+    </Border>
 
     <Label Grid.Row="5"
        Grid.Column="0"
-       Text="{x:Static localization:AppResources.Settings_Editing_Keystone}"/>
-    <Frame Grid.Row="5"
-       Grid.Column="1">
-        <Entry Text="{Binding Settings.EditsSettings.KeystoneMax}"/>
-    </Frame>
+       Text="{x:Static localization:AppResources.Settings_Editing_Rotation}"/>
+    <Border Grid.Row="5"
+            Grid.Column="1">
+        <Entry Text="{Binding Settings.EditsSettings.RotationMax}"/>
+    </Border>
 
-    <Button Grid.Row="6" 
+    <Label Grid.Row="6"
+       Grid.Column="0"
+       Text="{x:Static localization:AppResources.Settings_Editing_Keystone}"/>
+    <Border Grid.Row="6"
+            Grid.Column="1">
+        <Entry Text="{Binding Settings.EditsSettings.KeystoneMax}"/>
+    </Border>
+
+    <Button Grid.Row="7" 
         Grid.Column="0" 
         Grid.ColumnSpan="2" 
         Text="{x:Static localization:AppResources.Settings_Reset}"

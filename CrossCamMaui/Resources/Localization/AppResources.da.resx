@@ -1162,4 +1162,7 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>En tutorial lavet af en CrossCam-bruger</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Brug spøgelser/gennemsigtig overlejring/fuldskærm</value>
+  </data>
 </root>

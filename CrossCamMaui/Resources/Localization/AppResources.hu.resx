@@ -1162,4 +1162,7 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Egy CrossCam felhasználó által készített oktatóanyag</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Használjon szellemeket/átlátszó fedvényt/teljes képernyőt</value>
+  </data>
 </root>

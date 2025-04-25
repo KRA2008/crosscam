@@ -1162,4 +1162,7 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Poradnik wykonany przez użytkownika CrossCam</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Użyj duchów/przezroczystej nakładki/pełnego ekranu</value>
+  </data>
 </root>

@@ -1162,4 +1162,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Un tutorial realizat de un utilizator CrossCam</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Utilizați fantome/suprapunere transparentă/ecran complet</value>
+  </data>
 </root>

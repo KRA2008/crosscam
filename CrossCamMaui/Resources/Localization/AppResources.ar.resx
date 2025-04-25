@@ -1162,4 +1162,7 @@
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>برنامج تعليمي تم إعداده بواسطة مستخدم CrossCam</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>استخدم الأشباح/التراكب الشفاف/ملء الشاشة</value>
+  </data>
 </root>

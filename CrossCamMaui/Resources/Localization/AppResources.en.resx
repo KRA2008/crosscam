@@ -1165,4 +1165,7 @@ Before two devices can be used together their roles have to be assigned. The PRI
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>A tutorial made by a CrossCam user</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Use ghosts/transparent overlay/fullscreen</value>
+  </data>
 </root>

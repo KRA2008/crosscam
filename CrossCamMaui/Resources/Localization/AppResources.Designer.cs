@@ -1560,6 +1560,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use ghosts/transparent overlay/fullscreen.
+        /// </summary>
+        internal static string Page_Settings_Fullscreen {
+            get {
+                return ResourceManager.GetString("Page.Settings.Fullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Capture Guides.
         /// </summary>
         internal static string Page_Settings_Guides {

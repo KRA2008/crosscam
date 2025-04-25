@@ -1162,4 +1162,7 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>CrossCam-käyttäjän tekemä opetusohjelma</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Käytä haamukuvia/läpinäkyvää peittokuvaa/koko näyttöä</value>
+  </data>
 </root>

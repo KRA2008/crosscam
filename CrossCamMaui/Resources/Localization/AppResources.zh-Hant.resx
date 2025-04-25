@@ -1162,4 +1162,7 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>CrossCam用戶製作的教學課程</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>使用重影/透明覆蓋/全螢幕</value>
+  </data>
 </root>

@@ -1162,4 +1162,7 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>CrossCam 사용자가 만든 튜토리얼</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>고스트/투명 오버레이/전체 화면 사용</value>
+  </data>
 </root>

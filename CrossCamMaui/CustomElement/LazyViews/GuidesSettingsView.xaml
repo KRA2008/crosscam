@@ -13,46 +13,58 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="50"/>
+        <RowDefinition Height="50"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="50"/>
         <RowDefinition Height="60"/>
         <RowDefinition Height="60"/>
     </Grid.RowDefinitions>
 
+    <StackLayout Grid.Row="0"
+                 Grid.Column="0"
+                 Orientation="Horizontal">
+        <Image Source="ghost.png"
+               WidthRequest="30"/>
+        <Label Text="{x:Static localization:AppResources.Page_Settings_Fullscreen}"/>
+    </StackLayout>
+    <Switch Grid.Column="1"
+            Grid.Row="0"
+            IsToggled="{Binding Settings.FullscreenCapturing}"/>
+
     <Label Grid.Column="0"
-           Grid.Row="0" 
+           Grid.Row="1" 
            Text="{x:Static localization:AppResources.Settings_Guides_Lines}"/>
     <Switch Grid.Column="1"
-            Grid.Row="0" 
+            Grid.Row="1" 
             IsToggled="{Binding Settings.AreGuideLinesVisible}"/>
 
     <Label Grid.Column="0"
-           Grid.Row="1"
+           Grid.Row="2"
            Text="{x:Static localization:AppResources.Settings_Guides_LineColor}"
            IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
     <Switch Grid.Column="1"
-            Grid.Row="1"
+            Grid.Row="2"
             IsToggled="{Binding Settings.AreGuideLinesColored}"
             IsVisible="{Binding Settings.AreGuideLinesVisible}"/>
 
     <Label Grid.Column="0"
-           Grid.Row="2"
+           Grid.Row="3"
            Text="{x:Static localization:AppResources.Settings_Guides_Roll}"/>
     <Switch Grid.Column="1"
-            Grid.Row="2" 
+            Grid.Row="3" 
             IsToggled="{Binding Settings.ShowRollGuide}"/>
 
     <Label Grid.Column="0"
-           Grid.Row="3" 
+           Grid.Row="4" 
            Text="{x:Static localization:AppResources.Settings_Border_FuseGuide}"/>
     <Switch Grid.Column="1"
-            Grid.Row="3" 
+            Grid.Row="4" 
             IsToggled="{Binding Settings.ShowPreviewFuseGuide}"/>
 
     <Label Grid.Column="0"
-           Grid.Row="4"
+           Grid.Row="5"
            Text="{x:Static localization:AppResources.Settings_Guides_Donut}"/>
     <Switch Grid.Column="1"
-            Grid.Row="4"
+            Grid.Row="5"
             IsToggled="{Binding Settings.IsGuideDonutVisible}"/>
 </Grid>

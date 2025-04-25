@@ -1162,4 +1162,7 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Bir CrossCam kullanıcısı tarafından hazırlanan bir eğitim</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Hayaletler/şeffaf yer paylaşımı/tam ekran kullan</value>
+  </data>
 </root>

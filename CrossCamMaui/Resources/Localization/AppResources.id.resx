@@ -1162,4 +1162,7 @@ Sebelum dua perangkat dapat digunakan bersama, peran mereka harus ditetapkan. Pe
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Tutorial yang dibuat oleh pengguna CrossCam</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Gunakan hantu/hamparan transparan/layar penuh</value>
+  </data>
 </root>

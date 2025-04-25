@@ -1162,4 +1162,7 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Výukový program vytvořený uživatelem CrossCam</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Použijte duchy/průhledné překrytí/celou obrazovku</value>
+  </data>
 </root>

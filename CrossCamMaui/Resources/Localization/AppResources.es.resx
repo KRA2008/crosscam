@@ -1162,4 +1162,7 @@ Antes de poder utilizar dos dispositivos juntos, es necesario asignar sus funcio
   <data name="Page.Technique.CrossLink7" xml:space="preserve">
     <value>Un tutorial hecho por una usuaria de CrossCam.</value>
   </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Usar fantasmas/superposición transparente/pantalla completa</value>
+  </data>
 </root>
