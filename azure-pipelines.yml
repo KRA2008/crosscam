@@ -60,7 +60,7 @@ jobs:
 
   - script: |
       sudo xcode-select -s /Applications/Xcode_16.3.app
-        displayName: Selects a specific version of Xcode
+    displayName: Selects a specific version of Xcode
 
   - task: Bash@3
     displayName: 'dotnet publish ios'
