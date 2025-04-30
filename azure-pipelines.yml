@@ -155,7 +155,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy build output to staging'
     inputs:
-      SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net8.0-android\publish'
+      SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net9.0-android\publish'
       Contents: |
         **/*.apk
         **/*.aab
