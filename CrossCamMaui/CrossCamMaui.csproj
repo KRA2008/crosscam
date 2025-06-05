@@ -206,6 +206,8 @@
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.9" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="System.Formats.Nrbf" Version="9.0.4" />
+		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
+		<PackageReference Include="System.Text.Json" Version="9.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
