@@ -151,8 +151,8 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
 	  <ProvisioningType>manual</ProvisioningType>
-	  <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
-	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
+	  <CodesignKey>Apple Development: Created via API (R4A4JM399F)</CodesignKey>
+	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -190,18 +190,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="Emgu.CV.runtime.maui" Version="4.10.0.5680" />
-		<PackageReference Include="Microsoft.Maui.Core" Version="9.0.60" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.60" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.60" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="Emgu.CV.runtime.maui" Version="4.8.0.5324" />
+		<PackageReference Include="Microsoft.Maui.Core" Version="9.0.70" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.70" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
-		<PackageReference Include="Sentry.Maui" Version="5.4.0" />
-		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="SkiaSharp.Views" Version="3.116.1" />
-		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="3.116.1" />
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
+		<PackageReference Include="Sentry.Maui" Version="5.9.0" />
+		<PackageReference Include="SkiaSharp" Version="3.119.0" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="SkiaSharp.Views" Version="3.119.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="3.119.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.9" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="System.Formats.Nrbf" Version="9.0.4" />
@@ -340,7 +341,7 @@
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.3.0.4</Version>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="9.0.60" />
+	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="9.0.70" />
 	  <PackageReference Include="Xamarin.AndroidX.Annotation">
 	  	<Version>1.9.1.2</Version>
 	  </PackageReference>
