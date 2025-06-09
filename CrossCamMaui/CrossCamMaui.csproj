@@ -77,7 +77,7 @@
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
-	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+	  <CodesignKey>Apple Development: Created via API (R4A4JM399F)</CodesignKey>
 	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
@@ -92,7 +92,7 @@
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\DevEntitlements.plist</CodesignEntitlements>
 	  <MtouchLink>None</MtouchLink>
-	  <CodesignKey>Apple Development: Created via API (TW2AV56Z4U)</CodesignKey>
+	  <CodesignKey>Apple Development: Created via API (R4A4JM399F)</CodesignKey>
 	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
       <ProvisioningType>manual</ProvisioningType>
       <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
@@ -118,7 +118,7 @@
 	  <MtouchFloat32>True</MtouchFloat32>
 	  <CodesignEntitlements>Platforms\iOS\ProdEntitlements.plist</CodesignEntitlements>
 	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
-	  <CodesignKey>iPhone Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+	  <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
 	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
@@ -149,11 +149,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'" />
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
-	  <ProvisioningType>manual</ProvisioningType>
-	  <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
-	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
-	</PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'"/>
 
 	<ItemGroup>
 		<!-- App Icon -->
