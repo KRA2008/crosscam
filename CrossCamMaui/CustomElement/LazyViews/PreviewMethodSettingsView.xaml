@@ -29,14 +29,14 @@
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <Frame Grid.Row="0"
+    <Border Grid.Row="0"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        HorizontalOptions="FillAndExpand">
         <Picker ItemsSource="{Binding Modes}"
                 ItemDisplayBinding="{Binding ., Converter={vc:EnumGetLocalizationConverter}}"
                 SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
-    </Frame>
+    </Border>
     <Image Grid.Row="0"
        Grid.Column="3" 
        Source="help.png"
@@ -77,11 +77,11 @@
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Preview_CardboardDistance}"
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"/>
-    <Frame Grid.Row="3" 
+    <Border Grid.Row="3" 
        Grid.Column="3" 
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}">
         <Entry Text="{Binding Settings.CardboardSettings.CardboardIpd}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Row="4"
        Grid.Column="1"
@@ -147,11 +147,11 @@
             </MultiTrigger>
         </Label.Triggers>
     </Label>
-    <Frame Grid.Row="6"
+    <Border Grid.Row="6"
        Grid.Column="3" 
        IsVisible="False">
-        <Frame.Triggers>
-            <MultiTrigger TargetType="Frame">
+        <Border.Triggers>
+            <MultiTrigger TargetType="Border">
                 <MultiTrigger.Conditions>
                     <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                   Value="True"/>
@@ -161,9 +161,9 @@
                 <Setter Property="IsVisible"
                     Value="True"/>
             </MultiTrigger>
-        </Frame.Triggers>
+        </Border.Triggers>
         <Entry Text="{Binding Settings.CardboardSettings.CardboardBarrelDistortion}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Row="7"
        Grid.Column="1"
@@ -221,11 +221,11 @@
             </MultiTrigger>
         </Label.Triggers>
     </Label>
-    <Frame Grid.Row="8"
+    <Border Grid.Row="8"
        Grid.Column="3"
        IsVisible="False">
-        <Frame.Triggers>
-            <MultiTrigger TargetType="Frame">
+        <Border.Triggers>
+            <MultiTrigger TargetType="Border">
                 <MultiTrigger.Conditions>
                     <BindingCondition Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Cardboard}}"
                                   Value="True"/>
@@ -237,9 +237,9 @@
                 <Setter Property="IsVisible"
                     Value="True"/>
             </MultiTrigger>
-        </Frame.Triggers>
+        </Border.Triggers>
         <Entry Text="{Binding Settings.CardboardSettings.CardboardDownsizePercentage}"/>
-    </Frame>
+    </Border>
 
     <Button Grid.Row="9"
         Grid.Column="1"
@@ -253,9 +253,9 @@
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Preview_Width}"
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}"/>
-    <Frame Grid.Row="2"
+    <Border Grid.Row="2"
        Grid.Column="3" 
        IsVisible="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.Parallel}}">
         <Entry Text="{Binding Settings.MaximumParallelWidth}"/>
-    </Frame>
+    </Border>
 </Grid>

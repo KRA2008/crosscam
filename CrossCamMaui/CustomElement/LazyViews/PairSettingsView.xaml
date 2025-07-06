@@ -63,51 +63,51 @@
        Grid.Row="2"
        Text="{x:Static localization:AppResources.Settings_Pair_PreviewDelay}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
        Grid.Row="2"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
         <Entry Text="{Binding Settings.PairSettings.PairedPreviewFrameDelayMs}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
        Grid.Row="3"
        Text="{x:Static localization:AppResources.Settings_Pair_Countdown}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
        Grid.Row="3"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
         <Entry Text="{Binding Settings.PairSettings.PairedCaptureCountdown}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
        Grid.Row="4"
        Text="{x:Static localization:AppResources.Settings_Pair_Sample}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
        Grid.Row="4"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={StaticResource nullableBoolean}}">
         <Entry Text="{Binding Settings.PairSettings.PairSyncSampleCount}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
        Grid.Row="5"
        Text="{x:Static localization:AppResources.Settings_Pair_Timeout}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
        Grid.Row="5"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}">
         <Entry Text="{Binding Settings.PairSettings.TimeoutSeconds}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
        Grid.Row="6"
        Text="{x:Static localization:AppResources.Settings_Pair_CaptureDelay}"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
        Grid.Row="6"
        IsVisible="{Binding Settings.PairSettings.IsPairedPrimary, Converter={vc:NullableBooleanHasValueConverter}}">
         <Entry Text="{Binding Settings.PairSettings.CaptureMomentExtraDelayMs}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
            Grid.Row="7"

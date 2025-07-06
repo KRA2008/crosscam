@@ -26,8 +26,8 @@
                 <Setter Property="Margin"
                         Value="10"/>
             </Style>
-            <Style TargetType="Frame">
-                <Setter Property="BorderColor"
+            <Style TargetType="Border">
+                <Setter Property="Stroke"
                         Value="White"/>
                 <Setter Property="Margin"
                         Value="1"/>

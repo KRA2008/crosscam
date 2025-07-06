@@ -38,22 +38,22 @@
            Grid.Row="2" 
            Text="{x:Static localization:AppResources.Settings_Border_Color}"
            IsVisible="{Binding Settings.AddBorder2}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
            Grid.Row="2" 
            IsVisible="{Binding Settings.AddBorder2}">
         <Picker ItemsSource="{Binding BorderColors}"
                 SelectedIndex="{Binding Settings.BorderColor, Converter={vc:BorderColorValueConverter}}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
            Grid.Row="3" 
            IsVisible="{Binding Settings.AddBorder2}" 
            Text="{x:Static localization:AppResources.Settings_Border_Thickness}"/>
-    <Frame Grid.Column="1"
+    <Border Grid.Column="1"
            Grid.Row="3" 
            IsVisible="{Binding Settings.AddBorder2}">
         <Entry Text="{Binding Settings.BorderWidthProportion}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Column="0"
            Grid.Row="4" 

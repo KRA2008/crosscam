@@ -53,14 +53,14 @@
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Resolution}"/>
-    <Frame Grid.Row="0"
+    <Border Grid.Row="0"
        Grid.Column="3"
        WidthRequest="50"
        HorizontalOptions="End">
         <Picker ItemsSource="{Binding ZeroToOneHundred}"
             SelectedIndex="{Binding Settings.ResolutionProportion}"
             HorizontalOptions="FillAndExpand"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Row="1"
        Grid.Column="0"

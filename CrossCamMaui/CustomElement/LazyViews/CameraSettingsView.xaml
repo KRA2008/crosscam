@@ -89,36 +89,36 @@
     <Label Grid.Row="4" 
        Grid.Column="0" 
        Text="{x:Static localization:AppResources.Settings_Camera_PortraitCapture}"/>
-    <Frame Grid.Row="4" 
+    <Border Grid.Row="4" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding PortraitCaptureButtonPosition}"
             SelectedIndex="{Binding Settings.PortraitCaptureButtonPosition, Converter={vc:PortraitCaptureButtonPositionValueConverter}}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Row="5" 
        Grid.Column="0" 
        Text="{x:Static localization:AppResources.Settings_Camera_LandscapeCaptureHorizontal}"/>
-    <Frame Grid.Row="5" 
+    <Border Grid.Row="5" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding LandscapeCaptureButtonHorizontalPosition}"
             SelectedIndex="{Binding Settings.LandscapeCaptureButtonHorizontalPosition, Converter={vc:LandscapeCaptureButtonHorizontalPositionValueConverter}}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Row="6" 
        Grid.Column="0" 
        Text="{x:Static localization:AppResources.Settings_Camera_LandscapeCaptureVertical}"/>
-    <Frame Grid.Row="6" 
+    <Border Grid.Row="6" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding LandscapeCaptureButtonVerticalPosition}"
             SelectedIndex="{Binding Settings.LandscapeCaptureButtonVerticalPosition, Converter={vc:LandscapeCaptureButtonVerticalPositionValueConverter}}"/>
-    </Frame>
+    </Border>
 
     <Label Grid.Row="7" 
        Grid.Column="0" 
        Text="{x:Static localization:AppResources.Settings_Camera_Pair}"/>
-    <Frame Grid.Row="7" 
+    <Border Grid.Row="7" 
        Grid.Column="1">
         <Picker ItemsSource="{Binding PairButtonHorizontalPosition}"
             SelectedIndex="{Binding Settings.PairButtonHorizontalPosition, Converter={vc:PairButtonHorizontalPositionValueConverter}}"/>
-    </Frame>
+    </Border>
 </Grid>

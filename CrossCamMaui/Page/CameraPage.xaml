@@ -177,37 +177,37 @@
             </AbsoluteLayout>
         </Grid>
 
-        <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
+        <Border AbsoluteLayout.LayoutFlags="PositionProportional"
                AbsoluteLayout.LayoutBounds="{Binding PairButtonPosition}"
                Padding="{StaticResource _bottomPadding}"
                IsVisible="{Binding ShouldPairButtonBeVisible}"
                BackgroundColor="Transparent">
-            <Frame.Triggers>
-                <DataTrigger TargetType="Frame"
+            <Border.Triggers>
+                <DataTrigger TargetType="Border"
                              Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Disconnected}}"
                              Value="true">
                     <DataTrigger.Setters>
-                        <Setter Property="BorderColor"
+                        <Setter Property="Stroke"
                                 Value="Transparent"/>
                     </DataTrigger.Setters>
                 </DataTrigger>
-                <DataTrigger TargetType="Frame"
+                <DataTrigger TargetType="Border"
                              Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connecting}}"
                              Value="true">
                     <DataTrigger.Setters>
-                        <Setter Property="BorderColor"
+                        <Setter Property="Stroke"
                                 Value="Yellow"/>
                     </DataTrigger.Setters>
                 </DataTrigger>
-                <DataTrigger TargetType="Frame"
+                <DataTrigger TargetType="Border"
                              Binding="{Binding PairOperatorBindable.PairStatus, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:PairStatus.Connected}}"
                              Value="true">
                     <DataTrigger.Setters>
-                        <Setter Property="BorderColor"
+                        <Setter Property="Stroke"
                                 Value="Green"/>
                     </DataTrigger.Setters>
                 </DataTrigger>
-            </Frame.Triggers>
+            </Border.Triggers>
             <AbsoluteLayout>
                 <StackLayout AbsoluteLayout.LayoutFlags="All"
                              AbsoluteLayout.LayoutBounds="0,0,1,1">
@@ -231,7 +231,7 @@
                                    InputTransparent="True"
                                    Color="White"/>
             </AbsoluteLayout>
-        </Frame>
+        </Border>
 
         <ContentView AbsoluteLayout.LayoutFlags="PositionProportional"
                      Padding="{StaticResource _bottomPadding}"
