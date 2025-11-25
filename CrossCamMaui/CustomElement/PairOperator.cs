@@ -103,7 +103,7 @@ namespace CrossCam.CustomElement
         public event EventHandler<ErrorEventArgs> ErrorOccurred;
         private void OnErrorOccurred(ErrorEventArgs e)
         {
-            Crashes.TrackError(e.Exception, 
+            Analytics.Crashes.TrackError(e.Exception, 
                 new Dictionary<string, string>
                 {
                     {"Step", e.Step}
@@ -296,7 +296,7 @@ namespace CrossCam.CustomElement
             {
                 var wrongHeader = "### payload received with header too short???";
                 Debug.WriteLine(wrongHeader);
-                Crashes.TrackError(new Exception(wrongHeader));
+                Analytics.Crashes.TrackError(new Exception(wrongHeader));
             }
         }
 

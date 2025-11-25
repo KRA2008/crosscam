@@ -58,7 +58,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                                 }
                                 catch (Java.IO.IOException e)
                                 {
-                                    Crashes.TrackError(e);
+                                    Analytics.Crashes.TrackError(e);
                                     picturesFolder = new Java.IO.File(Environment
                                         .GetExternalStoragePublicDirectory(Environment.DirectoryPictures).AbsolutePath);
                                 }

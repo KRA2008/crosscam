@@ -99,7 +99,7 @@ namespace CrossCam.Wrappers
                 }
                 catch (CvException e)
                 {
-                    Crashes.TrackError(e);
+                    Analytics.Crashes.TrackError(e);
                     Debug.WriteLine(e);
                     if (e.Status == (int)ErrorCodes.StsNoConv)
                     {

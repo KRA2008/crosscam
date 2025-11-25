@@ -25,7 +25,7 @@ namespace CrossCam.CustomElement
             }
             catch (Exception ex)
             {
-                Crashes.TrackError(ex);
+                Analytics.Crashes.TrackError(ex);
 
                 await (BindingContext as BaseViewModel).CoreMethods.DisplayAlert(AppResources.Page_Footer_CouldntOpen,
                     AppResources.Page_Footer_OpenError,

@@ -61,7 +61,7 @@ namespace CrossCam.CustomElement
                     }
                     else
                     {
-                        Crashes.TrackError(ex);
+                        Analytics.Crashes.TrackError(ex);
                     }
                 }
             });

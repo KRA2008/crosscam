@@ -1,4 +1,12 @@
 ﻿using CrossCam.Model;
+using Firebase.Analytics;
+
+#if __IOS__
+    using Foundation;
+#elif __ANDROID__
+    using Android.Content;
+    using Android.OS;
+#endif
 
 namespace CrossCam.Wrappers
 {
@@ -13,47 +21,66 @@ namespace CrossCam.Wrappers
 
         public static void TrackEvent(string name)
         {
-            if (Settings?.IsAnalyticsEnabled == true)
+            if (Settings?.IsAnalyticsEnabled == false) return;
+#if __IOS__
+            Firebase.Analytics.Analytics.LogEvent(name, (Dictionary<object, object>)null);
+#elif __ANDROID__
+
+            var firebaseAnalytics = FirebaseAnalytics.GetInstance(Platform.CurrentActivity);
+            firebaseAnalytics.LogEvent(name, null);
+#endif
+        }
+
+        public static void TrackEvent(string eventName, Dictionary<string, string> parameters)
+        {
+            if (Settings?.IsAnalyticsEnabled == false) return;
+#if __IOS__
+        if (parameters == null)
+        {
+            Firebase.Analytics.Analytics.LogEvent(eventName, (Dictionary<object, object>)null);
+            return;
+        }
+
+        var keys = new List<NSString>();
+        var values = new List<NSString>();
+        foreach (var item in parameters)
+        {
+            keys.Add(new NSString(item.Key));
+            values.Add(new NSString(item.Value));
+        }
+
+        var parametersDictionary =
+            NSDictionary<NSString, NSObject>.FromObjectsAndKeys(values.ToArray(), keys.ToArray(), keys.Count);
+        Firebase.Analytics.Analytics.LogEvent(eventName, parametersDictionary);
+#elif __ANDROID__
+            var firebaseAnalytics = FirebaseAnalytics.GetInstance(Platform.CurrentActivity);
+
+            if (parameters == null)
             {
-                SentrySdk.AddBreadcrumb(name);
+                firebaseAnalytics.LogEvent(eventName, null);
+                return;
             }
-        }
 
-        public static void TrackEvent(string name, Dictionary<string,string> dict)
-        {
-            if (Settings?.IsAnalyticsEnabled == true)
+            var bundle = new Bundle();
+            foreach (var param in parameters)
             {
-                SentrySdk.AddBreadcrumb(name,data: dict);
+                bundle.PutString(param.Key, param.Value);
             }
+
+            firebaseAnalytics.LogEvent(eventName, bundle);
+#endif
         }
 
-        public static ITransactionTracer StartTransaction(string name, string operation)
+        public static class Crashes
         {
-            return SentrySdk.StartTransaction(name, operation);
-        }
-
-        public static void StopTransaction(ITransactionTracer transaction)
-        {
-            transaction.Finish();
-        }
-    }
-
-    public static class Crashes
-    {
-        public static void TrackError(Exception ex)
-        {
-            if (Analytics.Settings?.IsAnalyticsEnabled == true)
+            public static void TrackError(Exception ex)
             {
-                SentrySdk.CaptureException(ex);
+                Analytics.TrackEvent(ex.ToString());
             }
-        }
 
-        public static void TrackError(Exception ex, Dictionary<string, string> dict)
-        {
-            if (Analytics.Settings?.IsAnalyticsEnabled == true)
+            public static void TrackError(Exception ex, Dictionary<string, string> dict)
             {
-                SentrySdk.AddBreadcrumb(ex.Message, data: dict);
-                SentrySdk.CaptureException(ex);
+                Analytics.TrackEvent(ex.ToString(), dict);
             }
         }
     }

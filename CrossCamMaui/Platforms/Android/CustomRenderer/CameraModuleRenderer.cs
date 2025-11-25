@@ -470,7 +470,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
             catch (Exception e)
             {
-                Crashes.TrackError(e);
+                Analytics.Crashes.TrackError(e);
             }
         }
 
@@ -503,7 +503,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             }
             catch (Error e)
             {
-                Crashes.TrackError(e);
+                Analytics.Crashes.TrackError(e);
                 return;
             }
         }

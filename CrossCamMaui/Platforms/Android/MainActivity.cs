@@ -176,7 +176,7 @@ namespace CrossCam.Platforms.Android
                         PickPhotoTaskCompletionSource?.SetResult(null);
                         if (resultCode != Result.Canceled)
                         {
-                            Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, string>()
+                            Analytics.Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, string>()
                             {
                                 {"resultCode",resultCode.ToString()},
                                 {"intent.Data",intent?.Data?.ToString()},
@@ -206,7 +206,7 @@ namespace CrossCam.Platforms.Android
             catch (System.Exception ex)
             {
                 PickPhotoTaskCompletionSource?.TrySetResult(null);
-                Crashes.TrackError(ex);
+                Analytics.Crashes.TrackError(ex);
             }
         }
 
@@ -432,7 +432,7 @@ namespace CrossCam.Platforms.Android
             }
             catch (System.Exception e)
             {
-                Crashes.TrackError(e);
+                Analytics.Crashes.TrackError(e);
             }
         }
 
@@ -488,7 +488,7 @@ namespace CrossCam.Platforms.Android
             }
             catch (System.Exception ex)
             {
-                Crashes.TrackError(ex);
+                Analytics.Crashes.TrackError(ex);
                 _requestReviewTaskCompletionSource.TrySetResult(false);
             }
         }

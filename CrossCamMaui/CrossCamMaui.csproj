@@ -31,7 +31,7 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -178,11 +178,18 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
+	  <None Remove="Platforms\Android\google-services.json" />
 	  <None Remove="Platforms\Android\proguard.cfg" />
+	  <None Remove="Platforms\iOS\GoogleService-Info.plist" />
 	  <None Remove="Platforms\Windows\Resources\moiraineLeft.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moiraineRight.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moirainerightunaligned.JPG" />
 	  <None Remove="Resources\AppIcon\appicon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <GoogleServicesJson Include="google-services.json" />
+	  <BundleResource Include="GoogleService-Info.plist" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -194,7 +201,6 @@
 		<PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
-		<PackageReference Include="Sentry.Maui" Version="5.9.0" />
 		<PackageReference Include="SkiaSharp" Version="2.88.9" />
 		<PackageReference Condition="'$(TargetFramework)' != 'net9.0'" Include="SkiaSharp.Views" Version="2.88.9" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.9" />
@@ -204,6 +210,7 @@
 		<PackageReference Include="System.Formats.Nrbf" Version="9.0.4" />
 		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
 		<PackageReference Include="System.Text.Json" Version="9.0.5" />
+		<PackageReference Include="Xamarin.Firebase.iOS.Analytics" Version="8.10.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -336,36 +343,45 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+	  <PackageReference Include="Xamarin.Firebase.Analytics">
+	    <Version>123.0.0.1</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Basement">
+	    <Version>118.9.0</Version>
+	  </PackageReference>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Measurement.Api">
+	    <Version>123.0.0.1</Version>
+	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.3.0.4</Version>
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="9.0.40" />
 	  <PackageReference Include="Xamarin.AndroidX.Annotation">
-	  	<Version>1.9.1.2</Version>
+	  	<Version>1.9.1.5</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
-	  	<Version>1.7.0.5</Version>
+	  	<Version>1.7.1.1</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
 	  	<Version>1.1.0.3</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Core">
-	  	<Version>1.15.0.2</Version>
+	  	<Version>1.17.0</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Browser">
-	  	<Version>1.8.0.8</Version>
+	  	<Version>1.9.0</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen">
-	  	<Version>1.0.1.14</Version>
+	  	<Version>1.0.1.17</Version>
 	  </PackageReference>
-	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.6" />
+	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.9" />
 	  <PackageReference Include="Xamarin.Google.Android.Material" Version="1.12.0.2" />
-	  <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.31" />
-	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.5" />
-	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.33" />
-	  <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.7.0.8" />
+	  <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.34" />
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.1.1" />
+	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.36" />
+	  <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.8.1.1" />
 	  <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
-	  	<Version>1.2.0.5</Version>
+	  	<Version>1.2.0.8</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.Google.Android.Play.Review">
 	  	<Version>2.0.2.2</Version>

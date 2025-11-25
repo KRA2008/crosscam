@@ -35,7 +35,7 @@ namespace CrossCam.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    Crashes.TrackError(ex);
+                    Analytics.Crashes.TrackError(ex);
                 }
             });
         }

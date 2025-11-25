@@ -923,7 +923,6 @@ namespace CrossCam.ViewModel
 
             SaveCapturesCommand = new Command(async () =>
             {
-                var transaction = Analytics.StartTransaction(nameof(SaveCapturesCommand), "save");
                 SendCommandStartAnalyticsEvent(nameof(SaveCapturesCommand));
 
                 if (!Settings.AnySaveModesOn)
@@ -1232,7 +1231,6 @@ namespace CrossCam.ViewModel
                     DependencyService.Get<IStoreReviewOpener>()?.TryOpenStoreReview();
                 }
 #endif
-                Analytics.StopTransaction(transaction);
             });
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
@@ -1282,7 +1280,7 @@ namespace CrossCam.ViewModel
                     propertiesDictionary.Add(ii.ToString(), stringChunk);
                 }
 
-                Crashes.TrackError(Error, propertiesDictionary);
+                Analytics.Crashes.TrackError(Error, propertiesDictionary);
 
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
