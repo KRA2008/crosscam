@@ -194,16 +194,10 @@
 	  <None Remove="Platforms\Android\Assets\AboutAssets.txt" />
 	  <None Remove="Platforms\Android\google-services.json" />
 	  <None Remove="Platforms\Android\proguard.cfg" />
-	  <None Remove="Platforms\iOS\GoogleService-Info.plist" />
 	  <None Remove="Platforms\Windows\Resources\moiraineLeft.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moiraineRight.JPG" />
 	  <None Remove="Platforms\Windows\Resources\moirainerightunaligned.JPG" />
 	  <None Remove="Resources\AppIcon\appicon.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <GoogleServicesJson Include="google-services.json" />
-	  <BundleResource Include="GoogleService-Info.plist" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -357,12 +351,6 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
-	  <PackageReference Include="Xamarin.GooglePlayServices.Basement">
-	    <Version>118.9.0</Version>
-	  </PackageReference>
-	  <PackageReference Include="Xamarin.GooglePlayServices.Measurement.Api">
-	    <Version>123.0.0.1</Version>
-	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.3.0.4</Version>
 	  </PackageReference>
