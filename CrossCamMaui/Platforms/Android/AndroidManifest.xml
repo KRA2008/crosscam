@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.kra2008.crosscam" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="36" />
+	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="36" />
 	<application android:label="CrossCam" android:largeHeap="true" android:hardwareAccelerated="true" android:icon="@mipmap/appiconandroid" android:roundIcon="@mipmap/appiconandroid_round"/>
 	<uses-feature android:name="android.hardware.camera" />
 	<uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
@@ -20,4 +20,6 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="28" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="31" android:minSdkVersion="29" />
 	<uses-permission android:name="android.permission.NFC" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
 </manifest>

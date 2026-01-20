@@ -17,6 +17,7 @@ using ErrorEventArgs = CrossCam.CustomElement.ErrorEventArgs;
 using Exception = System.Exception;
 using Rect = Microsoft.Maui.Graphics.Rect;
 using Microsoft.Maui.Layouts;
+using NewRelic.MAUI.Plugin;
 
 namespace CrossCam.ViewModel
 {
@@ -26,8 +27,8 @@ namespace CrossCam.ViewModel
         private readonly string _singleSide = AppResources.Page_Camera_LoadSingleSide;
         private readonly string _cancel = AppResources.Page_Camera_Cancel;
         private const string CROSSCAM = "CrossCam"; 
-        private const string COMMAND_ANALYTICS_EVENT = "command start";
-        private const string COMMAND_ANALYTICS_KEY_NAME = "command name";
+        private const string COMMAND_ANALYTICS_EVENT = "command_start";
+        private const string COMMAND_ANALYTICS_KEY_NAME = "command_name";
         private const int BORDER_DIFF_THRESHOLD = 25;
 
         public static PairOperator PairOperator;
@@ -932,7 +933,7 @@ namespace CrossCam.ViewModel
                     return;
                 }
 
-                const string SAVE_EVENT = "image saved";
+                const string SAVE_EVENT = "image_saved";
                 const string SAVE_TYPE = "type";
                 WorkflowStage = WorkflowStage.Saving;
 
@@ -942,9 +943,9 @@ namespace CrossCam.ViewModel
                     {
                         if (Settings.SaveSidesSeparately)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "separate sides"}
+                                {SAVE_TYPE, "separate_sides"}
                             });
                             var leftWidth = LeftCapture.Width;
                             var leftHeight = LeftCapture.Height;
@@ -1008,7 +1009,7 @@ namespace CrossCam.ViewModel
                             Settings.SaveForCrossView &&
                             Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
                                 {SAVE_TYPE, Settings.Mode == DrawMode.Parallel ? "parallel" : "cross"}
                             });
@@ -1030,7 +1031,7 @@ namespace CrossCam.ViewModel
                             Settings.SaveForCrossView &&
                             Settings.Mode == DrawMode.Parallel)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
                                 {SAVE_TYPE, Settings.Mode == DrawMode.Cross ? "parallel" : "cross"}
                             });
@@ -1050,27 +1051,27 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForRedCyanAnaglyph)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "red cyan anaglyph"}
+                                {SAVE_TYPE, "red_cyan_anaglyph"}
                             });
                             await DrawAnaglyph(false);
                         }
 
                         if (Settings.SaveForGrayscaleAnaglyph)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "grayscale anaglyph"}
+                                {SAVE_TYPE, "grayscale_anaglyph"}
                             });
                             await DrawAnaglyph(true);
                         }
 
                         if (Settings.SaveRedundantFirstSide)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "first side"}
+                                {SAVE_TYPE, "first_side"}
                             });
                             var targetBitmap = Settings.IsCaptureLeftFirst ? LeftCapture : RightCapture;
 
@@ -1088,7 +1089,7 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForTriple)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
                                 {SAVE_TYPE, "triple"}
                             });
@@ -1117,7 +1118,7 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForQuad)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
                                 {SAVE_TYPE, "quad"}
                             });
@@ -1159,7 +1160,7 @@ namespace CrossCam.ViewModel
 
                         if (Settings.SaveForCardboard)
                         {
-                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, string>
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
                                 {SAVE_TYPE, "cardboard"}
                             });
@@ -1190,6 +1191,10 @@ namespace CrossCam.ViewModel
 
                         TotalSavesCompleted++;
                         PersistentStorage.Save(PersistentStorage.TOTAL_SAVES_KEY, TotalSavesCompleted);
+                        Analytics.TrackEvent("photo save",new Dictionary<string, object>
+                        {
+                            { "total count", TotalSavesCompleted}
+                        });
                     });
                 }
                 catch (DirectoryNotFoundException)
@@ -1235,12 +1240,10 @@ namespace CrossCam.ViewModel
 
             PromptForPermissionAndSendErrorEmailCommand = new Command(async () =>
             {
-                const int APP_CENTER_PROPERTY_COUNT_LIMIT = 20;
-                const int APP_CENTER_PROPERTY_LENGTH_LIMIT = 125;
                 SendCommandStartAnalyticsEvent(nameof(PromptForPermissionAndSendErrorEmailCommand));
                 Debug.WriteLine("### ERROR: " + Error);
 
-                var deviceInfoDictionary = new Dictionary<string, string>
+                var deviceInfoDictionary = new Dictionary<string, object>
                 {
                     {"Platform", DeviceInfo.Platform.ToString()},
                     {"Manufacturer", DeviceInfo.Manufacturer},
@@ -1252,35 +1255,8 @@ namespace CrossCam.ViewModel
                     {"App Version", AppInfo.VersionString},
                     {"Idiom", DeviceInfo.Current.Idiom.ToString()}
                 };
-                var propertiesString = JsonConvert.SerializeObject(deviceInfoDictionary);
-                propertiesString += JsonConvert.SerializeObject(Settings);
-                propertiesString = propertiesString
-                    .Replace("a", "")
-                    .Replace("e", "")
-                    .Replace("i", "")
-                    .Replace("o", "")
-                    .Replace("u", "")
-                    .Replace("y", "")
-                    .Replace("{", "")
-                    .Replace("}", "")
-                    .Replace("\"","");
-                var propertiesDictionary = new Dictionary<string, string>();
-                for (var ii = 0; ii < APP_CENTER_PROPERTY_COUNT_LIMIT; ii++)
-                {
-                    var startIndex = APP_CENTER_PROPERTY_LENGTH_LIMIT * ii;
-                    string stringChunk;
-                    if (startIndex + APP_CENTER_PROPERTY_LENGTH_LIMIT >= propertiesString.Length)
-                    {
-                        stringChunk = propertiesString.Substring(startIndex);
-                        propertiesDictionary.Add(ii.ToString(), stringChunk);
-                        break;
-                    }
 
-                    stringChunk = propertiesString.Substring(startIndex, APP_CENTER_PROPERTY_LENGTH_LIMIT);
-                    propertiesDictionary.Add(ii.ToString(), stringChunk);
-                }
-
-                Analytics.Crashes.TrackError(Error, propertiesDictionary);
+                Analytics.Crashes.TrackError(Error, deviceInfoDictionary);
 
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
@@ -1392,14 +1368,19 @@ namespace CrossCam.ViewModel
 
             _deviceDisplayWrapper.DisplayInfoChanged += DeviceDisplayOnMainDisplayInfoChanged;
 
-            var settingsDictionary = JsonConvert
-                .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings))
-                .ToDictionary(pair => pair.Key, pair => pair.Value?.ToString());
-            Analytics.TrackEvent("settings at launch", settingsDictionary);
-            var alignmentDictionary = JsonConvert
-                .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings.AlignmentSettings))
-                .ToDictionary(pair => pair.Key, pair => pair.Value?.ToString());
-            Analytics.TrackEvent("alignment settings at launch", alignmentDictionary);
+            Analytics.TrackEvent("settings_at_launch", new Dictionary<string, object>
+            {
+                {"settings",Settings}
+            });
+
+            //var settingsDictionary = JsonConvert
+            //    .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings))
+            //    .ToDictionary(pair => pair.Key, pair => pair.Value);
+            //Analytics.TrackEvent("settings_at_launch", settingsDictionary);
+            //var alignmentDictionary = JsonConvert
+            //    .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings.AlignmentSettings))
+            //    .ToDictionary(pair => pair.Key, pair => pair.Value);
+            //Analytics.TrackEvent("alignment_settings_at_launch", alignmentDictionary);
         }
 
         private DisplayOrientation _previousOrientation = DisplayOrientation.Unknown;
@@ -1429,7 +1410,7 @@ namespace CrossCam.ViewModel
 
         private static void SendCommandStartAnalyticsEvent(string name)
         {
-            Analytics.TrackEvent(COMMAND_ANALYTICS_EVENT, new Dictionary<string, string>
+            Analytics.DropBreadcrumb(COMMAND_ANALYTICS_EVENT, new Dictionary<string, object>
             {
                 {COMMAND_ANALYTICS_KEY_NAME, name}
             });

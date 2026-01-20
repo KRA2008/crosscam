@@ -1,11 +1,15 @@
-﻿using CrossCam.Model;
-using Firebase.Analytics;
+﻿using System.Diagnostics;
+using CrossCam.Model;
+using NewRelic.MAUI.Plugin;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 #if __IOS__
-    using Foundation;
+using Foundation;
 #elif __ANDROID__
-    using Android.Content;
-    using Android.OS;
+using Android.Content;
+using Android.OS;
 #endif
 
 namespace CrossCam.Wrappers
@@ -19,68 +23,57 @@ namespace CrossCam.Wrappers
             Settings = settings;
         }
 
-        public static void TrackEvent(string name)
+        public static void TrackEvent(string eventName, Dictionary<string, object> parameters = null)
         {
             if (Settings?.IsAnalyticsEnabled == false) return;
-#if __IOS__
-            Firebase.Analytics.Analytics.LogEvent(name, (Dictionary<object, object>)null);
-#elif __ANDROID__
 
-            var firebaseAnalytics = FirebaseAnalytics.GetInstance(Platform.CurrentActivity);
-            firebaseAnalytics.LogEvent(name, null);
-#endif
+            parameters ??= new Dictionary<string, object>();
+
+            parameters = MakeSafeDict(parameters);
+
+            CrossNewRelic.Current.RecordCustomEvent("user event", eventName, parameters);
         }
 
-        public static void TrackEvent(string eventName, Dictionary<string, string> parameters)
+        public static void DropBreadcrumb(string crumbName, Dictionary<string, object> attributes = null)
         {
             if (Settings?.IsAnalyticsEnabled == false) return;
-#if __IOS__
-        if (parameters == null)
-        {
-            Firebase.Analytics.Analytics.LogEvent(eventName, (Dictionary<object, object>)null);
-            return;
+
+            attributes = MakeSafeDict(attributes);
+
+            CrossNewRelic.Current.RecordBreadcrumb(crumbName, attributes);
         }
 
-        var keys = new List<NSString>();
-        var values = new List<NSString>();
-        foreach (var item in parameters)
+        private static Dictionary<string, object> MakeSafeDict(Dictionary<string, object> dict)
         {
-            keys.Add(new NSString(item.Key));
-            values.Add(new NSString(item.Value));
-        }
-
-        var parametersDictionary =
-            NSDictionary<NSString, NSObject>.FromObjectsAndKeys(values.ToArray(), keys.ToArray(), keys.Count);
-        Firebase.Analytics.Analytics.LogEvent(eventName, parametersDictionary);
-#elif __ANDROID__
-            var firebaseAnalytics = FirebaseAnalytics.GetInstance(Platform.CurrentActivity);
-
-            if (parameters == null)
+            foreach (var parameter in dict)
             {
-                firebaseAnalytics.LogEvent(eventName, null);
-                return;
+                dict[parameter.Key] = JsonConvert.SerializeObject(parameter.Value); //TODO: workaround for NewRelic's inability to log a null value
             }
 
-            var bundle = new Bundle();
-            foreach (var param in parameters)
-            {
-                bundle.PutString(param.Key, param.Value);
-            }
-
-            firebaseAnalytics.LogEvent(eventName, bundle);
-#endif
+            return dict;
         }
 
         public static class Crashes
         {
-            public static void TrackError(Exception ex)
+            public static void TrackError(Exception ex, Dictionary<string, object> dict = null)
             {
-                Analytics.TrackEvent(ex.ToString());
-            }
+                if (Settings?.IsAnalyticsEnabled == false) return;
 
-            public static void TrackError(Exception ex, Dictionary<string, string> dict)
-            {
-                Analytics.TrackEvent(ex.ToString(), dict);
+                if (dict != null)
+                {
+                    dict.Add("exception", ex.ToString());
+                }
+                else
+                {
+                    dict = new Dictionary<string, object>
+                    {
+                        {"exception", ex.ToString()}
+                    };
+                }
+
+                dict = MakeSafeDict(dict);
+
+                CrossNewRelic.Current.RecordException(ex,dict);
             }
         }
     }

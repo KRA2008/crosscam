@@ -140,7 +140,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
                 }
                 catch (Exception ex)
                 {
-                    Crashes.TrackError(ex);
+                    Analytics.Crashes.TrackError(ex);
                     _photoPicker._taskCompletionSource.TrySetResult(null);
                     _photoPicker._viewController.DismissModalViewController(true);
                 }

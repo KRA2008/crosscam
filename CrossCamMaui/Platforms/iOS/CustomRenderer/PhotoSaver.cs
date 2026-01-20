@@ -90,7 +90,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
                 {
                     if (albumCreationError != null)
                     {
-                        Crashes.TrackError(new Exception(albumCreationError.ToString()));
+                        Analytics.Crashes.TrackError(new Exception(albumCreationError.ToString()));
                     }
                     SavePhotoIntoPhotos(uiImage, taskCompletionSource);
                 }

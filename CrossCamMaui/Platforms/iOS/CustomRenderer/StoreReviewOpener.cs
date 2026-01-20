@@ -18,7 +18,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
             }
             catch (Exception e)
             {
-                Crashes.TrackError(e);
+                Analytics.Crashes.TrackError(e);
                 result.SetResult(false);
                 return result.Task;
             }

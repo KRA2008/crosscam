@@ -8,6 +8,7 @@ using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using System.Globalization;
 using CrossCam.Resources.Localization;
+using NewRelic.MAUI.Plugin;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CrossCam
@@ -22,6 +23,7 @@ namespace CrossCam
         public App()
         {
             InitializeComponent();
+
             var settings = PersistentStorage.LoadOrDefault(PersistentStorage.SETTINGS_KEY, new Settings());
             if (settings.ForceEnglish)
             {
@@ -44,7 +46,7 @@ namespace CrossCam
 
         public static void SendDebugEvent(string moment, string details = null)
         {
-            var dictionary = new Dictionary<string, string>()
+            var dictionary = new Dictionary<string, object>()
             {
                 {"moment", moment},
                 {"details", details}

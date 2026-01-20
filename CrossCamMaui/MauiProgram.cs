@@ -12,6 +12,7 @@ using CrossCam.ViewModel;
 using CrossCam.Wrappers;
 using FreshMvvm.Maui.Extensions;
 using Microsoft.Maui.LifecycleEvents;
+using NewRelic.MAUI.Plugin;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace CrossCam;
@@ -34,20 +35,6 @@ public static class MauiProgram
 #elif __IOS__
             handlers.AddHandler<CameraModule, CameraModuleRenderer>();
             EntryWithDoneButtonHandler.AddDone();
-#endif
-        });
-
-        builder.ConfigureLifecycleEvents(events =>
-        {
-#if __IOS__
-            events.AddiOS(iOS => iOS.FinishedLaunching((app, launchOptions) => {
-                Firebase.Core.App.Configure();
-                return false;
-            }));
-#elif __ANDROID__
-            events.AddAndroid(android => android.OnCreate((activity, bundle) => {
-                Firebase.FirebaseApp.InitializeApp(activity);
-            }));
 #endif
         });
 
@@ -96,5 +83,27 @@ public static class MauiProgram
         var app = builder.Build();
         app.UseFreshMvvm();
         return app;
+    }
+
+    private static void StartNewRelic()
+    {
+        CrossNewRelic.Current.HandleUncaughtException();
+
+        // Set optional agent configuration
+        // Options are: crashReportingEnabled, loggingEnabled, logLevel, collectorAddress, crashCollectorAddress,analyticsEventEnabled, networkErrorRequestEnabled, networkRequestEnabled, interactionTracingEnabled,webViewInstrumentation, fedRampEnabled,offlineStorageEnabled,newEventSystemEnabled,backgroundReportingEnabled
+        // AgentStartConfiguration agentConfig = new AgentStartConfiguration(crashReportingEnabled:false);
+
+        if (DeviceInfo.Current.Platform == DevicePlatform.Android)
+        {
+            CrossNewRelic.Current.Start("AA2ab6959602508adfc518b32f61986ada69452556-NRMA");
+            // Start with optional agent configuration 
+            // CrossNewRelic.Current.Start("<APP-TOKEN-HERE", agentConfig);
+        }
+        else if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
+        {
+            CrossNewRelic.Current.Start("AAfdb51d06e0634fbae059d66c8d7acd45e24c857e-NRMA");
+            // Start with optional agent configuration 
+            // CrossNewRelic.Current.Start("<APP-TOKEN-HERE", agentConfig);
+        }
     }
 }

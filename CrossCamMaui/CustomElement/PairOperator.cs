@@ -104,7 +104,7 @@ namespace CrossCam.CustomElement
         private void OnErrorOccurred(ErrorEventArgs e)
         {
             Analytics.Crashes.TrackError(e.Exception, 
-                new Dictionary<string, string>
+                new Dictionary<string, object>
                 {
                     {"Step", e.Step}
                 });

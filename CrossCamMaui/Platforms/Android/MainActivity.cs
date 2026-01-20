@@ -176,7 +176,7 @@ namespace CrossCam.Platforms.Android
                         PickPhotoTaskCompletionSource?.SetResult(null);
                         if (resultCode != Result.Canceled)
                         {
-                            Analytics.Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, string>()
+                            Analytics.Crashes.TrackError(new System.Exception("pickPhotoCompletion failed to enter into photo opening"), new Dictionary<string, object>()
                             {
                                 {"resultCode",resultCode.ToString()},
                                 {"intent.Data",intent?.Data?.ToString()},

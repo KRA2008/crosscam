@@ -11,7 +11,7 @@ namespace CrossCam.ViewModel
         {
             OpenLink = new Command(async url =>
             {
-                Analytics.TrackEvent("link opened", new Dictionary<string, string>
+                Analytics.TrackEvent("link_opened", new Dictionary<string, object>
                 {
                     {"url",url.ToString()}
                 });
