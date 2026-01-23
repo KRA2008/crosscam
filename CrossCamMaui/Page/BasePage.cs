@@ -9,10 +9,10 @@ namespace CrossCam.Page
         {
             base.OnAppearing();
 
-            Analytics.TrackEvent("page_nav",
+            Analytics.TrackEvent("navigation",
                 new Dictionary<string, object>
                 {
-                    {"name", GetType().Name}
+                    {"page name", GetType().Name }
                 });
         }
     }

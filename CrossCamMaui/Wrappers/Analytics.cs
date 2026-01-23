@@ -23,57 +23,76 @@ namespace CrossCam.Wrappers
             Settings = settings;
         }
 
-        public static void TrackEvent(string eventName, Dictionary<string, object> parameters = null)
+        public static void TrackEvent(string eventName, Dictionary<string, object> attributes = null)
         {
             if (Settings?.IsAnalyticsEnabled == false) return;
 
-            parameters ??= new Dictionary<string, object>();
+            attributes ??= new Dictionary<string, object>();
 
-            parameters = MakeSafeDict(parameters);
-
-            CrossNewRelic.Current.RecordCustomEvent("user event", eventName, parameters);
+            try
+            {
+                CrossNewRelic.Current.RecordCustomEvent("TrackedEvent", eventName, attributes);
+            }
+            catch (NullReferenceException) // New Relic doesn't do nulls in dicts
+            {
+                foreach (var attribute in attributes)
+                {
+                    attributes[attribute.Key] = JsonConvert.SerializeObject(attribute.Value);
+                }
+                CrossNewRelic.Current.RecordCustomEvent("TrackedEvent", eventName, attributes);
+            }
         }
 
         public static void DropBreadcrumb(string crumbName, Dictionary<string, object> attributes = null)
         {
             if (Settings?.IsAnalyticsEnabled == false) return;
 
-            attributes = MakeSafeDict(attributes);
+            attributes ??= new Dictionary<string, object>();
 
-            CrossNewRelic.Current.RecordBreadcrumb(crumbName, attributes);
-        }
-
-        private static Dictionary<string, object> MakeSafeDict(Dictionary<string, object> dict)
-        {
-            foreach (var parameter in dict)
+            try
             {
-                dict[parameter.Key] = JsonConvert.SerializeObject(parameter.Value); //TODO: workaround for NewRelic's inability to log a null value
+                CrossNewRelic.Current.RecordBreadcrumb(crumbName, attributes);
             }
-
-            return dict;
+            catch (NullReferenceException) // New Relic doesn't do nulls in dicts
+            {
+                foreach (var attribute in attributes)
+                {
+                    attributes[attribute.Key] = JsonConvert.SerializeObject(attribute.Value);
+                }
+                CrossNewRelic.Current.RecordBreadcrumb(crumbName, attributes);
+            }
         }
 
         public static class Crashes
         {
-            public static void TrackError(Exception ex, Dictionary<string, object> dict = null)
+            public static void TrackError(Exception ex, Dictionary<string, object> attributes = null)
             {
                 if (Settings?.IsAnalyticsEnabled == false) return;
 
-                if (dict != null)
+                if (attributes != null)
                 {
-                    dict.Add("exception", ex.ToString());
+                    attributes.Add("exception", ex.ToString());
                 }
                 else
                 {
-                    dict = new Dictionary<string, object>
+                    attributes = new Dictionary<string, object>
                     {
                         {"exception", ex.ToString()}
                     };
                 }
 
-                dict = MakeSafeDict(dict);
-
-                CrossNewRelic.Current.RecordException(ex,dict);
+                try
+                {
+                    CrossNewRelic.Current.RecordException(ex, attributes);
+                }
+                catch (NullReferenceException) // New Relic doesn't do nulls in dicts
+                {
+                    foreach (var attribute in attributes)
+                    {
+                        attributes[attribute.Key] = JsonConvert.SerializeObject(attribute.Value);
+                    }
+                    CrossNewRelic.Current.RecordException(ex, attributes);
+                }
             }
         }
     }

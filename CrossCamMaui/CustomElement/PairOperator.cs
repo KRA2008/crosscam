@@ -66,7 +66,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Disconnected;
         private void OnDisconnected()
         {
-            App.SendDebugEvent("Disconnected");
+            Analytics.TrackEvent("Disconnected");
             _initializeThreadLocker = 0;
             PairStatus = PairStatus.Disconnected;
             OnPropertyChanged(nameof(IsPrimary));
@@ -79,7 +79,7 @@ namespace CrossCam.CustomElement
         public event EventHandler Connected;
         private void OnConnected()
         {
-            App.SendDebugEvent("Connected");
+            Analytics.TrackEvent("Connected");
             PairStatus = PairStatus.Connected;
             if (!IsPrimary)
             {
@@ -108,7 +108,6 @@ namespace CrossCam.CustomElement
                 {
                     {"Step", e.Step}
                 });
-            App.SendDebugEvent("Pair step: " + e.Step, e.Exception.ToString());
 #if DEBUG
             ShowPairErrorOccurred(e.Step, e.Exception.ToString());
 #endif
@@ -257,7 +256,7 @@ namespace CrossCam.CustomElement
                         !(_previousCommand == CrossCommand.PreviewFrame &&
                         currentCommand == CrossCommand.PreviewFrame))
                     {
-                        App.SendDebugEvent("Pair command received", currentCommand.ToString());
+                        //log if needed
                     }
                     _previousCommand = currentCommand;
                     switch (bytes[2])

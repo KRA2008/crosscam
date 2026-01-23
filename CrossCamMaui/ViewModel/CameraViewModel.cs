@@ -933,8 +933,8 @@ namespace CrossCam.ViewModel
                     return;
                 }
 
-                const string SAVE_EVENT = "image_saved";
-                const string SAVE_TYPE = "type";
+                const string SAVE_EVENT = "image saved";
+                const string SAVE_TYPE = "save type";
                 WorkflowStage = WorkflowStage.Saving;
 
                 try
@@ -945,7 +945,7 @@ namespace CrossCam.ViewModel
                         {
                             Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "separate_sides"}
+                                {SAVE_TYPE, "separate sides"}
                             });
                             var leftWidth = LeftCapture.Width;
                             var leftHeight = LeftCapture.Height;
@@ -1053,7 +1053,7 @@ namespace CrossCam.ViewModel
                         {
                             Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "red_cyan_anaglyph"}
+                                {SAVE_TYPE, "red cyan anaglyph"}
                             });
                             await DrawAnaglyph(false);
                         }
@@ -1062,7 +1062,7 @@ namespace CrossCam.ViewModel
                         {
                             Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "grayscale_anaglyph"}
+                                {SAVE_TYPE, "grayscale anaglyph"}
                             });
                             await DrawAnaglyph(true);
                         }
@@ -1071,7 +1071,7 @@ namespace CrossCam.ViewModel
                         {
                             Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, "first_side"}
+                                {SAVE_TYPE, "first side"}
                             });
                             var targetBitmap = Settings.IsCaptureLeftFirst ? LeftCapture : RightCapture;
 
@@ -1191,7 +1191,7 @@ namespace CrossCam.ViewModel
 
                         TotalSavesCompleted++;
                         PersistentStorage.Save(PersistentStorage.TOTAL_SAVES_KEY, TotalSavesCompleted);
-                        Analytics.TrackEvent("photo save",new Dictionary<string, object>
+                        Analytics.TrackEvent("save complete",new Dictionary<string, object>
                         {
                             { "total count", TotalSavesCompleted}
                         });
@@ -1367,20 +1367,6 @@ namespace CrossCam.ViewModel
             PairOperator.TimeoutOccurred += PairOperatorTimeoutOccurred;
 
             _deviceDisplayWrapper.DisplayInfoChanged += DeviceDisplayOnMainDisplayInfoChanged;
-
-            Analytics.TrackEvent("settings_at_launch", new Dictionary<string, object>
-            {
-                {"settings",Settings}
-            });
-
-            //var settingsDictionary = JsonConvert
-            //    .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings))
-            //    .ToDictionary(pair => pair.Key, pair => pair.Value);
-            //Analytics.TrackEvent("settings_at_launch", settingsDictionary);
-            //var alignmentDictionary = JsonConvert
-            //    .DeserializeObject<Dictionary<string, object>>(JsonConvert.SerializeObject(Settings.AlignmentSettings))
-            //    .ToDictionary(pair => pair.Key, pair => pair.Value);
-            //Analytics.TrackEvent("alignment_settings_at_launch", alignmentDictionary);
         }
 
         private DisplayOrientation _previousOrientation = DisplayOrientation.Unknown;

@@ -44,16 +44,6 @@ namespace CrossCam
             _cameraViewModel.LoadSharedImages(image1, image2);
         }
 
-        public static void SendDebugEvent(string moment, string details = null)
-        {
-            var dictionary = new Dictionary<string, object>()
-            {
-                {"moment", moment},
-                {"details", details}
-            };
-            Analytics.TrackEvent("DEBUG", dictionary);
-        }
-
         protected override void OnSleep()
         {
             MessagingCenter.Send(this, APP_PAUSING_EVENT);
