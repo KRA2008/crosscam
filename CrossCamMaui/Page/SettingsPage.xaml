@@ -37,6 +37,8 @@
             <Style TargetType="Entry">
                 <Setter Property="Keyboard"
                         Value="Numeric"/>
+                <Setter Property="BackgroundColor"
+                        Value="White"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
