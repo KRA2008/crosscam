@@ -1168,4 +1168,10 @@ Before two devices can be used together their roles have to be assigned. The PRI
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Use ghosts/transparent overlay/fullscreen</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Save red/cyan Dubois anaglyph version (with edits but no border)</value>
+  </data>
 </root>

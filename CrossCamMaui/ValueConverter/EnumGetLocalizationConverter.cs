@@ -25,6 +25,8 @@ namespace CrossCam.ValueConverter
                         return AppResources.SaveModes_Anaglyph;
                     case DrawMode.GrayscaleRedCyanAnaglyph:
                         return AppResources.SaveModes_GrayscaleAnaglyph;
+                    case DrawMode.DuboisRedCyanAnaglyph:
+                        return AppResources.SaveModes_DuboisAnaglyph;
                     case DrawMode.Cardboard:
                         return AppResources.SaveModes_Cardboard;
                     default:

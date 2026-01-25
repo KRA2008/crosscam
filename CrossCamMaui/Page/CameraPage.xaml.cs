@@ -571,6 +571,7 @@ namespace CrossCam.Page
 
             var clearCanvas = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                               _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                              _viewModel.Settings.Mode == DrawMode.DuboisRedCyanAnaglyph ||
                               _viewModel.Settings.FullscreenCapturing ||
                               _viewModel.Settings.FullscreenEditing ||
                               _forceCanvasClear ||
@@ -950,6 +951,7 @@ namespace CrossCam.Page
                 //single capture/fullscreen
                 if (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                    _viewModel.Settings.Mode == DrawMode.DuboisRedCyanAnaglyph ||
                     _viewModel.Settings.FullscreenCapturing && 
                     (_viewModel.Settings.Mode == DrawMode.Cross ||
                      _viewModel.Settings.Mode == DrawMode.Parallel) ||
@@ -1188,6 +1190,7 @@ namespace CrossCam.Page
             if (_viewModel?.LocalPreviewFrame?.Frame == null ||
                 _viewModel.Settings.Mode == DrawMode.Cardboard ||
                 (_viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph ||
+                 _viewModel.Settings.Mode == DrawMode.DuboisRedCyanAnaglyph ||
                  _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
                 _viewModel.Settings.IsCaptureInMirrorMode) return;
 
@@ -1204,6 +1207,7 @@ namespace CrossCam.Page
 
             var fullscreenPreview = _viewModel.Settings.Mode == DrawMode.RedCyanAnaglyph || 
                                     _viewModel.Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                                    _viewModel.Settings.Mode == DrawMode.DuboisRedCyanAnaglyph ||
                                     _viewModel.Settings.FullscreenCapturing ||
                                     _viewModel.Settings.FullscreenEditing ||
                                     (_viewModel.PairOperatorBindable.PairStatus != PairStatus.Connected &&

@@ -52,6 +52,20 @@ namespace CrossCam.Page
                 0,     0,     0, 0, 0,
                 0,     0,     0, 1, 0
         });
+        private static readonly SKColorFilter CyanDuboisAnaglyph = SKColorFilter.CreateColorMatrix(new[]
+        {
+            -0.0434706f, -0.0879388f, -0.00155529f, 0, 0,
+              0.378476f,    0.73364f,  -0.0184503f, 0, 0,
+            -0.0721527f,  -0.112961f,      1.2264f, 0, 0,
+                      0,           0,            0, 1, 0
+        });
+        private static readonly SKColorFilter RedDuboisAnaglyph = SKColorFilter.CreateColorMatrix(new[]
+        {
+                0.4561f,   0.500484f,    0.176381f, 0, 0,
+            -0.0400822f, -0.0378246f,  -0.0157589f, 0, 0,
+            -0.0152161f, -0.0205971f, -0.00546856f, 0, 0,
+                      0,           0,            0, 1, 0
+        });
         public static readonly SKEncodedOrigin[] Orientations90deg = 
         {
             SKEncodedOrigin.RightTop,
@@ -295,6 +309,7 @@ namespace CrossCam.Page
             var overlayDrawing =
                 drawMode == DrawMode.GrayscaleRedCyanAnaglyph ||
                 drawMode == DrawMode.RedCyanAnaglyph ||
+                drawMode == DrawMode.DuboisRedCyanAnaglyph ||
                 useFullscreen;
             var addBorder = leftBitmap != null &&
                             rightBitmap != null &&
@@ -862,6 +877,17 @@ namespace CrossCam.Page
                     else
                     {
                         paint.ColorFilter = RedGrayAnaglyph;
+                        paint.BlendMode = SKBlendMode.Plus;
+                    }
+                    break;
+                case DrawMode.DuboisRedCyanAnaglyph:
+                    if (isLeft)
+                    {
+                        paint.ColorFilter = CyanDuboisAnaglyph;
+                    }
+                    else
+                    {
+                        paint.ColorFilter = RedDuboisAnaglyph;
                         paint.BlendMode = SKBlendMode.Plus;
                     }
                     break;

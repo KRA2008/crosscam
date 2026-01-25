@@ -478,8 +478,11 @@ namespace CrossCam.ViewModel
             ((IsExactlyOnePictureTaken || IsNothingCaptured && Settings.IsCaptureInMirrorMode) && 
              WorkflowStage != WorkflowStage.Loading || PairOperator.IsPrimary && 
              PairOperator.PairStatus == PairStatus.Connected && WorkflowStage == WorkflowStage.Capture) && 
-            Settings.IsGuideDonutVisible && Settings.Mode != DrawMode.RedCyanAnaglyph && 
-            Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph && !IsFullscreenToggle;
+            Settings.IsGuideDonutVisible && 
+            Settings.Mode != DrawMode.RedCyanAnaglyph && 
+            Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph && 
+            Settings.Mode != DrawMode.DuboisRedCyanAnaglyph &&
+            !IsFullscreenToggle;
         public bool ShouldRollGuideBeVisible => WorkflowStage == WorkflowStage.Capture && Settings.ShowRollGuide;
         public bool ShouldViewButtonBeVisible => 
             (WorkflowStage == WorkflowStage.Final || WorkflowStage == WorkflowStage.Crop ||
@@ -502,7 +505,8 @@ namespace CrossCam.ViewModel
                                                                WorkflowStage == WorkflowStage.Edits ||
                                                                WorkflowStage == WorkflowStage.FovCorrection) && 
                                                               Settings.Mode != DrawMode.GrayscaleRedCyanAnaglyph &&
-                                                              Settings.Mode != DrawMode.RedCyanAnaglyph;
+                                                              Settings.Mode != DrawMode.RedCyanAnaglyph &&
+                                                              Settings.Mode != DrawMode.DuboisRedCyanAnaglyph;
 
         private bool IsPictureWiderThanTall
         {
@@ -1000,18 +1004,13 @@ namespace CrossCam.ViewModel
                         var joinedImageSkInfo =
                             new SKImageInfo((int) joinedImageSize.Width, (int) joinedImageSize.Height);
 
-                        if (Settings.SaveForCrossView &&
-                            Settings.Mode == DrawMode.Cross ||
-                            Settings.SaveForParallel &&
-                            Settings.Mode == DrawMode.Parallel ||
-                            Settings.SaveForCrossView && 
-                            Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                            Settings.SaveForCrossView &&
-                            Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph)
+                        var swapNeeded = Settings.Mode is DrawMode.Parallel or DrawMode.Cardboard;
+
+                        if (Settings.SaveForCrossView)
                         {
                             Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, Settings.Mode == DrawMode.Parallel ? "parallel" : "cross"}
+                                {SAVE_TYPE, "cross"}
                             });
                             using var tempSurface = SKSurface.Create(joinedImageSkInfo);
                             
@@ -1021,19 +1020,16 @@ namespace CrossCam.ViewModel
                                 RightCapture, RightAlignmentTransform,
                                 Settings,
                                 Edits, 
-                                DrawMode.Cross, WasCapturePaired);
+                                DrawMode.Cross, WasCapturePaired, withSwap: swapNeeded);
 
-                            await SaveSurfaceSnapshot(tempSurface, Settings.Mode == DrawMode.Parallel ? AppResources.SaveModes_Parallel : AppResources.SaveModes_Cross);
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Cross);
                         }
 
-                        if (Settings.SaveForParallel &&
-                            Settings.Mode == DrawMode.Cross ||
-                            Settings.SaveForCrossView &&
-                            Settings.Mode == DrawMode.Parallel)
+                        if (Settings.SaveForParallel)
                         {
                             Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
                             {
-                                {SAVE_TYPE, Settings.Mode == DrawMode.Cross ? "parallel" : "cross"}
+                                {SAVE_TYPE, "parallel"}
                             });
                             using var tempSurface =
                                 SKSurface.Create(joinedImageSkInfo);
@@ -1044,9 +1040,9 @@ namespace CrossCam.ViewModel
                                 RightCapture, RightAlignmentTransform,
                                 Settings, 
                                 Edits, 
-                                DrawMode.Parallel, WasCapturePaired, withSwap: true);
+                                DrawMode.Parallel, WasCapturePaired, withSwap: !swapNeeded);
 
-                            await SaveSurfaceSnapshot(tempSurface, Settings.Mode == DrawMode.Cross ? AppResources.SaveModes_Parallel : AppResources.SaveModes_Cross);
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Parallel);
                         }
 
                         if (Settings.SaveForRedCyanAnaglyph)
@@ -1055,7 +1051,7 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "red cyan anaglyph"}
                             });
-                            await DrawAnaglyph(false);
+                            await DrawAnaglyph(DrawMode.RedCyanAnaglyph, swapNeeded);
                         }
 
                         if (Settings.SaveForGrayscaleAnaglyph)
@@ -1064,7 +1060,16 @@ namespace CrossCam.ViewModel
                             {
                                 {SAVE_TYPE, "grayscale anaglyph"}
                             });
-                            await DrawAnaglyph(true);
+                            await DrawAnaglyph(DrawMode.GrayscaleRedCyanAnaglyph, swapNeeded);
+                        }
+
+                        if (Settings.SaveForDuboisAnaglyph)
+                        {
+                            Analytics.TrackEvent(SAVE_EVENT, new Dictionary<string, object>
+                            {
+                                {SAVE_TYPE, "dubois anaglyph"}
+                            });
+                            await DrawAnaglyph(DrawMode.DuboisRedCyanAnaglyph, swapNeeded);
                         }
 
                         if (Settings.SaveRedundantFirstSide)
@@ -1179,9 +1184,7 @@ namespace CrossCam.ViewModel
                             DrawTool.DrawImagesOnCanvas(tempSurface, 
                                 LeftCapture, LeftAlignmentTransform,
                                 RightCapture, RightAlignmentTransform,
-                                Settings, Edits, DrawMode.Parallel, WasCapturePaired, withSwap: Settings.Mode == DrawMode.Cross ||
-                                Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                                Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph);
+                                Settings, Edits, DrawMode.Parallel, WasCapturePaired, withSwap: !swapNeeded);
 
                             Settings.AddBorder2 = withBorderTemp;
                             Settings.SaveWithFuseGuide = fuseGuideTemp;
@@ -1940,7 +1943,8 @@ namespace CrossCam.ViewModel
 
                 if (((Settings.Mode == DrawMode.Cross ||
                       Settings.Mode == DrawMode.RedCyanAnaglyph ||
-                      Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph) &&
+                      Settings.Mode == DrawMode.GrayscaleRedCyanAnaglyph ||
+                      Settings.Mode == DrawMode.DuboisRedCyanAnaglyph) &&
                      !WasCaptureCross ||
                      (Settings.Mode == DrawMode.Parallel ||
                       Settings.Mode == DrawMode.Cardboard) &&
@@ -2060,7 +2064,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async Task DrawAnaglyph(bool grayscale)
+        private async Task DrawAnaglyph(DrawMode type, bool withSwap)
         {
             var overlayedSize = DrawTool.CalculateOverlayedImageSizeOrientedWithEditsNoBorder(Edits, Settings, LeftCapture,
                 LeftAlignmentTransform, RightCapture, RightAlignmentTransform);
@@ -2073,9 +2077,26 @@ namespace CrossCam.ViewModel
                 tempSurface, 
                 LeftCapture, LeftAlignmentTransform,
                 RightCapture, RightAlignmentTransform,
-                Settings, Edits, grayscale ? DrawMode.GrayscaleRedCyanAnaglyph : DrawMode.RedCyanAnaglyph, WasCapturePaired);
+                Settings, Edits, type, WasCapturePaired, withSwap:withSwap);
 
-            await SaveSurfaceSnapshot(tempSurface, grayscale ? AppResources.SaveModes_GrayscaleAnaglyph : AppResources.SaveModes_Anaglyph);
+            string anaglyphType;
+            switch (type)
+            {
+                case DrawMode.RedCyanAnaglyph:
+                    anaglyphType = AppResources.SaveModes_Anaglyph;
+                    break;
+                case DrawMode.GrayscaleRedCyanAnaglyph:
+                    anaglyphType = AppResources.SaveModes_GrayscaleAnaglyph;
+                    break;
+                case DrawMode.DuboisRedCyanAnaglyph:
+                    anaglyphType = AppResources.SaveModes_DuboisAnaglyph;
+                    break;
+                default:
+                    anaglyphType = "";
+                    break;
+            }
+
+            await SaveSurfaceSnapshot(tempSurface, anaglyphType);
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)

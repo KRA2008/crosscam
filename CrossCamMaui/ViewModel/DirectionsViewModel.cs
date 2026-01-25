@@ -17,6 +17,7 @@ namespace CrossCam.ViewModel
                     DrawMode.Cross => AppResources.Page_HowToUse_2cross,
                     DrawMode.RedCyanAnaglyph => AppResources.Page_HowToUse_2anaglyph,
                     DrawMode.GrayscaleRedCyanAnaglyph => AppResources.Page_HowToUse_2anaglyph,
+                    DrawMode.DuboisRedCyanAnaglyph => AppResources.Page_HowToUse_2anaglyph,
                     DrawMode.Cardboard => AppResources.Page_HowToUse_2cardboard,
                     _ => throw new ArgumentOutOfRangeException()
                 };

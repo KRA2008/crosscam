@@ -33,6 +33,11 @@ namespace CrossCam.Model
                 {
                     totalSaveModes++;
                 }
+
+                if (SaveForDuboisAnaglyph)
+                {
+                    totalSaveModes++;
+                }
                 if (SaveForCardboard)
                 {
                     totalSaveModes++;
@@ -54,6 +59,9 @@ namespace CrossCam.Model
                         case DrawMode.GrayscaleRedCyanAnaglyph when value != DrawMode.GrayscaleRedCyanAnaglyph:
                             SaveForGrayscaleAnaglyph = false;
                             break;
+                        case DrawMode.DuboisRedCyanAnaglyph when value != DrawMode.DuboisRedCyanAnaglyph:
+                            SaveForDuboisAnaglyph = false;
+                            break;
                         case DrawMode.Cardboard when value != DrawMode.Cardboard:
                             SaveForCardboard = false;
                             break;
@@ -74,6 +82,9 @@ namespace CrossCam.Model
                     case DrawMode.GrayscaleRedCyanAnaglyph:
                         SaveForGrayscaleAnaglyph = true;
                         break;
+                    case DrawMode.DuboisRedCyanAnaglyph:
+                        SaveForDuboisAnaglyph = true;
+                        break;
                     case DrawMode.Cardboard:
                         SaveForCardboard = true;
                         break;
@@ -88,6 +99,7 @@ namespace CrossCam.Model
             SaveForParallel ||
             SaveForRedCyanAnaglyph ||
             SaveForGrayscaleAnaglyph ||
+            SaveForDuboisAnaglyph ||
             SaveForCardboard ||
             SaveForQuad ||
             SaveForTriple ||
@@ -139,6 +151,7 @@ namespace CrossCam.Model
         public bool SaveForParallel { get; set; }
         public bool SaveForRedCyanAnaglyph { get; set; }
         public bool SaveForGrayscaleAnaglyph { get; set; }
+        public bool SaveForDuboisAnaglyph { get; set; }
         public bool SaveForTriple { get; set; }
         public bool SaveForQuad { get; set; }
         public bool SaveWithFuseGuide { get; set; }
@@ -355,6 +368,7 @@ namespace CrossCam.Model
             SaveForParallel = false;
             SaveForGrayscaleAnaglyph = false;
             SaveForRedCyanAnaglyph = false;
+            SaveForDuboisAnaglyph = false;
             SaveForTriple = false;
             SaveForQuad = false;
             SaveWithFuseGuide = true;

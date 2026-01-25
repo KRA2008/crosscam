@@ -19,7 +19,7 @@ namespace CrossCam.Resources.Localization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -2196,6 +2196,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dubois Anaglyph.
+        /// </summary>
+        internal static string SaveModes_DuboisAnaglyph {
+            get {
+                return ResourceManager.GetString("SaveModes.DuboisAnaglyph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grayscale Anaglyph.
         /// </summary>
         internal static string SaveModes_GrayscaleAnaglyph {
@@ -2777,6 +2786,15 @@ namespace CrossCam.Resources.Localization {
         internal static string Settings_Saving_Cross {
             get {
                 return ResourceManager.GetString("Settings.Saving.Cross", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save red/cyan Dubois anaglyph version (with edits but no border).
+        /// </summary>
+        internal static string Settings_Saving_Dubois {
+            get {
+                return ResourceManager.GetString("Settings.Saving.Dubois", resourceCulture);
             }
         }
         

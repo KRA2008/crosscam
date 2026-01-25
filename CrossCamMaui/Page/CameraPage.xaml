@@ -1705,6 +1705,12 @@
                         <Setter Property="Text"
                                 Value="{x:Static localization:AppResources.Page_Camera_ForAnaglyph}"/>
                     </DataTrigger>
+                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Settings.Mode, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:DrawMode.DuboisRedCyanAnaglyph}}"
+                                 Value="true">
+                        <Setter Property="Text"
+                                Value="{x:Static localization:AppResources.Page_Camera_ForAnaglyph}"/>
+                    </DataTrigger>
                 </Label.Triggers>
             </Label>
         </StackLayout>

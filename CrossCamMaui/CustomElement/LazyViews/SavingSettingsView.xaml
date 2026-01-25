@@ -35,6 +35,7 @@
         <RowDefinition Height="70"/>
         <RowDefinition Height="70"/>
         <RowDefinition Height="70"/>
+        <RowDefinition Height="70"/>
         <RowDefinition Height="75"/>
         <RowDefinition Height="70"/>
         <RowDefinition Height="70"/>
@@ -145,72 +146,84 @@
         IsToggled="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
 
     <Image Grid.Row="9"
-       Grid.Column="0"
-       Source="saveone.png"
-       Style="{StaticResource saveModes}"/>
+           Grid.Column="0"
+           Source="grayscaleanaglyph.png"
+           Style="{StaticResource saveModes}"/>
     <Label Grid.Row="9"
-       Grid.Column="1"
-       Grid.ColumnSpan="2"
-       Text="{x:Static localization:AppResources.Settings_Saving_Alone}"/>
+           Grid.Column="1"
+           Grid.ColumnSpan="2"
+           Text="{x:Static localization:AppResources.Settings_Saving_Dubois}"/>
     <Switch Grid.Row="9"
-        Grid.Column="3"
-        IsToggled="{Binding Settings.SaveRedundantFirstSide}"
-        IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+            Grid.Column="3"
+            IsToggled="{Binding Settings.SaveForDuboisAnaglyph}"/>
 
     <Image Grid.Row="10"
        Grid.Column="0"
-       Source="triple.png"
+       Source="saveone.png"
        Style="{StaticResource saveModes}"/>
     <Label Grid.Row="10"
        Grid.Column="1"
        Grid.ColumnSpan="2"
-       Text="{x:Static localization:AppResources.Settings_Saving_Triple}"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Alone}"/>
     <Switch Grid.Row="10"
+        Grid.Column="3"
+        IsToggled="{Binding Settings.SaveRedundantFirstSide}"
+        IsEnabled="{Binding EnableFirstSideAloneSwitch}"/>
+
+    <Image Grid.Row="11"
+       Grid.Column="0"
+       Source="triple.png"
+       Style="{StaticResource saveModes}"/>
+    <Label Grid.Row="11"
+       Grid.Column="1"
+       Grid.ColumnSpan="2"
+       Text="{x:Static localization:AppResources.Settings_Saving_Triple}"/>
+    <Switch Grid.Row="11"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForTriple}"/>
 
-    <Image Grid.Row="11"
+    <Image Grid.Row="12"
        Grid.Column="0"
        Source="quad.png"
        Style="{StaticResource saveModes}"
        HeightRequest="25"/>
-    <Label Grid.Row="11"
+    <Label Grid.Row="12"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Quad}"/>
-    <Switch Grid.Row="11"
+    <Switch Grid.Row="12"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveForQuad}"/>
 
-    <Label Grid.Row="12"
+    <Label Grid.Row="13"
        Grid.Column="0"
        HorizontalOptions="Center"
        Text="VR"/>
-    <Label Grid.Row="12"
+    <Label Grid.Row="13"
        Grid.Column="1"
        Grid.ColumnSpan="2"
        Text="{x:Static localization:AppResources.Settings_Saving_Cardboard}"/>
-    <Switch Grid.Row="12"
-        Grid.Column="3"
-        IsToggled="{Binding Settings.SaveForCardboard}"/>
-
-    <Label Grid.Row="13"
-       Grid.Column="0"
-       Grid.ColumnSpan="3"
-       Text="{x:Static localization:AppResources.Settings_Saving_Folder}"/>
     <Switch Grid.Row="13"
         Grid.Column="3"
-        IsToggled="{Binding Settings.SaveIntoDedicatedFolder2}"/>
+        IsToggled="{Binding Settings.SaveForCardboard}"/>
 
     <Label Grid.Row="14"
        Grid.Column="0"
        Grid.ColumnSpan="3"
-       Text="{x:Static localization:AppResources.Settings_Saving_Subfolder}"/>
+       Text="{x:Static localization:AppResources.Settings_Saving_Folder}"/>
     <Switch Grid.Row="14"
+        Grid.Column="3"
+        IsToggled="{Binding Settings.SaveIntoDedicatedFolder2}"/>
+
+    <Label Grid.Row="15"
+       Grid.Column="0"
+       Grid.ColumnSpan="3"
+       Text="{x:Static localization:AppResources.Settings_Saving_Subfolder}"/>
+    <Switch Grid.Row="15"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveIntoSeparateFolders1}"/>
 
-    <Label Grid.Row="15"
+    <Label Grid.Row="16"
        Grid.Column="0"
        Grid.ColumnSpan="2"
        IsVisible="{Binding CanSaveToArbitraryDirectory}">
@@ -221,7 +234,7 @@
             </FormattedString>
         </Label.FormattedText>
     </Label>
-    <Button Grid.Row="15"
+    <Button Grid.Row="16"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ChooseDirectory}"
@@ -243,14 +256,14 @@
         </Button.Triggers>
     </Button>
 
-    <Button Grid.Row="15"
+    <Button Grid.Row="16"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ClearDirectory}"
         Text="{x:Static localization:AppResources.Settings_Saving_Reset}"
         IsVisible="{Binding Settings.SavingDirectory, Converter={toolkit:IsNotNullConverter}}"/>
 
-    <Label Grid.Row="16"
+    <Label Grid.Row="17"
        Grid.Column="0"
        Grid.ColumnSpan="2"
        Text="{Binding ExternalDirectory, StringFormat='{0}'}"
@@ -263,7 +276,7 @@
             </FormattedString>
         </Label.FormattedText>
     </Label>
-    <Switch Grid.Row="16"
+    <Switch Grid.Row="17"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveToExternal}"
         IsVisible="{Binding CanSaveToExternalDirectory}"/>

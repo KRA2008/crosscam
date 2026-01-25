@@ -6,6 +6,7 @@
         Parallel,
         RedCyanAnaglyph,
         GrayscaleRedCyanAnaglyph,
+        DuboisRedCyanAnaglyph,
         Cardboard
     }
 }
