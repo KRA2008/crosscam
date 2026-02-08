@@ -1165,4 +1165,10 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Koristite duhove/prozirni sloj/puni zaslon</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Duboisov anaglif</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Spremi crveno/cijan verziju anaglifa Dubois (s izmjenama, ali bez obruba)</value>
+  </data>
 </root>

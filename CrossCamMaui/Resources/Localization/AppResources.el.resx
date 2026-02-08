@@ -1165,4 +1165,10 @@
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Χρησιμοποιήστε φαντάσματα/διαφανή επικάλυψη/πλήρη οθόνη</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Αποθήκευση κόκκινου/κυανού αναγλυφικού Dubois (με επεξεργασίες αλλά χωρίς περίγραμμα)</value>
+  </data>
 </root>

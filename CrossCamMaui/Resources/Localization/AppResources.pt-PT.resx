@@ -1165,4 +1165,10 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utilize fantasmas/sobreposição transparente/ecrã completo</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anáglifo de Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Guardar versão anaglífica vermelho/ciano de Dubois (com edições, mas sem margem)</value>
+  </data>
 </root>

@@ -1165,4 +1165,10 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Käytä haamukuvia/läpinäkyvää peittokuvaa/koko näyttöä</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Tallenna punainen/syaani Dubois-anaglyfi-versio (muokkauksin, mutta ilman reunusta)</value>
+  </data>
 </root>

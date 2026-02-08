@@ -1165,4 +1165,10 @@ Voordat twee apparaten samen kunnen worden gebruikt, moeten hun rollen worden to
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Gebruik geesten/transparante overlay/volledig scherm</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Sla de rood/cyaan Dubois-anaglyfversie op (met bewerkingen, maar zonder rand).</value>
+  </data>
 </root>

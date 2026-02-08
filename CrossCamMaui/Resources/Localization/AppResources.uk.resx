@@ -1165,4 +1165,10 @@ CrossCam відобразить результат вирівнювання на
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Використовуйте привиди/прозоре накладання/повноекранний режим</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Анагліф Дюбуа</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Зберегти червоно-блакитну версію анагліфа Дюбуа (з редагуванням, але без рамки)</value>
+  </data>
 </root>

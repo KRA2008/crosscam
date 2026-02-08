@@ -105,7 +105,7 @@ public static class MauiProgram
 
         var config = new AgentStartConfiguration
         {
-            logLevel = LogLevel.AUDIT, //TODO: turn off
+            //logLevel = LogLevel.AUDIT,
         };
 
         if (DeviceInfo.Current.Platform == DevicePlatform.Android)

@@ -1165,4 +1165,10 @@
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>استخدم الأشباح/التراكب الشفاف/ملء الشاشة</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>دوبوا أناجليف</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>احفظ نسخة دوبوا ثلاثية الأبعاد باللونين الأحمر والأزرق السماوي (مع التعديلات ولكن بدون إطار).</value>
+  </data>
 </root>

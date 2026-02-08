@@ -1165,4 +1165,10 @@ Cardboard を使用して写真をキャプチャするには、プレビュー�
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>ゴースト/透明オーバーレイ/フルスクリーンを使用する</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>デュボワ・アナグリフ</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>赤/シアンのデュボア式アナグリフバージョンを保存します（編集済み、ただし枠線なし）。</value>
+  </data>
 </root>

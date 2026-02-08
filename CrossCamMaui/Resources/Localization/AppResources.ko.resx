@@ -1165,4 +1165,10 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>고스트/투명 오버레이/전체 화면 사용</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>뒤부아 아나글리프</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>빨간색/청록색 듀보아 아나글리프 버전으로 저장 (편집은 적용되었지만 테두리는 없음)</value>
+  </data>
 </root>

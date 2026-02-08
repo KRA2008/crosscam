@@ -1165,4 +1165,10 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Gunakan hantu/tindihan lutsinar/skrin penuh</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Simpan versi anaglyph Dubois merah/cyan (dengan suntingan tetapi tiada sempadan)</value>
+  </data>
 </root>

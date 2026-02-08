@@ -1165,4 +1165,10 @@ Sebelum dua perangkat dapat digunakan bersama, peran mereka harus ditetapkan. Pe
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Gunakan hantu/hamparan transparan/layar penuh</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglyph Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Simpan versi anaglif merah/sian Dubois (dengan pengeditan tetapi tanpa bingkai)</value>
+  </data>
 </root>

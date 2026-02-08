@@ -1165,4 +1165,10 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>使用重影/透明覆蓋/全螢幕</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>杜波依斯立體圖</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>儲存紅色/青色杜波依斯立體影像版本（包含編輯內容，但不包含邊框）</value>
+  </data>
 </root>

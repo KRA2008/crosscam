@@ -1165,4 +1165,10 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utilizați fantome/suprapunere transparentă/ecran complet</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglifă Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Salvați versiunea anaglifă Dubois roșu/cian (cu modificări, dar fără chenar)</value>
+  </data>
 </root>

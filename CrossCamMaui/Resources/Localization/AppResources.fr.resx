@@ -1165,4 +1165,10 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utiliser des fantômes/superposition transparente/plein écran</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglyphe de Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Enregistrer la version anaglyphe rouge/cyan de Dubois (avec modifications mais sans bordure)</value>
+  </data>
 </root>

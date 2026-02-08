@@ -1165,4 +1165,10 @@ Innan två enheter kan användas tillsammans måste deras roller tilldelas. Den 
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Använd spöken/transparent överlägg/helskärm</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Spara röd/cyan Dubois anaglyfversion (med redigeringar men ingen ram)</value>
+  </data>
 </root>

@@ -1165,4 +1165,10 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utilitzeu fantasmes/superposició transparent/pantalla completa</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglif de Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Desa la versió anaglif de Dubois vermell/cian (amb edicions però sense vorera)</value>
+  </data>
 </root>

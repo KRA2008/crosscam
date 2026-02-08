@@ -1165,4 +1165,10 @@ Bevor zwei Geräte gemeinsam genutzt werden können, müssen ihre Rollen zugewie
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Verwenden Sie Geisterbilder/transparentes Overlay/Vollbild</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyphe</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Rote/cyanfarbene Dubois-Anaglyphenversion speichern (mit Bearbeitungen, aber ohne Rahmen)</value>
+  </data>
 </root>

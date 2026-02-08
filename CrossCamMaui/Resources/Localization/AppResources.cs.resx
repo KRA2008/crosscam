@@ -1165,4 +1165,10 @@ Před použitím dvou zařízení společně je nutné přiřadit jejich role. P
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Použijte duchy/průhledné překrytí/celou obrazovku</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Uložit červenou/azurovou verzi anaglyfu Dubois (s úpravami, ale bez ohraničení)</value>
+  </data>
 </root>

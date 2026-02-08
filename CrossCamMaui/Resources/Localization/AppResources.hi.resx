@@ -1165,4 +1165,10 @@
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>भूत/पारदर्शी ओवरले/फ़ुलस्क्रीन का उपयोग करें</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>डुबोइस एनाग्लिफ़</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>रेड/सियान डुबोइस एनाग्लिफ़ वर्शन सेव करें (एडिट के साथ लेकिन बिना बॉर्डर के)</value>
+  </data>
 </root>

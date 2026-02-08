@@ -1165,4 +1165,10 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Brug spøgelser/gennemsigtig overlejring/fuldskærm</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglyph</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Gem rød/cyan Dubois anaglyph-version (med redigeringer, men ingen kant)</value>
+  </data>
 </root>

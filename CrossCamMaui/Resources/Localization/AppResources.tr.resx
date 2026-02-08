@@ -1165,4 +1165,10 @@ Yalnızca tek bir cihaz ve CrossCam kullanarak *mükemmel* senkronizasyon elde e
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Hayaletler/şeffaf yer paylaşımı/tam ekran kullan</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglif</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Kırmızı/mavi Dubois anaglif versiyonunu kaydedin (düzenlemeler yapılmış ancak kenarlık yok).</value>
+  </data>
 </root>

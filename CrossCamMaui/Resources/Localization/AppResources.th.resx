@@ -1165,4 +1165,10 @@ CrossCam จะแสดงผลการจัดตำแหน่งบน�
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>ใช้ภาพซ้อน/ภาพซ้อนทับแบบโปร่งใส/เต็มหน้าจอ</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>ดูบัวส์ อนาไกลฟ์</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>บันทึกภาพเวอร์ชันอนาไกลฟ์สีแดง/ฟ้าของ Dubois (พร้อมการแก้ไข แต่ไม่มีขอบ)</value>
+  </data>
 </root>

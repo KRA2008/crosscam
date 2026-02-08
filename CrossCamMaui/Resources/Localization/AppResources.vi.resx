@@ -1165,4 +1165,10 @@ Trước khi hai thiết bị có thể được sử dụng cùng nhau, vai tr�
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Sử dụng bóng ma/lớp phủ trong suốt/toàn màn hình</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Ảnh lập thể Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Lưu phiên bản ảnh lập thể đỏ/xanh lam của Dubois (đã chỉnh sửa nhưng không có viền).</value>
+  </data>
 </root>

@@ -1165,4 +1165,10 @@ Mielőtt két eszközt együtt lehetne használni, ki kell osztani a szerepköre
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Használjon szellemeket/átlátszó fedvényt/teljes képernyőt</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Dubois Anaglif</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Piros/cián Dubois anaglif verzió mentése (szerkesztéssel, de szegély nélkül)</value>
+  </data>
 </root>

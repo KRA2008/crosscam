@@ -1165,4 +1165,10 @@ Zanim dwa urządzenia będą mogły być używane razem, należy przypisać im r
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Użyj duchów/przezroczystej nakładki/pełnego ekranu</value>
   </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglif Dubois</value>
+  </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Zapisz wersję anaglifową czerwono-cyjanową autorstwa Duboisa (z edycjami, ale bez ramki).</value>
+  </data>
 </root>
