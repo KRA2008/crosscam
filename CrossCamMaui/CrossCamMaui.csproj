@@ -351,6 +351,9 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
+	  <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData.Core">
+	    <Version>2.10.0.1</Version>
+	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.3.0.4</Version>
 	  </PackageReference>
