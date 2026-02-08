@@ -356,7 +356,7 @@
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="9.0.40" />
 	  <PackageReference Include="Xamarin.AndroidX.Annotation">
-	  	<Version>1.9.1.5</Version>
+	  	<Version>1.9.1.6</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
 	  	<Version>1.7.1.1</Version>
