@@ -58,9 +58,9 @@ jobs:
         echo "EXTENSION PLIST"
         cat CrossCamShareExtension.iOS/Info.plist
 
-  # - script: |
-  #     sudo xcode-select -s /Applications/Xcode_16.4.app
-  #   displayName: Selects a specific version of Xcode
+  - script: |
+      sudo xcode-select -s /Applications/Xcode_26.2.app
+    displayName: Selects a specific version of Xcode
 
   - task: Bash@3
     displayName: 'dotnet publish ios'
