@@ -394,6 +394,11 @@
 	  <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
 	</ItemGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-android'">
+		<AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+		<RuntimeIdentifiers>android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
+	</PropertyGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
 		<Reference Include="Microsoft.iOS">
 			<HintPath>C:\Program Files\dotnet\packs\Microsoft.iOS.Ref\17.2.8043\ref\net10.0\Microsoft.iOS.dll</HintPath>
