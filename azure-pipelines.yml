@@ -99,7 +99,7 @@ jobs:
     displayName: '.NET Version'
     inputs:
       packageType: 'sdk'
-      version: '$(DotNetVersion)'
+      version: '$(DotNetVersion).x'
 
   - task: Bash@3
     displayName: 'Install MAUI'
