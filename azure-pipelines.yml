@@ -12,7 +12,7 @@ jobs:
     displayName: '.NET Version'
     inputs:
       packageType: 'sdk'
-      version: '$(DotNetVersion)'
+      version: '$(DotNetVersion).x'
 
   - task: Bash@3
     displayName: 'Install MAUI'
@@ -66,11 +66,11 @@ jobs:
     displayName: 'dotnet publish ios'
     inputs:
       targetType: 'inline'
-      script: 'dotnet publish -f net10.0-ios -p:ArchiveOnBuild=true'
+      script: 'dotnet publish -f net$(DotNetVersion).0-ios -p:ArchiveOnBuild=true'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net10.0-ios/ios-arm64/publish/CrossCam.ipa'
+      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net$(DotNetVersion).0-ios/ios-arm64/publish/CrossCam.ipa'
       publishLocation: 'pipeline'
 
   - task: AppStoreRelease@1
@@ -150,12 +150,12 @@ jobs:
     displayName: 'Build Android App'
     inputs:
       targetType: 'inline'
-      script: 'dotnet publish -f net10.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=D:/a/_temp/kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android'
+      script: 'dotnet publish -f net$(DotNetVersion).0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore=D:/a/_temp/kra2008Android.keystore -p:AndroidSigningKeyPass=$(keystorePassword) -p:AndroidSigningStorePass=$(keystorePassword) -p:AndroidSigningKeyAlias=kra2008android'
 
   - task: CopyFiles@2
     displayName: 'Copy build output to staging'
     inputs:
-      SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net10.0-android\publish'
+      SourceFolder: '$(Agent.BuildDirectory)\s\CrossCamMaui\bin\Release\net$(DotNetVersion).0-android\publish'
       Contents: |
         **/*.apk
         **/*.aab
