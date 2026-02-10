@@ -5,7 +5,7 @@ jobs:
 - job: iOS
   displayName: 'iOS'
   pool:
-    vmImage: 'macos-latest' ###  explicit is later than 'latest' as of 4/7/2025
+    vmImage: '$(MacImageVersion)'
 
   steps:
   - task: UseDotNet@2
@@ -59,7 +59,7 @@ jobs:
         cat CrossCamShareExtension.iOS/Info.plist
 
   - script: |
-      sudo xcode-select -s /Applications/Xcode_26.2.app
+      sudo xcode-select -s /Applications/Xcode_$(XcodeVersionNumber).app
     displayName: Selects a specific version of Xcode
 
   - task: Bash@3
