@@ -40,6 +40,13 @@ namespace CrossCam.Wrappers
 
     public class OpenCv : IOpenCv
     {
+        private const ImreadModes IMREAD_COLOR = //needed to upgrade EMGU on Android because of 16 bit memory page requirements, but 4.8.0 is the last version that will work on iPhone 6, so we're using different versions
+#if __IOS__
+            ImreadModes.Color;
+#else
+            ImreadModes.AnyColor;
+#endif
+
         public bool IsOpenCvSupported()
         {
 #if !EMGU
@@ -145,8 +152,8 @@ namespace CrossCam.Wrappers
             if (settings.DrawResultWarpedByOpenCv)
             {
                 Mat fullSizeColor1 = new Mat(), fullSizeColor2 = new Mat();
-                CvInvoke.Imdecode(GetBytes(firstImage, 1), ImreadModes.Color, fullSizeColor1);
-                CvInvoke.Imdecode(GetBytes(secondImage, 1), ImreadModes.Color, fullSizeColor2);
+                CvInvoke.Imdecode(GetBytes(firstImage, 1), IMREAD_COLOR, fullSizeColor1);
+                CvInvoke.Imdecode(GetBytes(secondImage, 1), IMREAD_COLOR, fullSizeColor2);
                 AddWarpedToResult(fullSizeColor1, fullSizeColor2, Mat.Eye(2, 3, DepthType.Cv32F, 1), warpMatrix,
                     result);
                 result.MethodName = "ECC";
@@ -166,7 +173,7 @@ namespace CrossCam.Wrappers
 
             using var detector = new SIFT();
 
-            var readMode = settings.ReadModeColor1 ? ImreadModes.Color : ImreadModes.Grayscale;
+            var readMode = settings.ReadModeColor1 ? IMREAD_COLOR : ImreadModes.Grayscale;
 
             using var image1Mat = new Mat();
             using var descriptors1 = new Mat();
@@ -453,10 +460,10 @@ namespace CrossCam.Wrappers
                 if (settings.DrawResultWarpedByOpenCv)
                 {
                     using var image1MatFullAndColor = new Mat();
-                    CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage2 / 100d), ImreadModes.Color, image1MatFullAndColor);
+                    CvInvoke.Imdecode(GetBytes(firstImage, settings.DownsizePercentage2 / 100d), IMREAD_COLOR, image1MatFullAndColor);
 
                     using var image2MatFullAndColor = new Mat();
-                    CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage2 / 100d), ImreadModes.Color, image2MatFullAndColor);
+                    CvInvoke.Imdecode(GetBytes(secondImage, settings.DownsizePercentage2 / 100d), IMREAD_COLOR, image2MatFullAndColor);
 
                     AddWarpedToResult(image1MatFullAndColor, image2MatFullAndColor, warp1, warp2, result);
                     result.MethodName = ((TransformationFindingMethod)settings.TransformationFindingMethod3).ToString();
@@ -526,7 +533,7 @@ namespace CrossCam.Wrappers
             return SKImage.Create(new SKImageInfo());
 #else
             using var cvImage = new Mat();
-            CvInvoke.Imdecode(image.Encode().ToArray(), ImreadModes.Color, cvImage);
+            CvInvoke.Imdecode(image.Encode().ToArray(), IMREAD_COLOR, cvImage);
 
             using var cameraMatrix =
                 GetCameraMatrix(image.Width * downsize * cxProportion, image.Height * downsize / 2f);
@@ -618,8 +625,8 @@ namespace CrossCam.Wrappers
         {
             using var fullSizeColor1 = new Mat();
             using var fullSizeColor2 = new Mat();
-            CvInvoke.Imdecode(GetBytes(image1, downsizePercentage / 100d), ImreadModes.Color, fullSizeColor1);
-            CvInvoke.Imdecode(GetBytes(image2, downsizePercentage / 100d), ImreadModes.Color, fullSizeColor2);
+            CvInvoke.Imdecode(GetBytes(image1, downsizePercentage / 100d), IMREAD_COLOR, fullSizeColor1);
+            CvInvoke.Imdecode(GetBytes(image2, downsizePercentage / 100d), IMREAD_COLOR, fullSizeColor2);
 
             using var drawnResult = new Mat();
             Features2DToolbox.DrawMatches(
