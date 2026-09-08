@@ -30,7 +30,7 @@
             <ce:HorizontalDivider/>
             <Button Text="{x:Static localization:AppResources.Page_MorePictures_FacebookGroup}"
                     Command="{Binding OpenLink}"
-                    CommandParameter="https://www.facebook.com/groups/Stereoscopic3D/"/>
+                    CommandParameter="https://www.facebook.com/search/top?q=stereoscopy"/>
             <ce:HorizontalDivider/>
             <Button Text="{x:Static localization:AppResources.Page_MorePictures_Instagram}"
                     Command="{Binding OpenLink}"
