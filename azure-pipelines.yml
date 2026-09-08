@@ -15,13 +15,6 @@ jobs:
       version: '$(DotNetVersion).x'
 
   - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
-
-  - task: Bash@3
     displayName: 'NuGet auth and restore'
     inputs:
       targetType: 'inline'
@@ -63,6 +56,13 @@ jobs:
     displayName: Selects a specific version of Xcode
 
   - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
+
+  - task: Bash@3
     displayName: 'dotnet publish ios'
     inputs:
       targetType: 'inline'
@@ -101,13 +101,6 @@ jobs:
       packageType: 'sdk'
       version: '$(DotNetVersion).x'
 
-  - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
-
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -145,6 +138,13 @@ jobs:
     name: androidKeystore
     inputs:
       secureFile: 'kra2008Android.keystore'
+
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
 
   - task: Bash@3
     displayName: 'Build Android App'
