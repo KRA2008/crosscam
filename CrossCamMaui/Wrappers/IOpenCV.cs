@@ -35,16 +35,18 @@ namespace CrossCam.Wrappers
         AlignedResult CreateAlignedSecondImageKeypoints(SKBitmap firstImage, SKBitmap secondImage,
             AlignmentSettings settings, bool keystoneRightOnFirst);
         SKImage AddBarrelDistortion(SKImage originalImage, float downsize, float strength, float cxProportion);
-        byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High);
+        byte[] GetBytes(SKBitmap bitmap, double downsize, bool isQualityHigh = true);
     }
 
     public class OpenCv : IOpenCv
     {
+#if EMGU
         private const ImreadModes IMREAD_COLOR = //needed to upgrade EMGU on Android because of 16 bit memory page requirements, but 4.8.0 is the last version that will work on iPhone 6, so we're using different versions
 #if __IOS__
             ImreadModes.Color;
 #else
             ImreadModes.AnyColor;
+#endif
 #endif
 
         public bool IsOpenCvSupported()
@@ -554,7 +556,7 @@ namespace CrossCam.Wrappers
 #endif
         }
 
-        public byte[] GetBytes(SKBitmap bitmap, double downsize, SKFilterQuality filterQuality = SKFilterQuality.High)
+        public byte[] GetBytes(SKBitmap bitmap, double downsize, bool isQualityHigh = true)
         {
             //TODO: compare jpeg 100 vs png 100 vs png 0
             if (downsize == 1)
@@ -569,7 +571,7 @@ namespace CrossCam.Wrappers
             using var canvas = tempSurface.Canvas;
             canvas.Clear();
 
-            using var paint = new SKPaint { FilterQuality = filterQuality };
+            using var paint = new SKPaint { IsAntialias = isQualityHigh };
             canvas.DrawBitmap(bitmap,
                 SKRect.Create(0, 0, targetWidth, targetHeight),
                 paint);

@@ -1,6 +1,7 @@
 ﻿using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
+using Microsoft.Maui.Controls;
 using SkiaSharp;
 using SizeF = System.Drawing.SizeF;
 
@@ -409,8 +410,6 @@ namespace CrossCam.Page
             var rightXCorrectionToOrigin = rightDestX + rightIntermediateWidth / 2f;
             var rightYCorrectionToOrigin = destY + rightIntermediateHeight / 2f;
 
-            var skFilterQuality = drawQuality == DrawQuality.Save ? SKFilterQuality.High : SKFilterQuality.Low;
-
             if (leftBitmap != null)
             {
                 var leftScaledAlignmentMatrix = FindScaledAlignmentMatrix(
@@ -428,7 +427,7 @@ namespace CrossCam.Page
                     leftDestX, destY, destWidth, destHeight,
                     false, -cardboardSeparationMod,
                     leftScaledAlignmentMatrix, leftOrientationMatrix, leftEditMatrix,
-                    skFilterQuality);
+                    drawQuality);
             }
 
             if (rightBitmap != null)
@@ -448,7 +447,7 @@ namespace CrossCam.Page
                     rightDestX, destY, destWidth, destHeight,
                     leftBitmap != null && useFullscreen, cardboardSeparationMod,
                     rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix,
-                    skFilterQuality);
+                    drawQuality);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -457,7 +456,8 @@ namespace CrossCam.Page
                 openCv?.IsOpenCvSupported() == true)
             {
                 using var paint = new SKPaint();
-                paint.FilterQuality = skFilterQuality;
+                paint.IsAntialias = true;
+                //TODO: adjust quality with SKSamplingOptions?
 
                 var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
                 var sideHeight = surface.Canvas.DeviceClipBounds.Height * 1f;
@@ -510,7 +510,7 @@ namespace CrossCam.Page
                 using var borderPaint = new SKPaint();
                 borderPaint.Color = borderColor == BorderColor.Black ? SKColor.Parse("000000") : SKColor.Parse("ffffff");
                 borderPaint.Style = SKPaintStyle.StrokeAndFill;
-                borderPaint.FilterQuality = skFilterQuality;
+                borderPaint.IsAntialias = false;
 
                 var fullPreviewHeight = clipHeight + 2 * scaledBorderThickness;
                 var endX = rightClipX + clipWidth;
@@ -526,10 +526,10 @@ namespace CrossCam.Page
             {
                 var fuseGuideY = clipY - fuseGuideIconWidth / 2f - fuseGuideMarginMinimum / 2f;
                 using var guidePaint = new SKPaint();
+                guidePaint.IsAntialias = false;
                 guidePaint.Color = borderColor == BorderColor.Black ? 
                     new SKColor(byte.MaxValue, byte.MaxValue, byte.MaxValue) :
                     new SKColor(0,0,0);
-                guidePaint.FilterQuality = skFilterQuality;
                 surface.Canvas.DrawRect(
                     originX,
                     originY - topMarginFuseGuideModifier,
@@ -851,10 +851,25 @@ namespace CrossCam.Page
             float destX, float destY, float destWidth, float destHeight,
             bool useGhostOverlay, float cardboardSeparationMod,
             SKMatrix alignmentMatrix, SKMatrix orientationMatrix, SKMatrix editMatrix,
-            SKFilterQuality quality)
+            DrawQuality drawQuality)
         {
             using var paint = new SKPaint();
-            paint.FilterQuality = quality;
+            paint.IsAntialias = drawQuality == DrawQuality.Save;
+
+            SKSamplingOptions samplingOptions;
+            switch (drawQuality)
+            {
+                case DrawQuality.Preview:
+                    samplingOptions = new SKSamplingOptions(SKFilterMode.Nearest, SKMipmapMode.None);
+                    break;
+                case DrawQuality.Review:
+                case DrawQuality.Save:
+                    samplingOptions = new SKSamplingOptions(SKCubicResampler.Mitchell);
+                    break;
+                default:
+                    samplingOptions = new SKSamplingOptions();
+                    break;
+            }
 
             switch (drawMode)
             {
@@ -947,6 +962,7 @@ namespace CrossCam.Page
             canvas.DrawBitmap(
                 bitmap,
                 correctedRect, //canvas size is int, but drawing is done with rect of floats - so does drawing truncate or round?
+                samplingOptions,
                 paint);
             canvas.ResetMatrix();
 

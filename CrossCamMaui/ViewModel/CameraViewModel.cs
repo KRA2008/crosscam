@@ -10,6 +10,9 @@ using CrossCam.Model;
 using CrossCam.Page;
 using CrossCam.Resources.Localization;
 using CrossCam.Wrappers;
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices;
 using Newtonsoft.Json;
 using SkiaSharp;
 using DeviceInfo = Microsoft.Maui.Devices.DeviceInfo;
@@ -2289,8 +2292,11 @@ namespace CrossCam.ViewModel
                                 var countPoint = new SKPoint(0, alignedResult.DrawnDirtyMatches.Height / 16f);
                                 var countPaint = new SKPaint
                                 {
-                                    Color = SKColor.Parse("#00ff00"),
-                                    TextSize = alignedResult.DrawnDirtyMatches.Height / 16f
+                                    Color = SKColor.Parse("#00ff00")
+                                };
+                                var countFont = new SKFont
+                                {
+                                    Size = alignedResult.DrawnDirtyMatches.Height / 16f
                                 };
                                 using var dirtyMatchesSurface = SKSurface.Create(new SKImageInfo(
                                     alignedResult.DrawnDirtyMatches.Width, alignedResult.DrawnDirtyMatches.Height));
@@ -2310,6 +2316,7 @@ namespace CrossCam.ViewModel
                                 dirtyMatchesCanvas.DrawText(
                                     alignedResult.DirtyMatchesCount.ToString(),
                                     countPoint,
+                                    countFont,
                                     countPaint);
 
                                 await SaveSurfaceSnapshot(dirtyMatchesSurface, AppResources.Page_Camera_KeyPoints);
@@ -2336,6 +2343,7 @@ namespace CrossCam.ViewModel
                                     cleanMatchesCanvas.DrawText(
                                         alignedResult.CleanMatchesCount.ToString(),
                                         countPoint,
+                                        countFont,
                                         countPaint);
 
                                     await SaveSurfaceSnapshot(cleanMatchesSurface, AppResources.Page_Camera_KeyPoints);
@@ -2351,17 +2359,17 @@ namespace CrossCam.ViewModel
                                         alignedResult.Warped1.Height));
                                 surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
                                 surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
-                                var textBlob = SKTextBlob.Create(
-                                    Settings.AlignmentSettings.DownsizePercentage2 + " " + alignedResult.MethodName,
+                                surface.Canvas.DrawText(
+                                    Settings.AlignmentSettings.DownsizePercentage2 + " " + alignedResult.MethodName, 
+                                    alignedResult.Warped1.Height / 5f,
+                                    alignedResult.Warped1.Height / 5f, 
                                     new SKFont
                                     {
                                         Size = alignedResult.Warped1.Height / 5f
-                                    });
-                                surface.Canvas.DrawText(textBlob, alignedResult.Warped1.Height / 5f,
-                                    alignedResult.Warped1.Height / 5f, new SKPaint
+                                    },
+                                    new SKPaint
                                     {
                                         Color = SKColor.Parse("#00ff00"),
-                                        TextSize = alignedResult.Warped1.Height / 5f,
                                         Style = SKPaintStyle.Fill
                                     });
 
