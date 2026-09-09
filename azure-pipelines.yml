@@ -164,7 +164,9 @@ jobs:
   - task: GooglePlayRelease@4
     inputs:
       serviceConnection: 'CrossCam Google Play'
-      applicationId: 'com.kra2008.CrossCam'
+      applicationId: 'com.kra2008.crosscam'
       action: 'SingleBundle'
       bundleFile: '$(ArtifactStagingDirectory)/**/*-Signed.aab'
       track: 'internal'
+
+  
