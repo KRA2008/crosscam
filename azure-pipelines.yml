@@ -92,13 +92,8 @@ jobs:
 
 - job: Android
   displayName: 'Android'
-  # Xamarin.Android
-  # Build a Xamarin.Android project.
-  # Add steps that test, sign, and distribute an app, save build artifacts, and more:
-  # https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
   pool:
-    vmImage: 'windows-latest'
-
+    vmImage: 'windows-2025-vs2026' #ahead of windows-latest as of 9/8/2026
   variables:
     buildConfiguration: 'Release'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
