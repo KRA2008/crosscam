@@ -23,6 +23,13 @@ jobs:
   #       dotnet nuget add source https://pkgs.dev.azure.com/kra3030/_packaging/kra3030/nuget/v3/index.json -n "kra3030" -u "whatever" -p "$(NuGetPAT)" --store-password-in-clear-text --valid-authentication-types "basic"
   #       dotnet restore
 
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -66,13 +73,6 @@ jobs:
     displayName: Selects a specific version of Xcode
 
   - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
-
-  - task: Bash@3
     displayName: 'dotnet publish ios'
     inputs:
       targetType: 'inline'
@@ -105,6 +105,13 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: '$(DotNetVersion).x'
+
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
 
   - task: NuGetToolInstaller@1
 
@@ -143,13 +150,6 @@ jobs:
     name: androidKeystore
     inputs:
       secureFile: 'kra2008Android.keystore'
-
-  - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
 
   - task: Bash@3
     displayName: 'Build Android App'
