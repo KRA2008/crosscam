@@ -35,6 +35,7 @@ jobs:
       certSecureFile: 'distro.p12'
       certPwd: '$(p12pwd)'
       keychain: 'temp'
+      opensslPkcsArgs: '-legacy'
 
   - task: InstallAppleProvisioningProfile@1
     inputs:
