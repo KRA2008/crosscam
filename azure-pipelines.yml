@@ -5,7 +5,7 @@ jobs:
 - job: iOS
   displayName: 'iOS'
   pool:
-    vmImage: '$(MacImageVersion)'
+    vmImage: 'macOS-26' #ahead of 'macOS-latest' as of 9/8/2026
 
   steps:
   - task: UseDotNet@2
