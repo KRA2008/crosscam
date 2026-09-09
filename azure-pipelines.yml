@@ -14,6 +14,16 @@ jobs:
       packageType: 'sdk'
       version: '$(DotNetVersion).x'
 
+  - task: Bash@3
+    displayName: 'Install MAUI'
+    inputs:
+      targetType: 'inline'
+      script: |
+        dotnet workload restore
+
+  - script: dotnet restore CrossCam.sln
+    displayName: 'Restore NuGet Packages via DotNet CLI'
+
   # - task: Bash@3
   #   displayName: 'NuGet auth and restore'
   #   inputs:
@@ -23,22 +33,15 @@ jobs:
   #       dotnet nuget add source https://pkgs.dev.azure.com/kra3030/_packaging/kra3030/nuget/v3/index.json -n "kra3030" -u "whatever" -p "$(NuGetPAT)" --store-password-in-clear-text --valid-authentication-types "basic"
   #       dotnet restore
 
-  - task: Bash@3
-    displayName: 'Install MAUI'
-    inputs:
-      targetType: 'inline'
-      script: |
-        dotnet workload restore
+  # - task: NuGetToolInstaller@1
 
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
+  # - task: NuGetCommand@2
+  #   inputs:
+  #     command: 'restore'
+  #     restoreSolution: '**/*.sln'
+  #     feedsToUse: 'config'
+  #     nugetConfigPath: 'nuget.config'
+  #     externalFeedCredentials: 'NuGet'
 
   - task: InstallAppleCertificate@2
     inputs:
@@ -113,15 +116,18 @@ jobs:
       script: |
         dotnet workload restore
 
-  - task: NuGetToolInstaller@1
+  - script: dotnet restore CrossCam.sln
+    displayName: 'Restore NuGet Packages via DotNet CLI'
 
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: 'nuget.config'
-      externalFeedCredentials: 'NuGet'
+  # - task: NuGetToolInstaller@1
+
+  # - task: NuGetCommand@2
+  #   inputs:
+  #     command: 'restore'
+  #     restoreSolution: '**/*.sln'
+  #     feedsToUse: 'config'
+  #     nugetConfigPath: 'nuget.config'
+  #     externalFeedCredentials: 'NuGet'
 
   - task: Bash@3
     displayName: 'Set version numbers'
