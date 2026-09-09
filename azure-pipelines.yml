@@ -159,3 +159,11 @@ jobs:
 
   - publish: $(ArtifactStagingDirectory)
     artifact: Android
+
+  - task: GooglePlayRelease@4
+    inputs:
+      serviceConnection: 'CrossCam Google Play'
+      applicationId: 'com.kra2008.CrossCam'
+      action: 'SingleBundle'
+      bundleFile: '$(ArtifactStagingDirectory)/**/*-Signed.aab'
+      track: 'internal'
