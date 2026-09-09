@@ -21,6 +21,10 @@ jobs:
       script: |
         dotnet workload restore
 
+  - task: NuGetAuthenticate@1
+    inputs:
+      nuGetServiceConnections: 'NuGet'
+
   - script: dotnet restore CrossCam.sln
     displayName: 'Restore NuGet Packages via DotNet CLI'
 
@@ -115,6 +119,10 @@ jobs:
       targetType: 'inline'
       script: |
         dotnet workload restore
+
+  - task: NuGetAuthenticate@1
+    inputs:
+      nuGetServiceConnections: 'NuGet'
 
   - script: dotnet restore CrossCam.sln
     displayName: 'Restore NuGet Packages via DotNet CLI'
