@@ -21,11 +21,7 @@ jobs:
       script: |
         dotnet workload restore
 
-  - task: NuGetAuthenticate@1
-    inputs:
-      nuGetServiceConnections: 'NuGet Basic Auth'
-
-  - script: dotnet restore CrossCam.sln
+  - script: dotnet restore CrossCam.sln --api-key $(NuGetPAT)
     displayName: 'Restore NuGet Packages via DotNet CLI'
 
   # - task: Bash@3
@@ -120,11 +116,7 @@ jobs:
       script: |
         dotnet workload restore
 
-  - task: NuGetAuthenticate@1
-    inputs:
-      nuGetServiceConnections: 'NuGet Basic Auth'
-
-  - script: dotnet restore CrossCam.sln
+  - script: dotnet restore CrossCam.sln --api-key $(NuGetPAT)
     displayName: 'Restore NuGet Packages via DotNet CLI'
 
   # - task: NuGetToolInstaller@1
