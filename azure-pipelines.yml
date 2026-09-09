@@ -23,7 +23,7 @@ jobs:
 
   - task: NuGetAuthenticate@1
     inputs:
-      nuGetServiceConnections: 'NuGet'
+      nuGetServiceConnections: 'NuGet Basic Auth'
 
   - script: dotnet restore CrossCam.sln
     displayName: 'Restore NuGet Packages via DotNet CLI'
@@ -122,7 +122,7 @@ jobs:
 
   - task: NuGetAuthenticate@1
     inputs:
-      nuGetServiceConnections: 'NuGet'
+      nuGetServiceConnections: 'NuGet Basic Auth'
 
   - script: dotnet restore CrossCam.sln
     displayName: 'Restore NuGet Packages via DotNet CLI'
