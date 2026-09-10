@@ -18,8 +18,7 @@
                         CommandParameter="mailto:me@kra2008.com?subject=CrossCam%20feedback"/>
                 <ce:HorizontalDivider/>
                 <Button Text="{x:Static localization:AppResources.Button_Test}"
-                        Command="{Binding OpenLink}"
-                        CommandParameter="https://reddit.com/r/crosscam"/>
+                        Command="{Binding OpenTestingPage}"/>
                 <ce:HorizontalDivider/>
                 <Button Text="{x:Static localization:AppResources.Button_GitHub}"
                         Command="{Binding OpenLink}"

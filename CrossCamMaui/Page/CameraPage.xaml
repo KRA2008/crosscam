@@ -439,6 +439,8 @@
                        IsVisible="{Binding Settings.SaveForRedCyanAnaglyph}"/>
                 <Image Source="grayscaleanaglyph.png"
                        IsVisible="{Binding Settings.SaveForGrayscaleAnaglyph}"/>
+                <Image Source="duboisanaglyph.png"
+                       IsVisible="{Binding Settings.SaveForDuboisAnaglyph}"/>
                 <Image Source="triple.png"
                        IsVisible="{Binding Settings.SaveForTriple}"/>
                 <Image Source="quad.png"

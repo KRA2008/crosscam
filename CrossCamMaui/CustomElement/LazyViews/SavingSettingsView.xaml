@@ -147,7 +147,7 @@
 
     <Image Grid.Row="9"
            Grid.Column="0"
-           Source="grayscaleanaglyph.png"
+           Source="duboisanaglyph.png"
            Style="{StaticResource saveModes}"/>
     <Label Grid.Row="9"
            Grid.Column="1"

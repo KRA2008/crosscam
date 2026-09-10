@@ -201,8 +201,7 @@
                                       TextDecorations="Underline"
                                       TextColor="{StaticResource linkBlue}">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenLink}"
-                                                              CommandParameter="https://reddit.com/r/CrossCam/comments/179pxck/how_to_test_prerelease_versions/"/>
+                                        <TapGestureRecognizer Command="{Binding OpenTestingPage}"/>
                                     </Span.GestureRecognizers>
                                 </Span>
                                 <Span Text="."/>
