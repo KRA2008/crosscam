@@ -402,6 +402,11 @@
 		<RuntimeIdentifiers>android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
 	</PropertyGroup>
 
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
+		<RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
+	</PropertyGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
 		<Reference Include="Microsoft.iOS">
 			<HintPath>C:\Program Files\dotnet\packs\Microsoft.iOS.Ref\17.2.8043\ref\net10.0\Microsoft.iOS.dll</HintPath>
