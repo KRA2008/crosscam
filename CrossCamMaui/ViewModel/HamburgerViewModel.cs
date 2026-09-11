@@ -36,15 +36,15 @@ namespace CrossCam.ViewModel
 
             OpenLinkSharer = new Command(() =>
             {
-                const string iOSlisting = "https://apps.apple.com/us/app/crosscam/id1436262905";
-                const string AndroidListing = "https://play.google.com/store/apps/details?id=com.kra2008.crosscam";
+                const string iOSlisting = "CrossCam for iOS: https://apps.apple.com/us/app/crosscam/id1436262905";
+                const string AndroidListing = "CrossCam for Android: https://play.google.com/store/apps/details?id=com.kra2008.crosscam";
 
                 Analytics.TrackEvent("share link tapped");
                 var sharer = DependencyService.Get<ILinkSharer>();
 
                 if (DeviceInfo.Platform == DevicePlatform.iOS)
                 {
-                    sharer?.ShareLink(iOSlisting + "\n\n" + AndroidListing);
+                    sharer?.ShareLink(iOSlisting + "\n\n " + AndroidListing);
                 }
                 else
                 {
