@@ -403,11 +403,6 @@
 		<RuntimeIdentifiers>android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
 	</PropertyGroup>
 
-
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
-		<RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
-	</PropertyGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
 		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.8.0.5324" />
 		<Reference Include="Microsoft.iOS">
