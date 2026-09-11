@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>10.0</string>
+	<string>10</string>
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
   <key>NSExtension</key>
