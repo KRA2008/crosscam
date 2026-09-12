@@ -90,7 +90,8 @@
 	  <CodesignKey>Apple Development: Created via API (R4A4JM399F)</CodesignKey>
 	  <CodesignProvision>VS: com.kra2008.crosscam Development</CodesignProvision>
 	  <ProvisioningType>manual</ProvisioningType>
-	  <Optimize>false</Optimize>
+	  <Optimize>False</Optimize>
+	  <EnableLLVM>False</EnableLLVM>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug Without Emgu|net10.0-ios|AnyCPU'">
@@ -148,6 +149,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='iosdebugquickbuild|net10.0-ios|AnyCPU'">
 	  <EnableSGenConc>True</EnableSGenConc>
+	  <EnableLLVM>False</EnableLLVM>
 	  <MtouchDebug>True</MtouchDebug>
 	  <BuildIpa>True</BuildIpa>
 	  <AdditionalArgs></AdditionalArgs>
@@ -160,7 +162,7 @@
 	  <MtouchLink>None</MtouchLink>
 	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
 	  <OptimizePNGs>False</OptimizePNGs>
-	  <Optimize>false</Optimize>
+	  <Optimize>False</Optimize>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows10.0.19041.0|AnyCPU'">
