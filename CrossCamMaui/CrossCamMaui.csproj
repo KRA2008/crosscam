@@ -43,7 +43,7 @@
 		<Platforms>AnyCPU</Platforms>
 		<PublishAot>False</PublishAot>
 		<Trimming></Trimming>
-		<Configurations>Debug;Release;Debug Without Emgu</Configurations>
+		<Configurations>Debug;Release;Debug Without Emgu;iosdebugquickbuild</Configurations>
 		<NeutralLanguage>en-US</NeutralLanguage>
 	</PropertyGroup>
 
@@ -120,6 +120,18 @@
 	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='iosdebugquickbuild|net10.0-android|AnyCPU'">
+	  <EnableLLVM>True</EnableLLVM>
+	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
+	  <AndroidUseAapt2>True</AndroidUseAapt2>
+	  <AndroidStoreUncompressedFileExtensions />
+	  <DefineConstants>$(DefineConstants);__ANDROID__;EMGU</DefineConstants>
+	  <AndroidLinkTool>r8</AndroidLinkTool>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidPackageFormat>aab</AndroidPackageFormat>
+	  <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|AnyCPU'">
 	  <EnableSGenConc>True</EnableSGenConc>
 	  <MtouchDebug>False</MtouchDebug>
@@ -133,11 +145,31 @@
 	  <ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='iosdebugquickbuild|net10.0-ios|AnyCPU'">
+	  <EnableSGenConc>True</EnableSGenConc>
+	  <MtouchDebug>True</MtouchDebug>
+	  <BuildIpa>True</BuildIpa>
+	  <AdditionalArgs>--linkskip=CrossCam --linkskip=CrossCam.iOS --linkskip=CrossCam.iOS.Extension --optimize=-remove-dynamic-registrar</AdditionalArgs>
+	  <MtouchFloat32>True</MtouchFloat32>
+	  <CodesignEntitlements>Platforms\iOS\ProdEntitlements.plist</CodesignEntitlements>
+	  <DefineConstants>$(DefineConstants);EMGU</DefineConstants>
+	  <CodesignKey>Apple Distribution: Kevin Anderson (G656MA2J22)</CodesignKey>
+	  <CodesignProvision>CrossCam Distribution</CodesignProvision>
+	  <ProvisioningType>manual</ProvisioningType>
+	  <MtouchLink>None</MtouchLink>
+	  <MtouchNoSymbolStrip>True</MtouchNoSymbolStrip>
+	  <OptimizePNGs>False</OptimizePNGs>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows10.0.19041.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.19041.0|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='iosdebugquickbuild|net10.0-windows10.0.19041.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__;EMGU</DefineConstants>
 	</PropertyGroup>
 
@@ -154,6 +186,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.22621.0|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='iosdebugquickbuild|net10.0-windows10.0.22621.0|AnyCPU'">
 	  <DefineConstants>$(DefineConstants);__WINDOWS__</DefineConstants>
 	</PropertyGroup>
 
