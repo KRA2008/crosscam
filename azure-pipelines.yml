@@ -69,10 +69,18 @@ jobs:
     displayName: Selects a specific version of Xcode
 
   - task: Bash@3
-    displayName: 'dotnet publish ios'
+    displayName: 'dotnet publish ios release'
+    condition: eq(variables['iosdebugquickbuild'],false)
     inputs:
       targetType: 'inline'
       script: 'dotnet publish -f net$(DotNetVersion).0-ios -p:ArchiveOnBuild=true'
+
+  - task: Bash@3
+    displayName: 'dotnet publish ios iosdebugquickbuild'
+    condition: eq(variables['iosdebugquickbuild'],true)
+    inputs:
+      targetType: 'inline'
+      script: 'dotnet publish -f net$(DotNetVersion).0-ios -p:ArchiveOnBuild=true -c iosdebugquickbuild'
 
   - task: PublishPipelineArtifact@1
     inputs:
@@ -88,6 +96,7 @@ jobs:
 
 - job: Android
   displayName: 'Android'
+  condition: eq(variables['iosdebugquickbuild'],false)
   pool:
     vmImage: 'windows-2025-vs2026' #ahead of windows-latest as of 9/8/2026
   variables:
