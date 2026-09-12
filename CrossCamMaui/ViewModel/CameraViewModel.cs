@@ -2,9 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Timers;
-#if RELEASE
-using System.Web;
-#endif
+using System.Web; //needed for release, don't remove
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
