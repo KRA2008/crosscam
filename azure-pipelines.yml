@@ -1,6 +1,15 @@
 trigger:
 - 
 
+parameters:
+- name: configuration
+  displayName: 'configuration'
+  type: string
+  default: 'Release'
+  values:
+  - Release
+  - iosdebugquickbuild
+
 variables:
   buildcounter: $[counter('keep counting',141)]
 
@@ -69,22 +78,14 @@ jobs:
     displayName: Selects a specific version of Xcode
 
   - task: Bash@3
-    displayName: 'dotnet publish ios release'
-    condition: eq(variables['iosdebugquickbuild'],false)
+    displayName: 'dotnet publish ios ${{ parameters.configuration }}'
     inputs:
       targetType: 'inline'
-      script: 'dotnet publish -f net$(DotNetVersion).0-ios -p:ArchiveOnBuild=true'
-
-  - task: Bash@3
-    displayName: 'dotnet publish ios iosdebugquickbuild'
-    condition: eq(variables['iosdebugquickbuild'],true)
-    inputs:
-      targetType: 'inline'
-      script: 'dotnet publish -f net$(DotNetVersion).0-ios -p:ArchiveOnBuild=true -c iosdebugquickbuild'
+      script: 'dotnet publish -f net$(DotNetVersion).0-ios -p:ArchiveOnBuild=true -c ${{ parameters.configuration }}'
 
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/Release/net$(DotNetVersion).0-ios/ios-arm64/publish/CrossCam.ipa'
+      targetPath: '$(Pipeline.Workspace)/s/CrossCamMaui/bin/${{ parameters.configuration }}/net$(DotNetVersion).0-ios/ios-arm64/publish/CrossCam.ipa'
       publishLocation: 'pipeline'
 
   - task: AppStoreRelease@1
@@ -96,12 +97,11 @@ jobs:
 
 - job: Android
   displayName: 'Android'
-  condition: eq(variables['iosdebugquickbuild'],false)
+  condition: ${{ eq(parameters.configuration,'Release') }}
   pool:
     vmImage: 'windows-2025-vs2026' #ahead of windows-latest as of 9/8/2026
   variables:
-    buildConfiguration: 'Release'
-    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+    outputDirectory: '$(build.binariesDirectory)/Release'
 
   steps:
   
