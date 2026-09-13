@@ -15,7 +15,14 @@
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="65"/>
+        <ColumnDefinition>
+            <ColumnDefinition.Width>
+                <OnPlatform x:TypeArguments="GridLength">
+                    <On Platform="iOS" Value="{x:StaticResource _switchColumnWidthios}"/>
+                    <On Platform="Android" Value="{x:StaticResource _switchColumnWidthAndroid}"/>
+                </OnPlatform>
+            </ColumnDefinition.Width>
+        </ColumnDefinition>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="60"/>
@@ -36,7 +43,7 @@
         <Label Text="{x:Static localization:AppResources.Page_Settings_Fullscreen}"/>
     </StackLayout>
     <Switch Grid.Row="0" 
-            Grid.Column="1" 
+            Grid.Column="1"
             IsToggled="{Binding Settings.FullscreenEditing}"/>
 
     <Label Grid.Row="1"

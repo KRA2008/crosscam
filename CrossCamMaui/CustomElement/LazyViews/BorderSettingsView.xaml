@@ -10,7 +10,14 @@
       ColumnSpacing="0">
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="65"/>
+        <ColumnDefinition>
+            <ColumnDefinition.Width>
+                <OnPlatform x:TypeArguments="GridLength">
+                    <On Platform="iOS" Value="{x:StaticResource _switchColumnWidthios}"/>
+                    <On Platform="Android" Value="{x:StaticResource _switchColumnWidthAndroid}"/>
+                </OnPlatform>
+            </ColumnDefinition.Width>
+        </ColumnDefinition>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="50"/>
