@@ -44,7 +44,7 @@ namespace CrossCam.ViewModel
 
                 if (DeviceInfo.Platform == DevicePlatform.iOS)
                 {
-                    sharer?.ShareLink(iOSlisting + "\n\n " + AndroidListing);
+                    sharer?.ShareLink(iOSlisting + "\n\n" + AndroidListing);
                 }
                 else
                 {
