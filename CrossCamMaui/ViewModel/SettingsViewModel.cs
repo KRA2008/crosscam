@@ -20,8 +20,6 @@ namespace CrossCam.ViewModel
         public Command ResetFovCorrectionCommand { get; set; }
         public Command NavigateToFaqPageAndSection { get; set; }
         public Command SetAnalyticsToDebugModeCommand { get; set; }
-        public Command CloseOtherExpandersCommand { get; set; }
-        public Expander OpenExpander { get; set; }
         public string SaveDirectory => Settings?.SavingDirectory == null
             ? "Pictures"
             : WebUtility.UrlDecode(Settings.SavingDirectory);
@@ -115,14 +113,6 @@ namespace CrossCam.ViewModel
             NavigateToFaqPageAndSection = new Command(async section =>
             {
                 await CoreMethods.PushPageModel<FaqViewModel>(section);
-            });
-            
-            CloseOtherExpandersCommand = new Command(e =>
-            {
-                if (e is Expander {IsExpanded: true} expander)
-                {
-                    OpenExpander = expander;
-                }
             });
         }
 

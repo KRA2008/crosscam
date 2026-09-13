@@ -49,9 +49,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_previewMethodExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _previewMethodExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _previewMethodExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Preview}"
@@ -76,9 +73,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_pairingExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _pairingExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _pairingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Pairing}"
@@ -90,9 +84,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_alignmentExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _alignmentExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _alignmentExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Alignment}"
@@ -104,9 +95,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_savingExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _savingExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _savingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Saving}"
@@ -118,9 +106,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_borderExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _borderExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _borderExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Border}"
@@ -132,9 +117,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_guidesExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _guidesExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _guidesExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Guides}"
@@ -146,9 +128,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_editingExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _editingExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _editingExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Editing}"
@@ -160,9 +139,6 @@
             <ce:HorizontalDivider/>
 
             <views:Expander x:Name="_cameraExpander"
-                            Command="{Binding CloseOtherExpandersCommand}"
-                            CommandParameter="{x:Reference _cameraExpander}"
-                            IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _cameraExpander}}"
                             ExpandedChanged="ExpanderChanged">
                 <views:Expander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Camera}"
