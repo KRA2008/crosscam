@@ -182,5 +182,5 @@ jobs:
       action: 'SingleBundle'
       bundleFile: '$(ArtifactStagingDirectory)/**/*-Signed.aab'
       track: 'internal'
-
-  
+      rolloutToUserFraction: true
+      userFraction: '1.0'
