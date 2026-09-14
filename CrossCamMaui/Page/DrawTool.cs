@@ -455,10 +455,6 @@ namespace CrossCam.Page
                 addBarrelDistortion &&
                 openCv?.IsOpenCvSupported() == true)
             {
-                using var paint = new SKPaint();
-                paint.IsAntialias = true;
-                //TODO: adjust quality with SKSamplingOptions?
-
                 var sideWidth = surface.Canvas.DeviceClipBounds.Width / 2f;
                 var sideHeight = surface.Canvas.DeviceClipBounds.Height * 1f;
 
@@ -467,7 +463,7 @@ namespace CrossCam.Page
                 if (leftBitmap != null)
                 {
                     smallSurface.Canvas.Clear();
-                    smallSurface.Canvas.DrawSurface(surface, 0, 0, paint);
+                    smallSurface.Canvas.DrawSurface(surface, 0, 0, new SKSamplingOptions());
                     using var leftSnapshot = smallSurface.Snapshot();
                     using var distortedLeft = openCv.AddBarrelDistortion(leftSnapshot,
                         cardboardDownsize, barrelStrength / 100f, 1 - cardboardWidthProportion);
@@ -478,14 +474,14 @@ namespace CrossCam.Page
                             0,
                             0,
                             sideWidth,
-                            sideHeight),
-                        paint);
+                            sideHeight), 
+                        new SKSamplingOptions());
                 }
 
                 if (rightBitmap != null)
                 {
                     smallSurface.Canvas.Clear();
-                    smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0, paint);
+                    smallSurface.Canvas.DrawSurface(surface, -sideWidth, 0, new SKSamplingOptions());
                     using var rightSnapshot = smallSurface.Snapshot();
                     using var distortedRight = openCv.AddBarrelDistortion(rightSnapshot,
                         cardboardDownsize, barrelStrength / 100f, cardboardWidthProportion);
@@ -497,7 +493,7 @@ namespace CrossCam.Page
                             0,
                             sideWidth,
                             sideHeight),
-                        paint);
+                        new SKSamplingOptions());
                 }
             }
             
@@ -854,7 +850,6 @@ namespace CrossCam.Page
             DrawQuality drawQuality)
         {
             using var paint = new SKPaint();
-            paint.IsAntialias = drawQuality == DrawQuality.Save;
 
             SKSamplingOptions samplingOptions;
             switch (drawQuality)

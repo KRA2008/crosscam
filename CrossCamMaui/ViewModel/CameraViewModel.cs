@@ -959,13 +959,13 @@ namespace CrossCam.ViewModel
                                 SKSurface.Create(new SKImageInfo(leftWidth, leftHeight));
                             using var canvas = tempSurface.Canvas;
 
-                            canvas.DrawBitmap(LeftCapture, 0, 0);
+                            canvas.DrawBitmap(LeftCapture, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
 
                             canvas.Clear();
 
-                            canvas.DrawBitmap(RightCapture, 0, 0);
+                            canvas.DrawBitmap(RightCapture, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
                         }
@@ -1088,7 +1088,7 @@ namespace CrossCam.ViewModel
                                 SKSurface.Create(new SKImageInfo(width, height));
                             using var canvas = tempSurface.Canvas;
 
-                            canvas.DrawBitmap(targetBitmap, 0, 0);
+                            canvas.DrawBitmap(targetBitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Single);
                         }
@@ -2309,7 +2309,7 @@ namespace CrossCam.ViewModel
                                         -1f * alignedResult.DrawnDirtyMatches.Height);
                                 }
 
-                                dirtyMatchesCanvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0);
+                                dirtyMatchesCanvas.DrawBitmap(alignedResult.DrawnDirtyMatches, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                                 dirtyMatchesCanvas.DrawText(
                                     alignedResult.DirtyMatchesCount.ToString(),
@@ -2337,7 +2337,7 @@ namespace CrossCam.ViewModel
                                             -1f * alignedResult.DrawnCleanMatches.Height);
                                     }
 
-                                    cleanMatchesCanvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0);
+                                    cleanMatchesCanvas.DrawBitmap(alignedResult.DrawnCleanMatches, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                                     cleanMatchesCanvas.DrawText(
                                         alignedResult.CleanMatchesCount.ToString(),
                                         countPoint,
@@ -2355,8 +2355,8 @@ namespace CrossCam.ViewModel
                                 using var surface =
                                     SKSurface.Create(new SKImageInfo(alignedResult.Warped1.Width * 2,
                                         alignedResult.Warped1.Height));
-                                surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0);
-                                surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0);
+                                surface.Canvas.DrawBitmap(alignedResult.Warped1, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
+                                surface.Canvas.DrawBitmap(alignedResult.Warped2, alignedResult.Warped1.Width, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                                 surface.Canvas.DrawText(
                                     Settings.AlignmentSettings.DownsizePercentage2 + " " + alignedResult.MethodName, 
                                     alignedResult.Warped1.Height / 5f,
@@ -2573,7 +2573,7 @@ namespace CrossCam.ViewModel
                 (int)newHeight);
             using var canvas = new SKCanvas(shrunk);
             canvas.DrawBitmap(
-                bitmap, new SKRect(0, 0, shrunk.Width, shrunk.Height));
+                bitmap, new SKRect(0, 0, shrunk.Width, shrunk.Height), new SKSamplingOptions(SKCubicResampler.Mitchell));
             return shrunk;
         }
 
@@ -2611,7 +2611,7 @@ namespace CrossCam.ViewModel
                             canvas.DrawBitmap(
                                 LeftCapture,
                                 new SKRect((LeftCapture.Width - newWidth) / 2f, 0, LeftCapture.Width - (LeftCapture.Width - newWidth) / 2f, LeftCapture.Height),
-                                new SKRect(0, 0, newWidth, LeftCapture.Height));
+                                new SKRect(0, 0, newWidth, LeftCapture.Height), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             LeftCapture = corrected;
                         }
@@ -2623,7 +2623,7 @@ namespace CrossCam.ViewModel
                             canvas.DrawBitmap(
                                 RightCapture,
                                 new SKRect((RightCapture.Width - newWidth) / 2f, 0, RightCapture.Width - (RightCapture.Width - newWidth) / 2f, RightCapture.Height),
-                                new SKRect(0, 0, newWidth, RightCapture.Height));
+                                new SKRect(0, 0, newWidth, RightCapture.Height), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             RightCapture = corrected;
                         }
@@ -2638,7 +2638,7 @@ namespace CrossCam.ViewModel
                             canvas.DrawBitmap(
                                 RightCapture,
                                 new SKRect(0, (RightCapture.Height - newHeight) / 2f, RightCapture.Width, RightCapture.Height - (RightCapture.Height - newHeight) / 2f),
-                                new SKRect(0, 0, RightCapture.Width, newHeight));
+                                new SKRect(0, 0, RightCapture.Width, newHeight), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             RightCapture = corrected;
                         }
@@ -2650,7 +2650,7 @@ namespace CrossCam.ViewModel
                             canvas.DrawBitmap(
                                 LeftCapture,
                                 new SKRect(0, (LeftCapture.Height - newHeight) / 2f, LeftCapture.Width, LeftCapture.Height - (LeftCapture.Height - newHeight) / 2f),
-                                new SKRect(0, 0, LeftCapture.Width, newHeight));
+                                new SKRect(0, 0, LeftCapture.Width, newHeight), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                             LeftCapture = corrected;
                         }
@@ -2695,7 +2695,7 @@ namespace CrossCam.ViewModel
                     using var canvas = new SKCanvas(corrected);
                     canvas.DrawBitmap(
                         RightCapture,
-                        new SKRect(0, 0, LeftCapture.Width, LeftCapture.Height));
+                        new SKRect(0, 0, LeftCapture.Width, LeftCapture.Height), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                     RightCapture = corrected;
                 }
@@ -2705,7 +2705,7 @@ namespace CrossCam.ViewModel
                     using var surface = new SKCanvas(corrected);
                     surface.DrawBitmap(
                         LeftCapture,
-                        new SKRect(0, 0, RightCapture.Width, RightCapture.Height));
+                        new SKRect(0, 0, RightCapture.Width, RightCapture.Height), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
                     LeftCapture = corrected;
                 }
@@ -2728,7 +2728,7 @@ namespace CrossCam.ViewModel
                     (float)newX,
                     (float)newY,
                     (float)(newX + zoomedWidth),
-                    (float)(newY + zoomedHeight)));
+                    (float)(newY + zoomedHeight)), new SKSamplingOptions(SKCubicResampler.Mitchell));
             return corrected;
         }
 
@@ -2845,7 +2845,7 @@ namespace CrossCam.ViewModel
                     0,
                     0,
                     width,
-                    height));
+                    height), new SKSamplingOptions(SKCubicResampler.Mitchell));
 
             return extracted;
         }
@@ -2875,7 +2875,7 @@ namespace CrossCam.ViewModel
                     using (var surface = new SKCanvas(rotated))
                     {
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.TopRight:
@@ -2884,7 +2884,7 @@ namespace CrossCam.ViewModel
                     {
                         surface.Scale(-1, 1, bitmap.Width / 2f, bitmap.Height / 2f);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); // theorized
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.BottomRight:
@@ -2893,7 +2893,7 @@ namespace CrossCam.ViewModel
                     {
                         surface.RotateDegrees(180, bitmap.Width / 2f, bitmap.Height / 2f);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.BottomLeft:
@@ -2902,7 +2902,7 @@ namespace CrossCam.ViewModel
                     {
                         surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); // theorized
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.LeftTop:
@@ -2913,7 +2913,7 @@ namespace CrossCam.ViewModel
                         surface.RotateDegrees(270);
                         surface.Scale(-1, 1, bitmap.Width / 2f, bitmap.Height / 2f);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); // theorized
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.RightTop:
@@ -2923,7 +2923,7 @@ namespace CrossCam.ViewModel
                         surface.Translate(rotated.Width, 0);
                         surface.RotateDegrees(90);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.RightBottom:
@@ -2934,7 +2934,7 @@ namespace CrossCam.ViewModel
                         surface.RotateDegrees(90);
                         surface.Scale(-1, 1, bitmap.Width / 2f, bitmap.Height / 2f);
                         if (isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f); //theorized
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 case SKEncodedOrigin.LeftBottom:
@@ -2944,7 +2944,7 @@ namespace CrossCam.ViewModel
                         surface.Translate(0, rotated.Height);
                         surface.RotateDegrees(270);
                         if(isFrontFacing) surface.Scale(1, -1, bitmap.Width / 2f, bitmap.Height / 2f);
-                        surface.DrawBitmap(bitmap, 0, 0);
+                        surface.DrawBitmap(bitmap, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
                     }
                     return rotated;
                 default:

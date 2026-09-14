@@ -571,10 +571,14 @@ namespace CrossCam.Wrappers
             using var canvas = tempSurface.Canvas;
             canvas.Clear();
 
-            using var paint = new SKPaint { IsAntialias = isQualityHigh };
+            using var paint = new SKPaint();
+            var samplingOptions = new SKSamplingOptions();
+            if (isQualityHigh)
+            {
+                samplingOptions = new SKSamplingOptions(SKCubicResampler.Mitchell);
+            }
             canvas.DrawBitmap(bitmap,
-                SKRect.Create(0, 0, targetWidth, targetHeight),
-                paint);
+                SKRect.Create(0, 0, targetWidth, targetHeight), samplingOptions, paint);
 
             using var data = tempSurface.Snapshot().Encode(SKEncodedImageFormat.Jpeg, 100);
             return data.ToArray();
