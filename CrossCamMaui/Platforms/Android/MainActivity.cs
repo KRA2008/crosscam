@@ -214,38 +214,23 @@ namespace CrossCam.Platforms.Android
         {
             if (Window != null)
             {
-                if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Landscape)
+                Window.SetStatusBarColor(Microsoft.Maui.Graphics.Colors.Transparent.ToAndroid());
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
                 {
-                    Window.SetStatusBarColor(Microsoft.Maui.Graphics.Colors.Transparent.ToAndroid());
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
-                    {
-                        Window.SetDecorFitsSystemWindows(false);
-                        var insetsController = Window.InsetsController;
-                        insetsController?.Hide(WindowInsets.Type.NavigationBars());
-                    }
-                    else
-                    {
-                        var uiOptions = 0;
-                        uiOptions |= (int)SystemUiFlags.HideNavigation;
-                        uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
-                        uiOptions |= (int)SystemUiFlags.LayoutFullscreen;
-
-                        Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
-                    }
+                    Window.SetDecorFitsSystemWindows(false);
+                    var insetsController = Window.InsetsController;
+                    insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                    insetsController?.Hide(WindowInsets.Type.StatusBars());
+                    insetsController.SystemBarsBehavior = (int)WindowInsetsControllerBehavior.ShowTransientBarsBySwipe;
                 }
                 else
                 {
-                    Window.SetStatusBarColor(Microsoft.Maui.Graphics.Colors.Black.ToAndroid());
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
-                    {
-                        Window.SetDecorFitsSystemWindows(true);
-                        var insetsController = Window.InsetsController;
-                        insetsController?.Show(WindowInsets.Type.NavigationBars());
-                    }
-                    else
-                    {
-                        Window.DecorView.SystemUiVisibility = 0;
-                    }
+                    var uiOptions = 0;
+                    uiOptions |= (int)SystemUiFlags.HideNavigation;
+                    uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+                    uiOptions |= (int)SystemUiFlags.LayoutFullscreen;
+
+                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
                 }
             }
         }

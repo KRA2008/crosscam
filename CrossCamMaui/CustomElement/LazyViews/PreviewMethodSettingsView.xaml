@@ -41,7 +41,7 @@
        Grid.ColumnSpan="2"
        HorizontalOptions="FillAndExpand">
         <Picker ItemsSource="{Binding Modes}"
-                ItemDisplayBinding="{Binding ., Converter={vc:EnumGetLocalizationConverter}}"
+                ItemDisplayBinding="{Binding ., Converter={vc:EnumGetLocalizationConverter}, x:DataType=vm:DrawMode}"
                 SelectedIndex="{Binding Settings.Mode, Converter={vc:ModeValueConverter}}"/>
     </Border>
     <Image Grid.Row="0"
