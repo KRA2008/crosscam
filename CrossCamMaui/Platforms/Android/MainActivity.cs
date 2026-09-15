@@ -8,16 +8,17 @@ using Android.OS;
 using Android.Views;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
+using AndroidX.Core.View;
 using CrossCam.Platforms.Android.CustomRenderer;
-using Java.Lang;
 using CrossCam.Wrappers;
+using Java.Lang;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Xamarin.Google.Android.Play.Core.Review;
 using Xamarin.Google.Android.Play.Core.Review.Testing;
+using AndroidGms = Android.Gms;
 using Debug = System.Diagnostics.Debug;
 using Task = System.Threading.Tasks.Task;
 using Uri = Android.Net.Uri;
-using AndroidGms = Android.Gms;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 
 namespace CrossCam.Platforms.Android
 {
@@ -214,23 +215,44 @@ namespace CrossCam.Platforms.Android
         {
             if (Window != null)
             {
-                Window.SetStatusBarColor(Microsoft.Maui.Graphics.Colors.Transparent.ToAndroid());
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Landscape)
                 {
-                    Window.SetDecorFitsSystemWindows(false);
-                    var insetsController = Window.InsetsController;
-                    insetsController?.Hide(WindowInsets.Type.NavigationBars());
-                    insetsController?.Hide(WindowInsets.Type.StatusBars());
-                    insetsController.SystemBarsBehavior = (int)WindowInsetsControllerBehavior.ShowTransientBarsBySwipe;
+                    Window.SetStatusBarColor(Microsoft.Maui.Graphics.Colors.Transparent.ToAndroid());
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                    {
+                        Window.SetDecorFitsSystemWindows(false);
+                        var insetsController = Window.InsetsController;
+                        insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                        insetsController?.Hide(WindowInsets.Type.StatusBars());
+
+                        insetsController.SystemBarsBehavior = WindowInsetsControllerCompat.BehaviorShowTransientBarsBySwipe;
+                    }
+                    else
+                    {
+                        var uiOptions = 0;
+                        uiOptions |= (int)SystemUiFlags.HideNavigation;
+                        uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+                        uiOptions |= (int)SystemUiFlags.LayoutFullscreen;
+
+                        Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+                    }
                 }
                 else
                 {
-                    var uiOptions = 0;
-                    uiOptions |= (int)SystemUiFlags.HideNavigation;
-                    uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
-                    uiOptions |= (int)SystemUiFlags.LayoutFullscreen;
+                    Window.SetStatusBarColor(Microsoft.Maui.Graphics.Colors.Black.ToAndroid());
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.R)
+                    {
+                        Window.SetDecorFitsSystemWindows(true);
+                        var insetsController = Window.InsetsController;
+                        insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                        insetsController?.Show(WindowInsets.Type.StatusBars());
 
-                    Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+                        insetsController.SystemBarsBehavior = WindowInsetsControllerCompat.BehaviorShowTransientBarsBySwipe;
+                    }
+                    else
+                    {
+                        Window.DecorView.SystemUiVisibility = 0;
+                    }
                 }
             }
         }
