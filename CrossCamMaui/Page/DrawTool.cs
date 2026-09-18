@@ -1,7 +1,6 @@
 ﻿using CrossCam.Model;
 using CrossCam.ViewModel;
 using CrossCam.Wrappers;
-using Microsoft.Maui.Controls;
 using SkiaSharp;
 using SizeF = System.Drawing.SizeF;
 
@@ -10,15 +9,11 @@ namespace CrossCam.Page
     public static class DrawTool
     {
         private static readonly double DisplayDensity;
-        private static readonly double DisplayWidth;
-        private static readonly double DisplayHeight;
 
         static DrawTool()
         {
             var deviceDisplayWrapper = DependencyService.Get<IDeviceDisplayWrapper>();
             DisplayDensity = deviceDisplayWrapper.GetDisplayDensity();
-            DisplayWidth = deviceDisplayWrapper.GetDisplayWidth();
-            DisplayHeight = deviceDisplayWrapper.GetDisplayHeight();
         }
 
         private const float BORDER_CONVERSION_FACTOR = 0.001f;
@@ -105,10 +100,10 @@ namespace CrossCam.Page
             float cardboardWidthProportion = 0;
             if (drawMode == DrawMode.Cardboard)
             {
-                cardboardWidthProportion = (float) (settings.CardboardSettings.CardboardIpd /
-                                                    (Math.Max(DisplayWidth,
-                                                         DisplayHeight) /
-                                                     DisplayDensity / 2f) / 2f);
+                cardboardWidthProportion = (float)(settings.CardboardSettings.CardboardIpd /
+                                                   (Math.Max(surface.Canvas.DeviceClipBounds.Width,
+                                                        surface.Canvas.DeviceClipBounds.Height) /
+                                                    DisplayDensity / 2f) / 2f);
             }
 
             var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
@@ -917,7 +912,7 @@ namespace CrossCam.Page
                     FindCardboardMovementMatrix(cardboardHorDelta, cardboardVertDelta, cardboardSeparationMod)
                         .Matrix.MapRect(clipRect);
                 
-                var halfScreenWidth = (float)(Math.Max(DisplayWidth, DisplayHeight) / 2f);
+                var halfScreenWidth = (float)(Math.Max(canvas.DeviceClipBounds.Width, canvas.DeviceClipBounds.Height) / 2f);
                 if (isLeft)
                 {
                     if (cardboardClipRect.Right > halfScreenWidth)

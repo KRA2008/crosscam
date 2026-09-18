@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Timers;
+using CommunityToolkit.Mvvm.Messaging;
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.ViewModel;
@@ -16,7 +17,7 @@ using PointF = System.Drawing.PointF;
 namespace CrossCam.Page
 {
     // ReSharper disable once UnusedMember.Global
-    public partial class CameraPage
+    public partial class CameraPage : IRecipient<AppPauseChangedMessage>
     {
 	    private CameraViewModel _viewModel;
         private IDeviceDisplayWrapper _deviceDisplayWrapper;
@@ -150,8 +151,7 @@ namespace CrossCam.Page
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
             Gyroscope.ReadingChanged += StoreGyroscopeReading;
             _doubleTapTimer.Elapsed += TapExpired;
-            MessagingCenter.Subscribe<App>(this, App.APP_PAUSING_EVENT, o => EvaluateSensors(false));
-            MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => EvaluateSensors());
+            WeakReferenceMessenger.Default.Register(this);
             SetMarginsForNotch();
         }
 
@@ -161,8 +161,7 @@ namespace CrossCam.Page
             Accelerometer.ReadingChanged -= StoreAccelerometerReading;
             Gyroscope.ReadingChanged -= StoreGyroscopeReading;
             _doubleTapTimer.Elapsed -= TapExpired;
-            MessagingCenter.Unsubscribe<App>(this, App.APP_PAUSING_EVENT);
-            MessagingCenter.Unsubscribe<App>(this, App.APP_UNPAUSING_EVENT);
+            WeakReferenceMessenger.Default.UnregisterAll(this);
         }
 
         private void SetMarginsForNotch()
@@ -1430,6 +1429,11 @@ namespace CrossCam.Page
             {
                 _canvas.InvalidateSurface();
             });
+        }
+
+        public void Receive(AppPauseChangedMessage message)
+        {
+            EvaluateSensors(!message.Value);
         }
     }
 }

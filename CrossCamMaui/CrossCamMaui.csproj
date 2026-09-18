@@ -244,9 +244,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Core" Version="9.0.70" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.70" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="Microsoft.Maui.Core" Version="10.0.101" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.101" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.101" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="FreshMvvm.Maui" Version="0.0.4" />
 		<PackageReference Include="NewRelic.MAUI.Plugin" Version="1.1.14" />
@@ -399,38 +400,38 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
 	  <PackageReference Include="Emgu.CV.runtime.maui" Version="4.11.0.5746" />
 	  <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData.Core">
-	    <Version>2.10.0.1</Version>
+	    <Version>2.11.0.1</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.3.0.4</Version>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="9.0.40" />
+	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="10.0.101" />
 	  <PackageReference Include="Xamarin.AndroidX.Annotation">
-	  	<Version>1.9.1.6</Version>
+	  	<Version>1.10.0.1</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
-	  	<Version>1.7.1.1</Version>
+	  	<Version>1.8.0</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
 	  	<Version>1.1.0.3</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Core">
-	  	<Version>1.17.0</Version>
+	  	<Version>1.19.0.1</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Browser">
-	  	<Version>1.9.0</Version>
+	  	<Version>1.10.0.1</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen">
-	  	<Version>1.0.1.17</Version>
+	  	<Version>1.2.0.3</Version>
 	  </PackageReference>
-	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.9" />
-	  <PackageReference Include="Xamarin.Google.Android.Material" Version="1.12.0.2" />
-	  <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.34" />
-	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.7.1.1" />
-	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.36" />
-	  <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.8.1.1" />
+	  <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.9.0" />
+	  <PackageReference Include="Xamarin.Google.Android.Material" Version="1.14.0.6" />
+	  <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.37" />
+	  <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.8.0" />
+	  <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.39" />
+	  <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.8.1.4" />
 	  <PackageReference Include="Xamarin.AndroidX.VectorDrawable">
-	  	<Version>1.2.0.8</Version>
+	  	<Version>1.2.0.11</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.Google.Android.Play.Review">
 	  	<Version>2.0.2.2</Version>

@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Timers;
-using System.Web; //needed for release, don't remove
+using System.Web;
+using CommunityToolkit.Mvvm.Messaging; //needed for release, don't remove
 using CrossCam.CustomElement;
 using CrossCam.Model;
 using CrossCam.Page;
@@ -22,7 +23,7 @@ using NewRelic.MAUI.Plugin;
 
 namespace CrossCam.ViewModel
 {
-    public sealed class CameraViewModel : BaseViewModel
+    public sealed class CameraViewModel : BaseViewModel, IRecipient<AppPauseChangedMessage>
     {
         private readonly string _fullImage = AppResources.Page_Camera_LoadFullImage;
         private readonly string _singleSide = AppResources.Page_Camera_LoadSingleSide;
@@ -608,8 +609,6 @@ namespace CrossCam.ViewModel
 
             CameraColumn = Settings.IsCaptureLeftFirst ? 0 : 1;
             AvailableCameras = new ObservableCollection<AvailableCamera>();
-
-            MessagingCenter.Subscribe<App>(this, App.APP_UNPAUSING_EVENT, o => AutoconnectIfOn());
 
             LoadPhotoCommand = new Command(async () =>
             {
@@ -1933,6 +1932,7 @@ namespace CrossCam.ViewModel
             try
             {
                 base.ViewIsAppearing(sender, e);
+                WeakReferenceMessenger.Default.Register(this);
                 DependencyService.Get<IScreenKeepAwaker>()?.KeepScreenAwake();
                 _deviceDisplayWrapper.HoldScreenOn();
                 TryTriggerMovementHint();
@@ -2105,6 +2105,7 @@ namespace CrossCam.ViewModel
             PairOperator.ErrorOccurred -= PairOperatorOnErrorOccurred;
             DependencyService.Get<IScreenKeepAwaker>()?.LetScreenSleep();
             _deviceDisplayWrapper.DoNotHoldScreenOn();
+            WeakReferenceMessenger.Default.UnregisterAll(this);
             base.ViewIsDisappearing(sender, e);
         }
 
@@ -3075,6 +3076,14 @@ namespace CrossCam.ViewModel
                 SwitchToContinuousFocusTrigger = !SwitchToContinuousFocusTrigger;
             }
             TryTriggerMovementHint();
+        }
+
+        public void Receive(AppPauseChangedMessage message)
+        {
+            if (message.Value)
+            {
+                AutoconnectIfOn();
+            }
         }
     }
 }

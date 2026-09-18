@@ -9,15 +9,13 @@ using CrossCam.Wrappers;
 using System.Globalization;
 using CrossCam.Resources.Localization;
 using NewRelic.MAUI.Plugin;
+using CommunityToolkit.Mvvm.Messaging;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CrossCam
 {
     public partial class App
     {
-        public const string APP_PAUSING_EVENT = "appPausing";
-        public const string APP_UNPAUSING_EVENT = "appUnpausing";
-
         private static CameraViewModel _cameraViewModel;
 
         public App()
@@ -46,14 +44,14 @@ namespace CrossCam
 
         protected override void OnSleep()
         {
-            MessagingCenter.Send(this, APP_PAUSING_EVENT);
+            WeakReferenceMessenger.Default.Send(new AppPauseChangedMessage(true));
             base.OnSleep();
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            MessagingCenter.Send(this, APP_UNPAUSING_EVENT);
+            WeakReferenceMessenger.Default.Send(new AppPauseChangedMessage(false));
         }
     }
 }
