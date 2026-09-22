@@ -77,7 +77,7 @@ namespace CrossCam.Page
             Interval = 500,
             AutoReset = false
         };
-        private const int MIN_MOVE_COUNTER = 4;
+        private const int MIN_MOVE_COUNTER = 10;
         private bool _didSwap;
         private bool _forceCanvasClear;
         private readonly double _screenDensity;
