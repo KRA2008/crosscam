@@ -12,7 +12,7 @@
              SafeAreaEdges="Container">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <x:Double x:Key="_topBarHeight">20</x:Double>
+            <x:Double x:Key="_topBarHeight">0</x:Double>
             <Thickness x:Key="_topBarSmallButtonPadding" Left="10" Top="{StaticResource _topBarHeight}" Right="10" Bottom="10"/>
             <Thickness x:Key="_topBarButtonPadding" Left="0" Top="{StaticResource _topBarHeight}" Right="0" Bottom="0"/>
 
@@ -1304,17 +1304,17 @@
             </Image>
         </StackLayout>
 
-        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
-                     Orientation="Horizontal"
-                     IsVisible="False">
+        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+               Source="menu.png"
+               IsVisible="False">
             <AbsoluteLayout.LayoutBounds>
                 <Rect X="0" 
                       Y="0" 
-                      Width="{StaticResource _doubleSmallerButtonWidth}" 
-                      Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
+                      Width="{StaticResource _gearBoxWidth}" 
+                      Height="{StaticResource _gearBoxWidth}"/>
             </AbsoluteLayout.LayoutBounds>
-            <StackLayout.Triggers>
-                <MultiTrigger TargetType="StackLayout">
+            <Image.Triggers>
+                <MultiTrigger TargetType="Image">
                     <MultiTrigger.Conditions>
                         <BindingCondition Binding="{Binding ShouldSettingsAndHelpBeVisible}"
                                           Value="True"/>
@@ -1326,16 +1326,11 @@
                                 Value="True"/>
                     </MultiTrigger.Setters>
                 </MultiTrigger>
-            </StackLayout.Triggers>
-            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
-                <ContentView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
-                </ContentView.GestureRecognizers>
-                <Image Source="menu.png"
-                       InputTransparent="True">
-                </Image>
-            </ContentView>
-        </StackLayout>
+            </Image.Triggers>
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
         <StackLayout AbsoluteLayout.LayoutFlags="XProportional,HeightProportional"
                      x:Name="_cameraSettingsBox"
                      IsVisible="False"

@@ -224,8 +224,6 @@ namespace CrossCam.Platforms.Android
                         var insetsController = Window.InsetsController;
                         insetsController?.Hide(WindowInsets.Type.NavigationBars());
                         insetsController?.Hide(WindowInsets.Type.StatusBars());
-
-                        insetsController.SystemBarsBehavior = WindowInsetsControllerCompat.BehaviorShowTransientBarsBySwipe;
                     }
                     else
                     {
@@ -244,10 +242,8 @@ namespace CrossCam.Platforms.Android
                     {
                         Window.SetDecorFitsSystemWindows(true);
                         var insetsController = Window.InsetsController;
-                        insetsController?.Hide(WindowInsets.Type.NavigationBars());
+                        insetsController?.Show(WindowInsets.Type.NavigationBars());
                         insetsController?.Show(WindowInsets.Type.StatusBars());
-
-                        insetsController.SystemBarsBehavior = WindowInsetsControllerCompat.BehaviorShowTransientBarsBySwipe;
                     }
                     else
                     {
