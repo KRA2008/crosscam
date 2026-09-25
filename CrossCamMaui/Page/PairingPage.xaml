@@ -13,8 +13,7 @@
         <StackLayout Padding="10,0,10,0">
             <ce:iOS12WorkaroundBackButton/>
 
-            <BoxView HeightRequest="1"
-                     Margin="-10,0,-10,10"/>
+            <ce:HorizontalDivider/>
 
             <Label Text="{x:Static localization:AppResources.Page_Pairing_1}"/>
 
@@ -89,7 +88,7 @@
             </StackLayout>
             <Label Text=" "/>
             <Label Text="{x:Static localization:AppResources.Page_Pairing_2}"/>
-            <BoxView/>
+            <ce:HorizontalDivider/>
             <ce:FooterLabel/>
         </StackLayout>
     </ScrollView>
