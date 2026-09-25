@@ -8,8 +8,7 @@
              xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
              xmlns:localization="clr-namespace:CrossCam.Resources.Localization"
              x:DataType="vm:CameraViewModel"
-			 x:Class="CrossCam.Page.CameraPage"
-             SafeAreaEdges="Container">
+			 x:Class="CrossCam.Page.CameraPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Double x:Key="_topBarHeight">0</x:Double>
