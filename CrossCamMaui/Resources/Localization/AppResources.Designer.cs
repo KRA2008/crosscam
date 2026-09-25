@@ -322,7 +322,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Found a bug? Have a question? Just email .
+        ///   Looks up a localized string similar to Found a bug? Have a question? An idea? Just email .
         /// </summary>
         internal static string Footer_Span1 {
             get {
