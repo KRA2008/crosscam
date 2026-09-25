@@ -1304,17 +1304,17 @@
             </Image>
         </StackLayout>
 
-        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
-               Source="menu.png"
-               IsVisible="False">
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
+                     Orientation="Horizontal"
+                     IsVisible="False">
             <AbsoluteLayout.LayoutBounds>
                 <Rect X="0" 
                       Y="0" 
-                      Width="{StaticResource _gearBoxWidth}" 
-                      Height="{StaticResource _gearBoxWidth}"/>
+                      Width="{StaticResource _doubleSmallerButtonWidth}" 
+                      Height="{StaticResource _smallerButtonWidthPlusTopPadding}"/>
             </AbsoluteLayout.LayoutBounds>
-            <Image.Triggers>
-                <MultiTrigger TargetType="Image">
+            <StackLayout.Triggers>
+                <MultiTrigger TargetType="StackLayout">
                     <MultiTrigger.Conditions>
                         <BindingCondition Binding="{Binding ShouldSettingsAndHelpBeVisible}"
                                           Value="True"/>
@@ -1326,11 +1326,16 @@
                                 Value="True"/>
                     </MultiTrigger.Setters>
                 </MultiTrigger>
-            </Image.Triggers>
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
-            </Image.GestureRecognizers>
-        </Image>
+            </StackLayout.Triggers>
+            <ContentView Padding="{StaticResource _topBarSmallButtonPadding}">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToHamburgerPageCommand}"/>
+                </ContentView.GestureRecognizers>
+                <Image Source="menu.png"
+                       InputTransparent="True">
+                </Image>
+            </ContentView>
+        </StackLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="XProportional,HeightProportional"
                      x:Name="_cameraSettingsBox"
                      IsVisible="False"
