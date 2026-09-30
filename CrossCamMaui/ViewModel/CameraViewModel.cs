@@ -1245,7 +1245,6 @@ namespace CrossCam.ViewModel
             {
                 SendCommandStartAnalyticsEvent(nameof(PromptForPermissionAndSendErrorEmailCommand));
                 Debug.WriteLine("### ERROR: " + Error);
-                Console.WriteLine("### ERROR: " + Error);
 
                 var deviceInfoDictionary = new Dictionary<string, object>
                 {

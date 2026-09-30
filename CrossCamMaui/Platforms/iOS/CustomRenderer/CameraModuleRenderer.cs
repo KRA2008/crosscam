@@ -88,8 +88,6 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
 #if !__SIMULATOR__
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine("### cameraModule property changed: " + e.PropertyName);
-
             base.OnElementPropertyChanged(sender, e);
 
             try
