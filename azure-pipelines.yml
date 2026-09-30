@@ -74,6 +74,7 @@ jobs:
         cat CrossCamShareExtension.iOS/Info.plist
 
   - script: |
+      xcodebuild -version
       sudo xcode-select -s /Applications/Xcode_$(XcodeVersionNumber).app
     displayName: Selects a specific version of Xcode
 
