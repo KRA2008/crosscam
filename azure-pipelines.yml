@@ -31,7 +31,7 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        dotnet workload restore
+        dotnet workload restore --version $(workloadVersion)
 
   - task: Bash@3
     displayName: 'NuGet auth and restore'
@@ -73,10 +73,10 @@ jobs:
         echo "EXTENSION PLIST"
         cat CrossCamShareExtension.iOS/Info.plist
 
-  - script: |
-      xcodebuild -version
-      sudo xcode-select -s /Applications/Xcode_$(XcodeVersionNumber).app
-    displayName: Selects a specific version of Xcode
+  # - script: |
+  #     xcodebuild -version
+  #     sudo xcode-select -s /Applications/Xcode_$(XcodeVersionNumber).app
+  #   displayName: Selects a specific version of Xcode
 
   - task: Bash@3
     displayName: 'dotnet publish ios ${{ parameters.configuration }}'
