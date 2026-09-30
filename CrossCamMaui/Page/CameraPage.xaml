@@ -63,7 +63,7 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <AbsoluteLayout x:Name="_baseLayout">
+    <AbsoluteLayout x:Name="_baseLayout" BackgroundColor="Red">
         <ce:CameraModule AbsoluteLayout.LayoutFlags="None"
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
                          x:Name="_cameraModule"
@@ -86,13 +86,15 @@
                          AreBothSidesCaptured="{Binding AreBothSidesCaptured}"
                          RestartPreviewTrigger="{Binding RestartPreviewTrigger}"
                          StopPreviewTrigger="{Binding StopPreviewTrigger}"
-                         PreviewAspectRatio="{Binding PreviewAspectRatio}"/>
+                         PreviewAspectRatio="{Binding PreviewAspectRatio}"
+                         BackgroundColor="Yellow"/>
         <skia:SKCanvasView AbsoluteLayout.LayoutFlags="{Binding CanvasRectangleFlags}"
                            AbsoluteLayout.LayoutBounds="{Binding CanvasRectangle}"
                            x:Name="_canvas"
                            Touch="_canvas_OnTouch"
                            EnableTouchEvents="True"
-                           PaintSurface="OnCanvasInvalidated"/>
+                           PaintSurface="OnCanvasInvalidated"
+                           BackgroundColor="Green"/>
         <ce:CameraSuccessOutline AbsoluteLayout.LayoutBounds="0,0,1,1"
                                  AbsoluteLayout.LayoutFlags="All">
             <ce:CameraSuccessOutline.Behaviors>
