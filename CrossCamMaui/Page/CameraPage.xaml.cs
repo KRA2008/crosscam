@@ -99,10 +99,12 @@ namespace CrossCam.Page
 
             _gyroscopeStopwatch = new Stopwatch();
             PropertyChanged += OnCameraPagePropertyChanged;
+            Console.WriteLine("### camera page constructed!");
         }
 
         private void OnCameraPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            Console.WriteLine("### camera property changed: " + e.PropertyName);
             switch (e.PropertyName)
             {
                 case nameof(Width):
