@@ -1906,10 +1906,9 @@
                    VerticalOptions="CenterAndExpand"/>
         </StackLayout>
 
-        <Entry AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0,0,1,1"
+        <Label AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8"
                x:Name="_debugEntry"
-               Opacity="0.5"
                BackgroundColor="Black"
                TextColor="White"/>
 
