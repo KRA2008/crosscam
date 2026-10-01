@@ -151,7 +151,7 @@ namespace CrossCam.Page
             Accelerometer.ReadingChanged += StoreAccelerometerReading;
             Gyroscope.ReadingChanged += StoreGyroscopeReading;
             _doubleTapTimer.Elapsed += TapExpired;
-            WeakReferenceMessenger.Default.Register(this);
+            WeakReferenceMessenger.Default.RegisterAll(this);
             SetMarginsForNotch();
         }
 
