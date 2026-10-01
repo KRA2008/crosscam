@@ -1,7 +1,5 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Timers;
-using AVFoundation;
+﻿using AVFoundation;
+using CommunityToolkit.Mvvm.Messaging;
 using CoreFoundation;
 using CoreGraphics;
 using CoreMedia;
@@ -9,11 +7,14 @@ using CoreVideo;
 using CrossCam.Model;
 using CrossCam.ViewModel;
 using Foundation;
-using SkiaSharp;
-using UIKit;
-using CameraModule = CrossCam.CustomElement.CameraModule;
 using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.Controls.Platform;
+using SkiaSharp;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Timers;
+using UIKit;
+using CameraModule = CrossCam.CustomElement.CameraModule;
 using PointF = System.Drawing.PointF;
 
 namespace CrossCam.Platforms.iOS.CustomRenderer
@@ -88,6 +89,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
 #if !__SIMULATOR__
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            WeakReferenceMessenger.Default.Send(new DebugMessage("### CameraModuleRenderer property changed: " + e.PropertyName));
             base.OnElementPropertyChanged(sender, e);
 
             try
@@ -163,7 +165,8 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
 
         private void SetPreviewBottomY()
         {
-            //Debug.WriteLine("### _cameraModule: " + _cameraModule.Width + " " + _cameraModule.Height);
+            WeakReferenceMessenger.Default.Send(new DebugMessage("### SetPreviewBottomY, _cameraModule: " + _cameraModule.Width + " " + _cameraModule.Height));
+
             double previewHeight;
             var orientation = UIDevice.CurrentDevice.Orientation;
             _cameraModule.PreviewAspectRatio = 4 / 3d;

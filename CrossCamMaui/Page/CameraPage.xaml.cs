@@ -17,7 +17,7 @@ using PointF = System.Drawing.PointF;
 namespace CrossCam.Page
 {
     // ReSharper disable once UnusedMember.Global
-    public partial class CameraPage : IRecipient<AppPauseChangedMessage>
+    public partial class CameraPage : IRecipient<AppPauseChangedMessage>, IRecipient<DebugMessage>
     {
 	    private CameraViewModel _viewModel;
         private IDeviceDisplayWrapper _deviceDisplayWrapper;
@@ -433,7 +433,9 @@ namespace CrossCam.Page
         }
 
         private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-	    {
+        {
+            WeakReferenceMessenger.Default.Send(new DebugMessage("### ViewModelPropertyChanged: " + e.PropertyName));
+
             switch (e.PropertyName)
             {
                 case nameof(CameraViewModel.FocusCircleX):
@@ -519,6 +521,7 @@ namespace CrossCam.Page
 
         private void SetCameraModuleSize()
         {
+            WeakReferenceMessenger.Default.Send(new DebugMessage("### SetCameraModuleSize entered, preview aspect ratio: " + _viewModel.PreviewAspectRatio));
             var layoutBounds = AbsoluteLayout.GetLayoutBounds(_cameraModule);
             layoutBounds.Width = this.Width;
             layoutBounds.Height = this.Width * _viewModel.PreviewAspectRatio;
@@ -1434,6 +1437,14 @@ namespace CrossCam.Page
         public void Receive(AppPauseChangedMessage message)
         {
             EvaluateSensors(!message.Value);
+        }
+
+        public void Receive(DebugMessage message)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _debugEntry.Text += message.Value;
+            });
         }
     }
 }
