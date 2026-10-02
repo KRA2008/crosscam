@@ -37,7 +37,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
         private const string ADJUSTING_FOCUS = "adjustingFocus";
         private readonly List<string> _setupProperties = new List<string>
         {
-            "Y",
+            "ContainerView",
             "LayoutBounds"
         };
 
