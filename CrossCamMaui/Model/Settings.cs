@@ -213,6 +213,8 @@ namespace CrossCam.Model
             }
         }
 
+        public bool SaveWithViewMethodInFilename { get; set; }
+
         public string SavingDirectory { get; set; }
         public bool SaveToExternal { get; set; }
 
@@ -381,6 +383,7 @@ namespace CrossCam.Model
             IsTapToFocusEnabled2 = true;
             IsLockToFirstEnabled = true;
 
+            SaveWithViewMethodInFilename = true;
             SaveIntoDedicatedFolder2 = true;
             SaveIntoSeparateFolders1 = false;
             SavingDirectory = null;

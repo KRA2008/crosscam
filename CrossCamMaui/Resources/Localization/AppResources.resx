@@ -1174,4 +1174,13 @@ Before two devices can be used together their roles have to be assigned. The PRI
   <data name="Settings.Saving.Dubois" xml:space="preserve">
     <value>Save red/cyan Dubois anaglyph version (with edits but no border)</value>
   </data>
+  <data name="Settings.Saving.FilenameLabels" xml:space="preserve">
+    <value>Save images with view method in the filename</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
 </root>

@@ -14,7 +14,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd)
+        public Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, string viewMethod, bool saveToSd)
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
 
@@ -22,7 +22,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
             {
                 try
                 {
-                    var photoId = Guid.NewGuid().ToString("N");
+                    var photoId = Guid.NewGuid().ToString("N") + viewMethod;
                     var currentTimeSeconds = JavaSystem.CurrentTimeMillis() / 1000;
 
                     Uri destinationFinalUri;
@@ -30,7 +30,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                     if (saveToSd)
                     {
                         var externalPicturesDir = MainActivity.Instance.GetExternalFilesDirs(Environment.DirectoryPictures).ElementAt(1).AbsolutePath;
-                        var newFilePath = Path.Combine(externalPicturesDir, currentTimeSeconds + ".jpg");
+                        var newFilePath = Path.Combine(externalPicturesDir, photoId + ".jpg"); //changed from currentTime... this just makes sense, but i don't even know if they do this anymore.
                         await using var stream = new FileStream(newFilePath, FileMode.CreateNew);
                         using var bitmap = await BitmapFactory.DecodeByteArrayAsync(image, 0, image.Length);
                         await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, stream);
@@ -125,6 +125,7 @@ namespace CrossCam.Platforms.Android.CustomRenderer
                         else
                         {
                             var values = new ContentValues();
+                            values.Put(MediaStore.Images.Media.InterfaceConsts.DisplayName, photoId + ".jpg");
                             values.Put(MediaStore.Images.Media.InterfaceConsts.MimeType, "image/jpeg");
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateAdded, currentTimeSeconds);
                             values.Put(MediaStore.Images.Media.InterfaceConsts.DateModified, currentTimeSeconds);

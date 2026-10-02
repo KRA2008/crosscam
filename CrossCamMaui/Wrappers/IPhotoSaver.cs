@@ -2,6 +2,6 @@
 {
     public interface IPhotoSaver
     {
-        Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd);
+        Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, string viewMethod, bool saveToSd);
     }
 }

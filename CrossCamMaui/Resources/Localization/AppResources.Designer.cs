@@ -340,6 +340,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        internal static string Left {
+            get {
+                return ResourceManager.GetString("Left", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept connection to .
         /// </summary>
         internal static string Page_Camera_AcceptConnection {
@@ -2169,6 +2178,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        internal static string Right {
+            get {
+                return ResourceManager.GetString("Right", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anaglyph.
         /// </summary>
         internal static string SaveModes_Anaglyph {
@@ -2813,6 +2831,15 @@ namespace CrossCam.Resources.Localization {
         internal static string Settings_Saving_ExternalWarning {
             get {
                 return ResourceManager.GetString("Settings.Saving.ExternalWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save images with view method in the filename.
+        /// </summary>
+        internal static string Settings_Saving_FilenameLabels {
+            get {
+                return ResourceManager.GetString("Settings.Saving.FilenameLabels", resourceCulture);
             }
         }
         

@@ -960,13 +960,13 @@ namespace CrossCam.ViewModel
 
                             canvas.DrawBitmap(LeftCapture, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
-                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate, AppResources.Left);
 
                             canvas.Clear();
 
                             canvas.DrawBitmap(RightCapture, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
 
-                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate);
+                            await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate, AppResources.Right);
                         }
 
                         var joinedImageSize = DrawTool.CalculateJoinedImageSizeOrientedWithEditsNoBorder(Edits, Settings,
@@ -2138,7 +2138,7 @@ namespace CrossCam.ViewModel
             }
         }
 
-        private async Task SaveSurfaceSnapshot(SKSurface surface, string methodModifier)
+        private async Task SaveSurfaceSnapshot(SKSurface surface, string methodModifier, string side = null)
         {
             using var skImage = surface.Snapshot();
             using var encoded = skImage.Encode(SKEncodedImageFormat.Jpeg, 100);
@@ -2146,6 +2146,7 @@ namespace CrossCam.ViewModel
                 encoded.ToArray(),
                 Settings.SavingDirectory,
                 Settings.SaveIntoDedicatedFolder2 ? "CrossCam" : Settings.SaveIntoSeparateFolders1 ? "CrossCam " + methodModifier : "",
+                Settings.SaveWithViewMethodInFilename ? " " + methodModifier + (side != null ? " " + side : "") : "",
                 Settings.SaveToExternal);
         }
 

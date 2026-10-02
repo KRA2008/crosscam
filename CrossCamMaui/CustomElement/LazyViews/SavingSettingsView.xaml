@@ -49,6 +49,14 @@
         <RowDefinition Height="75"/>
         <RowDefinition Height="60"/>
         <RowDefinition Height="75"/>
+        <RowDefinition>
+            <RowDefinition.Height>
+                <OnPlatform x:TypeArguments="GridLength">
+                    <On Platform="iOS" Value="0" />
+                    <On Platform="Android" Value="75" />
+                </OnPlatform>
+            </RowDefinition.Height>
+        </RowDefinition>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
@@ -231,6 +239,14 @@
         IsToggled="{Binding Settings.SaveIntoSeparateFolders1}"/>
 
     <Label Grid.Row="16"
+           Grid.Column="0"
+           Grid.ColumnSpan="3"
+           Text="{x:Static localization:AppResources.Settings_Saving_FilenameLabels}"/>
+    <Switch Grid.Row="16"
+            Grid.Column="3"
+            IsToggled="{Binding Settings.SaveWithViewMethodInFilename}"/>
+
+    <Label Grid.Row="17"
        Grid.Column="0"
        Grid.ColumnSpan="2"
        IsVisible="{Binding CanSaveToArbitraryDirectory}">
@@ -241,7 +257,7 @@
             </FormattedString>
         </Label.FormattedText>
     </Label>
-    <Button Grid.Row="16"
+    <Button Grid.Row="17"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ChooseDirectory}"
@@ -263,14 +279,14 @@
         </Button.Triggers>
     </Button>
 
-    <Button Grid.Row="16"
+    <Button Grid.Row="17"
         Grid.Column="2"
         Grid.ColumnSpan="2"
         Command="{Binding ClearDirectory}"
         Text="{x:Static localization:AppResources.Settings_Saving_Reset}"
         IsVisible="{Binding Settings.SavingDirectory, Converter={toolkit:IsNotNullConverter}}"/>
 
-    <Label Grid.Row="17"
+    <Label Grid.Row="18"
        Grid.Column="0"
        Grid.ColumnSpan="2"
        Text="{Binding ExternalDirectory, StringFormat='{0}'}"
@@ -283,7 +299,7 @@
             </FormattedString>
         </Label.FormattedText>
     </Label>
-    <Switch Grid.Row="17"
+    <Switch Grid.Row="18"
         Grid.Column="3"
         IsToggled="{Binding Settings.SaveToExternal}"
         IsVisible="{Binding CanSaveToExternalDirectory}"/>

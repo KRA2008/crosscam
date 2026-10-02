@@ -8,7 +8,7 @@ namespace CrossCam.Platforms.iOS.CustomRenderer
 {
     public class PhotoSaver : IPhotoSaver
     {
-        public async Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, bool saveToSd)
+        public async Task<bool> SavePhoto(byte[] image, string saveOuterFolder, string saveInnerFolder, string viewMethod, bool saveToSd) // it's not possible to set the file name on iOS, so viewMethod does nothing
         {
             var taskCompletionSource = new TaskCompletionSource<bool>();
             try
