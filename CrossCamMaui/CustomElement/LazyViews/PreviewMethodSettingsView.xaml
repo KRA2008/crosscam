@@ -13,14 +13,7 @@
         <ColumnDefinition Width="10"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="50"/>
-        <ColumnDefinition>
-            <ColumnDefinition.Width>
-                <OnPlatform x:TypeArguments="GridLength">
-                    <On Platform="iOS" Value="{x:StaticResource _switchColumnWidthios}"/>
-                    <On Platform="Android" Value="{x:StaticResource _switchColumnWidthAndroid}"/>
-                </OnPlatform>
-            </ColumnDefinition.Width>
-        </ColumnDefinition>
+        <ColumnDefinition Width="{OnPlatform Android=65,iOS=75}"/> <!-- i don't like copy-pasting this everywhere but nothing else works -->
         <ColumnDefinition Width="10"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>

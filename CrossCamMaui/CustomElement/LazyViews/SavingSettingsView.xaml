@@ -23,14 +23,7 @@
         <ColumnDefinition Width="60"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="30"/>
-        <ColumnDefinition>
-            <ColumnDefinition.Width>
-                <OnPlatform x:TypeArguments="GridLength">
-                    <On Platform="iOS" Value="{x:StaticResource _switchColumnWidthios}"/>
-                    <On Platform="Android" Value="{x:StaticResource _switchColumnWidthAndroid}"/>
-                </OnPlatform>
-            </ColumnDefinition.Width>
-        </ColumnDefinition>
+        <ColumnDefinition Width="{OnPlatform Android=65,iOS=75}"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="50"/>
@@ -49,14 +42,7 @@
         <RowDefinition Height="75"/>
         <RowDefinition Height="60"/>
         <RowDefinition Height="75"/>
-        <RowDefinition>
-            <RowDefinition.Height>
-                <OnPlatform x:TypeArguments="GridLength">
-                    <On Platform="iOS" Value="0" />
-                    <On Platform="Android" Value="75" />
-                </OnPlatform>
-            </RowDefinition.Height>
-        </RowDefinition>
+        <RowDefinition Height="{OnPlatform Android=75,iOS=0}"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
@@ -241,10 +227,12 @@
     <Label Grid.Row="16"
            Grid.Column="0"
            Grid.ColumnSpan="3"
-           Text="{x:Static localization:AppResources.Settings_Saving_FilenameLabels}"/>
+           Text="{x:Static localization:AppResources.Settings_Saving_FilenameLabels}"
+           IsVisible="{OnPlatform Android=True,iOS=False}"/>
     <Switch Grid.Row="16"
             Grid.Column="3"
-            IsToggled="{Binding Settings.SaveWithViewMethodInFilename}"/>
+            IsToggled="{Binding Settings.SaveWithViewMethodInFilename}"
+            IsVisible="{OnPlatform Android=True,iOS=False}"/>
 
     <Label Grid.Row="17"
        Grid.Column="0"

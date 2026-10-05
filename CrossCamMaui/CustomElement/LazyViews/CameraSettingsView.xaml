@@ -9,14 +9,7 @@
       x:DataType="vm:SettingsViewModel">
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition>
-            <ColumnDefinition.Width>
-                <OnPlatform x:TypeArguments="GridLength">
-                    <On Platform="iOS" Value="{x:StaticResource _switchColumnWidthios}"/>
-                    <On Platform="Android" Value="{x:StaticResource _switchColumnWidthAndroid}"/>
-                </OnPlatform>
-            </ColumnDefinition.Width>
-        </ColumnDefinition>
+        <ColumnDefinition Width="{OnPlatform Android=65,iOS=75}"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -45,53 +38,22 @@
 
     <Label Grid.Row="2" 
        Grid.Column="0" 
-       Text="{x:Static localization:AppResources.Settings_Camera_Camera1}">
-        <Label.IsVisible>
-            <OnPlatform x:TypeArguments="system:Boolean">
-                <On Platform="iOS"
-                Value="False"/>
-                <On Platform="Android"
-                Value="True"/>
-            </OnPlatform>
-        </Label.IsVisible>
-    </Label>
+       Text="{x:Static localization:AppResources.Settings_Camera_Camera1}"
+       IsVisible="{OnPlatform Android=True,iOS=False}"/>
     <Switch Grid.Row="2" 
         Grid.Column="1" 
-        IsToggled="{Binding Settings.IsForceCamera1Enabled}">
-        <Switch.IsVisible>
-            <OnPlatform x:TypeArguments="system:Boolean">
-                <On Platform="iOS"
-                Value="False"/>
-                <On Platform="Android"
-                Value="True"/>
-            </OnPlatform>
-        </Switch.IsVisible>
-    </Switch>
+        IsToggled="{Binding Settings.IsForceCamera1Enabled}"
+        IsVisible="{OnPlatform Android=True,iOS=False}"/>
 
     <Label Grid.Row="3" 
        Grid.Column="0" 
-       Text="{x:Static localization:AppResources.Settings_Camera_Camera2}">
-        <Label.IsVisible>
-            <OnPlatform x:TypeArguments="system:Boolean">
-                <On Platform="iOS"
-                Value="False"/>
-                <On Platform="Android"
-                Value="True"/>
-            </OnPlatform>
-        </Label.IsVisible>
-    </Label>
+       Text="{x:Static localization:AppResources.Settings_Camera_Camera2}"
+       IsVisible="{OnPlatform Android=True,iOS=False}"/>
+    
     <Switch Grid.Row="3" 
         Grid.Column="1" 
-        IsToggled="{Binding Settings.IsForceCamera2Enabled}">
-        <Switch.IsVisible>
-            <OnPlatform x:TypeArguments="system:Boolean">
-                <On Platform="iOS"
-                Value="False"/>
-                <On Platform="Android"
-                Value="True"/>
-            </OnPlatform>
-        </Switch.IsVisible>
-    </Switch>
+        IsToggled="{Binding Settings.IsForceCamera2Enabled}"
+        IsVisible="{OnPlatform Android=True,iOS=False}"/>
 
     <Label Grid.Row="4" 
        Grid.Column="0" 

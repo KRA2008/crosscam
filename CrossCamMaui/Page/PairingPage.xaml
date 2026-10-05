@@ -65,26 +65,10 @@
             <Label Text=" "/>
             <StackLayout>
                 <Label Text="{x:Static localization:AppResources.Page_Pairing_Permissions}"/>
-                <Label Text="{x:Static localization:AppResources.Page_Pairing_Location}">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                    Value="True"/>
-                            <On Platform="iOS"
-                                    Value="False"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
-                <Label Text="{x:Static localization:AppResources.Page_Pairing_LocalNetworkAccess}">
-                    <Label.IsVisible>
-                        <OnPlatform x:TypeArguments="system:Boolean">
-                            <On Platform="Android"
-                                    Value="False"/>
-                            <On Platform="iOS"
-                                    Value="True"/>
-                        </OnPlatform>
-                    </Label.IsVisible>
-                </Label>
+                <Label Text="{x:Static localization:AppResources.Page_Pairing_Location}"
+                       IsVisible="{OnPlatform Android=True,iOS=False}"/>
+                <Label Text="{x:Static localization:AppResources.Page_Pairing_LocalNetworkAccess}"
+                       IsVisible="{OnPlatform Android=False,iOS=True}"/>
             </StackLayout>
             <Label Text=" "/>
             <Label Text="{x:Static localization:AppResources.Page_Pairing_2}"/>
