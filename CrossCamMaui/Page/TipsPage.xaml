@@ -39,10 +39,10 @@
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Tips_Keystone}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Tips_Keystone_Body1}"/>
                     <StackLayout Orientation="Horizontal" 
@@ -54,7 +54,7 @@
                     </StackLayout>
                     <Label Text="{x:Static localization:AppResources.Page_Tips_Keystone_Body2}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
@@ -68,15 +68,15 @@
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Tips_Window}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Tips_Window_Body}"/>
                     <Image Source="insidecrop.png"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 

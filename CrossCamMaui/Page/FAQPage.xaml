@@ -15,10 +15,10 @@
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_How}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label>
                         <Label.FormattedText>
@@ -38,14 +38,14 @@
                     </Label>
                     <Label Text="{x:Static localization:AppResources.Page_Faq_How_Body3}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Bad}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label>
                         <Label.FormattedText>
@@ -64,25 +64,25 @@
                     </Label>
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Bad_Body3}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Why}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Why_Body}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Into}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Into_Body1}"/>
                     <Label>
@@ -102,14 +102,14 @@
                         </Label.FormattedText>
                     </Label>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider x:Name="_crossParallelLine"/>
 
-            <views:Expander x:Name="_crossParallelExpander">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander x:Name="_crossParallelExpander">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Inverted}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Inverted_Body1}"/>
                     <AbsoluteLayout HorizontalOptions="Center"
@@ -122,49 +122,49 @@
                     </AbsoluteLayout>
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Inverted_Body2}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Moving}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Moving_Body}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider x:Name="_autoalignmentLine"/>
 
-            <views:Expander x:Name="_autoalignmentExpander">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander x:Name="_autoalignmentExpander">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Alignment}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Alignment_Body}"/>
                     <Image Source="smarttoy.png"
                            HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider x:Name="_cardboardLine"/>
 
-            <views:Expander x:Name="_cardboardExpander">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander x:Name="_cardboardExpander">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Cardboard}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Cardboard_Body}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider x:Name="_mirrorLine"/>
 
-            <views:Expander x:Name="_mirrorExpander">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander x:Name="_mirrorExpander">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Mirror}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Mirror_Body1}"/>
                     <AbsoluteLayout>
@@ -174,25 +174,25 @@
                     </AbsoluteLayout>
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Mirror_Body2}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Wiggle}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label Text="{x:Static localization:AppResources.Page_Faq_Wiggle_Body}"/>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander>
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Test}"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
                     <Label>
                         <Label.FormattedText>
@@ -209,22 +209,22 @@
                         </Label.FormattedText>
                     </Label>
                 </StackLayout>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <!--<views:Expander>
-                <views:Expander.Header>
+            <!--<ce:AutomaticallyClosingExpander>
+                <ce:AutomaticallyClosingExpander.Header>
                     <customElement:ExpanderHeader Title=""/>
-                </views:Expander.Header>
-                <views:Expander.ContentTemplate>
+                </ce:AutomaticallyClosingExpander.Header>
+                <ce:AutomaticallyClosingExpander.ContentTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10">
 
                         </StackLayout>
                     </DataTemplate>
-                </views:Expander.ContentTemplate>
-            </views:Expander>-->
+                </ce:AutomaticallyClosingExpander.ContentTemplate>
+            </ce:AutomaticallyClosingExpander>-->
 
             <ce:FooterLabel/>
         </StackLayout>

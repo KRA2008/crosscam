@@ -48,104 +48,97 @@
             <ce:iOS12WorkaroundBackButton/>
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_previewMethodExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Preview}"
                                        Icon="eye.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:PreviewMethodSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <!--<ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_captureMethodExpander"
+            <ce:AutomaticallyClosingExpander x:Name="_captureMethodExpander"
                             Command="{Binding CloseOtherExpandersCommand}"
                             CommandParameter="{x:Reference _captureMethodExpander}"
                             IsExpanded="{Binding OpenExpander, Converter={vc:IsBindingEqualToParameterConverter}, ConverterParameter={x:Reference _captureMethodExpander}}"
                             ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="Capture Method"
                                        Icon="aperture.png"/>
-                </views:Expander.Header>
-            </views:Expander>-->
+                </ce:AutomaticallyClosingExpander.Header>
+            </ce:AutomaticallyClosingExpander>-->
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_pairingExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Pairing}"
                                        Icon="pair.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:PairSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_alignmentExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Alignment}"
                                        Icon="smarttoy.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:AlignmentSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_savingExpander"
+            <ce:AutomaticallyClosingExpander x:Name="_savingExpander"
                             ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Saving}"
                                        Icon="checkbox.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:SavingSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_borderExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Border}"
                                        Icon="squareouter.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:BorderSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_guidesExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Guides}"
                                        Icon="horizontalleveloutside.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:GuidesSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_editingExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Editing}"
                                        Icon="edit.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:EditingSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
-            <views:Expander x:Name="_cameraExpander"
-                            ExpandedChanged="ExpanderChanged">
-                <views:Expander.Header>
+            <ce:AutomaticallyClosingExpander ExpandedChanged="ExpanderChanged">
+                <ce:AutomaticallyClosingExpander.Header>
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Settings_Camera}"
                                        Icon="camerasettings.png"/>
-                </views:Expander.Header>
+                </ce:AutomaticallyClosingExpander.Header>
                 <lazyViews:CameraSettingsLazyView/>
-            </views:Expander>
+            </ce:AutomaticallyClosingExpander>
 
             <ce:HorizontalDivider/>
 
