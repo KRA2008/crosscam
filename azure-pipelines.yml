@@ -100,7 +100,7 @@ jobs:
       serviceEndpoint: 'App Store Connect API'
       releaseTrack: 'TestFlight'
       appType: 'iOS'
-      shouldSkipWaitingForProcessing: true
+      shouldSkipWaitingForProcessing: false
 
 - job: Android
   displayName: 'Android'
