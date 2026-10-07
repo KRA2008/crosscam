@@ -4,6 +4,7 @@ using CrossCam.ViewModel;
 
 namespace CrossCam.ValueConverter
 {
+    [AcceptEmptyServiceProvider]
     public sealed class EnumGetLocalizationConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

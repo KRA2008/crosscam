@@ -1,11 +1,8 @@
-﻿using System;
-using System.Globalization;
-using Microsoft.Maui.Controls.Xaml;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
+﻿using System.Globalization;
 
 namespace CrossCam.ValueConverter
 {
+    [AcceptEmptyServiceProvider]
     public class NullableBooleanInvertConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

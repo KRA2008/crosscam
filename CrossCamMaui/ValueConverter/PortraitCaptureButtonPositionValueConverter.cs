@@ -1,12 +1,9 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using CrossCam.Model;
-using Microsoft.Maui.Controls.Xaml;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
 namespace CrossCam.ValueConverter
 {
+    [AcceptEmptyServiceProvider]
     public class PortraitCaptureButtonPositionValueConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.Maui.Controls.Xaml;
-
-namespace CrossCam.CustomElement
+﻿namespace CrossCam.CustomElement
 {
+    [AcceptEmptyServiceProvider]
     public class DebugMarkupExtension : IMarkupExtension<bool>
     {
         public bool ProvideValue(IServiceProvider serviceProvider)

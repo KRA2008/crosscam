@@ -2,6 +2,7 @@
 
 namespace CrossCam.ValueConverter
 {
+    [AcceptEmptyServiceProvider]
     public class NullableBooleanHasValueConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

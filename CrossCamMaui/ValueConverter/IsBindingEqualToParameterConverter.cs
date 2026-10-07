@@ -1,11 +1,8 @@
-using System;
 using System.Globalization;
-using Microsoft.Maui.Controls.Xaml;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui;
 
 namespace CrossCam.ValueConverter
 {
+    [AcceptEmptyServiceProvider]
     public sealed class IsBindingEqualToParameterConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
