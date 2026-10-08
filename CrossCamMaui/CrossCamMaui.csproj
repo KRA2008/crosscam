@@ -253,10 +253,10 @@
 		<PackageReference Include="NewRelic.MAUI.Plugin" Version="1.1.14" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
-		<PackageReference Include="SkiaSharp" Version="4.151.2" />
-		<PackageReference Condition="'$(TargetFramework)' != 'net10.0'" Include="SkiaSharp.Views" Version="4.151.2" />
-		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.9" />
-		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.9" />
+		<PackageReference Include="SkiaSharp" Version="4.153.1" />
+		<PackageReference Condition="'$(TargetFramework)' != 'net10.0'" Include="SkiaSharp.Views" Version="4.153.1" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Core" Version="4.153.1" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="4.153.1" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.9" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="15.0.1" />
 		<PackageReference Include="System.Formats.Nrbf" Version="9.0.4" />
@@ -403,7 +403,7 @@
 	  <PackageReference Include="Xamarin.GooglePlayServices.Nearby">
 	    <Version>119.3.0.4</Version>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="10.0.101" />
+	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="10.0.110" />
 	  <PackageReference Include="Xamarin.AndroidX.Annotation">
 	  	<Version>1.10.0.1</Version>
 	  </PackageReference>
