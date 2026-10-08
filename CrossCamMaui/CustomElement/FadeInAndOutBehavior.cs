@@ -45,9 +45,9 @@ namespace CrossCam.CustomElement
                         {
                             behavior._element.Opacity = 0;
                             behavior._element.IsVisible = true;
-                            await behavior._element.FadeTo(1, behavior.InTimeMs, Easing.Linear);
+                            await behavior._element.FadeToAsync(1, behavior.InTimeMs, Easing.Linear);
                             await Task.Delay(behavior.VisibleTimeMs, token);
-                            await behavior._element.FadeTo(0, behavior.OutTimeMs, Easing.Linear);
+                            await behavior._element.FadeToAsync(0, behavior.OutTimeMs, Easing.Linear);
                             behavior._element.IsVisible = false;
                         });
                     }, token);
