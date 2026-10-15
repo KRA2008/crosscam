@@ -189,24 +189,6 @@ Se você conseguir cruzar os olhos confortavelmente, tente primeiro o método cr
 
 Se preferir usar óculos 3D ou um visualizador de papelão, você pode configurar o CrossCam para usá-los na página Configurações.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Um belo tutorial de texto</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Mais um belo tutorial de texto</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Um breve tutorial do YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Um tutorial longo, estranho, mas útil do YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Outro tutorial do YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Um projeto de câmera dupla com um tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Caso a imagem acima não caiba na sua tela, coloque o celular no modo paisagem – o CrossCam está tentando deixar o par de imagens acima no tamanho mais fácil para isso. Nem sempre você precisa usar o CrossCam em paisagem, mas uma imagem de tamanho perfeito facilita o aprendizado da técnica.</value>
   </data>
@@ -420,21 +402,6 @@ Se preferir usar óculos 3D ou um visualizador de papelão, você pode configura
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Diferentes modelos de dispositivos podem ter diferentes campos de visão. CrossCam irá ajudá-lo a corrigir isso depois de fazer sua primeira captura. Enquadre e capture algo com pontos distintos próximos à parte superior e inferior do quadro, certificando-se de que os pontos estejam visíveis em ambos os dispositivos.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Um belo tutorial de texto</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Outro belo tutorial de texto</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Mais um belo tutorial de texto</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Tutorial do Frankfurter Mágico</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Um belo vídeo sobre Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Se você ainda estiver com problemas, tente levar o telefone para um quarto escuro para que a única coisa que seus olhos possam ver bem e focar seja a imagem.
@@ -1155,9 +1122,6 @@ Antes que dois dispositivos possam ser usados ​​juntos, suas funções devem
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Conectar automaticamente quando a página da câmera abrir</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Um tutorial feito por um utilizador CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utilize fantasmas/sobreposição transparente/ecrã completo</value>

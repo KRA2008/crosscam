@@ -189,24 +189,6 @@ CrossCam에서 3D("스테레오그램"이라고 함)를 보려면 빨간색/청�
 
 3D 안경이나 Cardboard 뷰어를 사용하고 싶다면 설정 페이지에서 CrossCam을 사용하도록 설정할 수 있습니다.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>좋은 텍스트 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>또 다른 멋진 텍스트 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>짧은 YouTube 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>길고 이상하지만 유용한 YouTube 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>또 다른 유튜브 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>튜토리얼이 포함된 듀얼 카메라 프로젝트</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>위 이미지가 화면에 맞지 않으면 휴대폰을 가로 모드로 전환하세요. CrossCam은 이를 위해 위의 이미지 쌍을 가장 쉬운 크기로 만들기 위해 노력하고 있습니다. 항상 가로 모드에서 CrossCam을 사용할 필요는 없지만, 완벽한 크기의 이미지를 사용하면 기술을 더 쉽게 배울 수 있습니다.</value>
   </data>
@@ -420,21 +402,6 @@ CrossCam에서 3D("스테레오그램"이라고 함)를 보려면 빨간색/청�
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>장치 모델마다 시야각이 다를 수 있습니다. CrossCam은 첫 번째 캡처를 수행한 후 이 문제를 수정하는 데 도움을 줍니다. 프레임 상단과 하단 근처에 뚜렷한 점이 있는 것을 프레임에 넣고 캡처하여 두 장치 모두에서 점이 보이도록 합니다.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>좋은 텍스트 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>또 다른 멋진 텍스트 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>또 다른 멋진 텍스트 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>매직 프랑크푸르터 튜토리얼</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Magic Eye에 대한 좋은 비디오</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>여전히 문제가 있는 경우 휴대전화를 어두운 방으로 가져가서 눈이 이미지에만 잘 보고 집중할 수 있도록 해보세요.
@@ -1155,9 +1122,6 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>카메라 페이지가 열리면 자동으로 연결됩니다.</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>CrossCam 사용자가 만든 튜토리얼</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>고스트/투명 오버레이/전체 화면 사용</value>

@@ -189,24 +189,6 @@ Jika anda boleh menyilang mata dengan selesa, anda harus mencuba kaedah silang d
 
 Jika anda lebih suka menggunakan cermin mata 3D atau pemapar Cardboard, anda boleh menetapkan CrossCam untuk menggunakannya pada halaman Tetapan.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Tutorial teks yang bagus</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Satu lagi tutorial teks yang bagus</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Tutorial YouTube pendek</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Tutorial YouTube yang panjang, ganjil, tetapi berguna</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Satu lagi tutorial YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Projek dwi kamera dengan tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Jika imej di atas tidak muat pada skrin anda, putar telefon anda kepada landskap - CrossCam cuba menjadikan pasangan imej di atas saiz paling mudah untuk ini. Anda tidak semestinya perlu menggunakan CrossCam dalam landskap, tetapi imej bersaiz sempurna menjadikan pembelajaran teknik lebih mudah.</value>
   </data>
@@ -420,21 +402,6 @@ Jika anda lebih suka menggunakan cermin mata 3D atau pemapar Cardboard, anda bol
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Model peranti yang berbeza boleh mempunyai medan pandangan yang berbeza. CrossCam akan membantu anda membetulkan perkara ini selepas anda melakukan tangkapan pertama anda. Bingkai dan tangkap sesuatu dengan titik tersendiri berhampiran bahagian atas dan bawah bingkai, memastikan titik itu kelihatan pada kedua-dua peranti.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Tutorial teks yang bagus</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Satu lagi tutorial teks yang bagus</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Namun satu lagi tutorial teks yang bagus</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Tutorial Magic Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Video bagus tentang Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Jika anda masih menghadapi masalah, cuba bawa telefon anda ke bilik gelap supaya satu-satunya perkara yang mata anda boleh melihat dengan baik dan fokus ialah imej.
@@ -1155,9 +1122,6 @@ Sebelum dua peranti boleh digunakan bersama, peranan mereka perlu ditetapkan. Pe
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Sambung secara automatik apabila halaman kamera dibuka</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Tutorial yang dibuat oleh pengguna CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Gunakan hantu/tindihan lutsinar/skrin penuh</value>

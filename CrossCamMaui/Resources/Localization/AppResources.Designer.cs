@@ -1677,69 +1677,6 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A nice text tutorial.
-        /// </summary>
-        internal static string Page_Technique_CrossLink1 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yet another nice text tutorial.
-        /// </summary>
-        internal static string Page_Technique_CrossLink2 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A short YouTube tutorial.
-        /// </summary>
-        internal static string Page_Technique_CrossLink3 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A long, odd, but helpful YouTube tutorial.
-        /// </summary>
-        internal static string Page_Technique_CrossLink4 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Another YouTube tutorial.
-        /// </summary>
-        internal static string Page_Technique_CrossLink5 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A dual camera project with a tutorial.
-        /// </summary>
-        internal static string Page_Technique_CrossLink6 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A tutorial made by a CrossCam user.
-        /// </summary>
-        internal static string Page_Technique_CrossLink7 {
-            get {
-                return ResourceManager.GetString("Page.Technique.CrossLink7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CROSS VIEWING.
         /// </summary>
         internal static string Page_Technique_CrossViewing {
@@ -1814,51 +1751,6 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A nice text tutorial.
-        /// </summary>
-        internal static string Page_Technique_ParallelLink1 {
-            get {
-                return ResourceManager.GetString("Page.Technique.ParallelLink1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Another nice text tutorial.
-        /// </summary>
-        internal static string Page_Technique_ParallelLink2 {
-            get {
-                return ResourceManager.GetString("Page.Technique.ParallelLink2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yet ANOTHER nice text tutorial.
-        /// </summary>
-        internal static string Page_Technique_ParallelLink3 {
-            get {
-                return ResourceManager.GetString("Page.Technique.ParallelLink3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Magic Frankfurter Tutorial.
-        /// </summary>
-        internal static string Page_Technique_ParallelLink4 {
-            get {
-                return ResourceManager.GetString("Page.Technique.ParallelLink4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A nice video about Magic Eye.
-        /// </summary>
-        internal static string Page_Technique_ParallelLink5 {
-            get {
-                return ResourceManager.GetString("Page.Technique.ParallelLink5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PARALLEL VIEWING.
         /// </summary>
         internal static string Page_Technique_ParallelViewing {
@@ -1886,6 +1778,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spot the difference.
+        /// </summary>
+        internal static string Page_Technique_SpotTheDifference {
+            get {
+                return ResourceManager.GetString("Page.Technique.SpotTheDifference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 
         ///If you&apos;re still having trouble, try bringing your phone to a dark room so that the only thing your eyes can see well and focus on is the image.
         ///
@@ -1895,6 +1796,15 @@ namespace CrossCam.Resources.Localization {
         internal static string Page_Technique_Trouble {
             get {
                 return ResourceManager.GetString("Page.Technique.Trouble", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Various tutorials on different topics.
+        /// </summary>
+        internal static string Page_Technique_VariousTutorials {
+            get {
+                return ResourceManager.GetString("Page.Technique.VariousTutorials", resourceCulture);
             }
         }
         

@@ -95,28 +95,26 @@
                             <Label Text=" "/>
                             <Label Text="{x:Static localization:AppResources.Page_Technique_AdditionalTutorials}"/>
 
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink1}"
-                                    Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="http://www.3ddigitalphoto.com/crossviewtutorial.asp"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink2}"
-                                    Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
+                            <ce:Link Text="http://www.3ddigitalphoto.com/crossviewtutorial.asp"/>
+                            <ce:Link Text="https://dsimanek.vialattea.net/3d/view3d.htm"/>
+                            <ce:Link Text="https://www.angelfire.com/ca/erker/freeview.html"/>
+                            <ce:Link Text="https://stereoscopy.blog/2022/03/11/learning-to-free-view-see-stereoscopic-images-with-the-naked-eye/"/>
+                            <ce:Link Text="https://moultano.wordpress.com/2025/02/24/you-should-make-cross-views/"/>
+                            <ce:Link Text="https://web.archive.org/web/20220807160730/http://www.neilcreek.com/2008/02/28/how-to-see-3d-photos/"/>
+                            <ce:Link Text="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
+                            <ce:Link Text="https://www.youtube.com/watch?v=zBa-bCxsZDk"/>
+                            <ce:Link Text="https://www.youtube.com/watch?v=cvShotHl1As"/>
+                            <ce:Link Text="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
 
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink3}"
+                            <Button Text="{x:Static localization:AppResources.Page_Technique_SpotTheDifference}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.youtube.com/watch?v=zBa-bCxsZDk"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink4}"
+                                    CommandParameter="http://i.imgur.com/Jfira.jpg"/>
+                            <Button Text="{x:Static localization:AppResources.Page_Technique_VariousTutorials}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.youtube.com/watch?v=cvShotHl1As"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink5}"
+                                    CommandParameter="https://stereoscopy.blog/category/tutorials/"/>
+                            <Button Text="{x:Static localization:AppResources.Button_GoogleDoc}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.youtube.com/watch?v=yNpIDSqTJ_Y"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink6}"
-                                    Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.youtube.com/watch?v=4S5pZEnIbrQ"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_CrossLink7}"
-                                    Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://moultano.wordpress.com/2025/02/24/you-should-make-cross-views/"/>
+                                    CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
 
                             <Label Text=" "/>
                             <Button Text="{x:Static localization:AppResources.Page_Technique_Practice}"
@@ -160,21 +158,21 @@
                                     CommandParameter="False"/>
                             <Label Text=" "/>
                             <Label Text="{x:Static localization:AppResources.Page_Technique_AdditionalTutorials}"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink1}"
+
+                            <ce:Link Text="https://dsimanek.vialattea.net/3d/view3d.htm"/>
+                            <ce:Link Text="https://web.archive.org/web/20260000000000*/https://www.angelfire.com/ca/erker/freeview.html"/>
+                            <ce:Link Text="https://hidden3d.com/howto-view-stereograms/"/>
+                            <ce:Link Text="https://www.vision3d.com/fftext.html"/>
+                            <ce:Link Text="https://www.youtube.com/watch?v=v8O8Em_RPNg"/>
+                            <Button Text="{x:Static localization:AppResources.Page_Technique_SpotTheDifference}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://dsimanek.vialattea.net/3d/view3d.htm"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink2}"
+                                    CommandParameter="http://i.imgur.com/Jfira.jpg"/>
+                            <Button Text="{x:Static localization:AppResources.Page_Technique_VariousTutorials}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink3}"
+                                    CommandParameter="https://stereoscopy.blog/category/tutorials/"/>
+                            <Button Text="{x:Static localization:AppResources.Button_GoogleDoc}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://hidden3d.com/howto-view-stereograms/"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink4}"
-                                    Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.vision3d.com/fftext.html"/>
-                            <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink5}"
-                                    Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.youtube.com/watch?v=v8O8Em_RPNg"/>
+                                    CommandParameter="https://docs.google.com/document/d/1WWkI2cj4FdOxiV-Wc_0Dm__5BFWjof-GSuV9AkFUZ1I/"/>
                         </StackLayout>
                         <BoxView Grid.Column="4"
                                  Grid.Row="2"

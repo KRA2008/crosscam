@@ -285,6 +285,9 @@
 	  <Compile Update="CustomElement\FooterLabel.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="CustomElement\Link.xaml.cs">
+	    <DependentUpon>Link.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Page\CameraPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -351,6 +354,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="CustomElement\LazyViews\CaptureMethodSettingsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomElement\Link.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Page\CameraPage.xaml">

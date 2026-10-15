@@ -189,24 +189,6 @@
 
 Якщо ви віддаєте перевагу 3D-окулярам або окулярам Cardboard, ви можете налаштувати CrossCam на їх використання на сторінці налаштувань.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Гарний текстовий підручник</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Ще один гарний текстовий посібник</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Короткий підручник YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Довгий, дивний, але корисний посібник YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Ще один урок YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Проект подвійної камери з посібником</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Якщо зображення вище не поміщається на вашому екрані, поверніть телефон у альбомну орієнтацію – CrossCam намагається зробити пару зображень вищими за найпростіший для цього розмір. Вам не завжди потрібно використовувати CrossCam в альбомній орієнтації, але зображення ідеального розміру полегшує вивчення техніки.</value>
   </data>
@@ -420,21 +402,6 @@
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Різні моделі пристроїв можуть мати різні поля зору. CrossCam допоможе вам виправити це після першого захоплення. Створіть кадр і зробіть знімок із чіткими точками у верхній і нижній частині кадру, переконавшись, що точки видно на обох пристроях.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Гарний текстовий підручник</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Ще один гарний текстовий підручник</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>ЩЕ ОДИН гарний текстовий посібник</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Підручник з чарівної сосиски</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Гарне відео про Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Якщо у вас усе ще виникають проблеми, спробуйте віднести телефон у темну кімнату, щоб єдине, що ваші очі добре бачили та на чому зосереджувалися, це зображення.
@@ -1155,9 +1122,6 @@ CrossCam відобразить результат вирівнювання на
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Автоматичне підключення, коли відкривається сторінка камери</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Підручник, створений користувачем CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Використовуйте привиди/прозоре накладання/повноекранний режим</value>

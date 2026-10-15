@@ -191,24 +191,6 @@ If you'd rather use 3D glasses or a Cardboard viewer you can set CrossCam to use
 
 </value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>A nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Yet another nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>A short YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>A long, odd, but helpful YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Another YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>A dual camera project with a tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier.</value>
   </data>
@@ -422,21 +404,6 @@ If you'd rather use 3D glasses or a Cardboard viewer you can set CrossCam to use
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>A nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Another nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Yet ANOTHER nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Magic Frankfurter Tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>A nice video about Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>
@@ -1158,9 +1125,6 @@ Before two devices can be used together their roles have to be assigned. The PRI
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automatically connect when camera page opens</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>A tutorial made by a CrossCam user</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Use ghosts/transparent overlay/fullscreen</value>

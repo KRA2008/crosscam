@@ -189,24 +189,6 @@ Dacă poți să-ți încrucișezi ochii confortabil, ar trebui să încerci mai 
 
 Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, puteți seta CrossCam să îi folosească pe pagina Setări.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Un tutorial text frumos</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Încă un alt tutorial text frumos</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Un scurt tutorial YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Un tutorial YouTube lung, ciudat, dar util</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Un alt tutorial YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Un proiect cu două camere cu un tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Dacă imaginea de mai sus nu se potrivește pe ecran, întoarceți-vă telefonul pe peisaj - CrossCam încearcă să facă perechea de imagini de deasupra dimensiunii celei mai ușoare pentru aceasta. Nu trebuie să utilizați întotdeauna CrossCam în peisaj, dar o imagine cu dimensiuni perfecte facilitează învățarea tehnicii.</value>
   </data>
@@ -420,21 +402,6 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Diferite modele de dispozitive pot avea câmpuri vizuale diferite. CrossCam vă va ajuta să corectați acest lucru după ce faceți prima captură. Încadrați și capturați ceva cu puncte distinctive în partea de sus și de jos a cadrului, asigurându-vă că punctele sunt vizibile pe ambele dispozitive.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Un tutorial text frumos</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Un alt tutorial text frumos</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Încă un alt tutorial text frumos</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Tutorial Magic Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Un videoclip frumos despre Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Dacă încă întâmpinați probleme, încercați să vă duceți telefonul într-o cameră întunecată, astfel încât singurul lucru pe care ochii să-l poată vedea bine și pe care să se concentreze să fie imaginea.
@@ -1155,9 +1122,6 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Conectați-vă automat când se deschide pagina camerei</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Un tutorial realizat de un utilizator CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utilizați fantome/suprapunere transparentă/ecran complet</value>

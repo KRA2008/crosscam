@@ -189,24 +189,6 @@
 
 如果您更喜歡使用 3D 眼鏡或 Cardboard 檢視器，您可以在「設定」頁面上將 CrossCam 設定為使用這些眼鏡。</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>不錯的文字教程</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>又一個不錯的文字教程</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>YouTube 簡短教程</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>一個冗長、奇怪但很有幫助的 YouTube 教程</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>另一個 YouTube 教程</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>帶有教程的雙攝像頭項目</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>如果上面的圖片不適合您的螢幕，請將手機轉為橫向 - CrossCam 正在嘗試將上面的一對圖片調整為最簡單的尺寸。您並不總是需要在風景中使用 CrossCam，但尺寸完美的影像可以讓學習技術變得更容易。</value>
   </data>
@@ -420,21 +402,6 @@
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>不同的設備型號可以有不同的視野。 CrossCam 將在您完成第一次捕獲後幫助您糾正此問題。取景並捕捉畫面頂部和底部附近具有獨特點的內容，確保這些點在兩台裝置上都可見。</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>不錯的文字教程</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>另一個不錯的文字教程</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>另一個不錯的文字教程</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>神奇法蘭克福教程</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>關於魔眼的精彩視頻</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>如果您仍然遇到問題，請嘗試將手機帶到黑暗的房間，以便您的眼睛唯一能看清並聚焦的就是影像。
@@ -1155,9 +1122,6 @@ CrossCam 將在小機器人圖示下方的相機螢幕上顯示對齊結果。�
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>相機頁面開啟時自動連接</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>CrossCam用戶製作的教學課程</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>使用重影/透明覆蓋/全螢幕</value>

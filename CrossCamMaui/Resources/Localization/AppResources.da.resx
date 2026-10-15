@@ -189,24 +189,6 @@ Hvis du komfortabelt kan krydse dine øjne, bør du prøve krydsmetoden først, 
 
 Hvis du hellere vil bruge 3D-briller eller en Cardboard-fremviser, kan du indstille CrossCam til at bruge dem på siden Indstillinger.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>En fin tekst tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Endnu en fin tekst tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>En kort YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>En lang, mærkelig, men nyttig YouTube-tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Endnu en YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Et projekt med to kameraer med en tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Hvis ovenstående billede ikke passer på din skærm, skal du dreje din telefon til liggende - CrossCam forsøger at lave parret billeder over den nemmeste størrelse til dette. Du behøver ikke altid bruge CrossCam i landskab, men et billede i perfekt størrelse gør det nemmere at lære teknikken.</value>
   </data>
@@ -420,21 +402,6 @@ Hvis du hellere vil bruge 3D-briller eller en Cardboard-fremviser, kan du indsti
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Forskellige enhedsmodeller kan have forskellige synsfelter. CrossCam hjælper dig med at rette op på dette, efter du har foretaget din første optagelse. Indram og indfang noget med markante punkter nær toppen og bunden af ​​rammen, og sørg for, at punkterne er synlige på begge enheder.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>En fin tekst tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Endnu en fin tekst tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Endnu en fin tekst tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Magic Frankfurter Tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>En god video om Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Hvis du stadig har problemer, så prøv at bringe din telefon til et mørkt rum, så det eneste, dine øjne kan se godt og fokusere på, er billedet.
@@ -1155,9 +1122,6 @@ Før to enheder kan bruges sammen, skal deres roller tildeles. Den PRIMÆRE enhe
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Tilslut automatisk, når kamerasiden åbnes</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>En tutorial lavet af en CrossCam-bruger</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Brug spøgelser/gennemsigtig overlejring/fuldskærm</value>

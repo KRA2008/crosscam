@@ -189,24 +189,6 @@ Ako možete udobno prekrižiti oči, prvo biste trebali isprobati metodu križan
 
 Ako biste radije koristili 3D naočale ili Cardboard preglednik, možete postaviti CrossCam da ih koristi na stranici postavki.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Dobar tekstualni tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Još jedan lijep tekstualni tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Kratki YouTube tutorijal</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Dug, neobičan, ali koristan YouTube vodič</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Još jedan YouTube vodič</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Projekt dvostruke kamere s vodičem</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Ako gornja slika ne stane na vaš zaslon, okrenite telefon u vodoravni položaj - CrossCam pokušava napraviti par slika iznad veličine koja je najlakša za to. Ne morate uvijek koristiti CrossCam u pejzažu, ali slika savršene veličine olakšava učenje tehnike.</value>
   </data>
@@ -420,21 +402,6 @@ Ako biste radije koristili 3D naočale ili Cardboard preglednik, možete postavi
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Različiti modeli uređaja mogu imati različita vidna polja. CrossCam će vam pomoći da to ispravite nakon što napravite prvo snimanje. Kadrirajte i snimite nešto s karakterističnim točkama pri vrhu i dnu kadra, pazeći da su točke vidljive na oba uređaja.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Dobar tekstualni tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Još jedan lijep tekstualni tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Još JEDAN lijep tekstualni vodič</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Vodič za Magic Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Lijep video o Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Ako i dalje imate problema, pokušajte odnijeti telefon u mračnu prostoriju tako da jedino što vaše oči mogu dobro vidjeti i na što se fokusirati je slika.
@@ -1155,9 +1122,6 @@ Prije nego što se dva uređaja mogu koristiti zajedno, moraju se dodijeliti nji
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automatski se poveži kada se otvori stranica kamere</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Vodič koji je napravio korisnik CrossCam-a</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Koristite duhove/prozirni sloj/puni zaslon</value>

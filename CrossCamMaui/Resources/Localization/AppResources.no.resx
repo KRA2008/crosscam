@@ -189,24 +189,6 @@ Hvis du er i stand til å krysse øynene dine komfortabelt, bør du prøve kryss
 
 Hvis du heller vil bruke 3D-briller eller en Cardboard-fremviser, kan du stille inn CrossCam til å bruke dem på Innstillinger-siden.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>En fin tekstopplæring</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Nok en fin tekstopplæring</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>En kort YouTube-opplæring</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>En lang, merkelig, men nyttig YouTube-opplæring</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>En annen YouTube-opplæring</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Et prosjekt med to kameraer med en veiledning</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Hvis bildet ovenfor ikke passer på skjermen din, snu telefonen til liggende - CrossCam prøver å lage bildeparet over den enkleste størrelsen for dette. Du trenger ikke alltid bruke CrossCam i landskap, men et perfekt størrelse bilde gjør det lettere å lære teknikken.</value>
   </data>
@@ -420,21 +402,6 @@ Hvis du heller vil bruke 3D-briller eller en Cardboard-fremviser, kan du stille 
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Ulike enhetsmodeller kan ha forskjellige synsfelt. CrossCam vil hjelpe deg å korrigere for dette etter at du har tatt din første opptak. Ramme opp og fange noe med karakteristiske punkter nær toppen og bunnen av rammen, og sørg for at punktene er synlige på begge enhetene.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>En fin tekstopplæring</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Nok en fin tekstopplæring</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Nok en fin tekstopplæring</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Magic Frankfurter veiledning</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>En fin video om Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Hvis du fortsatt har problemer, kan du prøve å ta telefonen til et mørkt rom slik at det eneste øynene dine kan se godt og fokusere på er bildet.
@@ -1155,9 +1122,6 @@ Før to enheter kan brukes sammen, må rollene deres tildeles. Den PRIMÆRE enhe
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Koble til automatisk når kamerasiden åpnes</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>En opplæring laget av en CrossCam-bruker</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Bruk spøkelser/gjennomsiktig overlegg/fullskjerm</value>

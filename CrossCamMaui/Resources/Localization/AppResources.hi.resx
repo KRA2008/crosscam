@@ -189,24 +189,6 @@
 
 यदि आप 3डी चश्मे या कार्डबोर्ड व्यूअर का उपयोग करना चाहते हैं तो आप सेटिंग पृष्ठ पर क्रॉसकैम को उनका उपयोग करने के लिए सेट कर सकते हैं।</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>एक अच्छा पाठ ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>एक और अच्छा टेक्स्ट ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>एक लघु यूट्यूब ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>एक लंबा, अजीब, लेकिन उपयोगी YouTube ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>एक और यूट्यूब ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>ट्यूटोरियल के साथ एक डुअल कैमरा प्रोजेक्ट</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>यदि उपरोक्त छवि आपकी स्क्रीन पर फिट नहीं बैठती है, तो अपने फ़ोन को लैंडस्केप में बदलें - क्रॉसकैम इसके लिए ऊपर की छवियों की जोड़ी को सबसे आसान आकार बनाने का प्रयास कर रहा है। आपको हमेशा लैंडस्केप में क्रॉसकैम का उपयोग करने की ज़रूरत नहीं है, लेकिन एक बिल्कुल सही आकार की छवि तकनीक सीखना आसान बनाती है।</value>
   </data>
@@ -420,21 +402,6 @@
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>विभिन्न डिवाइस मॉडल में देखने के अलग-अलग क्षेत्र हो सकते हैं। अपना पहला कैप्चर करने के बाद क्रॉसकैम आपको इसे ठीक करने में मदद करेगा। फ्रेम बनाएं और फ्रेम के ऊपर और नीचे के पास विशिष्ट बिंदुओं के साथ कुछ कैप्चर करें, यह सुनिश्चित करते हुए कि बिंदु दोनों डिवाइस पर दिखाई दे रहे हैं।</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>एक अच्छा पाठ ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>एक और अच्छा टेक्स्ट ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>फिर भी एक और अच्छा टेक्स्ट ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>मैजिक फ्रैंकफर्टर ट्यूटोरियल</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>मैजिक आई के बारे में एक अच्छा वीडियो</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>यदि आपको अभी भी परेशानी हो रही है, तो अपने फोन को एक अंधेरे कमरे में लाने का प्रयास करें ताकि आपकी आंखें केवल छवि को अच्छी तरह से देख सकें और जिस पर ध्यान केंद्रित कर सकें।
@@ -1155,9 +1122,6 @@
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>कैमरा पेज खुलने पर स्वचालित रूप से कनेक्ट करें</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>क्रॉसकैम उपयोगकर्ता द्वारा बनाया गया एक ट्यूटोरियल</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>भूत/पारदर्शी ओवरले/फ़ुलस्क्रीन का उपयोग करें</value>

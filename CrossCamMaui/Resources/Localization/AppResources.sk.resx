@@ -189,24 +189,6 @@ Ak ste schopní pohodlne prekrížiť oči, mali by ste najskôr vyskúšať met
 
 Ak by ste radšej používali 3D okuliare alebo zobrazovač Cardboard, na stránke Nastavenia môžete nastaviť CrossCam tak, aby ich používal.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Pekný textový tutoriál</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Ďalší pekný textový tutoriál</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Krátky návod na YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Dlhý, zvláštny, ale užitočný návod na YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Ďalší návod na YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Projekt s duálnym fotoaparátom s návodom</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Ak sa vyššie uvedený obrázok nezmestí na vašu obrazovku, otočte telefón na šírku – CrossCam sa na to snaží vytvoriť z dvojice obrázkov nad veľkosťou čo najjednoduchšiu. CrossCam nemusíte vždy používať na šírku, ale perfektne veľký obrázok uľahčuje učenie sa techniky.</value>
   </data>
@@ -420,21 +402,6 @@ Ak by ste radšej používali 3D okuliare alebo zobrazovač Cardboard, na strán
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Rôzne modely zariadení môžu mať rôzne zorné polia. CrossCam vám pomôže napraviť to po prvom zachytení. Zarámujte a zachyťte niečo s výraznými bodmi v hornej a dolnej časti rámu, pričom sa uistite, že sú body viditeľné na oboch zariadeniach.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Pekný textový tutoriál</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Ďalší pekný textový tutoriál</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>ĎALŠÍ pekný textový tutoriál</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Návod na magický Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Pekné video o Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Ak máte stále problémy, skúste preniesť telefón do tmavej miestnosti, aby vaše oči dobre videli a na čo sa mohli sústrediť, bol obraz.
@@ -1155,9 +1122,6 @@ Pred použitím dvoch zariadení spolu je potrebné priradiť ich roly. PRIMÁRN
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automaticky sa pripojiť, keď sa otvorí stránka fotoaparátu</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Návod vytvorený používateľom CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Použite duchov / priehľadné prekrytie / celú obrazovku</value>

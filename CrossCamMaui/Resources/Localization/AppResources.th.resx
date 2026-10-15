@@ -189,24 +189,6 @@
 
 หากคุณต้องการใช้แว่นตา 3 มิติหรือแว่น Cardboard คุณสามารถตั้งค่า CrossCam ให้ใช้แว่นตาเหล่านั้นได้ในหน้าการตั้งค่า</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>บทช่วยสอนข้อความที่ดี</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>อีกหนึ่งบทช่วยสอนข้อความที่ดี</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>บทช่วยสอนสั้น ๆ ของ YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>บทช่วยสอน YouTube ที่ยาว แปลก แต่มีประโยชน์</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>บทช่วยสอน YouTube อื่น</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>โปรเจ็กต์กล้องคู่พร้อมบทช่วยสอน</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>หากภาพด้านบนไม่พอดีกับหน้าจอ ให้หมุนโทรศัพท์เป็นแนวนอน - CrossCam กำลังพยายามทำให้ภาพคู่ที่อยู่เหนือขนาดง่ายที่สุดสำหรับภาพนี้ คุณไม่จำเป็นต้องใช้ CrossCam ในแนวนอนเสมอไป แต่ภาพที่มีขนาดพอเหมาะจะทำให้การเรียนรู้เทคนิคง่ายขึ้น</value>
   </data>
@@ -420,21 +402,6 @@
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>อุปกรณ์แต่ละรุ่นสามารถมีมุมมองที่แตกต่างกันได้ CrossCam จะช่วยคุณแก้ไขปัญหานี้หลังจากที่คุณทำการจับภาพครั้งแรก วางกรอบและจับภาพบางสิ่งที่มีจุดโดดเด่นบริเวณด้านบนและด้านล่างของกรอบ ตรวจดูให้แน่ใจว่าจุดดังกล่าวมองเห็นได้บนอุปกรณ์ทั้งสองเครื่อง</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>บทช่วยสอนข้อความที่ดี</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>อีกหนึ่งบทช่วยสอนข้อความที่ดี</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>อีกหนึ่งบทช่วยสอนข้อความที่ดี</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>บทช่วยสอน Magic Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>วิดีโอที่ดีเกี่ยวกับ Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>หากคุณยังคงประสบปัญหา ให้ลองนำโทรศัพท์ไปไว้ในห้องมืดเพื่อให้ดวงตาของคุณมองเห็นได้ชัดเจนและเพ่งความสนใจไปที่ภาพเท่านั้น
@@ -1155,9 +1122,6 @@ CrossCam จะแสดงผลการจัดตำแหน่งบน�
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>เชื่อมต่ออัตโนมัติเมื่อเปิดหน้ากล้อง</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>บทช่วยสอนที่ทำโดยผู้ใช้ CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>ใช้ภาพซ้อน/ภาพซ้อนทับแบบโปร่งใส/เต็มหน้าจอ</value>

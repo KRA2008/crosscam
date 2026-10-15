@@ -191,24 +191,6 @@ If you'd rather use 3D glasses or a Cardboard viewer you can set CrossCam to use
 
 </value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>A nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Yet another nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>A short YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>A long, odd, but helpful YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Another YouTube tutorial</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>A dual camera project with a tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>If the above image doesn't fit on your screen, turn your phone to landscape - CrossCam is trying to make the pair of images above the easiest size for this. You don't always have to use CrossCam in landscape, but a perfectly sized image makes learning the technique easier.</value>
   </data>
@@ -422,21 +404,6 @@ If you'd rather use 3D glasses or a Cardboard viewer you can set CrossCam to use
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Different device models can have different fields of view. CrossCam will help you correct for this after you do your first capture. Frame up and capture something with distinctive points near the top and bottom of the frame, making sure the points are visible on both devices.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>A nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Another nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Yet ANOTHER nice text tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Magic Frankfurter Tutorial</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>A nice video about Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>
@@ -1166,9 +1133,6 @@ Before two devices can be paired and used together their roles have to be assign
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Automatically connect when camera page opens</value>
   </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>A tutorial made by a CrossCam user</value>
-  </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Use ghosts/transparent overlay/fullscreen</value>
   </data>
@@ -1203,5 +1167,11 @@ Before two devices can be paired and used together their roles have to be assign
     <value>You can zoom in CrossCam! It just may not work exactly the way you think. Very few phone cameras actually have moveable lenses that let you do smooth zooming in and out using actual optics. You may have a camera that seems like it lets you do optical zooming in your native camera app, but you probably don't (they're rare). Instead, what you probably have is a phone with multiple cameras/lenses that each have a fixed zoom, and then software is used to switch between those lenses and also digitally zoom/crop to smoothly transition between them so it feels like an optical zoom. Digital zooming means just blowing an image up and cutting off the extra bits. CrossCam lets you switch between all of your phone's cameras/lenses when capturing so you can always capture the same information you would capture using your native camera. CrossCam then lets you do the digital zoom afterwards using the cropping functionality (which you get to by tapping the pencil icon and then the icon that looks like two overlapping right angles). This way, the entire scene is captured in its entirety and you can make more careful choices about zooming/cropping after the fact.
 
 Another way that CrossCam lets you zoom is by zooming and panning in view mode after you have both sides captured. You can get to view mode by tapping the eye icon after you have both sides captured. Once in view mode, you can pinch to zoom or tap and drag to pan around inside a stereogram while maintaining the 3D effect.</value>
+  </data>
+  <data name="Page.Technique.SpotTheDifference" xml:space="preserve">
+    <value>Spot the difference</value>
+  </data>
+  <data name="Page.Technique.VariousTutorials" xml:space="preserve">
+    <value>Various tutorials on different topics</value>
   </data>
 </root>

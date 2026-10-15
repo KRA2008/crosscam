@@ -189,24 +189,6 @@
 
 إذا كنت تفضل استخدام نظارات ثلاثية الأبعاد أو عارض Cardboard، فيمكنك ضبط CrossCam لاستخدام تلك الموجودة في صفحة الإعدادات.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>برنامج تعليمي نص جميل</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>برنامج تعليمي نصي لطيف آخر</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>درس يوتيوب قصير</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>برنامج تعليمي طويل وغريب ولكنه مفيد على YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>برنامج تعليمي آخر على اليوتيوب</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>مشروع الكاميرا المزدوجة مع البرنامج التعليمي</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>إذا لم تتناسب الصورة أعلاه مع شاشتك، فقم بتحويل هاتفك إلى الوضع الأفقي - تحاول CrossCam جعل زوج الصور أعلى من الحجم الأسهل لهذا الغرض. ليس عليك دائمًا استخدام CrossCam في الوضع الأفقي، ولكن الصورة ذات الحجم المثالي تجعل تعلم هذه التقنية أسهل.</value>
   </data>
@@ -420,21 +402,6 @@
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>يمكن أن تحتوي نماذج الأجهزة المختلفة على مجالات رؤية مختلفة. سيساعدك CrossCam على تصحيح ذلك بعد قيامك بالتقاط الصورة الأولى. قم بتأطير شيء ما والتقاطه بنقاط مميزة بالقرب من الجزء العلوي والسفلي من الإطار، مع التأكد من أن النقاط مرئية على كلا الجهازين.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>برنامج تعليمي نص جميل</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>برنامج تعليمي نصي لطيف آخر</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>بعد برنامج تعليمي نصي لطيف آخر</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>دروس ماجيك فرانكفورتر</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>فيديو جميل عن العين السحرية</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>إذا كنت لا تزال تواجه مشكلة، فحاول إحضار هاتفك إلى غرفة مظلمة بحيث يكون الشيء الوحيد الذي تستطيع عيناك رؤيته جيدًا والتركيز عليه هو الصورة.
@@ -1155,9 +1122,6 @@
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>الاتصال تلقائيًا عند فتح صفحة الكاميرا</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>برنامج تعليمي تم إعداده بواسطة مستخدم CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>استخدم الأشباح/التراكب الشفاف/ملء الشاشة</value>

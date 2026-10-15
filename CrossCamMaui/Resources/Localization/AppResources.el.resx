@@ -189,24 +189,6 @@
 
 Εάν προτιμάτε να χρησιμοποιείτε γυαλιά 3D ή ένα πρόγραμμα προβολής Cardboard, μπορείτε να ρυθμίσετε το CrossCam να χρησιμοποιεί αυτά στη σελίδα Ρυθμίσεις.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Ένα ωραίο σεμινάριο κειμένου</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Ακόμα ένα ωραίο σεμινάριο κειμένου</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Ένα σύντομο μάθημα στο YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Ένα μακρύ, περίεργο, αλλά χρήσιμο μάθημα YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Άλλο ένα σεμινάριο YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Ένα έργο διπλής κάμερας με σεμινάριο</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Εάν η παραπάνω εικόνα δεν ταιριάζει στην οθόνη σας, γυρίστε το τηλέφωνό σας σε οριζόντιο προσανατολισμό - η CrossCam προσπαθεί να κάνει το ζευγάρι των εικόνων πάνω από το πιο εύκολο μέγεθος για αυτό. Δεν χρειάζεται πάντα να χρησιμοποιείτε το CrossCam σε οριζόντιο προσανατολισμό, αλλά μια εικόνα τέλειου μεγέθους διευκολύνει την εκμάθηση της τεχνικής.</value>
   </data>
@@ -420,21 +402,6 @@
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Διαφορετικά μοντέλα συσκευών μπορεί να έχουν διαφορετικά οπτικά πεδία. Το CrossCam θα σας βοηθήσει να το διορθώσετε αφού κάνετε την πρώτη σας λήψη. Καδράρετε και αποτυπώστε κάτι με διακριτικά σημεία κοντά στο επάνω και το κάτω μέρος του πλαισίου, φροντίζοντας τα σημεία να είναι ορατά και στις δύο συσκευές.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Ένα ωραίο σεμινάριο κειμένου</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Ένα άλλο ωραίο σεμινάριο κειμένου</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>ΑΚΟΜΑ ΑΛΛΟ Ωραίο σεμινάριο κειμένου</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Εκμάθηση Magic Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Ένα ωραίο βίντεο για το Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Εάν εξακολουθείτε να αντιμετωπίζετε προβλήματα, δοκιμάστε να φέρετε το τηλέφωνό σας σε ένα σκοτεινό δωμάτιο, έτσι ώστε το μόνο πράγμα στο οποίο βλέπουν καλά τα μάτια σας και εστιάζουν είναι η εικόνα.
@@ -1155,9 +1122,6 @@
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Αυτόματη σύνδεση όταν ανοίξει η σελίδα της κάμερας</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Ένα σεμινάριο που δημιουργήθηκε από έναν χρήστη CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Χρησιμοποιήστε φαντάσματα/διαφανή επικάλυψη/πλήρη οθόνη</value>

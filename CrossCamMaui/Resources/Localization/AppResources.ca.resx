@@ -189,24 +189,6 @@ Si podeu creuar els ulls còmodament, primer hauríeu de provar el mètode creua
 
 Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar CrossCam perquè les utilitzi a la pàgina de configuració.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Un bonic tutorial de text</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Un altre tutorial de text agradable</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Un breu tutorial de YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Un tutorial de YouTube llarg, estrany però útil</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Un altre tutorial de YouTube</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Un projecte de càmera dual amb un tutorial</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Si la imatge de dalt no encaixa a la pantalla, gireu el telèfon en horitzontal; CrossCam està intentant que el parell d'imatges per sobre de la mida més fàcil per a això. No sempre cal utilitzar CrossCam en paisatge, però una imatge de mida perfecta facilita l'aprenentatge de la tècnica.</value>
   </data>
@@ -420,21 +402,6 @@ Si preferiu utilitzar ulleres 3D o un visor de Cardboard, podeu configurar Cross
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Els diferents models de dispositiu poden tenir diferents camps de visió. CrossCam us ajudarà a corregir-ho després de fer la vostra primera captura. Enquadra i captura alguna cosa amb punts distintius a prop de la part superior i inferior del marc, assegurant-se que els punts siguin visibles als dos dispositius.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Un bonic tutorial de text</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Un altre bon tutorial de text</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Un altre tutorial de text agradable</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Tutorial Magic Frankfurter</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Un bonic vídeo sobre Magic Eye</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Si encara teniu problemes, proveu de portar el telèfon a una habitació fosca perquè l'única cosa que els vostres ulls puguin veure bé i centrar-se sigui la imatge.
@@ -1155,9 +1122,6 @@ Abans que dos dispositius es puguin utilitzar junts, s'han d'assignar les seves 
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Connecta't automàticament quan s'obre la pàgina de la càmera</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>Un tutorial fet per un usuari de CrossCam</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Utilitzeu fantasmes/superposició transparent/pantalla completa</value>

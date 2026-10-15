@@ -189,24 +189,6 @@ Jos pystyt mukavasti ristiin, kokeile ensin ristimenetelmää, muussa tapauksess
 
 Jos haluat mieluummin käyttää 3D-laseja tai Cardboard-katselulaitetta, voit asettaa CrossCamin käyttämään niitä Asetukset-sivulla.</value>
   </data>
-  <data name="Page.Technique.CrossLink1" xml:space="preserve">
-    <value>Hieno tekstiopastus</value>
-  </data>
-  <data name="Page.Technique.CrossLink2" xml:space="preserve">
-    <value>Taas yksi kiva tekstiopastus</value>
-  </data>
-  <data name="Page.Technique.CrossLink3" xml:space="preserve">
-    <value>Lyhyt YouTube-opetusohjelma</value>
-  </data>
-  <data name="Page.Technique.CrossLink4" xml:space="preserve">
-    <value>Pitkä, outo, mutta hyödyllinen YouTube-opetusohjelma</value>
-  </data>
-  <data name="Page.Technique.CrossLink5" xml:space="preserve">
-    <value>Toinen YouTube-opetusohjelma</value>
-  </data>
-  <data name="Page.Technique.CrossLink6" xml:space="preserve">
-    <value>Kahden kameran projekti opetusohjelmalla</value>
-  </data>
   <data name="Page.Technique.Parallel1" xml:space="preserve">
     <value>Jos yllä oleva kuva ei mahdu näytölle, käännä puhelimesi vaaka-asentoon - CrossCam yrittää tehdä tätä suuremmista kuvaparista helpoimman kokoisen. Aina ei tarvitse käyttää CrossCamia maisemassa, mutta täydellisen kokoinen kuva helpottaa tekniikan oppimista.</value>
   </data>
@@ -420,21 +402,6 @@ Jos haluat mieluummin käyttää 3D-laseja tai Cardboard-katselulaitetta, voit a
   </data>
   <data name="Page.FovCorrectionExplain" xml:space="preserve">
     <value>Eri laitemalleilla voi olla eri näkökentät. CrossCam auttaa sinua korjaamaan tämän ensimmäisen kaappauksen jälkeen. Kehystä ja tallenna jotain erottuvilla pisteillä lähellä kehyksen ylä- ja alaosaa ja varmista, että pisteet ovat näkyvissä molemmissa laitteissa.</value>
-  </data>
-  <data name="Page.Technique.ParallelLink1" xml:space="preserve">
-    <value>Hieno tekstiopastus</value>
-  </data>
-  <data name="Page.Technique.ParallelLink2" xml:space="preserve">
-    <value>Toinen mukava tekstiopastus</value>
-  </data>
-  <data name="Page.Technique.ParallelLink3" xml:space="preserve">
-    <value>Vielä TOINEN kiva tekstiopastus</value>
-  </data>
-  <data name="Page.Technique.ParallelLink4" xml:space="preserve">
-    <value>Magic Frankfurter opetusohjelma</value>
-  </data>
-  <data name="Page.Technique.ParallelLink5" xml:space="preserve">
-    <value>Hyvä video Magic Eyesta</value>
   </data>
   <data name="Page.Technique.Trouble" xml:space="preserve">
     <value>Jos sinulla on edelleen ongelmia, yritä tuoda puhelimesi pimeään huoneeseen, jotta silmäsi näkevät hyvin ja voivat keskittyä vain kuvaan.
@@ -1155,9 +1122,6 @@ Ennen kuin kahta laitetta voidaan käyttää yhdessä, niiden roolit on määrit
   </data>
   <data name="Settings.Pair.Autoconnect" xml:space="preserve">
     <value>Muodosta yhteys automaattisesti, kun kamerasivu avautuu</value>
-  </data>
-  <data name="Page.Technique.CrossLink7" xml:space="preserve">
-    <value>CrossCam-käyttäjän tekemä opetusohjelma</value>
   </data>
   <data name="Page.Settings.Fullscreen" xml:space="preserve">
     <value>Käytä haamukuvia/läpinäkyvää peittokuvaa/koko näyttöä</value>
