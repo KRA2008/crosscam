@@ -958,13 +958,13 @@ namespace CrossCam.ViewModel
                                 SKSurface.Create(new SKImageInfo(leftWidth, leftHeight));
                             using var canvas = tempSurface.Canvas;
 
-                            canvas.DrawBitmap(LeftCapture, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
+                            canvas.DrawBitmap(LeftCapture, 0, 0, new SKSamplingOptions(SKFilterMode.Nearest));
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate, AppResources.Left);
 
                             canvas.Clear();
 
-                            canvas.DrawBitmap(RightCapture, 0, 0, new SKSamplingOptions(SKCubicResampler.Mitchell));
+                            canvas.DrawBitmap(RightCapture, 0, 0, new SKSamplingOptions(SKFilterMode.Nearest));
 
                             await SaveSurfaceSnapshot(tempSurface, AppResources.SaveModes_Separate, AppResources.Right);
                         }

@@ -1,6 +1,6 @@
 ﻿namespace CrossCam.ViewModel
 {
-    public enum DrawQuality
+    public enum DrawStage
     {
         Preview,
         Review,

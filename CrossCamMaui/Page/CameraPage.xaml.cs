@@ -778,8 +778,8 @@ namespace CrossCam.Page
 
             var drawQuality = 
                 _viewModel.IsExactlyOnePictureTaken || _viewModel.IsNothingCaptured
-                ? DrawQuality.Preview
-                : DrawQuality.Review;
+                ? DrawStage.Preview
+                : DrawStage.Review;
             DrawTool.DrawImagesOnCanvas(
                 surface,
                 left, leftAlignment,
@@ -792,14 +792,14 @@ namespace CrossCam.Page
                 leftOrientation ?? SKEncodedOrigin.Default,
                 isRightFrontFacing,
                 rightOrientation ?? SKEncodedOrigin.Default,
-                drawQuality: drawQuality,
+                drawStage: drawQuality,
                 cardboardVert: cardboardVert,
                 cardboardHor: cardboardHor,
                 isFovStage: _viewModel.WorkflowStage == WorkflowStage.FovCorrection,
                 useFullscreen:
-                (drawQuality == DrawQuality.Preview &&
+                (drawQuality == DrawStage.Preview &&
                  _viewModel.Settings.FullscreenCapturing ||
-                 drawQuality == DrawQuality.Review &&
+                 drawQuality == DrawStage.Review &&
                  _viewModel.Settings.FullscreenEditing) &&
                 (_viewModel.Settings.Mode == DrawMode.Cross ||
                  _viewModel.Settings.Mode == DrawMode.Parallel ||
@@ -814,7 +814,7 @@ namespace CrossCam.Page
                 !(_viewModel.Settings.IsCaptureInMirrorMode &&
                   !_viewModel.Settings.FullscreenCapturing),
                 useMirrorCapture: _viewModel.Settings.IsCaptureInMirrorMode &&
-                                  drawQuality == DrawQuality.Preview,
+                                  drawQuality == DrawStage.Preview,
                 explore:_viewModel.Explore);
 
             if (_viewModel.PairOperatorBindable.PairStatus == PairStatus.Connected &&

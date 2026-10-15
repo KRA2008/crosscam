@@ -77,21 +77,21 @@ namespace CrossCam.Page
             Settings settings, Edits edits, DrawMode drawMode, bool wasPairedCapture, 
             bool isLeftFrontFacing = false, SKEncodedOrigin leftOrientation = SKEncodedOrigin.Default, 
             bool isRightFrontFacing = false, SKEncodedOrigin rightOrientation = SKEncodedOrigin.Default, bool withSwap = false,
-            DrawQuality drawQuality = DrawQuality.Save, float cardboardVert = 0, float cardboardHor = 0, bool isFovStage = false,
+            DrawStage drawStage = DrawStage.Save, float cardboardVert = 0, float cardboardHor = 0, bool isFovStage = false,
             bool useFullscreen = false, bool useMirrorCapture = false, Explore explore = null)
         {
-            var fuseGuideRequested = drawQuality != DrawQuality.Preview && 
+            var fuseGuideRequested = drawStage != DrawStage.Preview && 
                                      settings.SaveWithFuseGuide ||
-                                     drawQuality == DrawQuality.Preview &&
+                                     drawStage == DrawStage.Preview &&
                                      settings.ShowPreviewFuseGuide;
 
             var addBarrelDistortion =
-                settings.CardboardSettings.AddBarrelDistortion && settings.CardboardSettings.AddBarrelDistortionFinalOnly && drawQuality != DrawQuality.Preview ||
+                settings.CardboardSettings.AddBarrelDistortion && settings.CardboardSettings.AddBarrelDistortionFinalOnly && drawStage != DrawStage.Preview ||
                 settings.CardboardSettings.AddBarrelDistortion && !settings.CardboardSettings.AddBarrelDistortionFinalOnly;
 
             if (drawMode == DrawMode.Cardboard &&
                 useFullscreen &&
-                drawQuality == DrawQuality.Review)
+                drawStage == DrawStage.Review)
             {
                 drawMode = DrawMode.Parallel;
                 cardboardHor = 0;
@@ -107,7 +107,7 @@ namespace CrossCam.Page
                                                     DisplayDensity / 2f) / 2f);
             }
 
-            var cardboardDownsizeProportion = drawQuality != DrawQuality.Save &&
+            var cardboardDownsizeProportion = drawStage != DrawStage.Save &&
                                               drawMode == DrawMode.Cardboard &&
                                               settings.CardboardSettings.CardboardDownsize ? settings.CardboardSettings.CardboardDownsizePercentage / 100f : 1f;
             float vert = 0, hor = 0;
@@ -148,19 +148,19 @@ namespace CrossCam.Page
                 DrawImagesOnCanvasInternal(surface, 
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, false,
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, false,
-                    settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
+                    settings.BorderWidthProportion, settings.AddBorder2 && drawStage != DrawStage.Preview, settings.BorderColor,
                     edits.InsideCrop + edits.LeftCrop + horizontalExplore,
                     edits.LeftCrop + edits.OutsideCrop + horizontalExplore,
                     edits.TopCrop + verticalExplore,
                     edits.RightRotation, edits.LeftRotation,
                     -edits.VerticalAlignment,
                     edits.RightZoom , edits.LeftZoom,
-                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
-                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,
+                    wasPairedCapture && drawStage == DrawStage.Preview || isFovStage ? edits.FovRightCorrection : 0,
+                    wasPairedCapture && drawStage == DrawStage.Preview || isFovStage ? edits.FovLeftCorrection : 0,
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardSettings.CardboardBarrelDistortion,
-                    drawQuality,
+                    drawStage,
                     useFullscreen,
                     cardboardWidthProportion, vert, hor,
                     cardboardDownsizeProportion,
@@ -172,19 +172,19 @@ namespace CrossCam.Page
                 DrawImagesOnCanvasInternal(surface, 
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing, shouldMirrorLeftDefault || shouldMirrorLeftParallel,
                     rightBitmap, rightAlignmentMatrix, rightOrientation, isRightFrontFacing, shouldMirrorRightDefault || shouldMirrorRightParallel,
-                    settings.BorderWidthProportion, settings.AddBorder2 && drawQuality != DrawQuality.Preview, settings.BorderColor,
+                    settings.BorderWidthProportion, settings.AddBorder2 && drawStage != DrawStage.Preview, settings.BorderColor,
                     edits.LeftCrop + edits.OutsideCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore,
                     edits.InsideCrop + edits.LeftCrop + (shouldMirrorRightDefault || shouldMirrorLeftParallel ? 0.5f : 0) + horizontalExplore,
                     edits.TopCrop + verticalExplore,
                     edits.LeftRotation, edits.RightRotation,
                     edits.VerticalAlignment,
                     edits.LeftZoom, edits.RightZoom,
-                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovLeftCorrection : 0,
-                    wasPairedCapture && drawQuality == DrawQuality.Preview || isFovStage ? edits.FovRightCorrection : 0,
+                    wasPairedCapture && drawStage == DrawStage.Preview || isFovStage ? edits.FovLeftCorrection : 0,
+                    wasPairedCapture && drawStage == DrawStage.Preview || isFovStage ? edits.FovRightCorrection : 0,
                     edits.Keystone,
                     drawMode, fuseGuideRequested,
                     addBarrelDistortion, settings.CardboardSettings.CardboardBarrelDistortion,
-                    drawQuality,
+                    drawStage,
                     useFullscreen,
                     cardboardWidthProportion, vert, hor,
                     cardboardDownsizeProportion,
@@ -205,7 +205,7 @@ namespace CrossCam.Page
             float keystone,
             DrawMode drawMode, bool fuseGuideRequested,
             bool addBarrelDistortion, uint barrelStrength,
-            DrawQuality drawQuality, bool useFullscreen,
+            DrawStage drawStage, bool useFullscreen,
             float cardboardWidthProportion,
             float cardboardVert,
             float cardboardHor,
@@ -279,7 +279,7 @@ namespace CrossCam.Page
             }
 
             TrimAdjustment alignmentTrim = new(), leftEditTrim = new(), rightEditTrim = new(), editTrim = new();
-            if (drawQuality != DrawQuality.Preview)
+            if (drawStage != DrawStage.Preview)
             {
                 alignmentTrim = OrientAndCombineAlignmentTrims(
                     leftBitmap, leftAlignmentMatrix, leftOrientation, isLeftFrontFacing,
@@ -423,7 +423,7 @@ namespace CrossCam.Page
                     leftDestX, destY, destWidth, destHeight,
                     false, -cardboardSeparationMod,
                     leftScaledAlignmentMatrix, leftOrientationMatrix, leftEditMatrix,
-                    drawQuality);
+                    drawStage);
             }
 
             if (rightBitmap != null)
@@ -443,7 +443,7 @@ namespace CrossCam.Page
                     rightDestX, destY, destWidth, destHeight,
                     leftBitmap != null && useFullscreen, cardboardSeparationMod,
                     rightScaledAlignmentMatrix, rightOrientationMatrix, rightEditMatrix,
-                    drawQuality);
+                    drawStage);
             }
 
             var openCv = DependencyService.Get<IOpenCv>();
@@ -842,19 +842,27 @@ namespace CrossCam.Page
             float destX, float destY, float destWidth, float destHeight,
             bool useGhostOverlay, float cardboardSeparationMod,
             SKMatrix alignmentMatrix, SKMatrix orientationMatrix, SKMatrix editMatrix,
-            DrawQuality drawQuality)
+            DrawStage drawStage)
         {
             using var paint = new SKPaint();
 
             SKSamplingOptions samplingOptions;
-            switch (drawQuality)
+            /* TODO:
+             * low quality during previewing, while moving edit sliders, when using immersive mode in cardboard
+             * ?medium quality? in cardboard mode but not immersive and in review when the edit sliders have stopped moving
+             * high quality during saving
+             */
+            switch (drawStage)
             {
-                case DrawQuality.Preview:
-                    samplingOptions = new SKSamplingOptions(SKFilterMode.Nearest, SKMipmapMode.None);
+                case DrawStage.Preview:
+                case DrawStage.Review:
+                    samplingOptions = new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Nearest); // downsizing, prioritize speed
                     break;
-                case DrawQuality.Review:
-                case DrawQuality.Save:
-                    samplingOptions = new SKSamplingOptions(SKCubicResampler.Mitchell);
+                //case TODO: intermediate review thingy:
+                    //samplingOptions = new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear); // downsizing, balance speed and performance
+                    //break;
+                case DrawStage.Save:
+                    samplingOptions = new SKSamplingOptions(SKFilterMode.Nearest); // we're not downsizing (except when explicit downsizing is used in saving settings (TODO))
                     break;
                 default:
                     samplingOptions = new SKSamplingOptions();
@@ -895,6 +903,11 @@ namespace CrossCam.Page
                         paint.ColorFilter = RedDuboisAnaglyph;
                         paint.BlendMode = SKBlendMode.Plus;
                     }
+                    break;
+                case DrawMode.Cross:
+                case DrawMode.Cardboard:
+                case DrawMode.Parallel:
+                default:
                     break;
             }
 
