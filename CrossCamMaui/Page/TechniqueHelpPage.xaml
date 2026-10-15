@@ -162,7 +162,7 @@
                             <Label Text="{x:Static localization:AppResources.Page_Technique_AdditionalTutorials}"/>
                             <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink1}"
                                     Command="{Binding OpenLinkCommand}"
-                                    CommandParameter="https://www.lockhaven.edu/~dsimanek/3d/view3d.htm"/>
+                                    CommandParameter="https://dsimanek.vialattea.net/3d/view3d.htm"/>
                             <Button Text="{x:Static localization:AppResources.Page_Technique_ParallelLink2}"
                                     Command="{Binding OpenLinkCommand}"
                                     CommandParameter="https://www.angelfire.com/ca/erker/freeview.html"/>
