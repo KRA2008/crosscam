@@ -93,6 +93,14 @@
                 <Setter Property="Color"
                         Value="White"/>
             </Style>
+            <Style TargetType="Slider">
+                <Setter Property="MaximumTrackColor"
+                        Value="DimGray"/>
+                <Setter Property="MinimumTrackColor"
+                        Value="White"/>
+                <Setter Property="ThumbColor"
+                        Value="White"/>
+            </Style>
             <vc:EnumCompareConverter x:Key="enumCompare"/>
             <toolkit:InvertedBoolConverter x:Key="invert"/>
             <vc:NullableBooleanConverter x:Key="nullableBoolean"/>
