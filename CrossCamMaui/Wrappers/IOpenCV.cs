@@ -476,9 +476,13 @@ namespace CrossCam.Wrappers
 
                 result.TransformMatrix1 = matrix1;
                 result.TransformMatrix2 = matrix2;
-
-                return result;
             }
+
+            const float rejectionFactor = 1.25f;
+            if (result.TransformMatrix2.TransX > secondImage.Width / rejectionFactor ||
+                result.TransformMatrix2.TransY > secondImage.Height / rejectionFactor ||
+                result.TransformMatrix1.TransX > firstImage.Width / rejectionFactor ||
+                result.TransformMatrix1.TransY > firstImage.Height / rejectionFactor) return null;
 
             return result;
 #endif
