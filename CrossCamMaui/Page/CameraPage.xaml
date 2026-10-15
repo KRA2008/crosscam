@@ -1374,25 +1374,25 @@
             </ContentView>
             <ContentView HorizontalOptions="EndAndExpand"
                          IsVisible="{Binding IsFullscreenToggleVisible}">
+                <ContentView.Triggers>
+                    <DataTrigger TargetType="ContentView"
+                                 Binding="{Binding IsFullscreenToggle}"
+                                 Value="True">
+                        <Setter Property="Opacity"
+                                Value="1.0"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="ContentView"
+                                 Binding="{Binding IsFullscreenToggle}"
+                                 Value="False">
+                        <Setter Property="Opacity"
+                                Value="0.25"/>
+                    </DataTrigger>
+                </ContentView.Triggers>
                 <ContentView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleFullscreen}"/>
                 </ContentView.GestureRecognizers>
                 <Image Source="ghost.png"
                        InputTransparent="True">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding IsFullscreenToggle}"
-                                     Value="True">
-                            <Setter Property="Opacity"
-                                    Value="1.0"/>
-                        </DataTrigger>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding IsFullscreenToggle}"
-                                     Value="False">
-                            <Setter Property="Opacity"
-                                    Value="0.25"/>
-                        </DataTrigger>
-                    </Image.Triggers>
                 </Image>
             </ContentView>
             <StackLayout HorizontalOptions="EndAndExpand"
@@ -1416,42 +1416,43 @@
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleAutoalignCommand}"/>
                 </StackLayout.GestureRecognizers>
-                <Image Source="smarttoy.png"
-                       InputTransparent="True"
-                       WidthRequest="{StaticResource _gearBoxWidth}">
-                    <Image.Triggers>
-                        <DataTrigger TargetType="Image"
+                <ContentView WidthRequest="{StaticResource _gearBoxWidth}">
+                    <ContentView.Triggers>
+                        <DataTrigger TargetType="ContentView"
                                      Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
                                      Value="False">
                             <Setter Property="Opacity"
                                     Value="0.25"/>
                         </DataTrigger>
-                        <DataTrigger TargetType="Image"
+                        <DataTrigger TargetType="ContentView"
                                      Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
                                      Value="True">
                             <Setter Property="Opacity"
                                     Value="1"/>
                         </DataTrigger>
-                    </Image.Triggers>
-                </Image>
-                <Label Text="{Binding AlignmentConfidence}"
-                       HorizontalOptions="CenterAndExpand"
-                       InputTransparent="True">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label"
+                    </ContentView.Triggers>
+                    <Image Source="smarttoy.png"
+                           InputTransparent="True"/>
+                </ContentView>
+                <ContentView>
+                    <ContentView.Triggers>
+                        <DataTrigger TargetType="ContentView"
                                      Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
                                      Value="False">
                             <Setter Property="Opacity"
                                     Value="0.25"/>
                         </DataTrigger>
-                        <DataTrigger TargetType="Label"
+                        <DataTrigger TargetType="ContentView"
                                      Binding="{Binding Settings.AlignmentSettings.IsAutomaticAlignmentOn}"
                                      Value="True">
                             <Setter Property="Opacity"
                                     Value="1"/>
                         </DataTrigger>
-                    </Label.Triggers>
-                </Label>
+                    </ContentView.Triggers>
+                    <Label Text="{Binding AlignmentConfidence}"
+                           HorizontalOptions="CenterAndExpand"
+                           InputTransparent="True"/>
+                </ContentView>
             </StackLayout>
         </StackLayout>
 
