@@ -677,11 +677,8 @@ Selama beberapa minggu berikutnya, rasa frustrasi saya yang membara membuat saya
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Koreksi keystone diperlukan jika Anda ikut serta.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Jika Anda berbelok ke dalam pada setiap bidikan, akan sangat membantu jika melakukan koreksi keystone. Biasanya Anda ingin mengecilkan tepi bagian dalam foto, lalu memotong sebagian bagian atas dan bawah untuk meratakannya. Anda masuk ke menu pengeditan keystone dengan mengetuk tombol yang terlihat seperti ini:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Berbelok ke dalam disebut toe-in. Hal ini dapat menimbulkan efek pemendekan yang menyulitkan penggabungan sudut-sudut gambar. Efek pemendekan hadir setiap saat dalam kehidupan nyata, karena garis-garis paralel tampak menyatu saat menjauh dari Anda, namun perspektif buatan dapat membuatnya aneh.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Anda bisa bersandar saja.</value>

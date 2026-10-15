@@ -677,11 +677,8 @@ W ciągu następnych kilku tygodni kipiąca frustracja skłoniła mnie do wyobra
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>W przypadku zbieżności konieczna jest korekta trapezu.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Jeśli przy każdym strzale zwrócisz się do wewnątrz, bardzo pomocne będzie dokonanie korekcji trapezu. Zwykle chcesz zmniejszyć wewnętrzne krawędzie zdjęć, a następnie przyciąć część z góry i z dołu, aby je wyrównać. Do menu edycji trapezu można przejść, dotykając przycisku wyglądającego tak:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Skręcanie do wewnątrz nazywa się zbieżnością. Może to powodować efekt skrótu perspektywicznego, który utrudnia połączenie rogów obrazu. Efekt skrótu perspektywicznego jest obecny przez cały czas w prawdziwym życiu, ponieważ równoległe linie wydają się zbiegać, gdy oddalają się od ciebie, ale sztuczne perspektywy mogą sprawić, że będzie to dziwne.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Możesz się po prostu pochylić.</value>

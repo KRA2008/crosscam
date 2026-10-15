@@ -677,11 +677,8 @@ Sonraki birkaç hafta içinde giderek artan hayal kırıklığım, beni ilkinin 
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Eğer içeri girerseniz kilit taşı düzeltmesi gerekir.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Her çekimde içe doğru dönerseniz kilit taşı düzeltmeleri yapmak çok yararlı olur. Tipik olarak fotoğrafların iç kenarlarını küçültmek ve ardından üstten ve alttan bir kısmını kırparak düzleştirmek istersiniz. Şuna benzeyen düğmeye dokunarak kilit taşı düzenleme menüsüne ulaşırsınız:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>İçeri doğru dönmeye toe-in denir. Görüntünün köşelerini birleştirmeyi zorlaştıran bir kısaltma etkisine neden olabilir. Ön kısaltma etkisi gerçek hayatta her zaman mevcuttur, çünkü paralel çizgiler sizden uzaklaştıkça birleşiyormuş gibi görünür, ancak yapay perspektifler bunu tuhaf hale getirebilir.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Sadece eğilebilirsin.</value>

@@ -1129,7 +1129,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out this Reddit post.
+        ///   Looks up a localized string similar to Tap here to join the team!.
         /// </summary>
         internal static string Page_Faq_Test_Body {
             get {
@@ -1167,11 +1167,29 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wigglegrams are a way to view stereograms that doesn&apos;t rely on binocular vision. They&apos;re usually a gif that flips back and forth between the two perspectives, showing each in its entirety in the same spot. CrossCam doesn&apos;t support making them right now, but email me if you&apos;re really interested in them and I&apos;ll do it..
+        ///   Looks up a localized string similar to Wigglegrams are a way to view stereograms that doesn&apos;t rely on binocular vision. They&apos;re usually a gif that flips back and forth between the two perspectives, showing each in its entirety in the same spot. CrossCam doesn&apos;t support making them right now but I&apos;m working on adding that ability. One downside of wigglegrams in CrossCam is that there would only be two perspectives, but wigglegrams are a lot more pleasant if they have more perspectives or even a smooth, continuous movement..
         /// </summary>
         internal static string Page_Faq_Wiggle_Body {
             get {
                 return ResourceManager.GetString("Page.Faq.Wiggle.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Why can&apos;t you zoom in CrossCam?.
+        /// </summary>
+        internal static string Page_Faq_Zooming {
+            get {
+                return ResourceManager.GetString("Page.Faq.Zooming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can zoom in CrossCam! It just may not work exactly the way you think. Very few phone cameras actually have moveable lenses that let you do smooth zooming in and out using actual optics. You may have a camera that seems like it lets you do optical zooming in your native camera app, but you probably don&apos;t (they&apos;re rare). Instead, what you probably have is a phone with multiple cameras/lenses that each have a fixed zoom, and then software is used to switch between those lenses and also digitally zoom/crop  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Page_Faq_Zooming_Body {
+            get {
+                return ResourceManager.GetString("Page.Faq.Zooming.Body", resourceCulture);
             }
         }
         
@@ -1998,7 +2016,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is an experimental guide donut on the Settings page you can turn on which may help you preserve your stereo window while maximizing the useable width. By turning left and right the depth on the donut will change relative to the rest of the scene - set the donut&apos;s depth so it is either on or behind the most distant point in your scene. Be careful, using it on smaller scenes may make things painful (see keystone tip above)..
+        ///   Looks up a localized string similar to There is an experimental guide donut on the Settings page you can turn on which may help you preserve your stereo window while maximizing the useable width. By turning left and right the depth on the donut will change relative to the rest of the scene - set the donut&apos;s depth so it is either on or behind the most distant point in your scene. Be careful, using it may make certain things painful to look at (see keystone tip above)..
         /// </summary>
         internal static string Page_Tips_Donut_Body {
             get {
@@ -2007,7 +2025,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keystone correction is needed if you toe-in..
+        ///   Looks up a localized string similar to Keystone correction and careful scene setup is needed if you toe-in..
         /// </summary>
         internal static string Page_Tips_Keystone {
             get {
@@ -2016,20 +2034,13 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you turn inward with each shot it is very helpful to do keystone corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:.
+        ///   Looks up a localized string similar to Turning inward when capturing is called toe-in. It should generally be avoided. It can do one minor good thing but also it can do two major bad things. The good thing it can do is allow more of the scene to stay behind the stereo window without cropping being necessary (see the tip about &quot;stereo window&quot; for more information). If you want to add toe-in, there is a &quot;donut&quot; capture guide you can turn on on the Settings page which can help you to regulate the amount that you toe-in.
+        ///
+        ///The first bad thing toe-i [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Page_Tips_Keystone_Body1 {
+        internal static string Page_Tips_Keystone_Body {
             get {
-                return ResourceManager.GetString("Page.Tips.Keystone.Body1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turning inward is called toe-in. It can cause a foreshortening effect that makes it difficult to fuse the corners of the image. The foreshortening effect is present at all times in real life, because parallel lines appear to converge as they go off into the distance away from you, but the artificial perspectives can make it weird..
-        /// </summary>
-        internal static string Page_Tips_Keystone_Body2 {
-            get {
-                return ResourceManager.GetString("Page.Tips.Keystone.Body2", resourceCulture);
+                return ResourceManager.GetString("Page.Tips.Keystone.Body", resourceCulture);
             }
         }
         
@@ -2070,6 +2081,15 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If your subject is moving you can still capture it with CrossCam..
+        /// </summary>
+        internal static string Page_Tips_Moving {
+            get {
+                return ResourceManager.GetString("Page.Tips.Moving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can open old photos in CrossCam..
         /// </summary>
         internal static string Page_Tips_Old {
@@ -2088,6 +2108,24 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can pan and zoom to explore stereograms in 3D..
+        /// </summary>
+        internal static string Page_Tips_PanAndZoom {
+            get {
+                return ResourceManager.GetString("Page.Tips.PanAndZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can pan around and zoom in and out of a stereogram while maintaining the 3D effect by tapping the icon that looks like an eye which appears after you have both sides captured. After tapping the eye, pinch to zoom or tap and drag to pan around..
+        /// </summary>
+        internal static string Page_Tips_PanAndZoom_Body {
+            get {
+                return ResourceManager.GetString("Page.Tips.PanAndZoom.Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turn on quick mode when you&apos;re with others..
         /// </summary>
         internal static string Page_Tips_Quick {
@@ -2097,7 +2135,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you&apos;re exploring with other people it&apos;s a good idea to go into fast mode by turning off auto-alignment and borders and turning on auto-saving. You can always load, auto-align, and edit the pictures later. That way your companions don&apos;t have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can also turn on the separate side saving which will ignore any editing [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to If you&apos;re out with other people it&apos;s a good idea to go into fast mode by: turning off auto-alignment, turning off borders and fuse guide, turning on auto-saving, and turning on auto-connect (if using two phones). You can always load, auto-align, and edit the pictures later. That way your companions don&apos;t have to wait for you to perfect your pictures on the spot, but you can still be confident that the depth you want is really there. Just be careful not to do any hasty editing before the first save! You can  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Page_Tips_Quick_Body {
             get {
@@ -2151,7 +2189,7 @@ namespace CrossCam.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary (sometimes), but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide. Turning inward can cause a foreshortening effect that makes the corners hard to fuse..
+        ///   Looks up a localized string similar to When you move over, try not to rotate your phone at all in any direction, including the natural tendency to turn towards the subject as you move to the side. Some rotation will be necessary (sometimes), but try to minimize it. Imagine the phone is mounted on a straight horizontal rail and can only slide. Turning inward can cause two problems: it can cause a foreshortening effect in the corners that makes them hard to fuse and it can make the parallax on objects in the background too great to be viewed comfo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Page_Tips_Turn_Body {
             get {

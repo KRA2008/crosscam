@@ -677,11 +677,8 @@ Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer s
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Une correction trapézoïdale est nécessaire si vous pincez.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Si vous vous tournez vers l'intérieur à chaque prise de vue, il est très utile d'effectuer des corrections trapézoïdales. En règle générale, vous souhaiterez réduire les bords intérieurs des photos, puis en recadrer une partie en haut et en bas pour les niveler. Vous accédez au menu d'édition Keystone en appuyant sur le bouton qui ressemble à ceci :</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Se tourner vers l’intérieur s’appelle le pincement. Cela peut provoquer un effet de raccourci qui rend difficile la fusion des coins de l’image. L'effet de raccourci est présent à tout moment dans la vie réelle, car les lignes parallèles semblent converger à mesure qu'elles s'éloignent de vous, mais les perspectives artificielles peuvent rendre les choses étranges.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Vous pouvez simplement vous pencher.</value>

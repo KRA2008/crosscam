@@ -677,11 +677,8 @@ Cardboard を使用して写真をキャプチャするには、プレビュー�
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>トーインの場合は台形補正が必要です。</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>ショットごとに内側を向くと、台形補正を行うのに非常に役立ちます。通常は、写真の内側の端を縮小し、上部と下部の一部を切り取って平らにします。次のようなボタンをタップすると、キーストーン編集メニューが表示されます。</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>内側に曲がることをトーインといいます。短縮効果が生じ、画像の隅の融合が困難になる場合があります。平行線は遠くに行くにつれて収束して見えるため、短縮効果は実生活でも常に存在しますが、人工的な遠近法により奇妙に見える場合があります。</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>ただ傾くことができます。</value>

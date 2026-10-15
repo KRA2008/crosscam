@@ -677,11 +677,8 @@ In de loop van de volgende paar weken bracht mijn sluimerende frustratie me erto
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Trapeziumcorrectie is nodig als u toespoort.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Als je bij elke opname naar binnen keert, is het erg handig om keystone-correcties uit te voeren. Normaal gesproken wilt u de binnenranden van de foto's verkleinen en vervolgens een deel van de boven- en onderkant bijsnijden om ze waterpas te maken. U komt in het keystone-bewerkingsmenu door op de knop te tikken die er als volgt uitziet:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Naar binnen draaien heet toe-in. Het kan een verkortingseffect veroorzaken, waardoor het moeilijk wordt om de hoeken van de afbeelding samen te voegen. Het verkortingseffect is in het echte leven altijd aanwezig, omdat parallelle lijnen lijken samen te komen als ze in de verte van je af gaan, maar de kunstmatige perspectieven kunnen het raar maken.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Je kunt gewoon leunen.</value>

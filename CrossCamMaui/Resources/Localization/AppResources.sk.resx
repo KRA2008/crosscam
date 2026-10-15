@@ -677,11 +677,8 @@ Počas niekoľkých nasledujúcich týždňov ma moja tlejúca frustrácia privi
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Korekcia lichobežníkového skreslenia je potrebná, ak sa priblížite.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Ak sa pri každom zábere otočíte dovnútra, je veľmi užitočné vykonať korekcie lichobežníkového skreslenia. Zvyčajne by ste chceli zmenšiť vnútorné okraje fotografií a potom orezať niektoré z hornej a dolnej časti, aby ste ich vyrovnali. Do ponuky úpravy lichobežníka sa dostanete klepnutím na tlačidlo, ktoré vyzerá takto:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Otočenie dovnútra sa nazýva toe-in. Môže to spôsobiť skracujúci efekt, ktorý sťažuje spojenie rohov obrazu. Efekt skracovania je v skutočnom živote prítomný vždy, pretože sa zdá, že paralelné čiary sa zbiehajú, keď odchádzajú do diaľky od vás, ale umelé perspektívy to môžu robiť zvláštne.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Môžete sa len oprieť.</value>

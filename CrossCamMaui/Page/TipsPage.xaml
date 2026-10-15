@@ -44,7 +44,7 @@
                     <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Tips_Keystone}"/>
                 </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Tips_Keystone_Body1}"/>
+                    <Label Text="{x:Static localization:AppResources.Page_Tips_Keystone_Body}"/>
                     <StackLayout Orientation="Horizontal" 
                                  Spacing="0">
                         <Image Source="keystoneleft.png"
@@ -52,9 +52,18 @@
                         <Image Source="keystoneright.png"
                                HorizontalOptions="StartAndExpand"/>
                     </StackLayout>
-                    <Label Text="{x:Static localization:AppResources.Page_Tips_Keystone_Body2}"/>
                 </StackLayout>
             </ce:AutomaticallyClosingExpander>
+
+            <ce:HorizontalDivider/>
+
+            <ce:BasicExpander Title="{x:Static localization:AppResources.Page_Tips_Moving}"
+                              Text="{x:Static localization:AppResources.Page_Faq_Moving_Body}"/>
+
+            <ce:HorizontalDivider/>
+
+            <ce:BasicExpander Title="{x:Static localization:AppResources.Page_Tips_PanAndZoom}"
+                              Text="{x:Static localization:AppResources.Page_Tips_PanAndZoom_Body}"/>
 
             <ce:HorizontalDivider/>
 

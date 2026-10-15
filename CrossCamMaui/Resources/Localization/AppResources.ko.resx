@@ -677,11 +677,8 @@ CrossCam 편집에서 수정할 수 없는 미러 캡처를 사용할 때 허용
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>토인(toe-in)하는 경우 키스톤 보정이 필요합니다.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>각 샷을 안쪽으로 돌리면 키스톤 보정을 수행하는 것이 매우 도움이 됩니다. 일반적으로 사진의 내부 가장자리를 축소한 다음 상단과 하단을 잘라내어 수평을 맞추려고 합니다. 다음과 같은 버튼을 탭하면 키스톤 편집 메뉴로 이동합니다.</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>안쪽으로 향하는 것을 토인(toe-in)이라고 합니다. 이미지의 모서리를 융합하기 어렵게 만드는 단축법 효과가 발생할 수 있습니다. 단축법 효과는 실제 생활에서 항상 존재합니다. 왜냐하면 평행선이 멀리 떨어져 있을 때 수렴하는 것처럼 보이지만 인위적인 관점으로 인해 이상하게 보일 수 있기 때문입니다.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>그냥 기댈 수 있습니다.</value>

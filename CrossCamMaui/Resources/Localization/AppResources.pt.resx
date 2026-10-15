@@ -677,11 +677,8 @@ Nas semanas seguintes, minha frustração latente me levou a imaginar simplesmen
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>A correção keystone é necessária se você estiver de acordo.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Se você virar para dentro a cada foto, será muito útil fazer correções keystone. Normalmente, você desejaria reduzir as bordas internas das fotos e, em seguida, cortar algumas partes superior e inferior para nivelá-las. Você chega ao menu de edição keystone tocando no botão semelhante a este:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Virar para dentro é chamado de convergência. Pode causar um efeito de escorço que dificulta a fusão dos cantos da imagem. O efeito de escorço está presente em todos os momentos da vida real, porque as linhas paralelas parecem convergir à medida que se afastam de você, mas as perspectivas artificiais podem tornar isso estranho.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Você pode simplesmente se inclinar.</value>

@@ -677,11 +677,8 @@ Dalam beberapa minggu akan datang, kekecewaan saya yang memuncak menyebabkan say
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Pembetulan Keystone diperlukan jika anda masuk ke dalam.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Jika anda menoleh ke dalam dengan setiap pukulan, adalah sangat membantu untuk melakukan pembetulan keystone. Biasanya anda ingin mengecilkan bahagian dalam tepi foto dan kemudian memangkas beberapa bahagian atas dan bawah untuk meratakannya. Anda pergi ke menu penyuntingan keystone dengan mengetik butang yang kelihatan seperti ini:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Berpusing ke dalam dipanggil toe-in. Ia boleh menyebabkan kesan pemendekan yang menyukarkan untuk menggabungkan sudut imej. Kesan pemendekan hadir pada setiap masa dalam kehidupan sebenar, kerana garis selari kelihatan menumpu apabila ia pergi ke jarak jauh daripada anda, tetapi perspektif buatan boleh menjadikannya pelik.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Anda hanya boleh bersandar.</value>

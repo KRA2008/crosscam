@@ -677,11 +677,8 @@ Durant les properes setmanes, la meva frustració a foc lent em va portar a imag
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>La correcció de la distorsió trapezoidal és necessària si us desplaceu.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Si us torneu cap a dins amb cada tret, és molt útil fer correccions clau. Normalment, voldreu reduir les vores interiors de les fotos i després retallar-ne algunes a la part superior i inferior per anivellar-les. S'accedeix al menú d'edició clau tocant el botó que sembla aquest:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Girar cap a dins s'anomena punteig. Pot provocar un efecte d'escorçament que dificulta la fusió de les cantonades de la imatge. L'efecte escorç és present en tot moment a la vida real, perquè les línies paral·leles semblen convergir a mesura que s'allunyen de la teva distància, però les perspectives artificials poden fer-ho estrany.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Només pots inclinar-te.</value>

@@ -677,11 +677,8 @@ Under de närmaste veckorna fick min sjudande frustration mig att föreställa m
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Keystone-korrigering behövs om du går in.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Om du vänder dig inåt med varje skott är det mycket användbart att göra keystone-korrigeringar. Vanligtvis skulle du vilja krympa insidan av fotona och sedan beskära en del av toppen och botten för att jämna ut dem. Du kommer till keystone-redigeringsmenyn genom att trycka på knappen som ser ut så här:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Att vända sig inåt kallas för toe-in. Det kan orsaka en förkortande effekt som gör det svårt att smälta ihop bildens hörn. Den förkortande effekten är närvarande vid alla tillfällen i det verkliga livet, eftersom parallella linjer verkar konvergera när de går bort i fjärran från dig, men de artificiella perspektiven kan göra det konstigt.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Du kan bara luta dig.</value>

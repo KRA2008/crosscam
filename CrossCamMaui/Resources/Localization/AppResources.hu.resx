@@ -677,11 +677,8 @@ A következő hetekben forrongó frusztrációm arra késztetett, hogy elképzel
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Trapézkorrekcióra van szükség, ha belevág.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Ha minden felvételnél befelé fordul, nagyon hasznos a trapézkorrekciók elvégzése. Általában a fotók belső széleit össze kell zsugorítani, majd levágni néhányat a tetejükről és az alsó részükről, hogy kiegyenlítsék őket. A trapéztorzítás szerkesztési menüjébe a következőképpen néz ki:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>A befelé fordulást toe-innek nevezzük. Előrövidítő hatást válthat ki, ami megnehezíti a kép sarkainak összeolvasztását. Az előrerövidítő hatás a való életben mindig jelen van, mert a párhuzamos vonalak összefolynak, ahogy távolodnak tőled, de a mesterséges perspektívák furcsává tehetik.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Csak dőlhetsz.</value>

@@ -677,11 +677,8 @@ Tijekom sljedećih nekoliko tjedana moja tinjajuća frustracija navela me da zam
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Korekcija trapezoida je potrebna ako ulazite.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Ako se sa svakim snimkom okrenete prema unutra, vrlo je korisno napraviti trapezoidne korekcije. Obično želite smanjiti unutarnje rubove fotografija, a zatim izrezati dio s vrha i dna kako biste ih izravnali. Do izbornika za uređivanje trapezoida dolazite tako da dodirnete gumb koji izgleda ovako:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Okretanje prema unutra naziva se toe-in. Može uzrokovati efekt skraćivanja koji otežava spajanje kutova slike. Efekt skraćivanja prisutan je u svakom trenutku u stvarnom životu, jer se čini da se paralelne linije spajaju dok odlaze u daljinu od vas, ali umjetne perspektive mogu to učiniti čudnim.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Možete se samo nasloniti.</value>

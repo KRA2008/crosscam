@@ -677,11 +677,8 @@ Trong vài tuần tiếp theo, nỗi thất vọng âm ỉ khiến tôi tưởng
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Cần phải chỉnh sửa Keystone nếu bạn tham gia.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Nếu bạn quay vào trong trong mỗi lần chụp thì việc thực hiện chỉnh sửa keystone sẽ rất hữu ích. Thông thường, bạn sẽ muốn thu nhỏ các cạnh bên trong của ảnh rồi cắt bớt một số phần trên và dưới để cân bằng chúng. Bạn truy cập menu chỉnh sửa keystone bằng cách nhấn vào nút trông như thế này:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Hướng vào trong gọi là hướng ngón chân vào. Nó có thể gây ra hiệu ứng thu nhỏ khiến việc hợp nhất các góc của hình ảnh trở nên khó khăn. Hiệu ứng rút ngắn luôn hiện diện trong cuộc sống thực, bởi vì các đường song song dường như hội tụ khi chúng đi ra xa bạn, nhưng những góc nhìn nhân tạo có thể khiến nó trở nên kỳ lạ.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Bạn chỉ có thể dựa.</value>

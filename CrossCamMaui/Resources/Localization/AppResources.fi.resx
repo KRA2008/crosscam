@@ -677,11 +677,8 @@ Seuraavien viikkojen aikana kiehuva turhautumiseni sai minut kuvittelemaan yksin
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Keystone-korjaus tarvitaan, jos lähdet sisään.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Jos käännyt sisäänpäin jokaisen laukauksen yhteydessä, on erittäin hyödyllistä tehdä trapetsikorjauksia. Yleensä haluat kutistaa valokuvien sisäreunoja ja rajata niitä sitten ylä- ja alareunasta tasataksesi ne. Pääset Keystone-muokkausvalikkoon napauttamalla painiketta, joka näyttää tältä:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Sisään kääntymistä kutsutaan toe-in. Se voi aiheuttaa ennakoivan vaikutuksen, joka vaikeuttaa kuvan kulmien yhdistämistä. Lyhennysvaikutus on läsnä aina tosielämässä, koska yhdensuuntaiset viivat näyttävät yhtenevän, kun ne lähtevät etäisyyteen sinusta, mutta keinotekoiset perspektiivit voivat tehdä siitä oudot.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Voit vain nojata.</value>

@@ -66,16 +66,81 @@
                 </StackLayout>
             </ce:AutomaticallyClosingExpander>
 
-            <ce:HorizontalDivider/>
+            <ce:HorizontalDivider x:Name="_crossParallelLine"/>
 
-            <ce:AutomaticallyClosingExpander>
+            <ce:AutomaticallyClosingExpander x:Name="_crossParallelExpander">
                 <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Why}"/>
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Inverted}"/>
                 </ce:AutomaticallyClosingExpander.Header>
                 <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Why_Body}"/>
+                    <Label Text="{x:Static localization:AppResources.Page_Faq_Inverted_Body1}"/>
+                    <AbsoluteLayout HorizontalOptions="Center"
+                            HeightRequest="179"
+                            WidthRequest="302">
+                        <Image AbsoluteLayout.LayoutFlags="All" 
+                       AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                       Aspect="AspectFit"
+                       Source="fyi.png"/>
+                    </AbsoluteLayout>
+                    <Label Text="{x:Static localization:AppResources.Page_Faq_Inverted_Body2}"/>
                 </StackLayout>
             </ce:AutomaticallyClosingExpander>
+
+            <ce:HorizontalDivider/>
+
+            <ce:BasicExpander Title="{x:Static localization:AppResources.Page_Faq_Moving}"
+                              Text="{x:Static localization:AppResources.Page_Faq_Moving_Body}"/>
+
+            <ce:HorizontalDivider/>
+
+            <ce:BasicExpander Title="{x:Static localization:AppResources.Page_Faq_Zooming}"
+                              Text="{x:Static localization:AppResources.Page_Faq_Zooming_Body}"/>
+
+            <ce:HorizontalDivider x:Name="_autoalignmentLine"/>
+
+            <ce:AutomaticallyClosingExpander x:Name="_autoalignmentExpander">
+                <ce:AutomaticallyClosingExpander.Header>
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Alignment}"/>
+                </ce:AutomaticallyClosingExpander.Header>
+                <StackLayout Padding="10">
+                    <Label Text="{x:Static localization:AppResources.Page_Faq_Alignment_Body}"/>
+                    <Image Source="smarttoy.png"
+                           HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </ce:AutomaticallyClosingExpander>
+
+            <ce:HorizontalDivider x:Name="_cardboardLine"/>
+
+            <ce:BasicExpander x:Name="_cardboardExpander"
+                              Title="{x:Static localization:AppResources.Page_Faq_Cardboard}"
+                              Text="{x:Static localization:AppResources.Page_Faq_Cardboard_Body}"/>
+
+            <ce:HorizontalDivider x:Name="_mirrorLine"/>
+
+            <ce:AutomaticallyClosingExpander x:Name="_mirrorExpander">
+                <ce:AutomaticallyClosingExpander.Header>
+                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Mirror}"/>
+                </ce:AutomaticallyClosingExpander.Header>
+                <StackLayout Padding="10">
+                    <Label Text="{x:Static localization:AppResources.Page_Faq_Mirror_Body1}"/>
+                    <AbsoluteLayout>
+                        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
+                               AbsoluteLayout.LayoutBounds="0.5,0,175,175"
+                               Source="mirrormethod.png"/>
+                    </AbsoluteLayout>
+                    <Label Text="{x:Static localization:AppResources.Page_Faq_Mirror_Body2}"/>
+                </StackLayout>
+            </ce:AutomaticallyClosingExpander>
+
+            <ce:HorizontalDivider/>
+
+            <ce:BasicExpander Title="{x:Static localization:AppResources.Page_Faq_Wiggle}"
+                              Text="{x:Static localization:AppResources.Page_Faq_Wiggle_Body}"/>
+
+            <ce:HorizontalDivider/>
+
+            <ce:BasicExpander Title="{x:Static localization:AppResources.Page_Faq_Why}"
+                              Text="{x:Static localization:AppResources.Page_Faq_Why_Body}"/>
 
             <ce:HorizontalDivider/>
 
@@ -104,89 +169,6 @@
                 </StackLayout>
             </ce:AutomaticallyClosingExpander>
 
-            <ce:HorizontalDivider x:Name="_crossParallelLine"/>
-
-            <ce:AutomaticallyClosingExpander x:Name="_crossParallelExpander">
-                <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Inverted}"/>
-                </ce:AutomaticallyClosingExpander.Header>
-                <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Inverted_Body1}"/>
-                    <AbsoluteLayout HorizontalOptions="Center"
-                            HeightRequest="179"
-                            WidthRequest="302">
-                        <Image AbsoluteLayout.LayoutFlags="All" 
-                       AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                       Aspect="AspectFit"
-                       Source="fyi.png"/>
-                    </AbsoluteLayout>
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Inverted_Body2}"/>
-                </StackLayout>
-            </ce:AutomaticallyClosingExpander>
-
-            <ce:HorizontalDivider/>
-
-            <ce:AutomaticallyClosingExpander>
-                <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Moving}"/>
-                </ce:AutomaticallyClosingExpander.Header>
-                <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Moving_Body}"/>
-                </StackLayout>
-            </ce:AutomaticallyClosingExpander>
-
-            <ce:HorizontalDivider x:Name="_autoalignmentLine"/>
-
-            <ce:AutomaticallyClosingExpander x:Name="_autoalignmentExpander">
-                <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Alignment}"/>
-                </ce:AutomaticallyClosingExpander.Header>
-                <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Alignment_Body}"/>
-                    <Image Source="smarttoy.png"
-                           HorizontalOptions="CenterAndExpand"/>
-                </StackLayout>
-            </ce:AutomaticallyClosingExpander>
-
-            <ce:HorizontalDivider x:Name="_cardboardLine"/>
-
-            <ce:AutomaticallyClosingExpander x:Name="_cardboardExpander">
-                <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Cardboard}"/>
-                </ce:AutomaticallyClosingExpander.Header>
-                <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Cardboard_Body}"/>
-                </StackLayout>
-            </ce:AutomaticallyClosingExpander>
-
-            <ce:HorizontalDivider x:Name="_mirrorLine"/>
-
-            <ce:AutomaticallyClosingExpander x:Name="_mirrorExpander">
-                <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Mirror}"/>
-                </ce:AutomaticallyClosingExpander.Header>
-                <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Mirror_Body1}"/>
-                    <AbsoluteLayout>
-                        <Image AbsoluteLayout.LayoutFlags="PositionProportional"
-                               AbsoluteLayout.LayoutBounds="0.5,0,175,175"
-                               Source="mirrormethod.png"/>
-                    </AbsoluteLayout>
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Mirror_Body2}"/>
-                </StackLayout>
-            </ce:AutomaticallyClosingExpander>
-
-            <ce:HorizontalDivider/>
-
-            <ce:AutomaticallyClosingExpander>
-                <ce:AutomaticallyClosingExpander.Header>
-                    <ce:ExpanderHeader Title="{x:Static localization:AppResources.Page_Faq_Wiggle}"/>
-                </ce:AutomaticallyClosingExpander.Header>
-                <StackLayout Padding="10">
-                    <Label Text="{x:Static localization:AppResources.Page_Faq_Wiggle_Body}"/>
-                </StackLayout>
-            </ce:AutomaticallyClosingExpander>
-
             <ce:HorizontalDivider/>
 
             <ce:AutomaticallyClosingExpander>
@@ -204,7 +186,6 @@
                                         <TapGestureRecognizer Command="{Binding OpenTestingPage}"/>
                                     </Span.GestureRecognizers>
                                 </Span>
-                                <Span Text="."/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

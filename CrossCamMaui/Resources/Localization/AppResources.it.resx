@@ -677,11 +677,8 @@ Nelle settimane successive la mia frustrazione latente mi ha portato a immaginar
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>In caso di convergenza è necessaria la correzione trapezoidale.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Se ti giri verso l'interno ad ogni scatto è molto utile eseguire correzioni trapezoidali. In genere è necessario ridurre i bordi interni delle foto e quindi ritagliarne alcuni in alto e in basso per livellarli. Puoi accedere al menu di modifica della distorsione trapezoidale toccando il pulsante simile a questo:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Girarsi verso l'interno è chiamato convergenza. Può causare un effetto di scorcio che rende difficile la fusione degli angoli dell'immagine. L'effetto di scorcio è sempre presente nella vita reale, perché le linee parallele sembrano convergere mentre si allontanano da te, ma le prospettive artificiali possono renderlo strano.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Puoi semplicemente appoggiarti.</value>

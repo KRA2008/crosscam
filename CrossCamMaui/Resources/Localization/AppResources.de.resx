@@ -677,11 +677,8 @@ In den nächsten Wochen brachte mich meine schwelende Frustration dazu, mir vorz
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Bei Vorspur ist eine Trapezkorrektur erforderlich.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Wenn Sie sich bei jeder Aufnahme nach innen drehen, ist es sehr hilfreich, Trapezkorrekturen vorzunehmen. Normalerweise möchten Sie die Innenkanten der Fotos verkleinern und dann oben und unten etwas abschneiden, um sie auszugleichen. Sie gelangen zum Trapezbearbeitungsmenü, indem Sie auf die Schaltfläche tippen, die so aussieht:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Das Eindrehen wird als Vorspur bezeichnet. Dies kann zu einem Verkürzungseffekt führen, der es schwierig macht, die Ecken des Bildes zu verschmelzen. Der perspektivische Effekt ist im wirklichen Leben jederzeit vorhanden, da parallele Linien scheinbar zusammenlaufen, wenn sie sich von Ihnen entfernen, aber die künstlichen Perspektiven können es seltsam machen.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Du kannst dich einfach lehnen.</value>

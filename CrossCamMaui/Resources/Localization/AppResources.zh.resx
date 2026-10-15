@@ -677,11 +677,8 @@ CrossCam 将在小机器人图标下方的相机屏幕上显示对齐结果。�
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>如果您前束，则需要进行梯形校正。</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>如果每次拍摄时都向内转动，那么进行梯形校正会非常有帮助。通常，您会想要缩小照片的内边缘，然后从顶部和底部剪掉一些以使其平整。您可以通过点击如下所示的按钮进入梯形校正编辑菜单：</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>向内转动称为前束。它可能会导致透视缩短效果，从而难以融合图像的角点。透视效果在现实生活中始终存在，因为平行线在远离您的距离时似乎会聚，但人为的视角会使它变得奇怪。</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>你可以倾斜。</value>

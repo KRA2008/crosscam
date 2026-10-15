@@ -677,11 +677,8 @@ Během několika příštích týdnů mě moje doutnající frustrace přivedla 
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Korekce lichoběžníkového zkreslení je nutná, pokud se nakláníte.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Pokud se při každém záběru otočíte dovnitř, je velmi užitečné provést korekci lichoběžníkového zkreslení. Obvykle byste chtěli zmenšit vnitřní okraje fotografií a poté oříznout horní a spodní část, abyste je vyrovnali. Do nabídky úprav lichoběžníkového zkreslení se dostanete klepnutím na tlačítko, které vypadá takto:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Otočení dovnitř se nazývá sbíhavost. Může způsobit zkracující efekt, který znesnadňuje sloučení rohů obrazu. Efekt zkracování je přítomen vždy v reálném životě, protože se zdá, že se paralelní linie sbíhají, jak se vzdalují od vás, ale umělé perspektivy to mohou dělat divně.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Můžete se jen opřít.</value>

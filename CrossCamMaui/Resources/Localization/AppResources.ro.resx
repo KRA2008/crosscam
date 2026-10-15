@@ -677,11 +677,8 @@ Pentru a utiliza metoda oglinzii, consultați celelalte întrebări frecvente de
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Corecția keystone este necesară dacă vă îndreptați.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Dacă vă întoarceți spre interior cu fiecare lovitură, este foarte util să faceți corecții keystone. De obicei, ați dori să micșorați marginile interioare ale fotografiilor și apoi să decupați unele din partea de sus și de jos pentru a le nivela. Accesați meniul de editare keystone atingând butonul care arată astfel:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Întoarcerea spre interior se numește toe-in. Poate provoca un efect de scurtare care face dificilă fuzionarea colțurilor imaginii. Efectul de scurtare este prezent în orice moment în viața reală, deoarece liniile paralele par să convergă pe măsură ce se îndepărtează în depărtare de tine, dar perspectivele artificiale îl pot face ciudat.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Poți doar să te înclini.</value>

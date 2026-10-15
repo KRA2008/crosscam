@@ -677,11 +677,8 @@
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>هناك حاجة إلى تصحيح الانحراف إذا قمت بالتدخل.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>إذا انعطفت إلى الداخل مع كل لقطة، فمن المفيد جدًا إجراء تصحيحات الانحراف. قد ترغب عادةً في تقليص الحواف الداخلية للصور ثم قص بعضها من الأعلى والأسفل لتسويتها. يمكنك الوصول إلى قائمة تحرير الانحراف عن طريق النقر على الزر الذي يبدو كما يلي:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>التحول إلى الداخل يسمى اصبع القدم. يمكن أن يسبب تأثير تقصير يجعل من الصعب دمج زوايا الصورة. تأثير التقصير موجود في جميع الأوقات في الحياة الواقعية، لأن الخطوط المتوازية تبدو وكأنها تتقارب عندما تبتعد عنك، لكن المنظورات الاصطناعية يمكن أن تجعل الأمر غريبًا.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>يمكنك فقط أن تتكئ.</value>

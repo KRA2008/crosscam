@@ -677,11 +677,8 @@ I løpet av de neste ukene førte min ulmende frustrasjon meg til å forestille 
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Keystone-korreksjon er nødvendig hvis du går inn.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Hvis du snur deg innover med hvert skudd, er det veldig nyttig å gjøre keystone-korrigeringer. Vanligvis ønsker du å krympe innsiden av bildene og deretter beskjære noen av toppen og bunnen for å jevne dem ut. Du kommer til keystone-redigeringsmenyen ved å trykke på knappen som ser slik ut:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Å vende innover kalles toe-in. Det kan gi en forkortende effekt som gjør det vanskelig å smelte sammen hjørnene av bildet. Den forkortende effekten er tilstede til enhver tid i det virkelige liv, fordi parallelle linjer ser ut til å konvergere når de går i det fjerne fra deg, men de kunstige perspektivene kan gjøre det rart.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Du kan bare lene deg.</value>

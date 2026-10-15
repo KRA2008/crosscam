@@ -677,11 +677,8 @@ Durante las siguientes semanas, mi frustración latente me llevó a imaginarme s
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Se necesita una corrección trapezoidal si se converge.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>Si gira hacia adentro con cada disparo, es muy útil realizar correcciones trapezoidales. Por lo general, querrás reducir los bordes interiores de las fotos y luego recortar algunos de la parte superior e inferior para nivelarlos. Puede acceder al menú de edición Keystone tocando el botón que se parece a este:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Girar hacia adentro se llama convergencia. Puede provocar un efecto de escorzo que dificulta fusionar las esquinas de la imagen. El efecto de escorzo está presente en todo momento en la vida real, porque las líneas paralelas parecen converger a medida que se alejan de ti, pero las perspectivas artificiales pueden hacerlo extraño.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>Puedes simplemente inclinarte.</value>

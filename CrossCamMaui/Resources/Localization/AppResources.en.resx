@@ -680,11 +680,8 @@ Over the next few weeks my simmering frustration led me to imagine simply provid
   <data name="Page.Tips.Keystone" xml:space="preserve">
     <value>Keystone correction is needed if you toe-in.</value>
   </data>
-  <data name="Page.Tips.Keystone.Body1" xml:space="preserve">
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
     <value>If you turn inward with each shot it is very helpful to do keystone corrections. Typically you would want to shrink the inside edges of the photos and then crop some off the top and bottom to level them out. You get to the keystone editing menu by tapping the button that looks like this:</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body2" xml:space="preserve">
-    <value>Turning inward is called toe-in. It can cause a foreshortening effect that makes it difficult to fuse the corners of the image. The foreshortening effect is present at all times in real life, because parallel lines appear to converge as they go off into the distance away from you, but the artificial perspectives can make it weird.</value>
   </data>
   <data name="Page.Tips.Lean" xml:space="preserve">
     <value>You can just lean.</value>
