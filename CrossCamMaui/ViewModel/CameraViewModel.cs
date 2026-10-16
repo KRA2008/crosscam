@@ -889,6 +889,8 @@ namespace CrossCam.ViewModel
                         (Edits.LeftRotation, Edits.RightRotation) = (Edits.RightRotation, Edits.LeftRotation);
                         (Edits.LeftZoom, Edits.RightZoom) = (Edits.RightZoom, Edits.LeftZoom);
                         Edits.VerticalAlignment = -Edits.VerticalAlignment;
+                        Edits.Keystone = -Edits.Keystone;
+                        (Edits.FovLeftCorrection) = (Edits.FovRightCorrection);
                     }
 
                     Settings.IsCaptureLeftFirst = !Settings.IsCaptureLeftFirst;
