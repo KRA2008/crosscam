@@ -418,7 +418,7 @@
               ColumnSpacing="0"
               IsVisible="{Binding WorkflowStage, Converter={StaticResource enumCompare}, ConverterParameter={x:Static vm:WorkflowStage.Final}}">
             <AbsoluteLayout.LayoutBounds>
-                <Rect X="0" Y="1" Width="1" Height="15"/>
+                <Rect X="0" Y="1" Width="1" Height="20"/>
             </AbsoluteLayout.LayoutBounds>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
