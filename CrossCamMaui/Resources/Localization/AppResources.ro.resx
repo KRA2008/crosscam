@@ -117,6 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Înapoi</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Păstrează</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Vezi Codul</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>Despre Dezvoltator</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Nu-mi trimite e-mail acum</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Trimite un e-mail</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Trimite-mi un e-mail acum</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Adăugați o problemă pe GitHub</value>
+  </data>
   <data name="Button.GoogleDoc" xml:space="preserve">
     <value>Google Doc of Great Stuff</value>
   </data>
@@ -129,8 +156,32 @@
   <data name="Button.MorePictures" xml:space="preserve">
     <value>Vezi mai multe imagini</value>
   </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>Bine</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Accepta</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Anula</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Reveniți la ecranul camerei de pe ambele dispozitive și atingeți butonul de pereche din colțul de jos</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>Atingeți AICI PE PRIMAR</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>Politica de confidențialitate</value>
+  </data>
   <data name="Button.Review" xml:space="preserve">
     <value>Scrie o recenzie</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>Atingeți AICI PE SECUNDAR</value>
   </data>
   <data name="Button.Share" xml:space="preserve">
     <value>Distribuiți CrossCam</value>
@@ -144,104 +195,26 @@
   <data name="Button.TapParallel" xml:space="preserve">
     <value>Atingeți AICI PENTRU A ALEGE PARALEL</value>
   </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Testați versiunile de pre-lansare</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Asigurați-vă că Wi-Fi este activat pe ambele dispozitive (dar nu trebuie să fie conectat la nimic)</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Da, clar</value>
+  </data>
   <data name="Footer.Span1" xml:space="preserve">
-    <value>Ați găsit o eroare? A avea o intrebare? Doar email</value>
+    <value>Ați găsit o eroare? Ai o întrebare? O idee? Doar email</value>
   </data>
   <data name="Footer.Span3" xml:space="preserve">
     <value>! Îmi place să vorbesc cu utilizatorii și este cel mai rapid mod de a comunica cu mine.</value>
   </data>
-  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
-    <value>2) Începeți vizionarea anaglifă a primei imagini cu previzualizarea care apare lângă ea.</value>
+  <data name="Left" xml:space="preserve">
+    <value>Stânga</value>
   </data>
-  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
-    <value>2) Începeți vizualizarea cartonului cu prima imagine cu previzualizarea care apare lângă ea.</value>
-  </data>
-  <data name="Page.HowToUse.2cross" xml:space="preserve">
-    <value>2) Începeți vizualizarea încrucișată a primei imagini cu previzualizarea care apare lângă ea.</value>
-  </data>
-  <data name="Page.HowToUse.2parallel" xml:space="preserve">
-    <value>2) Începeți să vizualizați în paralel prima imagine cu previzualizarea care apare lângă ea.</value>
-  </data>
-  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
-    <value>Tutoriale suplimentare:</value>
-  </data>
-  <data name="Page.Technique.Cross1" xml:space="preserve">
-    <value>Încrucișează-ți ochii cu atenție în timp ce te uiți la perechea de imagini de mai sus. Când îți încrucișezi ochii, lucrurile vor deveni neclare și transparente și vei începe să vezi 4 imagini în loc de 2 (2 perechi). Cu cât încrucișați ochii mai tare, cu atât perechile de imagini se vor deplasa mai departe - va arăta puțin așa:</value>
-  </data>
-  <data name="Page.Technique.Cross2" xml:space="preserve">
-    <value>Desfaceți-vă ochii cu atenție, astfel încât imaginile din interiorul fiecărei perechi să înceapă să se suprapună. Va începe să arate că există doar 3 imagini în loc de 4. Va fi în continuare neclară și transparentă și va arăta cam așa:</value>
-  </data>
-  <data name="Page.Technique.Cross3" xml:space="preserve">
-    <value>Odată ce suprapunerea din mijloc funcționează, trebuie doar să vă relaxați ochii și să le permiteți să focalizeze imaginea. În acel moment, veți avea o imagine 3D clară în mijloc, cu o imagine transparentă care plutește pe fiecare parte care va arăta astfel (cu excepția că mijlocul va fi 3D):</value>
-  </data>
-  <data name="Page.Technique.Cross4" xml:space="preserve">
-    <value>Dacă întâmpinați probleme cu privirea, puteți încerca și să vă uitați la degetul în timp ce îl țineți la jumătatea distanței dintre ochi și ecran. Ar trebui să vedeți că imaginile încep să se separe și să se suprapună în spatele degetului.</value>
-  </data>
-  <data name="Page.Technique.CrossViewing" xml:space="preserve">
-    <value>VIZIUNE ÎN CRUCE</value>
-  </data>
-  <data name="Page.Technique.P1" xml:space="preserve">
-    <value>Dacă doriți să vedeți acest lucru din nou, atingeți pictograma hamburger (trei linii) din partea stângă sus a ecranului camerei și atingeți „Ajutor”.
-
-Pentru a vedea 3D în CrossCam (numite „stereograme”) puteți folosi ochelari 3D roșii/cian, un vizualizator Google Cardboard sau puteți face „vizionare gratuită” folosind doar ochii și ecranul. Există două moduri de vizualizare gratuită, iar CrossCam vă poate ajuta să le învățați pe ambele. Trebuie să spuneți lui CrossCam cum veți vedea imaginile, altfel nu va funcționa corect. Nu vă faceți griji, puteți oricând să schimbați acest lucru din nou în Setări.
-
-Dacă poți să-ți încrucișezi ochii confortabil, ar trebui să încerci mai întâi metoda încrucișării, altfel ar trebui să încerci metoda paralelă. Dacă te-ai obișnuit cu cărțile Magic Eye™, probabil că poți deja să faci metoda paralelă, dar ai putea să faci și metoda încrucișată. Atingeți o metodă de mai jos pentru a o învăța și asigurați-vă că îi spuneți lui CrossCam care dintre ele funcționează pentru dvs. apăsând butonul ALEGEȚI corespunzător.
-
-Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, puteți seta CrossCam să îi folosească pe pagina Setări.</value>
-  </data>
-  <data name="Page.Technique.Parallel1" xml:space="preserve">
-    <value>Dacă imaginea de mai sus nu se potrivește pe ecran, întoarceți-vă telefonul pe peisaj - CrossCam încearcă să facă perechea de imagini de deasupra dimensiunii celei mai ușoare pentru aceasta. Nu trebuie să utilizați întotdeauna CrossCam în peisaj, dar o imagine cu dimensiuni perfecte facilitează învățarea tehnicii.</value>
-  </data>
-  <data name="Page.Technique.Parallel2" xml:space="preserve">
-    <value>Relaxați-vă ochii și priviți „prin” perechea de imagini de mai sus, ca și cum ați fi zonat cu ochii îndreptați spre imagini. Ar trebui să începeți să vedeți 3 imagini cu o imagine 3D în mijloc, cam așa:</value>
-  </data>
-  <data name="Page.Technique.Parallel3" xml:space="preserve">
-    <value>Dacă începi să vezi 4 poze, ai mers prea departe. Încercați să vă mișcați puțin ochii dacă vă aflați din nou în acel moment. Relaxarea prea departe va arăta puțin așa:</value>
-  </data>
-  <data name="Page.Technique.Parallel4" xml:space="preserve">
-    <value>Dacă întâmpinați probleme, încercați să vă apropiați ecranul de față cu perechea de imagini chiar în fața ochilor. Relaxați-vă și priviți „prin” ecran, apoi trageți încet ecranul de pe față în timp ce vă păstrați ochii relaxați. În cele din urmă, imaginea ar trebui să facă clic în focalizare.</value>
-  </data>
-  <data name="Page.Technique.Parallel5" xml:space="preserve">
-    <value>Dacă tot vedeți patru imagini, creșteți „Lățimea maximă a imaginii pentru vizualizare paralelă” pe pagina Setări.</value>
-  </data>
-  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
-    <value>VIZIUNEA PARALELA</value>
-  </data>
-  <data name="Page.Technique.Practice" xml:space="preserve">
-    <value>Imagini pe care le-am făcut pe care le puteți exersa</value>
-  </data>
-  <data name="Title.Contact" xml:space="preserve">
-    <value>a lua legatura</value>
-  </data>
-  <data name="Title.Faq" xml:space="preserve">
-    <value>FAQ</value>
-  </data>
-  <data name="Title.Help" xml:space="preserve">
-    <value>Ajutor</value>
-  </data>
-  <data name="Title.HowToUse" xml:space="preserve">
-    <value>Cum să utilizați CrossCam</value>
-  </data>
-  <data name="Title.Technique" xml:space="preserve">
-    <value>Tehnica de vizualizare 3D</value>
-  </data>
-  <data name="Title.Tips" xml:space="preserve">
-    <value>sfaturi</value>
-  </data>
-  <data name="Button.DoNotEmailMe" xml:space="preserve">
-    <value>Nu-mi trimite e-mail acum</value>
-  </data>
-  <data name="Button.EmailMeNow" xml:space="preserve">
-    <value>Trimite un e-mail acum</value>
-  </data>
-  <data name="Button.No" xml:space="preserve">
-    <value>Nu</value>
-  </data>
-  <data name="Button.OK" xml:space="preserve">
-    <value>Bine</value>
-  </data>
-  <data name="Button.YesClear" xml:space="preserve">
-    <value>Da, clar</value>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Acceptați conexiunea la</value>
   </data>
   <data name="Page.Camera.Aligning" xml:space="preserve">
     <value>Se aliniază...</value>
@@ -259,10 +232,16 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
     <value>Bordura detectată</value>
   </data>
   <data name="Page.Camera.Cancel" xml:space="preserve">
-    <value>Anulare</value>
+    <value>Anula</value>
   </data>
   <data name="Page.Camera.ChooseAction" xml:space="preserve">
     <value>Alegeți o acțiune:</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Confirmați potrivirile codului pe ambele dispozitive:</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Treceți la Direcții</value>
   </data>
   <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
     <value>Directorul nu a fost găsit</value>
@@ -271,7 +250,7 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
     <value>Destinația de salvare nu a putut fi găsită. Vă rugăm să alegeți altul pe pagina de setări.</value>
   </data>
   <data name="Page.Camera.ErrorEmailBody" xml:space="preserve">
-    <value>Ce ai făcut chiar înainte să se întâmple eroarea? Descrieți chiar și lucrurile mărunte.\n\n\n\n\n\nCrossCam a mai funcționat după eroare? Dacă nu, cum este rupt?\n\n\n\n\n\nSe întâmplă acest lucru în mod repetat?\n\n\n\n\n\nPuteți forța ca eroarea să se întâmple la comandă? Dacă da, cum?\n\n\n\n\n\n</value>
+    <value>Ce ai făcut chiar înainte să se întâmple eroarea? Descrieți chiar și lucrurile mici.\n\n\n\n\n\nCrossCam a funcționat în continuare după eroare? Dacă nu, cum este rupt?\n\n\n\n\n\nSe întâmplă acest lucru în mod repetat?\n\n\n\n\n\nPuteți forța ca eroarea să se întâmple la comandă? Dacă da, cum?\n\n\n\n\n\n</value>
   </data>
   <data name="Page.Camera.FlipForCardboard" xml:space="preserve">
     <value>Întoarceți la peisaj când vă aflați în modul carton.</value>
@@ -291,20 +270,26 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
   <data name="Page.Camera.ForParallel" xml:space="preserve">
     <value>pentru paralel</value>
   </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Pentru a corecta diferențele de câmp vizual, măriți și glisați imaginile astfel încât punctele distinctive să se alinieze între cele două fotografii. Puteți trage liniile albe în jur pentru a vă ajuta să vizualizați alinierea. Această corecție va fi aplicată previzualizărilor viitoare. Va fi salvat, dar îl puteți reseta pe pagina Setări. Dacă utilizați dispozitive identice, doar salvați fără ajustare.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Corectarea câmpului vizual</value>
+  </data>
   <data name="Page.Camera.GoPickRole" xml:space="preserve">
     <value>Accesați pagina Asociere (prin pagina Setări) și alegeți un rol de asociere pentru acest dispozitiv înainte de a încerca să vă asociați.</value>
   </data>
   <data name="Page.Camera.InvalidImage" xml:space="preserve">
     <value>Imagine nevalidă</value>
   </data>
-  <data name="Button.Camera.Keep" xml:space="preserve">
-    <value>A pastra</value>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Puncte cheie</value>
   </data>
   <data name="Page.Camera.LoadFullImage" xml:space="preserve">
     <value>Încărcați o imagine stereo completă</value>
   </data>
   <data name="Page.Camera.Loading" xml:space="preserve">
-    <value>Se încarcă...</value>
+    <value>Încărcare...</value>
   </data>
   <data name="Page.Camera.LoadSingleSide" xml:space="preserve">
     <value>Încărcați o singură parte</value>
@@ -319,10 +304,10 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
     <value>Oglinda PE DREAPTA</value>
   </data>
   <data name="Page.Camera.MoveLeft" xml:space="preserve">
-    <value>MUTĂ LA STÂNGA</value>
+    <value>MUTAȚI LA STÂNGA</value>
   </data>
   <data name="Page.Camera.MoveRight" xml:space="preserve">
-    <value>MISCA-TE LA DREAPTA</value>
+    <value>MUTAȚI DREAPTA</value>
   </data>
   <data name="Page.Camera.NoSaveModes" xml:space="preserve">
     <value>Niciun mod de salvare activ</value>
@@ -350,9 +335,6 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
   </data>
   <data name="Page.Camera.ReallyClear" xml:space="preserve">
     <value>Chiar clar?</value>
-  </data>
-  <data name="Button.Camera.Remove" xml:space="preserve">
-    <value>Elimina</value>
   </data>
   <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
     <value>Salvat în folderul personalizat</value>
@@ -385,10 +367,13 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
     <value>Stabil...</value>
   </data>
   <data name="Page.Camera.SureClear" xml:space="preserve">
-    <value>Sigur doriți să vă ștergeți pozele și să o luați de la capăt?</value>
+    <value>Sigur doriți să vă ștergeți fotografiile și să o luați de la capăt?</value>
   </data>
   <data name="Page.Camera.Syncing" xml:space="preserve">
     <value>Se sincronizează...</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Tehnica de vizualizare</value>
   </data>
   <data name="Page.Camera.Transmitting" xml:space="preserve">
     <value>Se transmite...
@@ -397,98 +382,14 @@ Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, pute�
   <data name="Page.Camera.VR" xml:space="preserve">
     <value>VR</value>
   </data>
-  <data name="Page.FovCorrection" xml:space="preserve">
-    <value>Corectarea câmpului vizual</value>
-  </data>
-  <data name="Page.FovCorrectionExplain" xml:space="preserve">
-    <value>Diferite modele de dispozitive pot avea câmpuri vizuale diferite. CrossCam vă va ajuta să corectați acest lucru după ce faceți prima captură. Încadrați și capturați ceva cu puncte distinctive în partea de sus și de jos a cadrului, asigurându-vă că punctele sunt vizibile pe ambele dispozitive.</value>
-  </data>
-  <data name="Page.Technique.Trouble" xml:space="preserve">
-    <value>Dacă încă întâmpinați probleme, încercați să vă duceți telefonul într-o cameră întunecată, astfel încât singurul lucru pe care ochii să-l poată vedea bine și pe care să se concentreze să fie imaginea.
-
-Un alt lucru pe care îl puteți încerca este să folosiți tuburi de hârtie igienică sau mâinile pentru a o face astfel încât fiecare ochi să poată vedea doar partea din imagine pe care ar trebui să o vadă.
- • Pentru vizualizare transversală: țineți un singur tub pe puntea nasului (centrat între ochi) în timp ce îl îndreptați spre centrul imaginii din fața dvs. Mutați încet tubul spre ecran în timp ce încercați să priviți în jos tubul cu ambii ochi. Când ajungeți în poziția corectă cu tubul, imaginea ar trebui să se fixeze la loc. Ar putea ajuta să vă concentrați pe încercarea de a privi interiorul capătului îndepărtat al tubului. Dacă nu găsiți poziția corectă, încercați să utilizați o imagine mai mare sau un tub mai mic.
- • Pentru vedere paralelă: țineți un tub în fața fiecărui ochi, dar îndreptați-le pe amândoi în lateral, astfel încât să nu puteți vedea nimic. Întoarceți încet tuburile spre interior în același timp, astfel încât să puteți începe să vedeți mai mult din imagine. În momentul în care puteți vedea cea mai mare parte a imaginii (aproape jumătate cu fiecare ochi), încercați să vă relaxați ochii și să aduceți jumătățile împreună. Poate ajuta să folosiți o imagine mai mare sau mai mică.
-
-Există un exercițiu ușor pe care îl puteți face pentru a exersa fuzionarea fie cu vizualizarea încrucișată, fie în paralel. Luați un marker și desenați o porțiune a unei fețe zâmbitoare pe fiecare dintre unghiile dvs. (sau o pereche de bețișoare de ghiveci sau depresoare de limbă). De exemplu, pe o parte desenați un ochi și o gură, iar pe cealaltă parte desenați un ochi și un nas. Puteți apoi să le țineți în fața dvs. și să exersați fuzionarea celor două imagini împreună pentru a completa chipul zâmbitor.
-
-Eu personal prefer trecerea în paralel, deoarece imaginile pot fi mai mari, dar ambele metode funcționează. Dacă doriți să experimentați cu imagini paralele mai mari, puteți controla dimensiunea în pagina Setări.
-
-Uneori este dificil să simți dacă faci metoda încrucișată sau paralelă în timp ce o faci. Puteți cere altcuiva să vă privească ochii în timp ce o faceți sau puteți privi imaginea de mai jos ca un test:</value>
-  </data>
-  <data name="SaveModes.Anaglyph" xml:space="preserve">
-    <value>Anaglifă</value>
-  </data>
-  <data name="SaveModes.Cardboard" xml:space="preserve">
-    <value>Carton</value>
-  </data>
-  <data name="SaveModes.Cross" xml:space="preserve">
-    <value>Cruce</value>
-  </data>
-  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
-    <value>Anaglifă în tonuri de gri</value>
-  </data>
-  <data name="SaveModes.Parallel" xml:space="preserve">
-    <value>Paralel</value>
-  </data>
-  <data name="SaveModes.Quad" xml:space="preserve">
-    <value>Quad</value>
-  </data>
-  <data name="SaveModes.Separate" xml:space="preserve">
-    <value>Separa</value>
-  </data>
-  <data name="SaveModes.Single" xml:space="preserve">
-    <value>Singur</value>
-  </data>
-  <data name="SaveModes.Triple" xml:space="preserve">
-    <value>Triplu</value>
-  </data>
-  <data name="Page.Camera.FovExplain" xml:space="preserve">
-    <value>Pentru a corecta diferențele de câmp vizual, măriți și glisați imaginile astfel încât punctele distinctive să se alinieze între cele două fotografii. Puteți trage liniile albe în jur pentru a vă ajuta să vizualizați alinierea. Această corecție va fi aplicată previzualizărilor viitoare. Va fi salvat, dar îl puteți reseta pe pagina Setări. Dacă utilizați dispozitive identice, doar salvați fără ajustare.</value>
-  </data>
-  <data name="Page.Camera.FovTitle" xml:space="preserve">
-    <value>Corectarea câmpului vizual</value>
-  </data>
-  <data name="Page.Camera.KeyPoints" xml:space="preserve">
-    <value>Puncte cheie</value>
-  </data>
   <data name="Page.Camera.Warped" xml:space="preserve">
-    <value>Incovoiat</value>
-  </data>
-  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam a fost creat pentru a vă ajuta să realizați fotografii 3D. Fotografiile sunt 3D la fel ca și filmele VR sau 3D, dar nu aveți nevoie de niciun echipament special sau ochelari - doar telefonul dvs. (dar dacă aveți o pereche de ochelari 3D roșii/cian sau un vizualizator Google Cardboard, îi puteți folosi și cu CrossCam). Tehnica de „vizionare gratuită” care folosește doar telefonul și ochii tăi necesită puțină practică pentru a învăța. Înainte să vă spun cum să utilizați CrossCam, ați dori mai întâi să aflați mai multe despre tehnica de vizionare?</value>
+    <value>Deformat</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Bun venit la CrossCam!</value>
   </data>
-  <data name="Page.Camera.Directions" xml:space="preserve">
-    <value>Treci la Direcții</value>
-  </data>
-  <data name="Page.Camera.Technique" xml:space="preserve">
-    <value>Tehnica de vizualizare</value>
-  </data>
-  <data name="Page.HowToUse.P1" xml:space="preserve">
-    <value>Dacă doriți să vedeți acest lucru din nou, atingeți pictograma hamburger (trei linii) din partea stângă sus a ecranului camerei și atingeți „Ajutor”.
-
-
-1) Încadrați și faceți prima fotografie.</value>
-  </data>
-  <data name="Page.HowToUse.P2" xml:space="preserve">
-    <value>3) Ține-ți telefonul fix în fața ta și mișcă-te încet lateral în direcția CrossCam îți spune. Nu vă mișcați prea departe - un inch sau mai puțin pentru fiecare picior depărtare este ținta dvs. De asemenea, nu te întoarce deloc, ci doar alunecă în lateral sau poate chiar doar aplecă-te.
-
-4) Aliniați prima fotografie cu previzualizarea celei de-a doua imagini și faceți a doua fotografie când vă place ceea ce vedeți.
-
-5) CrossCam vă va alinia automat fotografiile după ce le capturați, dar nu este perfect, dacă nu vă place cum au fost aliniate, puteți dezactiva alinierea automată atingând pictograma micul robot. CrossCam are, de asemenea, o mulțime de opțiuni de editare manuală la care puteți ajunge atingând pictograma creion.
-
-6) Atingeți bifa când sunteți gata să salvați.
-
-
-Alte lucruri pe care le poți face:
- • Atingeți o dată pentru a focaliza un punct, atingeți de două ori pentru a reveni la focalizarea automată continuă.
- • Atingeți pictograma roată din partea dreaptă sus a ecranului camerei pentru a deschide pagina Setări. Este plin de lucruri interesante.
- • Există o pagină frumoasă de Sfaturi la care puteți ajunge atingând pictograma hamburger din partea stângă sus a ecranului camerei, care vă poate ajuta să vă faceți fotografiile grozave.
- • Dacă preferați să mutați în cealaltă direcție pentru a doua fotografie sau dacă doriți să schimbați laturile, faceți o glisare.
- • Atingeți pictograma folderului mic din partea de jos pentru a încărca o imagine ca o parte sau pentru a încărca o imagine stereo completă.</value>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam a fost creat pentru a vă ajuta să realizați fotografii 3D. Fotografiile sunt 3D la fel ca și filmele VR sau 3D, dar nu aveți nevoie de niciun echipament special sau ochelari - doar telefonul dvs. (dar dacă aveți o pereche de ochelari 3D roșii/cian sau un vizualizator Google Cardboard, îi puteți folosi și pe cei cu CrossCam). Tehnica de „vizionare gratuită” care folosește doar telefonul și ochii tăi necesită puțină practică pentru a învăța. Înainte să vă spun cum să utilizați CrossCam, ați dori mai întâi să aflați mai multe despre tehnica de vizionare?</value>
   </data>
   <data name="Page.Faq.Alignment" xml:space="preserve">
     <value>Cum funcționează alinierea automată?</value>
@@ -498,11 +399,11 @@ Alte lucruri pe care le poți face:
 
 Alinierea ECC funcționează, în esență, încercând să se asigure că pete luminoase se suprapun cu pete luminoase și pete întunecate se suprapun cu pete întunecate atunci când cele două părți sunt suprapuse una peste alta. Alinierea ECC vine cu un scor de încredere care este menit să ajute să decidă dacă alinierea a fost eficientă. CrossCam este configurat pentru a respinge alinierea produsă dacă încrederea este prea scăzută, dar puteți configura pragul de încredere de trecere/eșec în pagina Setări.
 
-Alinierea punctelor cheie caută puncte de interes, cum ar fi colțuri, margini, puncte și contrast ridicat și încearcă să le potrivească între cele două laturi. Odată ce punctele sunt potrivite, CrossCam poate folosi o varietate de algoritmi pentru a încerca să deformeze părțile laterale, astfel încât punctele cheie dintr-o parte să fie toate cât mai aproape posibil de punctele cheie corespunzătoare de pe cealaltă parte.
+Alinierea punctelor cheie caută puncte de interes, cum ar fi colțuri, margini, puncte și contrast ridicat și încearcă să le potrivească între cele două laturi. Odată ce punctele sunt corelate, CrossCam poate folosi o varietate de algoritmi pentru a încerca să deformeze părțile laterale, astfel încât punctele cheie dintr-o parte să fie toate cât mai aproape posibil de punctele cheie corespunzătoare pe cealaltă parte.
 
-CrossCam este programată să folosească mai întâi alinierea punctului cheie, dar va reveni la alinierea ECC atunci când alinierea punctelor cheie nu reușește sau când capturarea se face cu metoda diviziunii în oglindă cu o singură fotografie. De asemenea, puteți configura alinierea automată pentru a utiliza întotdeauna alinierea punctului cheie sau pentru a utiliza întotdeauna alinierea ECC pe pagina Setări.
+CrossCam este programată să utilizeze mai întâi alinierea ECC, dar va reveni la alinierea punctului cheie când alinierea ECC eșuează. De asemenea, puteți configura alinierea automată pentru a utiliza întotdeauna alinierea punctului cheie sau pentru a utiliza întotdeauna alinierea ECC pe pagina Setări. Alinierea punctelor cheie este mult mai puternică decât alinierea ECC, deoarece poate gestiona o varietate mai mare de distorsiuni și deformări de perspectivă, dar este și mult mai costisitoare din punct de vedere computațional. Este atât de costisitor încât să faci asta pe un smartphone necesită să nu folosești atât de multe puncte cheie pe cât ai putea dacă ai fi pe un computer, ceea ce îl face mai puțin precis pe un smartphone. Aceasta este o caracteristică complexă la care continui să lucrez.
 
-CrossCam va afișa rezultatul alinierii pe ecranul camerei sub pictograma robotului mic. Dacă a folosit alinierea ECC, va afișa procentul de încredere. Dacă a folosit alinierea punctului cheie, va afișa „KP”. Dacă ambele metode de aliniere au eșuat, va afișa „F”. Dacă nu vă place rezultatul alinierii, puteți apăsa pe pictograma robotului mic pentru a elimina alinierea.</value>
+CrossCam va afișa rezultatul alinierii pe ecranul camerei sub pictograma robotului mic. Dacă a folosit alinierea ECC, va afișa procentul de încredere. Dacă a folosit alinierea punctului cheie, va afișa „KP”. Dacă ambele metode de aliniere au eșuat, va afișa „F”. Dacă nu vă place rezultatul alinierii, puteți atinge pictograma robotului mic pentru a elimina complet alinierea.</value>
   </data>
   <data name="Page.Faq.Bad" xml:space="preserve">
     <value>Este rău pentru ochii mei?</value>
@@ -516,7 +417,7 @@ CrossCam va afișa rezultatul alinierii pe ecranul camerei sub pictograma robotu
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
     <value>Dacă utilizați metoda cu ochii încrucișați, senzația se poate datora și faptului că ochii tăi nu sunt obișnuiți să arate ca și cum ar privi ceva atât de aproape de atât de mult timp. La vizualizarea încrucișată, ochii tăi converg către un punct la jumătatea distanței dintre ochi și ecran. Dacă priviți ceva atât de aproape timp îndelungat v-ar provoca și disconfort, avem explicația noastră.
 
-Părerea mea este că ochii tăi nu fac nimic în afara capacităților lor de zi cu zi, dar combini două abilități diferite care de obicei nu sunt folosite în acest fel. Îți focalizezi lentilele pe ceva într-un singur loc pe care în mod normal este confortabil să te concentrezi și îndrepti ochii undeva unde este în mod normal confortabil pentru ei, dar locul în care se concentrează lentilele și unde ochii tăi converg. pur și simplu nu este același punct. Nu văd cum ar putea fi rău pentru tine atâta timp cât viziunea ta nu se dezvoltă încă.</value>
+Părerea mea este că ochii tăi nu fac nimic în afara capacităților lor de zi cu zi, dar combini două abilități diferite care nu sunt utilizate de obicei în acest fel. Îți focalizezi lentilele pe ceva într-un singur loc pe care în mod normal este confortabil să te concentrezi și îndrepți ochii undeva unde este în mod normal confortabil pentru ei, dar locul în care se concentrează lentilele și unde ochii tăi converg pur și simplu nu este același punct. Nu văd cum ar putea fi rău pentru tine atâta timp cât viziunea ta nu se dezvoltă încă.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
     <value>Cum folosesc CrossCam cu Google Cardboard?</value>
@@ -546,7 +447,7 @@ Există mulți spectatori diferiți cu proprietăți diferite. Poate fi necesar 
     <value>Cum ai intrat în stereoscopie?</value>
   </data>
   <data name="Page.Faq.Into.Body1" xml:space="preserve">
-    <value>În timp ce îmi obțineam diploma de fizică, am avut ocazia să experimentez cu crearea propriilor mele holograme folosind lasere. Tipul de holograme pe care le făceam erau 3D, deoarece foloseau un rețea de difracție pentru a provoca interferențe distructive în lumina care se reflectă de pe suprafața unei plăci de sticlă, ceea ce face ca imaginea reflectată să arate diferit de la diferite locuri. Când fiecare dintre ochii noștri vede o imagine care pare să fie dintr-o perspectivă diferită (dacă nu sunt prea diferiți), creierul nostru percepe asta ca profunzime.</value>
+    <value>În timp ce îmi obțineam diploma de fizică, am avut ocazia să experimentez cu crearea propriilor holograme folosind lasere. Tipul de holograme pe care le făceam au fost 3D, deoarece foloseau un rețele de difracție pentru a provoca interferențe distructive în lumina care se reflectă de pe suprafața unei plăci de sticlă, ceea ce face ca imaginea reflectată să arate diferit de la diferite locuri. Când fiecare dintre ochii noștri vede o imagine care pare dintr-o perspectivă diferită (dacă nu sunt prea diferiți), creierul nostru percepe asta ca profunzime.</value>
   </data>
   <data name="Page.Faq.Into.Body2" xml:space="preserve">
     <value>Eram conștient de acel principiu al percepției stereoscopice de mult timp, dar în acel moment al vieții mele urmam și niște cursuri de programare, așa că am decis că vreau să încerc să fac un program simplu de calculator pentru desenul 3D stereoscopic. Acel efort a devenit StereoSketcher. Versiunea originală a fost scrisă în Java, dar am rescris-o cu Javascript și SVG și acum trăiește pe web</value>
@@ -565,9 +466,9 @@ Există mulți spectatori diferiți cu proprietăți diferite. Poate fi necesar 
 
 Paralaxa înseamnă că, din perspectiva ochiului tău drept, atunci când obiectele sunt mai departe, par a fi mai la dreapta decât obiectele mai apropiate când sunt văzute din ochiul stâng. Este confuz când este descris în format de propoziție, dar foarte intuitiv când este demonstrat.
 
-Pentru a demonstra, ține un deget în sus în fața ta la aproximativ lungimea brațului, apoi cu cealaltă mână ține un alt deget la jumătatea distanței dintre primul deget și față. Dacă închideți alternativ fiecare ochi și acordați atenție unde sunt degetele, veți vedea că fiecare ochi le vede în locuri diferite. Așadar, în mod natural, dacă fiecare ochi a văzut acea mișcare în sens invers în care ar trebui să o facă, adâncimea va fi inversată.
+Pentru a demonstra, ține un deget în sus în fața ta la lungimea de braț, apoi ține cu cealaltă mână un alt deget la jumătatea distanței dintre primul deget și față. Dacă închideți alternativ fiecare ochi și acordați atenție unde sunt degetele, veți vedea că fiecare ochi le vede în locuri diferite. Așadar, în mod natural, dacă fiecare ochi a văzut acea mișcare în sens invers în care ar trebui să o facă, adâncimea va fi inversată.
 
-Este foarte ușor să folosești din greșeală metoda de vizionare greșită, deoarece se dovedește că este foarte greu pentru majoritatea oamenilor să-și dea seama dacă încrucișează sau își relaxează ochii doar simțind sau privind imaginea dublă confuză a lumii care rezultă. În schimb, cel mai bine este fie ca altcineva să se uite la ceea ce fac ochii tăi, fie să încerci această imagine de tester:</value>
+Este foarte ușor să folosești din greșeală metoda de vizionare greșită, deoarece se dovedește că este foarte greu pentru majoritatea oamenilor să-și dea seama dacă încrucișează sau își relaxează ochii doar simțind sau privind imaginea dublă confuză a lumii care rezultă. În schimb, cel mai bine este fie să ceri pe altcineva să se uite la ceea ce fac ochii tăi, fie să încerci imaginea testerului de mai jos. Când liniile paralele || sunteți în față vă relaxați/divergeți ochii/privizionați în paralel, când liniile de trecere X sunt în față vă încrucișați ochii/privizionați în cruce.</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>Mulți oameni s-au simțit destul de confortabili cu vizualizarea cărților Magic Eye™, care sunt destinate să fie vizualizate folosind metoda de vizualizare paralelă. Dacă le vizualizați încrucișat, atunci obiectele 3D robuste care ar trebui să iasă de pe pagină arată în schimb ca niște găuri. Ambele metode vă permit să vedeți *ceva*, dar dacă nu ați putut spune ce a fost, probabil că le vizionați încrucișat.</value>
@@ -582,16 +483,16 @@ Această metodă va funcționa și cu reflexii în ferestre mari și curate și,
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Există unele compromisuri/editări care trebuie făcute pentru a utiliza metoda oglindă. Toate acestea pot fi făcute manual în CrossCam, dar alinierea automată va încerca, de asemenea, să le facă pentru dvs.:
- • Deoarece vederea reflectată se deplasează pe o distanță mai mare decât vizualizarea normală, partea în oglindă va trebui să fie mărită puțin.
- • Este posibil ca atunci când utilizați metoda oglinzii, să ajungeți să vă îndreptați, mai degrabă decât să păstrați perspectivele paralele - acest lucru poate face ca scurtarea să arate ca o aliniere verticală proastă. Pentru a anula acest lucru, se poate face corecția keystone, ceea ce înseamnă micșorarea verticală a unei părți a fiecărei imagini.
- • Îndepărtarea va tinde, de asemenea, să miște fereastra stereo spre tine. Puteți anula acest lucru și îl puteți plasa unde doriți, decupând părțile laterale.
- • Probabil că oglinda nu va acoperi complet vederea unei laturi, așa că poate fi necesar să se efectueze o tăiere pentru a elimina bucățile nereflectate.
+• Deoarece vederea reflectată se deplasează pe o distanță mai mare decât vizualizarea normală, partea în oglindă va trebui să fie mărită puțin.
+• Este probabil ca atunci când utilizați metoda oglinzii, să ajungeți să vă îndreptați, mai degrabă decât să păstrați perspectivele paralele - acest lucru poate face ca scurtarea să arate ca o aliniere verticală proastă. Pentru a anula acest lucru, se poate face corecția keystone, ceea ce înseamnă micșorarea verticală a unei părți a fiecărei imagini.
+• Îndepărtarea va tinde, de asemenea, să miște fereastra stereo spre tine. Puteți anula acest lucru și îl puteți plasa unde doriți, decupând părțile laterale.
+• Probabil că oglinda nu va acoperi complet vederea unei laturi, așa că poate fi necesar să se efectueze unele decupări pentru a elimina bucățile nereflectate.
 
-Cele mai bune oglinzi pentru acest lucru au sticlă subțire. Pe de o parte, sunt ușoare, deci sunt mai ușor de ținut pentru perioade lungi. Celălalt lucru important este că atunci când utilizați oglinda, probabil că veți îndrepta oglinda în lateral, în loc să priviți direct în ea, deoarece oglinzile sunt de obicei folosite. Atunci când sunt orientate astfel, oglinzile cu sticlă groasă pot avea o oarecare neclaritate. Cu cât sticla este mai subțire, cu atât această neclaritate va fi mai puțin evidentă. Aceste tipuri de oglinzi pot fi, de asemenea, de calitate scăzută în alte privințe, așa că este important să găsiți un echilibru bun.
+Cele mai bune oglinzi pentru acest lucru au sticlă subțire. Pe de o parte, sunt ușoare, deci sunt mai ușor de ținut pentru perioade lungi. Celălalt lucru important este că atunci când utilizați oglinda, probabil că veți îndrepta oglinda în lateral, mai degrabă decât să priviți direct în ea, deoarece oglinzile sunt de obicei folosite. Atunci când sunt orientate astfel, oglinzile cu sticlă groasă pot avea o oarecare neclaritate. Cu cât sticla este mai subțire, cu atât această neclaritate va fi mai puțin evidentă. Aceste tipuri de oglinzi pot fi, de asemenea, de calitate scăzută în alte privințe, așa că este important să găsiți un echilibru bun.
 
 Există câteva alte compromisuri care trebuie acceptate atunci când se utilizează capturarea în oglindă, care nu pot fi remediate în editările de către CrossCam:
- • Deoarece vederea celor două laturi parcurge distanțe ușor diferite, focalizarea necesară pentru fiecare parte va fi ușor diferită, astfel încât o parte va fi întotdeauna ușor neclară. Acest efect va fi mai mult sau mai puțin vizibil în funcție de distanța până la subiect și de adâncimea de câmp a obiectivului.
- • Nicio oglindă nu este cu adevărat eficientă 100%, astfel încât partea care folosește oglinda poate fi puțin mai întunecată. Acest lucru va varia în funcție de calitatea oglinzii.</value>
+• Deoarece vederea celor două laturi parcurge distanțe ușor diferite, focalizarea necesară pentru fiecare parte va fi ușor diferită, astfel încât o parte va fi întotdeauna ușor neclară. Acest efect va fi mai mult sau mai puțin vizibil în funcție de distanța până la subiect și de adâncimea de câmp a obiectivului.
+• Nicio oglindă nu este cu adevărat eficientă 100%, astfel încât partea care folosește oglinda poate fi puțin mai întunecată. Acest lucru va varia în funcție de calitatea oglinzii.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
     <value>Subiectul meu se mișcă, cum îi fac fotografii 3D?</value>
@@ -607,7 +508,7 @@ Pentru a utiliza metoda oglinzii, consultați celelalte întrebări frecvente de
     <value>Cum pot testa versiunile pre-lansare ale CrossCam?</value>
   </data>
   <data name="Page.Faq.Test.Body" xml:space="preserve">
-    <value>Consultați această postare Reddit</value>
+    <value>Atingeți aici pentru a vă alătura echipei!</value>
   </data>
   <data name="Page.Faq.Why" xml:space="preserve">
     <value>De ce ai făcut CrossCam?</value>
@@ -621,144 +522,62 @@ Pentru a utiliza metoda oglinzii, consultați celelalte întrebări frecvente de
     <value>Ce sunt wigglegram-urile?</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
-    <value>Wigglegramele sunt o modalitate de a vizualiza stereogramele care nu se bazează pe vederea binoculară. Sunt de obicei un gif care se rotește înainte și înapoi între cele două perspective, arătând fiecare în întregime în același loc. CrossCam nu acceptă realizarea lor acum, dar trimite-mi un e-mail dacă ești cu adevărat interesat de ele și o voi face.</value>
+    <value>Wigglegramele sunt o modalitate de a vizualiza stereogramele care nu se bazează pe vederea binoculară. Sunt de obicei un gif care se rotește înainte și înapoi între cele două perspective, arătând fiecare în întregime în același loc. CrossCam nu acceptă realizarea lor acum, dar lucrez la adăugarea acestei abilități. Un dezavantaj al wigglegramelor în CrossCam este că ar exista doar două perspective, dar wigglegramele sunt mult mai plăcute dacă au mai multe perspective sau chiar o mișcare lină și continuă.</value>
   </data>
-  <data name="Page.Tips.AlignAfter" xml:space="preserve">
-    <value>Luați în considerare liniile orizontale, dar vă puteți alinia și după.</value>
+  <data name="Page.Faq.Zooming" xml:space="preserve">
+    <value>De ce nu poți mări CrossCam?</value>
   </data>
-  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
-    <value>Dacă descoperiți că în timp ce faceți fotografii este imposibil să faceți atât liniile de ghidare superioare, cât și inferioare să se alinieze în același timp, probabil că v-ați deplasat într-o altă direcție decât doar în lateral. Încercați să remediați acest lucru înainte de a face fotografii, dar alinierea după fapt poate ajuta foarte mult acest lucru.</value>
-  </data>
-  <data name="Page.Tips.Alignment" xml:space="preserve">
-    <value>Puteți dezactiva alinierea automată.</value>
-  </data>
-  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
-    <value>Dacă nu vă plac rezultatele alinierii automate, dezactivați-l pe pagina Setări sau atingând pictograma micul robot și imaginile dvs. originale capturate vor fi restaurate.</value>
-  </data>
-  <data name="Page.Tips.Donut" xml:space="preserve">
-    <value>Ghidul gogoșilor vă poate ajuta pe fereastra.</value>
-  </data>
-  <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Există un ghid experimental pe pagina Setări pe care îl puteți activa, care vă poate ajuta să vă păstrați fereastra stereo, maximizând în același timp lățimea utilizată. Prin întoarcerea la stânga și la dreapta, adâncimea gogoșii se va schimba în raport cu restul scenei - setați adâncimea gogoșii astfel încât să fie pe sau în spatele celui mai îndepărtat punct din scena dvs. Fiți atenți, folosirea lui pe scene mai mici poate face lucrurile dureroase (vezi sfatul cheii de mai sus).</value>
-  </data>
-  <data name="Page.Tips.Keystone" xml:space="preserve">
-    <value>Corecția keystone este necesară dacă vă îndreptați.</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
-    <value>Dacă vă întoarceți spre interior cu fiecare lovitură, este foarte util să faceți corecții keystone. De obicei, ați dori să micșorați marginile interioare ale fotografiilor și apoi să decupați unele din partea de sus și de jos pentru a le nivela. Accesați meniul de editare keystone atingând butonul care arată astfel:</value>
-  </data>
-  <data name="Page.Tips.Lean" xml:space="preserve">
-    <value>Poți doar să te înclini.</value>
-  </data>
-  <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>Uneori, în loc să vă mișcați complet picioarele la stânga sau la dreapta pentru a face fotografii, poate fi mai ușor să stați cu picioarele depărtate și să vă aplecați în fiecare direcție, dar aveți grijă să mențineți telefonul la nivel și la aceeași înălțime. Doar aplecarea în loc să vă mișcați vă poate ajuta să nu vă deplasați prea departe și vă poate ajuta să vă mențineți obiectivul drept.</value>
-  </data>
-  <data name="Page.Tips.Lines" xml:space="preserve">
-    <value>Liniile de aliniere se pot deplasa.</value>
-  </data>
-  <data name="Page.Tips.Lines.Body" xml:space="preserve">
-    <value>Puteți trage liniile de aliniere în jur, dacă doriți. Acest lucru este util în special atunci când aliniați imaginile în timpul editării.</value>
-  </data>
-  <data name="Page.Tips.Old" xml:space="preserve">
-    <value>Puteți deschide fotografii vechi în CrossCam.</value>
-  </data>
-  <data name="Page.Tips.Old.Body" xml:space="preserve">
-    <value>Puteți încărca fotografiile făcute anterior atingând pictograma folderului din partea de jos a paginii camerei, dar dacă lucrați cu un lot mare de fotografii, le puteți, de asemenea, partaja la CrossCam direct din aplicația dvs. de fotografii, care vă poate ține evidența. plasează mai bine în fotografiile tale.</value>
-  </data>
-  <data name="Page.Tips.Quick" xml:space="preserve">
-    <value>Activați modul rapid când sunteți cu alții.</value>
-  </data>
-  <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Dacă explorezi împreună cu alte persoane, este o idee bună să intri în modul rapid dezactivând alinierea automată și marginile și doar salvând după ce ai capturat fără a face nicio editare. Puteți oricând încărca, alinia automat și edita imaginile mai târziu. În acest fel, însoțitorii tăi nu trebuie să aștepte ca tu să-ți perfecționezi pozele pe loc, dar poți fi totuși sigur că profunzimea pe care o dorești este cu adevărat acolo. Ai grijă să nu faci nicio editare grăbită înainte de prima salvare! De asemenea, puteți activa salvarea separată, care va ignora orice editare pe care o faceți.</value>
-  </data>
-  <data name="Page.Tips.Sick" xml:space="preserve">
-    <value>Dacă mișcarea te face rău, stai nemișcat.</value>
-  </data>
-  <data name="Page.Tips.Sick.Body" xml:space="preserve">
-    <value>Dacă toată mișcarea te îmbolnăvește sau îngreunează vizualizarea în 3D, nu începe să încerci să o vezi în 3D decât după ce te-ai mutat puțin. Apoi comparați imaginile între ele și aliniați-le folosind liniile orizontale fără vizualizare 3D și apoi începeți vizualizarea 3D odată aliniate și ținând nemișcată.</value>
-  </data>
-  <data name="Page.Tips.Space" xml:space="preserve">
-    <value>Aceste imagini pot ocupa mult spațiu de stocare - le puteți micșora.</value>
-  </data>
-  <data name="Page.Tips.Space.Body" xml:space="preserve">
-    <value>Pagina Setări are o opțiune de a reduce proporțional rezoluția imaginii finale - acest lucru vă poate ajuta dacă doriți să economisiți spațiu. Dacă fotografia nu este decupată, rezultatul final sunt două imagini cu rezoluție completă unite pentru a face una cu rezoluție dublă, ceea ce înseamnă că deseori puteți scăpa cu o reducere mare a rezoluției fără a afecta semnificativ calitatea.</value>
-  </data>
-  <data name="Page.Tips.Turn" xml:space="preserve">
-    <value>Nu te întoarce.</value>
-  </data>
-  <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Când vă deplasați, încercați să nu rotiți telefonul deloc în nicio direcție, inclusiv tendința naturală de a vă întoarce spre subiect în timp ce vă deplasați în lateral. Va fi necesară o anumită rotație (uneori), dar încercați să o minimizați. Imaginați-vă că telefonul este montat pe o șină orizontală dreaptă și poate doar aluneca. Întoarcerea spre interior poate provoca un efect de scurtare care face colțurile greu de îmbinat.</value>
-  </data>
-  <data name="Page.Tips.Window" xml:space="preserve">
-    <value>Adăugați chenar și decupați pentru a crea o fereastră stereo puternică.</value>
-  </data>
-  <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Un efect de fereastră stereo interesant poate fi creat făcând două lucruri: 1) activați chenarul (pe pagina Setări) și 2) pentru vizualizare încrucișată, decupați marginile interioare ale imaginilor până când marginea exterioară în sine devine 3D în imagine (decupați marginile EXTERIOARE dacă vizionați în paralel). Cheia este să tăiați marginea dreaptă a imaginii din stânga puțin peste ceea ce arată marginea dreaptă a imaginii din dreapta a scenei și invers. Adăugarea unui chenar este comutată pe pagina Setări. Dacă acest lucru este confuz, decupați doar o grămadă de pe marginile interioare și va începe să fie clar. Butonul de decupare pentru marginile interioare arată astfel:</value>
-  </data>
-  <data name="Button.Code" xml:space="preserve">
-    <value>Vezi Codul</value>
-  </data>
-  <data name="Button.Developer" xml:space="preserve">
-    <value>Despre Dezvoltator</value>
-  </data>
-  <data name="Button.EmailMe" xml:space="preserve">
-    <value>Trimite-mi un email</value>
-  </data>
-  <data name="Button.GitHub" xml:space="preserve">
-    <value>Adăugați o problemă pe GitHub</value>
-  </data>
-  <data name="Button.Press" xml:space="preserve">
-    <value>Reveniți la ecranul camerei de pe ambele dispozitive și atingeți butonul de pereche din colțul de jos</value>
-  </data>
-  <data name="Button.Primary" xml:space="preserve">
-    <value>Atingeți AICI PE PRIMAR</value>
-  </data>
-  <data name="Button.Privacy" xml:space="preserve">
-    <value>Politica de confidențialitate</value>
-  </data>
-  <data name="Button.Secondary" xml:space="preserve">
-    <value>Atingeți AICI PE SECUNDAR</value>
-  </data>
-  <data name="Button.Test" xml:space="preserve">
-    <value>Testați versiunile de pre-lansare</value>
-  </data>
-  <data name="Button.Wi-Fi" xml:space="preserve">
-    <value>Asigurați-vă că Wi-Fi este activat pe ambele dispozitive (dar nu trebuie să fie conectat la nimic)</value>
-  </data>
-  <data name="Page.Pairing.1" xml:space="preserve">
-    <value>Dacă aveți două dispozitive cu CrossCam instalate, le puteți conecta pentru a realiza fotografii simultan din două perspective. Realizarea a două fotografii în același moment face cele mai bune stereograme posibile.
+  <data name="Page.Faq.Zooming.Body" xml:space="preserve">
+    <value>Puteți mări CrossCam! Este posibil să nu funcționeze exact așa cum crezi. Foarte puține camere ale telefoanelor au de fapt lentile mobile care vă permit să măriți și să micșorați ușor folosind optica reală. Este posibil să aveți o cameră care pare că vă permite să faceți zoom optic în aplicația nativă pentru cameră, dar probabil că nu aveți (sunt rare). În schimb, ceea ce aveți probabil este un telefon cu mai multe camere/obiective care au fiecare un zoom fix, iar apoi software-ul este folosit pentru a comuta între acele obiective și, de asemenea, pentru a mări/decupa digital pentru a trece ușor între ele, astfel încât să se simtă ca un zoom optic. Mărirea digitală înseamnă doar aruncarea în aer a unei imagini și tăierea biților suplimentari. CrossCam vă permite să comutați între toate camerele / obiectivele telefonului dvs. atunci când capturați, astfel încât să puteți captura întotdeauna aceleași informații pe care le-ați captura folosind camera nativă. CrossCam vă permite apoi să faceți zoomul digital folosind funcționalitatea de decupare (la care ajungeți atingând pictograma creion și apoi pictograma care arată ca două unghiuri drepte suprapuse). În acest fel, întreaga scenă este surprinsă în întregime și puteți face alegeri mai atente cu privire la mărire/decupare după fapt.
 
-Rețineți că această funcție este încă experimentală și poate avea probleme. Este posibil să nu funcționeze perfect tot timpul și să vă consume bateria. De asemenea, vă rugăm să rețineți că în acest moment dispozitivele trebuie să fie aceeași platformă pentru a se conecta (atât Android, cât și ambele iOS).
+Un alt mod prin care CrossCam vă permite să măriți este prin mărirea și deplasarea în modul de vizualizare după ce ați capturat ambele părți. Puteți ajunge la modul de vizualizare atingând pictograma ochiului după ce ați capturat ambele părți. Odată ajuns în modul de vizualizare, puteți ciupi pentru a mări sau atinge și trage pentru a deplasa în interiorul unei stereograme, păstrând în același timp efectul 3D.</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Linkul nu a putut fi deschis</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Link-ul mailto nu a putut fi deschis. Acest lucru se poate datora faptului că clientul dvs. de e-mail nu este configurat sau din alt motiv.</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Corectarea câmpului vizual</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Diferite modele de dispozitive pot avea câmpuri vizuale diferite. CrossCam vă va ajuta să corectați acest lucru după ce faceți prima captură. Încadrați și capturați ceva cu puncte distinctive în partea de sus și de jos a cadrului, asigurându-vă că punctele sunt vizibile pe ambele dispozitive.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Începeți vizionarea anaglifă a primei imagini cu previzualizarea care apare lângă ea.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Începeți vizualizarea cartonului cu prima imagine cu previzualizarea care apare lângă ea.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Începeți vizualizarea încrucișată a primei imagini cu previzualizarea care apare lângă ea.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Începeți vizualizarea paralelă a primei imagini cu previzualizarea care apare lângă ea.</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Dacă doriți să vedeți acest lucru din nou, atingeți pictograma hamburger (trei linii) din partea stângă sus a ecranului camerei și atingeți „Ajutor”.
 
-O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dispozitiv și CrossCam este să utilizați metoda „oglindă cu o singură fotografie”. Îl puteți activa pe pagina Setări și puteți citi despre el pe pagina Întrebări frecvente.
 
-Înainte ca două dispozitive să poată fi utilizate împreună, trebuie să le fie atribuite rolurile. Dispozitivul PRIMAR este cel care va afișa ambele previzualizări, va declanșa captura și va menține/salva capturile finale. Pentru a atribui roluri, navigați pe ambele dispozitive la această pagină și apoi urmați pașii de mai jos:</value>
+1) Încadrați și faceți prima fotografie.</value>
   </data>
-  <data name="Page.Pairing.2" xml:space="preserve">
-    <value>Dacă aveți probleme, REȚINEȚI:
- • După începerea procesului de asociere, butonul de asociere poate fi apăsat din nou în orice moment pentru a-l opri sau pentru a se deconecta.
- • Poate fi de ajutor să opriți asocierea pe ambele dispozitive și să o reporniți în același timp.
- • Vă poate ajuta să vă deconectați de la rețelele dvs. Wi-Fi sau de date în cazul în care acestea funcționează.
- • Fiecare cameră este diferită. Aceste diferențe pot include câmpul vizual unghiular, focalizarea, expunerea și comportamentul balansului de alb, sincronizarea și multe altele. Chiar și două din același model de telefon se vor comporta ușor diferit. Prefer să folosesc o pereche de telefoane vechi identice (în cazul meu, o pereche de iPhone 6).
- • CrossCam este software, nu hardware, așa că capturarea fotografiilor poate fi ușor desincronizată, în funcție de ce mai fac procesoarele și memoria în momentul exact în care este declanșată captura. Ca urmare, sincronizarea poate să nu fie uneori perfectă, dar în general ar trebui să fie foarte apropiată.</value>
-  </data>
-  <data name="Page.Pairing.Again" xml:space="preserve">
-    <value>Pentru a vă conecta din nou mai târziu, asigurați-vă că aveți Wi-Fi activat și apoi atingeți butonul de conectare de pe ecranul de pornire pe ambele dispozitive.</value>
-  </data>
-  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
-    <value>CrossCam necesită permisiunea de acces la rețeaua locală. CrossCam nu folosește de fapt rețeaua locală, dar iOS necesită ca CrossCam să obțină această permisiune pentru a utiliza antena Wi-Fi pentru a scana dispozitive. CrossCam va cere această permisiune o dată - dacă permisiunea este refuzată, va trebui să mergeți și să comutați singur în aplicația Setări.</value>
-  </data>
-  <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam va solicita permisiuni și va porni componentele după cum este necesar pentru a vă conecta dispozitivele. Vă rugăm să rețineți: CrossCam necesită permisiunea de localizare și pentru ca serviciile de localizare să fie activate pe dispozitivul principal pentru a se conecta la dispozitivul secundar. Aceasta este pur și simplu o cerință Android și este complet în afara controlului meu. CrossCam nu UTILizează locația dvs. în niciun fel, dar pentru că acțiunea de a căuta (și de a găsi) dispozitive din apropiere ar putea fi teoretic utilizat pentru a vă localiza aproximativ, CrossCam necesită permisiunea de a vă accesa locația.</value>
-  </data>
-  <data name="Page.Pairing.Permissions" xml:space="preserve">
-    <value>O notă despre permisiuni:</value>
-  </data>
-  <data name="Page.Pairing.Title" xml:space="preserve">
-    <value>Împerechere</value>
-  </data>
-  <data name="Button.Back" xml:space="preserve">
-    <value>&lt; Înapoi</value>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Ține-ți telefonul fix în fața ta și mișcă-te încet lateral în direcția CrossCam îți spune. Nu vă mișcați prea departe - un inch sau mai puțin pentru fiecare picior depărtare este ținta dvs. De asemenea, nu te întoarce deloc, ci doar alunecă în lateral sau poate chiar doar aplecă-te.
+
+4) Aliniați prima fotografie cu previzualizarea celei de-a doua imagini și faceți a doua fotografie când vă place ceea ce vedeți.
+
+5) CrossCam vă va alinia automat fotografiile după ce le capturați, dar nu este perfect, dacă nu vă place cum au fost aliniate, puteți dezactiva alinierea automată atingând pictograma micul robot. CrossCam are, de asemenea, o mulțime de opțiuni de editare manuală la care puteți ajunge atingând pictograma creion.
+
+6) Atingeți bifa când sunteți gata să salvați.
+
+
+Alte lucruri pe care le poți face:
+• Atingeți o dată pentru a focaliza un punct, atingeți de două ori pentru a reveni la focalizarea automată continuă.
+• Atingeți pictograma roată din partea dreaptă sus a ecranului camerei pentru a deschide pagina Setări. Este plin de lucruri interesante.
+• Există o pagină frumoasă de Sfaturi la care puteți ajunge atingând pictograma hamburger din partea stângă sus a ecranului camerei, care vă poate ajuta să vă faceți fotografiile grozave.
+• Dacă preferați să mutați în cealaltă direcție pentru a doua fotografie sau dacă doriți să schimbați părțile laterale, faceți o glisare.
+• Atingeți pictograma folderului mic din partea de jos pentru a încărca o imagine ca o parte sau pentru a încărca o imagine stereo completă.</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
     <value>Cross View Subreddit</value>
@@ -778,6 +597,75 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
     <value>Subreddit Vizualizare paralelă</value>
   </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Permisiunile necesare pentru asociere nu au fost acordate. Excepţie:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>Dispozitivul nu a reușit să pornească Bluetooth. Excepţie:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>Dispozitivul nu a reușit să caute dispozitive. Excepţie:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Serviciile de localizare nu sunt activate. Nu se poate scana pentru dispozitive. Consultați pagina de asociere pentru mai multe detalii.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Permisiunea de locație nu a fost acordată. Nu se poate scana pentru dispozitive. Consultați pagina de asociere pentru mai multe detalii.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Asocierea nu este acceptată pe acest dispozitiv. Excepţie:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Wi-Fi este dezactivat. Vă rugăm să activați Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Acest dispozitiv este acum setat ca principal.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Rolul principal selectat</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Acest dispozitiv este acum setat ca secundar.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Rol secundar selectat</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Dacă aveți două dispozitive cu CrossCam instalate, le puteți conecta pentru a realiza fotografii simultan din două perspective. Realizarea a două fotografii în același moment face cele mai bune stereograme posibile.
+
+Rețineți că această funcție este încă experimentală și poate avea probleme. Este posibil să nu funcționeze perfect tot timpul și să vă consume bateria. De asemenea, vă rugăm să rețineți că în acest moment dispozitivele trebuie să fie aceeași platformă pentru a se conecta (atât Android, cât și ambele iOS).
+
+O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dispozitiv și CrossCam este să folosiți metoda „oglindă cu o singură fotografie”, dar este destul de complicată. Îl puteți activa pe pagina Setări și puteți citi despre el pe pagina Întrebări frecvente.
+
+Înainte ca două dispozitive să poată fi asociate și utilizate împreună, rolurile lor trebuie să fie atribuite. Dispozitivul PRIMAR este cel care va afișa ambele previzualizări, va declanșa captura și va menține/salva capturile finale. Pentru a atribui roluri, navigați pe ambele dispozitive la această pagină și apoi urmați pașii de mai jos:</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Dacă întâmpinați probleme, REȚINȚI:
+• După începerea procesului de asociere, butonul de asociere poate fi apăsat din nou în orice moment pentru a-l opri sau pentru a se deconecta.
+• Poate fi de ajutor să opriți asocierea pe ambele dispozitive și să o reporniți în același timp.
+• Vă poate ajuta să vă deconectați de la rețelele dvs. Wi-Fi sau de date în cazul în care acestea funcționează.
+• Fiecare cameră este diferită. Aceste diferențe pot include câmpul vizual unghiular, focalizarea, expunerea și comportamentul balansului de alb, sincronizarea și multe altele. Chiar și două din același model de telefon se vor comporta ușor diferit. Prefer să folosesc o pereche de telefoane vechi identice (în cazul meu, o pereche de iPhone 6).
+• CrossCam este software, nu hardware, așa că capturarea fotografiilor poate fi ușor desincronizată, în funcție de ce mai fac procesoarele și memoria în momentul exact în care este declanșată captura. Ca urmare, sincronizarea poate să nu fie uneori perfectă, dar în general ar trebui să fie foarte apropiată.
+• Dacă doriți să fotografiați ceva foarte mic sau foarte aproape, poate fi necesar să aveți o distanță de separare foarte mică. Este posibil să puteți obține o distanță de separare și mai mică răsturnând unul sau ambele telefoane pe laterale sau chiar cu susul în jos (deoarece camerele nu sunt centrate pe spatele telefonului). Interfața de captare a CrossCam se va roti după cum este necesar și va corecta orientarea capturilor.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Pentru a vă conecta din nou mai târziu, asigurați-vă că aveți Wi-Fi activat și apoi atingeți butonul de conectare de pe ecranul de pornire pe ambele dispozitive.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam necesită permisiunea de acces la rețeaua locală. CrossCam nu folosește de fapt rețeaua locală, dar iOS necesită ca CrossCam să obțină această permisiune pentru a utiliza antena Wi-Fi pentru a scana dispozitive. CrossCam va cere această permisiune o dată - dacă permisiunea este refuzată, va trebui să mergeți și să comutați singur în aplicația Setări.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam va solicita permisiuni și va porni componentele după cum este necesar pentru a vă conecta dispozitivele. Vă rugăm să rețineți: CrossCam necesită permisiunea de localizare și pentru ca serviciile de localizare să fie activate pe dispozitivul principal pentru a se conecta la dispozitivul secundar. Aceasta este pur și simplu o cerință Android și este complet în afara controlului meu. CrossCam nu UTILizează locația dvs. în niciun fel, dar pentru că acțiunea de a căuta (și de a găsi) dispozitive din apropiere ar putea fi teoretic folosită pentru a vă localiza aproximativ, CrossCam necesită permisiunea de a vă accesa locația.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>O notă despre permisiuni:</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Împerechere</value>
+  </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Aliniere automată</value>
   </data>
@@ -788,7 +676,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Frontieră</value>
   </data>
   <data name="Page.Settings.Camera" xml:space="preserve">
-    <value>aparat foto</value>
+    <value>Camera foto</value>
   </data>
   <data name="Page.Settings.Defaults" xml:space="preserve">
     <value>Resetați la valorile implicite</value>
@@ -798,6 +686,9 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   </data>
   <data name="Page.Settings.ErrorEmail" xml:space="preserve">
     <value>Solicitare de a trimite e-mail atunci când apar erori</value>
+  </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Utilizați fantome/suprapunere transparentă/ecran complet</value>
   </data>
   <data name="Page.Settings.Guides" xml:space="preserve">
     <value>Ghiduri de captură</value>
@@ -811,8 +702,85 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Page.Settings.Saving" xml:space="preserve">
     <value>Salvarea imaginii</value>
   </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Tutoriale suplimentare:</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Încrucișează-ți ochii cu atenție în timp ce te uiți la perechea de imagini de mai sus. Când îți încrucișezi ochii, lucrurile vor deveni neclare și transparente și vei începe să vezi 4 imagini în loc de 2 (2 perechi). Cu cât încrucișați ochii mai tare, cu atât perechile de imagini se vor deplasa mai departe - va arăta puțin așa:</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Desfaceți-vă ochii cu atenție, astfel încât imaginile din interiorul fiecărei perechi să înceapă să se suprapună. Va începe să arate că există doar 3 imagini în loc de 4. Va fi în continuare neclară și transparentă și va arăta cam așa:</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Odată ce suprapunerea din mijloc funcționează, trebuie doar să vă relaxați ochii și să le permiteți să focalizeze imaginea. În acel moment, veți avea o imagine 3D clară în mijloc, cu o imagine transparentă care plutește pe fiecare parte care va arăta astfel (cu excepția că mijlocul va fi 3D):</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Dacă întâmpinați probleme cu privirea, puteți încerca și să vă uitați la degetul în timp ce îl țineți la jumătatea distanței dintre ochi și ecran. Ar trebui să vedeți că imaginile încep să se separe și să se suprapună în spatele degetului.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>VIZIUNE ÎN CRUCE</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>modul.</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Dacă doriți să vedeți acest lucru din nou, atingeți pictograma hamburger (trei linii) din partea stângă sus a ecranului camerei și atingeți „Ajutor”.
+
+Pentru a vedea 3D în CrossCam (numite „stereograme”) puteți folosi ochelari 3D roșii/cian, un vizualizator Google Cardboard sau puteți face „vizionare gratuită” folosind doar ochii și ecranul. Există două moduri de vizualizare gratuită, iar CrossCam vă poate ajuta să le învățați pe ambele. Trebuie să spuneți lui CrossCam cum veți vedea imaginile, altfel nu va funcționa corect. Nu vă faceți griji, puteți oricând să schimbați acest lucru din nou în Setări.
+
+Dacă poți să-ți încrucișezi ochii confortabil, ar trebui să încerci mai întâi metoda încrucișării, altfel ar trebui să încerci metoda paralelă. Dacă te-ai obișnuit cu cărțile Magic Eye™, probabil că poți deja să faci metoda paralelă, dar ai putea să faci și metoda încrucișată. Atingeți o metodă de mai jos pentru a o învăța și asigurați-vă că îi spuneți lui CrossCam care dintre ele funcționează pentru dvs. apăsând butonul ALEGEȚI corespunzător.
+
+Dacă preferați să utilizați ochelari 3D sau un vizualizator Cardboard, puteți seta CrossCam să îi folosească pe pagina Setări.
+
+
+</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Dacă imaginea de mai sus nu se potrivește pe ecran, întoarceți-vă telefonul pe peisaj - CrossCam încearcă să facă perechea de imagini de deasupra dimensiunii celei mai ușoare pentru aceasta. Nu trebuie să utilizați întotdeauna CrossCam în peisaj, dar o imagine cu dimensiuni perfecte facilitează învățarea tehnicii.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Relaxați-vă ochii și priviți „prin” perechea de imagini de mai sus, ca și cum ați fi zonat cu ochii îndreptați spre imagini. Ar trebui să începeți să vedeți 3 imagini cu o imagine 3D în mijloc, cam așa:</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Dacă începi să vezi 4 poze, ai mers prea departe. Încercați să vă mișcați puțin ochii dacă vă aflați din nou în acel moment. Relaxarea prea departe va arăta puțin așa:</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Dacă întâmpinați probleme, încercați să vă apropiați ecranul de față cu perechea de imagini chiar în fața ochilor. Relaxați-vă și priviți „prin” ecran, apoi trageți încet ecranul de pe față în timp ce vă păstrați ochii relaxați. În cele din urmă, imaginea ar trebui să facă clic în focalizare.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Dacă tot vedeți patru imagini, creșteți „Lățimea maximă a imaginii pentru vizualizare paralelă” pe pagina Setări.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>VIZIUNEA PARALELA</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Imagini pe care le-am făcut pe care le puteți exersa</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam este acum în</value>
+  </data>
+  <data name="Page.Technique.SpotTheDifference" xml:space="preserve">
+    <value>Observă diferența</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>
+Dacă încă întâmpinați probleme, încercați să vă duceți telefonul într-o cameră întunecată, astfel încât singurul lucru pe care ochii să-l poată vedea bine și pe care să se concentreze să fie imaginea.
+
+Un alt lucru pe care îl puteți încerca este să folosiți tuburi de hârtie igienică sau mâinile pentru a o face astfel încât fiecare ochi să poată vedea doar partea din imagine pe care ar trebui să o vadă.
+• Pentru vizualizare transversală: țineți un singur tub pe puntea nasului (centrat între ochi) în timp ce îl îndreptați spre centrul imaginii din fața dvs. Mutați încet tubul spre ecran în timp ce încercați să priviți în jos tubul cu ambii ochi. Când ajungeți în poziția corectă cu tubul, imaginea ar trebui să se fixeze la loc. Ar putea ajuta să vă concentrați pe încercarea de a privi interiorul capătului îndepărtat al tubului. Dacă nu găsiți poziția corectă, încercați să utilizați o imagine mai mare sau un tub mai mic.
+• Pentru vedere paralelă: țineți un tub în fața fiecărui ochi, dar îndreptați-le pe amândoi în lateral, astfel încât să nu puteți vedea nimic. Întoarceți încet tuburile spre interior în același timp, astfel încât să puteți începe să vedeți mai mult din imagine. În momentul în care puteți vedea cea mai mare parte a imaginii (aproape jumătate cu fiecare ochi), încercați să vă relaxați ochii și să aduceți jumătățile împreună. Poate ajuta să folosiți o imagine mai mare sau mai mică.
+
+Există un exercițiu ușor pe care îl puteți face pentru a exersa fuzionarea fie cu vizualizarea încrucișată, fie în paralel. Luați un marker și desenați o porțiune a unei fețe zâmbitoare pe fiecare dintre unghiile dvs. (sau o pereche de bețișoare de popsicle sau depresoare de limbă). De exemplu, pe o parte desenați un ochi și o gură, iar pe cealaltă parte desenați un ochi și un nas. Puteți apoi să le țineți în fața dvs. și să exersați fuzionarea celor două imagini împreună pentru a completa fața zâmbitoare.
+
+Eu personal prefer trecerea în paralel, deoarece imaginile pot fi mai mari, dar ambele metode funcționează. Dacă doriți să experimentați cu imagini paralele mai mari, puteți controla dimensiunea în pagina Setări.
+
+Uneori este dificil să simți dacă faci metoda încrucișată sau paralelă în timp ce o faci. Puteți cere altcuiva să vă privească ochii în timp ce o faceți sau puteți privi imaginea de mai jos ca un test:</value>
+  </data>
+  <data name="Page.Technique.VariousTutorials" xml:space="preserve">
+    <value>Diverse tutoriale pe diferite subiecte</value>
+  </data>
   <data name="Page.TipMe.1" xml:space="preserve">
-    <value>CrossCam este gratuit, fără reclame, cu sursă deschisă, nu colectează informații personale de la dvs. și vă oferă acces deplin la fiecare funcție. Îmi place să lucrez la CrossCam, dar necesită mult timp și efort. Nu câștig bani din CrossCam, cu excepția sfaturilor pe care oamenii ar putea decide să-mi trimită.</value>
+    <value>CrossCam este gratuit, fără reclame, cu sursă deschisă, nu colectează informații personale de la dvs. și vă oferă acces deplin la fiecare funcție. Îmi place să lucrez la CrossCam, dar necesită mult timp și efort. Nu câștig deloc bani din CrossCam, cu excepția sfaturilor pe care oamenii ar putea decide să-mi trimită.</value>
   </data>
   <data name="Page.TipMe.2" xml:space="preserve">
     <value>Dacă îți place CrossCam și poți, te rog să-mi trimiți un pont.</value>
@@ -835,14 +803,125 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Page.TipMe.Venmo" xml:space="preserve">
     <value>Venmo</value>
   </data>
-  <data name="Title.MorePictures" xml:space="preserve">
-    <value>Vezi mai multe imagini</value>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Luați în considerare liniile orizontale, dar vă puteți alinia și după.</value>
   </data>
-  <data name="Title.Settings" xml:space="preserve">
-    <value>Setări</value>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Dacă descoperiți că în timp ce faceți fotografii este imposibil să faceți atât liniile de ghidare superioare, cât și inferioare să se alinieze în același timp, probabil că v-ați deplasat într-o altă direcție decât doar în lateral. Încercați să remediați acest lucru înainte de a face fotografii, dar alinierea după fapt poate ajuta foarte mult acest lucru.</value>
   </data>
-  <data name="Title.TipMe" xml:space="preserve">
-    <value>Sfaturile sunt apreciate!</value>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Puteți dezactiva alinierea automată.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Dacă nu vă plac rezultatele alinierii automate, dezactivați-l pe pagina Setări sau atingând pictograma micul robot și imaginile dvs. originale capturate vor fi restaurate.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Ghidul gogoșilor vă poate ajuta pe fereastra.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Există un ghid experimental pe pagina Setări pe care îl puteți activa, care vă poate ajuta să vă păstrați fereastra stereo, maximizând în același timp lățimea utilizată. Prin întoarcerea la stânga și la dreapta, adâncimea gogoșii se va schimba în raport cu restul scenei - setați adâncimea gogoșii astfel încât să fie fie pe, fie în spatele celui mai îndepărtat punct din scena dvs. Fiți atenți, utilizarea acestuia poate face anumite lucruri dureroase de privit (vezi sfatul cheie de mai sus).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Corecția keystone și configurarea atentă a scenei sunt necesare dacă vă îndreptați.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
+    <value>Întoarcerea spre interior atunci când capturați se numește toe-in. În general, trebuie evitat. Poate face un lucru bun minor, dar poate face și două lucruri rele majore. Lucrul bun pe care îl poate face este să permită mai multă scenă să rămână în spatele ferestrei stereo fără a fi necesară tăierea (consultați sfatul despre „fereastra stereo” pentru mai multe informații). Dacă doriți să adăugați un toe-in, există un ghid de captură „goasă” pe care îl puteți activa pe pagina Setări, care vă poate ajuta să reglați cantitatea pe care o introduceți.
+
+Primul lucru rău pe care îl poate provoca piciorul este un efect de scurtare care face dificilă fuzionarea colțurilor imaginii. Efectul de scurtare poate fi observat în viața reală atunci când lucrurile par să devină mai mici pe măsură ce se îndepărtează de tine. Dacă îți imaginezi că te uiți direct la ușa închisă a cuiva, cele două laturi au aceeași înălțime, dar odată ce ușa se deschide, partea care este mai departe de tine este puțin mai mică decât partea care este mai aproape de tine. Acest efect de scurtare poate face, de asemenea, ca liniile paralele să pară să convergă pe măsură ce se îndreaptă spre distanța de la tine (de exemplu șinele de tren). Dacă vă îndreptați, adăugați un efect de scurtare pe partea spre care vă întoarceți, dar acesta este diferit pentru fiecare jumătate a stereogramei, astfel încât acestea să nu se potrivească.
+
+Al doilea lucru rău pe care îl poate provoca pipirea este că poate face paralaxa obiectelor aflate departe în fundal prea mare pentru a fi fuzionate confortabil. Pentru a-ți imagina asta, imaginează-ți că te învârtești în jurul cuiva în timp ce te confrunți cu el în orice moment. Persoana însăși va părea că se rotește încet, dar obiectele aflate la distanță în fundal vor fi mici și se vor mișca foarte repede în direcția opusă rotației tale. Este posibil ca acele obiecte să nu ajungă să apară în ambele perspective dacă vă îndreptați prea departe, iar cele care apar pot fi incomod de vizualizat.
+
+Cea mai ușoară modalitate de a atenua efectul pe care îl are îndreptarea asupra paralaxei obiectelor de fundal este să configurați scena, astfel încât să nu existe obiecte de fundal îndepărtate. Acest lucru ar însemna să folosiți doar piciorul când capturați subiecte care se află în fața pereților sau a altor obiecte care vă împiedică vederea să se extindă prea mult în fundal. Cea mai ușoară modalitate de a atenua efectul de scurtare pe care îl are piciorul este de a face corecții keystone în timpul editării. Dacă vizionați încrucișat, ați dori să micșorați marginile interioare ale fotografiilor pe verticală și apoi să decupați unele din partea de sus și de jos pentru a le nivela (marginile exterioare dacă vizionați paralel). Puteți face acest lucru în CrossCam. Accesați meniul de editare keystone atingând butonul care arată astfel:</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Poți doar să te apleci.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Uneori, în loc să vă mișcați complet picioarele la stânga sau la dreapta pentru a face fotografii, poate fi mai ușor să stați cu picioarele depărtate și să vă aplecați în fiecare direcție, dar aveți grijă să mențineți telefonul la nivel și la aceeași înălțime. Doar aplecarea în loc să vă mișcați vă poate ajuta să nu vă deplasați prea departe și vă poate ajuta să vă mențineți obiectivul drept.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Liniile de aliniere se pot deplasa.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Puteți trage liniile de aliniere în jur, dacă doriți. Acest lucru este util în special atunci când aliniați imaginile în timpul editării.</value>
+  </data>
+  <data name="Page.Tips.Moving" xml:space="preserve">
+    <value>Dacă subiectul se mișcă, îl puteți captura în continuare cu CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Puteți deschide fotografii vechi în CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Puteți încărca fotografiile făcute anterior atingând pictograma dosarului din partea de jos a paginii camerei, dar dacă lucrați cu un lot mare de fotografii, le puteți partaja și la CrossCam direct din aplicația dvs. de fotografii, care vă poate urmări mai bine locul în fotografii.</value>
+  </data>
+  <data name="Page.Tips.PanAndZoom" xml:space="preserve">
+    <value>Puteți deplasa și mări pentru a explora stereogramele în 3D.</value>
+  </data>
+  <data name="Page.Tips.PanAndZoom.Body" xml:space="preserve">
+    <value>Puteți deplasa și mări și micșora o stereogramă, menținând în același timp efectul 3D, atingând pictograma care arată ca un ochi care apare după ce ați capturat ambele părți. După ce atingeți ochiul, prindeți pentru a mări sau atingeți și trageți pentru a deplasa.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Activați modul rapid când sunteți cu alții.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Dacă ieși cu alte persoane, este o idee bună să intri în modul rapid: dezactivând alinierea automată, dezactivând chenarele și ghidajul siguranței, pornind salvarea automată și pornind conectarea automată (dacă folosești două telefoane). Puteți oricând încărca, alinia automat și edita imaginile mai târziu. În acest fel, însoțitorii tăi nu trebuie să aștepte ca tu să-ți perfecționezi pozele pe loc, dar poți fi în continuare sigur că profunzimea pe care o dorești este cu adevărat acolo. Ai grijă să nu faci nicio editare grăbită înainte de prima salvare! De asemenea, puteți activa salvarea separată, care va ignora orice editare pe care o faceți.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Dacă mișcarea te face rău, stai nemișcat.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Dacă toată mișcarea te îmbolnăvește sau îngreunează vizualizarea în 3D, nu începe să încerci să o vezi în 3D decât după ce te-ai mutat puțin. Apoi comparați imaginile între ele și aliniați-le folosind liniile orizontale fără vizualizare 3D și apoi începeți vizualizarea 3D odată aliniate și ținând nemișcată.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Aceste imagini pot ocupa mult spațiu de stocare - le puteți micșora.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>Pagina Setări are o opțiune de a reduce proporțional rezoluția imaginii finale - acest lucru poate ajuta dacă doriți să economisiți spațiu. Dacă fotografia nu este decupată, rezultatul final sunt două imagini cu rezoluție completă unite pentru a face una cu rezoluție dublă, ceea ce înseamnă că deseori puteți scăpa cu o reducere mare a rezoluției fără a afecta semnificativ calitatea.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Nu te întoarce.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Când vă deplasați, încercați să nu rotiți telefonul deloc în nicio direcție, inclusiv tendința naturală de a vă întoarce spre subiect în timp ce vă deplasați în lateral. Va fi necesară o anumită rotație (uneori), dar încercați să o minimizați. Imaginați-vă că telefonul este montat pe o șină orizontală dreaptă și poate doar aluneca. Întoarcerea spre interior poate cauza două probleme: poate provoca un efect de scurtare în colțuri care le face greu de fuzionat și poate face paralaxa pe obiectele din fundal prea mare pentru a fi văzute confortabil. Consultați sfatul despre „corecția keystone” și „toe-in” pentru mai multe informații.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Adăugați chenar și decupați pentru a crea o fereastră stereo puternică.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Un efect de fereastră stereo interesant poate fi creat făcând două lucruri: 1) activați chenarul (pe pagina Setări) și 2) pentru vizualizare încrucișată, decupați marginile interioare ale imaginilor până când marginea exterioară în sine devine 3D în imagine (decupați marginile EXTERIOARE dacă vizionați paralel). Cheia este să tăiați marginea dreaptă a imaginii din stânga puțin peste ceea ce arată marginea dreaptă a imaginii din dreapta a scenei și invers. Adăugarea unui chenar este comutată pe pagina Setări. Dacă acest lucru este confuz, decupați doar o grămadă de pe marginile interioare și va începe să fie clar. Butonul de decupare pentru marginile interioare arată astfel:</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Corect</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglifă</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Carton</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Cruce</value>
+  </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglifă Dubois</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglifă în tonuri de gri</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Paralel</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Separa</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Singur</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Triplu</value>
   </data>
   <data name="Settings.Alignment.Advanced" xml:space="preserve">
     <value>Afișați setările avansate de aliniere</value>
@@ -928,6 +1007,9 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Settings.Guides.Roll" xml:space="preserve">
     <value>Ghidajul rolei vizibil</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Conectați-vă automat când se deschide pagina camerei</value>
+  </data>
   <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
     <value>Întârziere suplimentară pentru momentul capturii (ms) (adaugă o întârziere suplimentară momentului de captare țintă numai pe acest dispozitiv)</value>
   </data>
@@ -959,7 +1041,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Rol: primar</value>
   </data>
   <data name="Settings.Pair.Sample" xml:space="preserve">
-    <value>Numărul de probe de ceas (numărul mai mic va reduce timpul necesar pentru sincronizarea inițială, dar poate scădea acuratețea sincronizării)</value>
+    <value>Numărul de probe de ceas (numărul mai mic va reduce timpul necesar pentru sincronizarea inițială, dar poate scădea precizia sincronizării)</value>
   </data>
   <data name="Settings.Pair.Secondary" xml:space="preserve">
     <value>Secundar:</value>
@@ -983,7 +1065,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Reduceți imaginea (poate crește rata de cadre)</value>
   </data>
   <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
-    <value>Reduceți procentajul imaginii</value>
+    <value>Redimensionați procentajul imaginii</value>
   </data>
   <data name="Settings.Preview.Immersive" xml:space="preserve">
     <value>Vizionare finală captivantă</value>
@@ -992,7 +1074,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Forța de corecție a lentilelor</value>
   </data>
   <data name="Settings.Preview.Mirror" xml:space="preserve">
-    <value>Captură folosind metoda divizării oglinzii cu o singură fotografie</value>
+    <value>Captură utilizând metoda divizării oglinzii cu o singură fotografie</value>
   </data>
   <data name="Settings.Preview.Width" xml:space="preserve">
     <value>Lățimea maximă a imaginii de vizualizare paralelă (puncte)</value>
@@ -1001,13 +1083,13 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Resetați la valorile implicite</value>
   </data>
   <data name="Settings.Saving.Alone" xml:space="preserve">
-    <value>Salvați singur prima față (fără modificări sau chenar) (pentru partajarea ușoară a fotografiilor plat cu persoanele cu vizualizare plată)</value>
+    <value>Salvați singur prima față (fără editări sau chenar) (pentru partajarea ușoară a fotografiilor plat cu persoanele cu vizualizare plată)</value>
   </data>
   <data name="Settings.Saving.Anaglyph" xml:space="preserve">
     <value>Salvați versiunea anaglifă roșie/cian (cu modificări, dar fără chenar)</value>
   </data>
   <data name="Settings.Saving.Browse" xml:space="preserve">
-    <value>Naviga...</value>
+    <value>Răsfoiește...</value>
   </data>
   <data name="Settings.Saving.Cardboard" xml:space="preserve">
     <value>Salvați pentru Cardboard (cu modificări, fără chenar, fără spațiere, lățime completă, pentru încărcare înapoi în CrossCam mai târziu)</value>
@@ -1018,17 +1100,26 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Settings.Saving.Cross" xml:space="preserve">
     <value>Salvați versiunea încrucișată unită (cu modificări și chenar)</value>
   </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Salvați versiunea anaglifă Dubois roșu/cian (cu modificări, dar fără chenar)</value>
+  </data>
   <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
     <value>Salvați în directorul extern CrossCam la:</value>
   </data>
   <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
     <value>(atenție: imaginile de acolo vor fi șterse dacă CrossCam este dezinstalat)</value>
   </data>
+  <data name="Settings.Saving.FilenameLabels" xml:space="preserve">
+    <value>Salvați imaginile cu metoda de vizualizare în numele fișierului</value>
+  </data>
   <data name="Settings.Saving.Folder" xml:space="preserve">
     <value>Salvați în subdosarul/albumul dedicat „CrossCam”.</value>
   </data>
   <data name="Settings.Saving.Grayscale" xml:space="preserve">
     <value>Salvați versiunea anaglifă roșu/cian în tonuri de gri (cu modificări, dar fără chenar)</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Salvați automat după capturare</value>
   </data>
   <data name="Settings.Saving.Order" xml:space="preserve">
     <value>(Salvarea se va face în ordine de sus în jos)</value>
@@ -1046,7 +1137,7 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
     <value>Proporția rezoluției</value>
   </data>
   <data name="Settings.Saving.SaveTo" xml:space="preserve">
-    <value>Salveaza in:</value>
+    <value>Salvați în:</value>
   </data>
   <data name="Settings.Saving.Separate" xml:space="preserve">
     <value>Salvați fiecare parte separat (fără modificări sau margini pentru o procesare mai ușoară a postării, partea stângă salvează mai întâi)</value>
@@ -1057,79 +1148,31 @@ O modalitate de a obține o sincronizare *perfectă* folosind doar un singur dis
   <data name="Settings.Saving.Triple" xml:space="preserve">
     <value>Salvați combinația triplă (cu editări și chenar)</value>
   </data>
-  <data name="Button.Pair.Accept" xml:space="preserve">
-    <value>Accept</value>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Contact</value>
   </data>
-  <data name="Button.Pair.Cancel" xml:space="preserve">
-    <value>Anulare</value>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
   </data>
-  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
-    <value>Acceptați conexiunea la</value>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Ajutor</value>
   </data>
-  <data name="Page.Camera.Confirm" xml:space="preserve">
-    <value>Confirmați potrivirile codului pe ambele dispozitive:</value>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Cum să utilizați CrossCam</value>
   </data>
-  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
-    <value>Linkul nu a putut fi deschis</value>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Vezi mai multe imagini</value>
   </data>
-  <data name="Page.Footer.OpenError" xml:space="preserve">
-    <value>Link-ul mailto nu a putut fi deschis. Acest lucru se poate datora faptului că clientul dvs. de e-mail nu este configurat sau din alt motiv.</value>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Setări</value>
   </data>
-  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
-    <value>Permisiunile necesare pentru asociere nu au fost acordate. Excepție:</value>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Tehnica de vizualizare 3D</value>
   </data>
-  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
-    <value>Dispozitivul nu a reușit să pornească Bluetooth. Excepție:</value>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Sfaturile sunt apreciate!</value>
   </data>
-  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
-    <value>Dispozitivul nu a reușit să caute dispozitive. Excepție:</value>
-  </data>
-  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
-    <value>Serviciile de localizare nu sunt activate. Nu se poate scana pentru dispozitive. Consultați pagina de asociere pentru mai multe detalii.</value>
-  </data>
-  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
-    <value>Permisiunea de locație nu a fost acordată. Nu se poate scana pentru dispozitive. Consultați pagina de asociere pentru mai multe detalii.</value>
-  </data>
-  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
-    <value>Asocierea nu este acceptată pe acest dispozitiv. Excepție:</value>
-  </data>
-  <data name="Page.Pair.Errors.Title" xml:space="preserve">
-    <value>Eroare</value>
-  </data>
-  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
-    <value>Wi-Fi este dezactivat. Vă rugăm să activați Wi-Fi.</value>
-  </data>
-  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
-    <value>Acest dispozitiv este acum setat ca principal.</value>
-  </data>
-  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
-    <value>Rolul principal selectat</value>
-  </data>
-  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
-    <value>Acest dispozitiv este acum setat ca secundar.</value>
-  </data>
-  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
-    <value>Rol secundar selectat</value>
-  </data>
-  <data name="Page.Technique.Mode" xml:space="preserve">
-    <value>modul.</value>
-  </data>
-  <data name="Page.Technique.SetMode" xml:space="preserve">
-    <value>CrossCam este acum în</value>
-  </data>
-  <data name="Settings.Saving.InstantSave" xml:space="preserve">
-    <value>Salvați automat după capturare</value>
-  </data>
-  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
-    <value>Conectați-vă automat când se deschide pagina camerei</value>
-  </data>
-  <data name="Page.Settings.Fullscreen" xml:space="preserve">
-    <value>Utilizați fantome/suprapunere transparentă/ecran complet</value>
-  </data>
-  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
-    <value>Anaglifă Dubois</value>
-  </data>
-  <data name="Settings.Saving.Dubois" xml:space="preserve">
-    <value>Salvați versiunea anaglifă Dubois roșu/cian (cu modificări, dar fără chenar)</value>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Sfaturi</value>
   </data>
 </root>

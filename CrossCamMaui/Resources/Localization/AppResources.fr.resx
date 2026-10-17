@@ -117,6 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Button.Back" xml:space="preserve">
+    <value>&lt; Retour</value>
+  </data>
+  <data name="Button.Camera.Keep" xml:space="preserve">
+    <value>Garder</value>
+  </data>
+  <data name="Button.Camera.Remove" xml:space="preserve">
+    <value>Retirer</value>
+  </data>
+  <data name="Button.Code" xml:space="preserve">
+    <value>Voir le Code</value>
+  </data>
+  <data name="Button.Developer" xml:space="preserve">
+    <value>À propos du développeur</value>
+  </data>
+  <data name="Button.DoNotEmailMe" xml:space="preserve">
+    <value>Ne m'envoie pas d'e-mail maintenant</value>
+  </data>
+  <data name="Button.EmailMe" xml:space="preserve">
+    <value>Envoyez-moi un e-mail</value>
+  </data>
+  <data name="Button.EmailMeNow" xml:space="preserve">
+    <value>Envoyez-moi un email maintenant</value>
+  </data>
+  <data name="Button.GitHub" xml:space="preserve">
+    <value>Ajouter un problème sur GitHub</value>
+  </data>
   <data name="Button.GoogleDoc" xml:space="preserve">
     <value>Google Doc de bonnes choses</value>
   </data>
@@ -129,8 +156,32 @@
   <data name="Button.MorePictures" xml:space="preserve">
     <value>Voir plus de photos</value>
   </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Button.OK" xml:space="preserve">
+    <value>D'ACCORD</value>
+  </data>
+  <data name="Button.Pair.Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Button.Pair.Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Button.Press" xml:space="preserve">
+    <value>Revenez à l'écran de la caméra sur les deux appareils et appuyez sur le bouton de couplage dans le coin inférieur</value>
+  </data>
+  <data name="Button.Primary" xml:space="preserve">
+    <value>APPUYEZ ICI SUR LE PRIMAIRE</value>
+  </data>
+  <data name="Button.Privacy" xml:space="preserve">
+    <value>politique de confidentialité</value>
+  </data>
   <data name="Button.Review" xml:space="preserve">
-    <value>Écrire une critique</value>
+    <value>Écrire un avis</value>
+  </data>
+  <data name="Button.Secondary" xml:space="preserve">
+    <value>APPUYEZ ICI SUR LE SECONDAIRE</value>
   </data>
   <data name="Button.Share" xml:space="preserve">
     <value>Partager CrossCam</value>
@@ -144,107 +195,29 @@
   <data name="Button.TapParallel" xml:space="preserve">
     <value>APPUYEZ ICI POUR CHOISIR PARALLÈLE</value>
   </data>
+  <data name="Button.Test" xml:space="preserve">
+    <value>Tester les versions préliminaires</value>
+  </data>
+  <data name="Button.Wi-Fi" xml:space="preserve">
+    <value>Assurez-vous que le Wi-Fi est activé sur les deux appareils (mais il n'a pas besoin d'être connecté à quoi que ce soit)</value>
+  </data>
+  <data name="Button.YesClear" xml:space="preserve">
+    <value>Oui, clair</value>
+  </data>
   <data name="Footer.Span1" xml:space="preserve">
-    <value>Vous avez trouvé un bug ? Avoir une question? Il suffit d'envoyer un e-mail</value>
+    <value>Vous avez trouvé un bug ? Vous avez une question ? Une idée ? Il suffit d'envoyer un e-mail</value>
   </data>
   <data name="Footer.Span3" xml:space="preserve">
     <value>! J'adore parler avec les utilisateurs et c'est le moyen le plus rapide de communiquer avec moi.</value>
   </data>
-  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
-    <value>2) Démarrez l'anaglyphe en visualisant la première image avec l'aperçu qui apparaît à côté.</value>
+  <data name="Left" xml:space="preserve">
+    <value>Gauche</value>
   </data>
-  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
-    <value>2) Démarrez le carton en regardant la première image avec l'aperçu qui apparaît à côté.</value>
-  </data>
-  <data name="Page.HowToUse.2cross" xml:space="preserve">
-    <value>2) Lancez la visualisation croisée de la première image avec l'aperçu qui apparaît à côté.</value>
-  </data>
-  <data name="Page.HowToUse.2parallel" xml:space="preserve">
-    <value>2) Commencez à visualiser en parallèle la première image avec l'aperçu qui apparaît à côté.</value>
-  </data>
-  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
-    <value>Tutoriels supplémentaires :</value>
-  </data>
-  <data name="Page.Technique.Cross1" xml:space="preserve">
-    <value>Croisez soigneusement les yeux en regardant la paire de photos ci-dessus. Lorsque vous croisez les yeux, les choses deviennent floues et transparentes et vous commencez à voir 4 images au lieu de 2 (2 paires). Plus vous croisez les yeux, plus les paires d'images s'éloigneront - cela ressemblera un peu à ceci :</value>
-  </data>
-  <data name="Page.Technique.Cross2" xml:space="preserve">
-    <value>Décroisez soigneusement les yeux, afin que les images à l’intérieur de chaque paire commencent à se chevaucher. Vous commencerez à avoir l'impression qu'il n'y a que 3 images au lieu de 4. Elles seront toujours floues et transparentes et ressembleront à ceci :</value>
-  </data>
-  <data name="Page.Technique.Cross3" xml:space="preserve">
-    <value>Une fois que le chevauchement central fonctionne, il vous suffit de détendre vos yeux et de leur permettre de concentrer l'image. À ce stade, vous aurez une image 3D nette au milieu avec une image transparente flottant de chaque côté qui ressemblera à ceci (sauf que le milieu sera en 3D) :</value>
-  </data>
-  <data name="Page.Technique.Cross4" xml:space="preserve">
-    <value>Si vous avez du mal à croiser les yeux, vous pouvez également essayer de fixer votre doigt pendant que vous le tenez à mi-chemin entre vos yeux et l'écran. Vous devriez voir les images commencer à se séparer et à se chevaucher derrière votre doigt.</value>
-  </data>
-  <data name="Page.Technique.CrossViewing" xml:space="preserve">
-    <value>VISION CROISÉE</value>
-  </data>
-  <data name="Page.Technique.P1" xml:space="preserve">
-    <value>Si vous souhaitez revoir cela, appuyez sur l'icône hamburger (trois lignes) en haut à gauche de l'écran de l'appareil photo et appuyez sur « Aide ».
-
-Pour voir la 3D dans CrossCam (appelée « stéréogrammes »), vous pouvez utiliser des lunettes 3D rouges/cyan, une visionneuse Google Cardboard, ou vous pouvez effectuer une « visualisation gratuite » en utilisant uniquement vos yeux et votre écran. Il existe deux manières de visualiser gratuitement, et CrossCam peut vous aider à les apprendre toutes les deux. Vous devez indiquer à CrossCam comment vous allez afficher les images, sinon cela ne fonctionnera pas correctement. Ne vous inquiétez pas, vous pouvez toujours modifier cela à nouveau dans les paramètres.
-
-Si vous êtes capable de croiser confortablement les yeux, vous devriez d'abord essayer la méthode croisée, sinon vous devriez essayer la méthode parallèle. Si vous êtes habitué aux livres Magic Eye™, vous êtes probablement déjà capable de faire la méthode parallèle, mais vous pourrez peut-être aussi faire la méthode croisée. Appuyez sur une méthode ci-dessous pour l'apprendre et assurez-vous d'indiquer à CrossCam laquelle fonctionne pour vous en appuyant sur le bouton CHOISIR correspondant.
-
-Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous pouvez configurer CrossCam pour qu'il les utilise sur la page Paramètres.</value>
-  </data>
-  <data name="Page.Technique.Parallel1" xml:space="preserve">
-    <value>Si l'image ci-dessus ne tient pas sur votre écran, mettez votre téléphone en mode paysage - CrossCam essaie de créer la paire d'images au-dessus de la taille la plus simple pour cela. Vous n'êtes pas toujours obligé d'utiliser CrossCam en mode paysage, mais une image parfaitement dimensionnée facilite l'apprentissage de la technique.</value>
-  </data>
-  <data name="Page.Technique.Parallel2" xml:space="preserve">
-    <value>Détendez vos yeux et regardez « à travers » la paire d’images ci-dessus comme si vous étiez en train de zoner avec vos yeux pointés vers les images. Vous devriez commencer à voir 3 images avec une image 3D au milieu, un peu comme ceci :</value>
-  </data>
-  <data name="Page.Technique.Parallel3" xml:space="preserve">
-    <value>Si vous commencez à voir 4 images, vous êtes allé trop loin. Essayez de bouger un tout petit peu vos yeux si vous vous retrouvez à nouveau à ce stade. Se détendre trop loin ressemblera un peu à ceci :</value>
-  </data>
-  <data name="Page.Technique.Parallel4" xml:space="preserve">
-    <value>Si vous rencontrez des difficultés, essayez de placer votre écran contre votre visage avec les deux images juste devant vos yeux. Détendez-vous et regardez « à travers » l’écran, puis éloignez lentement votre écran de votre visage tout en gardant les yeux détendus. Finalement, l'image devrait « cliquer » pour être mise au point.</value>
-  </data>
-  <data name="Page.Technique.Parallel5" xml:space="preserve">
-    <value>Si vous continuez à voir quatre images, augmentez la « Largeur maximale de l'image en vue parallèle » sur la page Paramètres.</value>
-  </data>
-  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
-    <value>AFFICHAGE PARALLÈLE</value>
-  </data>
-  <data name="Page.Technique.Practice" xml:space="preserve">
-    <value>Images que j'ai réalisées sur lesquelles vous pouvez vous entraîner</value>
-  </data>
-  <data name="Title.Contact" xml:space="preserve">
-    <value>Contact</value>
-  </data>
-  <data name="Title.Faq" xml:space="preserve">
-    <value>FAQ</value>
-  </data>
-  <data name="Title.Help" xml:space="preserve">
-    <value>Aide</value>
-  </data>
-  <data name="Title.HowToUse" xml:space="preserve">
-    <value>Comment utiliser CrossCam</value>
-  </data>
-  <data name="Title.Technique" xml:space="preserve">
-    <value>Technique de visualisation 3D</value>
-  </data>
-  <data name="Title.Tips" xml:space="preserve">
-    <value>Conseils</value>
-  </data>
-  <data name="Button.DoNotEmailMe" xml:space="preserve">
-    <value>Ne m'envoie pas d'e-mail maintenant</value>
-  </data>
-  <data name="Button.EmailMeNow" xml:space="preserve">
-    <value>Envoyez-moi un email maintenant</value>
-  </data>
-  <data name="Button.No" xml:space="preserve">
-    <value>Non</value>
-  </data>
-  <data name="Button.OK" xml:space="preserve">
-    <value>D'ACCORD</value>
-  </data>
-  <data name="Button.YesClear" xml:space="preserve">
-    <value>Oui, c'est clair</value>
+  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
+    <value>Accepter la connexion à</value>
   </data>
   <data name="Page.Camera.Aligning" xml:space="preserve">
-    <value>Aligner...</value>
+    <value>Alignement...</value>
   </data>
   <data name="Page.Camera.AlignmentBroken" xml:space="preserve">
     <value>L'alignement automatique n'est pas pris en charge sur l'appareil : désactivez-le dans les paramètres.</value>
@@ -263,6 +236,12 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
   </data>
   <data name="Page.Camera.ChooseAction" xml:space="preserve">
     <value>Choisissez une action :</value>
+  </data>
+  <data name="Page.Camera.Confirm" xml:space="preserve">
+    <value>Confirmez que les codes correspondent sur les deux appareils :</value>
+  </data>
+  <data name="Page.Camera.Directions" xml:space="preserve">
+    <value>Passer aux directions</value>
   </data>
   <data name="Page.Camera.DirectoryNotFound" xml:space="preserve">
     <value>Répertoire introuvable</value>
@@ -291,14 +270,20 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
   <data name="Page.Camera.ForParallel" xml:space="preserve">
     <value>pour parallèle</value>
   </data>
+  <data name="Page.Camera.FovExplain" xml:space="preserve">
+    <value>Pour corriger les différences de champ de vision, zoomez et faites glisser les images de manière à ce que les points distinctifs s'alignent entre les deux photos. Vous pouvez faire glisser les lignes blanches pour vous aider à visualiser l’alignement. Cette correction sera appliquée aux futurs aperçus. Il sera enregistré mais vous pourrez le réinitialiser sur la page Paramètres. Si vous utilisez des appareils identiques, enregistrez simplement sans ajuster.</value>
+  </data>
+  <data name="Page.Camera.FovTitle" xml:space="preserve">
+    <value>Correction du champ de vision</value>
+  </data>
   <data name="Page.Camera.GoPickRole" xml:space="preserve">
     <value>Veuillez accéder à la page Couplage (via la page Paramètres) et choisir un rôle de couplage pour cet appareil avant de tenter le couplage.</value>
   </data>
   <data name="Page.Camera.InvalidImage" xml:space="preserve">
     <value>Image invalide</value>
   </data>
-  <data name="Button.Camera.Keep" xml:space="preserve">
-    <value>Garder</value>
+  <data name="Page.Camera.KeyPoints" xml:space="preserve">
+    <value>Points clés</value>
   </data>
   <data name="Page.Camera.LoadFullImage" xml:space="preserve">
     <value>Charger l'image stéréo complète</value>
@@ -319,10 +304,10 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
     <value>MIROIR À DROITE</value>
   </data>
   <data name="Page.Camera.MoveLeft" xml:space="preserve">
-    <value>SE DÉPLACER À GAUCHE</value>
+    <value>DÉPLACER À GAUCHE</value>
   </data>
   <data name="Page.Camera.MoveRight" xml:space="preserve">
-    <value>DÉPLACER VERS LA DROITE</value>
+    <value>DÉPLACER À DROITE</value>
   </data>
   <data name="Page.Camera.NoSaveModes" xml:space="preserve">
     <value>Aucun mode de sauvegarde actif</value>
@@ -331,7 +316,7 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
     <value>Aucun mode de sauvegarde n'est actuellement activé. Activez un mode de sauvegarde sur la page Paramètres.</value>
   </data>
   <data name="Page.Camera.Oops" xml:space="preserve">
-    <value>Oops</value>
+    <value>Oups</value>
   </data>
   <data name="Page.Camera.OrRotate" xml:space="preserve">
     <value>(ou faire pivoter)</value>
@@ -350,9 +335,6 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
   </data>
   <data name="Page.Camera.ReallyClear" xml:space="preserve">
     <value>Vraiment clair ?</value>
-  </data>
-  <data name="Button.Camera.Remove" xml:space="preserve">
-    <value>Retirer</value>
   </data>
   <data name="Page.Camera.SavedToCustomFolder" xml:space="preserve">
     <value>Enregistré dans un dossier personnalisé</value>
@@ -382,13 +364,16 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
     <value>Désolé, CrossCam a fait une erreur. Un rapport d'erreur a été automatiquement envoyé. Vous ne remarquerez peut-être rien d'anormal, mais si c'est le cas, essayez de redémarrer l'application. Si cela continue, envoyez-moi un e-mail et parlez-moi-en. (Accédez à la page Paramètres pour arrêter ces fenêtres contextuelles.)</value>
   </data>
   <data name="Page.Camera.Steady" xml:space="preserve">
-    <value>Constant...</value>
+    <value>Constante...</value>
   </data>
   <data name="Page.Camera.SureClear" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir effacer vos photos et recommencer ?</value>
   </data>
   <data name="Page.Camera.Syncing" xml:space="preserve">
     <value>Synchronisation...</value>
+  </data>
+  <data name="Page.Camera.Technique" xml:space="preserve">
+    <value>Technique de visualisation</value>
   </data>
   <data name="Page.Camera.Transmitting" xml:space="preserve">
     <value>Transmettre...
@@ -397,98 +382,14 @@ Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous p
   <data name="Page.Camera.VR" xml:space="preserve">
     <value>VR</value>
   </data>
-  <data name="Page.FovCorrection" xml:space="preserve">
-    <value>Correction du champ de vision</value>
-  </data>
-  <data name="Page.FovCorrectionExplain" xml:space="preserve">
-    <value>Différents modèles d'appareils peuvent avoir différents champs de vision. CrossCam vous aidera à corriger cela après avoir effectué votre première capture. Cadrez et capturez quelque chose avec des points distinctifs en haut et en bas du cadre, en vous assurant que les points sont visibles sur les deux appareils.</value>
-  </data>
-  <data name="Page.Technique.Trouble" xml:space="preserve">
-    <value>Si vous rencontrez toujours des problèmes, essayez de placer votre téléphone dans une pièce sombre afin que la seule chose sur laquelle vos yeux puissent bien voir et se concentrer soit l'image.
-
-Une autre chose que vous pouvez essayer est d'utiliser des tubes de papier toilette ou vos mains pour faire en sorte que chaque œil ne puisse voir que le côté de l'image qu'il est censé voir.
- • Pour une vue transversale : maintenez un seul tube contre l'arête de votre nez (centré entre vos yeux) tout en le pointant vers le centre de l'image devant vous. Déplacez lentement le tube vers l’écran tout en essayant de regarder le tube avec les deux yeux. Lorsque vous atteignez la bonne position avec le tube, l’image devrait se mettre en place. Il peut être utile de se concentrer sur l'observation de l'intérieur de l'extrémité du tube. Si vous ne trouvez pas la bonne position, essayez d'utiliser une image plus grande ou un tube plus petit.
- • Pour une vision parallèle : placez un tube devant chaque œil, mais pointez-les tous les deux latéralement afin de ne presque rien voir. Tournez lentement les tubes vers l’intérieur en même temps pour pouvoir commencer à voir davantage l’image. Au moment où vous pouvez voir la majeure partie de l’image (presque la moitié avec chaque œil), essayez de détendre vos yeux et de rapprocher les moitiés. Il peut être utile d'utiliser une image plus grande ou plus petite.
-
-Il existe un exercice simple que vous pouvez réaliser pour vous entraîner à la fusion avec une visualisation croisée ou parallèle. Prenez un marqueur et dessinez une partie d'un visage souriant sur chacune de vos vignettes (ou une paire de bâtons de glace ou d'abaisse-langue). Par exemple, d'un côté, dessinez un œil et une bouche, et de l'autre côté, dessinez un œil et un nez. Vous pouvez ensuite les tenir devant vous et vous entraîner à fusionner les deux images pour compléter le visage souriant.
-
-Personnellement, je préfère le croisement au parallèle car les images peuvent être plus grandes, mais les deux méthodes fonctionnent. Si vous souhaitez expérimenter des images parallèles plus grandes, vous pouvez contrôler la taille sur la page Paramètres.
-
-Parfois, il est difficile de savoir si vous utilisez la méthode croisée ou parallèle pendant que vous le faites. Vous pouvez demander à quelqu'un d'autre de surveiller vos yeux pendant que vous le faites ou vous pouvez regarder l'image ci-dessous à titre de test :</value>
-  </data>
-  <data name="SaveModes.Anaglyph" xml:space="preserve">
-    <value>Anaglyphe</value>
-  </data>
-  <data name="SaveModes.Cardboard" xml:space="preserve">
-    <value>Papier carton</value>
-  </data>
-  <data name="SaveModes.Cross" xml:space="preserve">
-    <value>Croix</value>
-  </data>
-  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
-    <value>Anaglyphe en niveaux de gris</value>
-  </data>
-  <data name="SaveModes.Parallel" xml:space="preserve">
-    <value>Parallèle</value>
-  </data>
-  <data name="SaveModes.Quad" xml:space="preserve">
-    <value>Quad</value>
-  </data>
-  <data name="SaveModes.Separate" xml:space="preserve">
-    <value>Séparé</value>
-  </data>
-  <data name="SaveModes.Single" xml:space="preserve">
-    <value>Célibataire</value>
-  </data>
-  <data name="SaveModes.Triple" xml:space="preserve">
-    <value>Tripler</value>
-  </data>
-  <data name="Page.Camera.FovExplain" xml:space="preserve">
-    <value>Pour corriger les différences de champ de vision, zoomez et faites glisser les images de manière à ce que les points distinctifs s'alignent entre les deux photos. Vous pouvez faire glisser les lignes blanches pour vous aider à visualiser l’alignement. Cette correction sera appliquée aux futurs aperçus. Il sera enregistré mais vous pourrez le réinitialiser sur la page Paramètres. Si vous utilisez des appareils identiques, enregistrez simplement sans ajuster.</value>
-  </data>
-  <data name="Page.Camera.FovTitle" xml:space="preserve">
-    <value>Correction du champ de vision</value>
-  </data>
-  <data name="Page.Camera.KeyPoints" xml:space="preserve">
-    <value>Points clés</value>
-  </data>
   <data name="Page.Camera.Warped" xml:space="preserve">
-    <value>Voilé</value>
-  </data>
-  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
-    <value>CrossCam a été conçu pour vous aider à prendre des photos 3D. Les photos sont en 3D, tout comme les films VR ou 3D, mais vous n'avez besoin d'aucun équipement ou lunettes spécial - juste votre téléphone (mais si vous avez une paire de lunettes 3D rouge/cyan ou une visionneuse Google Cardboard, vous pouvez les utiliser). avec CrossCam également). La technique de « visualisation gratuite » qui utilise uniquement votre téléphone et vos yeux demande un peu de pratique pour être apprise. Avant de vous expliquer comment utiliser CrossCam, souhaitez-vous d'abord en savoir plus sur la technique de visualisation ?</value>
+    <value>Voilée</value>
   </data>
   <data name="Page.Camera.Welcome" xml:space="preserve">
     <value>Bienvenue sur CrossCam !</value>
   </data>
-  <data name="Page.Camera.Directions" xml:space="preserve">
-    <value>Passer aux directions</value>
-  </data>
-  <data name="Page.Camera.Technique" xml:space="preserve">
-    <value>Technique de visualisation</value>
-  </data>
-  <data name="Page.HowToUse.P1" xml:space="preserve">
-    <value>Si vous souhaitez revoir cela, appuyez sur l'icône hamburger (trois lignes) en haut à gauche de l'écran de l'appareil photo et appuyez sur « Aide ».
-
-
-1) Cadrez et prenez la première photo.</value>
-  </data>
-  <data name="Page.HowToUse.P2" xml:space="preserve">
-    <value>3) Gardez votre téléphone stable devant vous et déplacez-vous lentement sur le côté dans la direction que CrossCam vous indique. Ne vous éloignez pas trop – un pouce ou moins pour chaque pied de votre cible. De plus, ne vous tournez pas du tout, glissez simplement sur le côté ou peut-être même penchez-vous simplement.
-
-4) Alignez la première photo avec l'aperçu de la deuxième photo et prenez la deuxième photo lorsque vous aimez ce que vous voyez.
-
-5) CrossCam alignera automatiquement vos images après les avoir capturées, mais ce n'est pas parfait. Si vous n'aimez pas la façon dont elles ont été alignées, vous pouvez désactiver l'alignement automatique en appuyant sur la petite icône du robot. CrossCam propose également de nombreuses options d'édition manuelle auxquelles vous pouvez accéder en appuyant sur l'icône en forme de crayon.
-
-6) Appuyez sur la coche lorsque vous êtes prêt à enregistrer.
-
-
-Autres choses que vous pouvez faire :
- • Appuyez une fois pour faire la mise au point sur un point, appuyez deux fois pour revenir à la mise au point automatique continue.
- • Appuyez sur l'icône d'engrenage en haut à droite de l'écran de l'appareil photo pour ouvrir la page Paramètres. C'est plein de choses intéressantes.
- • Il existe une belle page de conseils à laquelle vous pouvez accéder en appuyant sur l'icône de hamburger en haut à gauche de l'écran de l'appareil photo qui peut vous aider à rendre vos photos superbes.
- • Si vous préférez vous déplacer dans l'autre direction pour votre deuxième prise de vue ou si vous souhaitez échanger les côtés, faites simplement un balayage.
- • Appuyez sur la petite icône de dossier en bas pour charger une image en tant que côté ou pour charger une image stéréo complète.</value>
+  <data name="Page.Camera.WelcomeExplain" xml:space="preserve">
+    <value>CrossCam a été conçu pour vous aider à prendre des photos 3D. Les photos sont en 3D, tout comme les films VR ou 3D, mais vous n'avez besoin d'aucun équipement ou lunettes spécial - juste votre téléphone (mais si vous avez une paire de lunettes 3D rouge/cyan ou une visionneuse Google Cardboard, vous pouvez également les utiliser avec CrossCam). La technique de « visualisation gratuite » qui utilise uniquement votre téléphone et vos yeux demande un peu de pratique pour être apprise. Avant de vous expliquer comment utiliser CrossCam, souhaitez-vous d'abord en savoir plus sur la technique de visualisation ?</value>
   </data>
   <data name="Page.Faq.Alignment" xml:space="preserve">
     <value>Comment fonctionne l’alignement automatique ?</value>
@@ -500,23 +401,23 @@ L'alignement ECC fonctionne essentiellement en essayant de s'assurer que les tac
 
 L'alignement des points clés recherche les points d'intérêt tels que les coins, les bords, les points et les contrastes élevés et tente de les faire correspondre entre les deux côtés. Une fois les points correspondants, CrossCam peut utiliser divers algorithmes pour tenter de déformer les côtés afin que les points clés d'un côté soient tous aussi proches que possible de leurs points clés correspondants de l'autre côté.
 
-CrossCam est programmé pour utiliser l'alignement des points clés en premier, mais il reviendra à l'alignement ECC lorsque l'alignement des points clés échoue ou lorsque la capture est effectuée avec la méthode de division miroir à prise unique. Vous pouvez également configurer l'alignement automatique pour toujours utiliser l'alignement des points clés ou toujours utiliser l'alignement ECC sur la page Paramètres.
+CrossCam est programmé pour utiliser l'alignement ECC en premier, mais il reviendra à l'alignement des points clés en cas d'échec de l'alignement ECC. Vous pouvez également configurer l'alignement automatique pour toujours utiliser l'alignement des points clés ou toujours utiliser l'alignement ECC sur la page Paramètres. L'alignement des points clés est beaucoup plus puissant que l'alignement ECC car il peut gérer une plus grande variété de distorsions et de déformations de perspective, mais il est également beaucoup plus coûteux en termes de calcul. C'est tellement cher que le faire sur un smartphone nécessite de ne pas utiliser autant de points clés que si vous étiez sur un ordinateur, ce qui le rend moins précis sur un smartphone. Il s'agit d'une fonctionnalité complexe sur laquelle je continue de travailler.
 
-CrossCam affichera le résultat de l'alignement sur l'écran de la caméra sous la petite icône du robot. S'il a utilisé l'alignement ECC, il affichera le pourcentage de confiance. S'il utilise l'alignement des points clés, il affichera "KP". Si les deux méthodes d'alignement échouent, l'écran affichera « F ». Si vous n'aimez pas le résultat de l'alignement, vous pouvez appuyer sur la petite icône du robot pour supprimer l'alignement.</value>
+CrossCam affichera le résultat de l'alignement sur l'écran de la caméra sous la petite icône du robot. S'il a utilisé l'alignement ECC, il affichera le pourcentage de confiance. S'il utilise l'alignement des points clés, il affichera "KP". Si les deux méthodes d'alignement échouent, l'appareil affichera « F ». Si vous n'aimez pas le résultat de l'alignement, vous pouvez appuyer sur la petite icône du robot pour supprimer complètement l'alignement.</value>
   </data>
   <data name="Page.Faq.Bad" xml:space="preserve">
-    <value>Est-ce mauvais pour mes yeux?</value>
+    <value>Est-ce mauvais pour mes yeux ?</value>
   </data>
   <data name="Page.Faq.Bad.Body1" xml:space="preserve">
     <value>Je ne sais pas, mais je ne pense pas. Cependant, si vous vous sentez mal, faites une pause. Avec la pratique, l’inconfort diminue généralement. Toute méthode de visualisation pourrait provoquer un inconfort dû à un effet appelé conflit vergence-hébergement. Voici</value>
   </data>
   <data name="Page.Faq.Bad.Body2" xml:space="preserve">
-    <value>un lien Wikipédia sur le conflit vergence-hébergement.</value>
+    <value>un lien Wikipédia sur le conflit vergence-accommodement.</value>
   </data>
   <data name="Page.Faq.Bad.Body3" xml:space="preserve">
-    <value>Si vous utilisez la méthode des yeux croisés, cette sensation peut également être due au fait que vos yeux ne sont pas habitués à pointer comme s'ils regardaient quelque chose d'aussi proche pendant si longtemps. En vision croisée, vos yeux convergent vers un point situé à mi-chemin entre vos yeux et l'écran. Si regarder longtemps quelque chose d’aussi proche vous cause également un inconfort, nous avons notre explication.
+    <value>Si vous utilisez la méthode des yeux louches, cette sensation peut également être due au fait que vos yeux ne sont pas habitués à pointer comme s'ils regardaient quelque chose d'aussi proche pendant si longtemps. En vision croisée, vos yeux convergent vers un point situé à mi-chemin entre vos yeux et l'écran. Si regarder longtemps quelque chose d’aussi proche vous cause également un inconfort, nous avons notre explication.
 
-Mon opinion à ce sujet est que vos yeux ne font rien en dehors de leurs capacités quotidiennes, mais vous combinez deux capacités différentes qui ne sont généralement pas utilisées de cette façon. Vous concentrez vos lentilles sur quelque chose à un endroit sur lequel il est normalement confortable de se concentrer, et vous pointez vos yeux quelque part où il est normalement confortable pour eux de pointer, mais l'endroit où vos lentilles se concentrent et où vos yeux convergent. ce n'est tout simplement pas le même point. Je ne vois pas en quoi cela pourrait être mauvais pour vous tant que votre vision ne se développe pas encore.</value>
+Mon opinion à ce sujet est que vos yeux ne font rien en dehors de leurs capacités quotidiennes, mais vous combinez deux capacités différentes qui ne sont généralement pas utilisées de cette façon. Vous concentrez vos lentilles sur quelque chose à un endroit sur lequel il est normalement confortable de se concentrer, et vous pointez vos yeux quelque part où il est normalement confortable pour eux de pointer, mais l'endroit où vos lentilles se concentrent et où vos yeux convergent n'est tout simplement pas le même point. Je ne vois pas en quoi cela pourrait être mauvais pour vous tant que votre vision ne se développe pas encore.</value>
   </data>
   <data name="Page.Faq.Cardboard" xml:space="preserve">
     <value>Comment utiliser CrossCam avec Google Cardboard ?</value>
@@ -528,7 +429,7 @@ Pour capturer des photos à l'aide de Cardboard, changez votre méthode d'affich
 
 Vous pouvez également capturer en utilisant n'importe quelle autre méthode de votre choix, puis basculer votre méthode de visualisation d'aperçu sur Carton et placer votre téléphone dans la visionneuse.
 
-Il existe de nombreux visualiseurs différents avec des propriétés différentes. Vous devrez peut-être modifier la distance de séparation du carton (sur la page Paramètres) pour rendre votre expérience plus confortable. Vous devrez peut-être également vous assurer d'abord que vous maîtrisez bien la capture de stéréogrammes de haute qualité avant de les rendre énormes et immersifs.</value>
+Il existe de nombreux visualiseurs différents avec des propriétés différentes. Vous devrez peut-être modifier la distance de séparation du carton (sur la page Paramètres) pour rendre votre expérience plus confortable. Vous devrez peut-être également d'abord vous assurer que vous maîtrisez bien la capture de stéréogrammes de haute qualité avant de les rendre énormes et immersifs.</value>
   </data>
   <data name="Page.Faq.How" xml:space="preserve">
     <value>Comment cela marche-t-il?</value>
@@ -555,7 +456,7 @@ Il existe de nombreux visualiseurs différents avec des propriétés différente
     <value>sur ce lien.</value>
   </data>
   <data name="Page.Faq.Into.Body4" xml:space="preserve">
-    <value>Ce n’est en aucun cas populaire, et ce n’est peut-être pas facile à utiliser pour personne d’autre que moi, mais cela fonctionne. En travaillant sur StereoSketcher, j'ai pu expérimenter les principes de la stéréoscopie et je suis devenu séduit par la façon dont une expérience aussi immersive et convaincante peut être produite en utilisant quelques règles simples.</value>
+    <value>Ce n’est en aucun cas populaire, et ce n’est peut-être pas facile à utiliser pour personne d’autre que moi, mais cela fonctionne. En travaillant sur StereoSketcher, j'ai pu expérimenter les principes de la stéréoscopie et je suis devenu amoureux de la façon dont une expérience aussi immersive et convaincante peut être produite en utilisant quelques règles simples.</value>
   </data>
   <data name="Page.Faq.Inverted" xml:space="preserve">
     <value>Pourquoi la 3D ne semble-t-elle pas correcte OU pourquoi la 3D semble-t-elle inversée ?</value>
@@ -567,7 +468,7 @@ La parallaxe signifie que du point de vue de votre œil droit, lorsque les objet
 
 Pour faire la démonstration, placez un doigt devant vous à peu près à bout de bras, puis avec votre autre main, tenez un autre doigt à mi-chemin entre le premier doigt et votre visage. Si vous fermez chaque œil alternativement et faites attention à l'endroit où se trouvent vos doigts, vous verrez que chaque œil les voit à des endroits différents. Alors naturellement, si chaque œil voyait ce mouvement dans le sens opposé à celui qu’il est censé voir, la profondeur serait inversée.
 
-Il est très facile d'utiliser accidentellement une mauvaise méthode de visualisation, car il s'avère qu'il est très difficile pour la plupart des gens de dire s'ils croisent ou relâchent leurs yeux simplement en ressentant ou en regardant la double image confuse du monde qui en résulte. Au lieu de cela, il est préférable de demander à quelqu'un d'autre de regarder ce que font vos yeux ou d'essayer cette image de testeur :</value>
+Il est très facile d'utiliser accidentellement une mauvaise méthode de visualisation, car il s'avère qu'il est très difficile pour la plupart des gens de dire s'ils croisent ou relâchent leurs yeux simplement en ressentant ou en regardant la double image confuse du monde qui en résulte. Au lieu de cela, il est préférable de demander à quelqu'un d'autre de regarder ce que font vos yeux ou d'essayer l'image du testeur ci-dessous. Lorsque les lignes parallèles || êtes devant, vous vous détendez/divergez les yeux/regardez en parallèle, lorsque les lignes qui se croisent X sont devant vous, vous croisez les yeux/regardez en croix.</value>
   </data>
   <data name="Page.Faq.Inverted.Body2" xml:space="preserve">
     <value>De nombreuses personnes sont devenues très à l'aise avec la visualisation des livres Magic Eye™, destinés à être visualisés à l'aide de la méthode de visualisation parallèle. Si vous les croisez, les objets 3D robustes censés sortir de la page ressemblent plutôt à des trous. Les deux méthodes vous permettent de voir *quelque chose*, mais si vous ne parvenez pas à dire ce que c'était, vous les visualisez probablement de manière croisée.</value>
@@ -576,22 +477,22 @@ Il est très facile d'utiliser accidentellement une mauvaise méthode de visuali
     <value>Comment utiliser la méthode du « miroir mono-coup » ?</value>
   </data>
   <data name="Page.Faq.Mirror.Body1" xml:space="preserve">
-    <value>La capture avec la méthode du miroir divise le cadre en deux et effectue la transformation requise afin que vous puissiez capturer les deux côtés en même temps à l'aide d'un seul téléphone et d'un miroir portable ordinaire. Pour utiliser la méthode miroir lors de la capture, activez le commutateur du mode miroir sur la page Paramètres (appuyez sur l'icône d'engrenage pour y accéder). Après avoir activé le mode miroir, CrossCam vous indiquera de quel côté tenir votre miroir. Tenez votre miroir de ce côté et souciez de l'alignement entre votre téléphone, le miroir et votre sujet. Avec un peu de patience, vous pourrez tous les aligner pour que le miroir affiche la bonne perspective pour l'un des côtés. Étant donné que l'utilisation de la méthode miroir divise votre image en deux verticalement, il est généralement préférable de capturer en mode paysage avec la méthode miroir.
+    <value>La capture avec la méthode du miroir divise le cadre en deux et effectue la transformation requise afin que vous puissiez capturer les deux côtés en même temps à l'aide d'un seul téléphone et d'un miroir portable ordinaire. Pour utiliser la méthode miroir lors de la capture, activez le commutateur du mode miroir sur la page Paramètres (appuyez sur l'icône d'engrenage pour y accéder). Après avoir activé le mode miroir, CrossCam vous indiquera de quel côté tenir votre miroir. Tenez votre miroir de ce côté et souciez de l’alignement entre votre téléphone, le miroir et votre sujet. Avec un peu de patience, vous pourrez tous les aligner pour que le miroir affiche la bonne perspective pour l'un des côtés. Étant donné que l'utilisation de la méthode miroir divise votre image en deux verticalement, il est généralement préférable de capturer en mode paysage avec la méthode miroir.
 
 Cette méthode fonctionnera également avec les reflets dans de grandes fenêtres propres, ainsi que sur des lacs ou des flaques d'eau immobiles (lorsque le téléphone est verrouillé en mode portrait et retourné sur le côté).</value>
   </data>
   <data name="Page.Faq.Mirror.Body2" xml:space="preserve">
     <value>Certains compromis/modifications doivent être effectués afin d'utiliser la méthode miroir. Tout cela peut être effectué manuellement dans CrossCam, mais l'alignement automatique tentera également de les faire pour vous :
- • Étant donné que la vue réfléchie parcourt une distance plus longue que la vue normale, le côté miroir devra être légèrement agrandi.
- • Il est probable qu'en utilisant la méthode du miroir, vous finirez par vous rapprocher plutôt que de garder les perspectives parallèles - cela peut donner l'impression que le raccourci ressemble à un mauvais alignement vertical. Pour annuler cela, une correction trapézoïdale peut être effectuée, ce qui signifie réduire verticalement un côté de chacune des images.
- • Le pincement aura également tendance à déplacer la fenêtre stéréo vers vous. Vous pouvez annuler cela et le placer où vous le souhaitez en recadrant les côtés.
- • Le miroir ne couvrira probablement pas entièrement la vue d'un côté, il faudra donc peut-être effectuer un recadrage pour supprimer les éléments non réfléchis.
+• Étant donné que la vue réfléchie parcourt une distance plus longue que la vue normale, le côté miroir devra être légèrement agrandi.
+• Il est probable qu'en utilisant la méthode du miroir, vous finirez par vous rapprocher, plutôt que de garder les perspectives parallèles - cela peut donner l'impression que le raccourci ressemble à un mauvais alignement vertical. Pour annuler cela, une correction trapézoïdale peut être effectuée, ce qui signifie réduire verticalement un côté de chacune des images.
+• Le pincement aura également tendance à déplacer la fenêtre stéréo vers vous. Vous pouvez annuler cela et le placer où vous le souhaitez en recadrant les côtés.
+• Le miroir ne couvrira probablement pas entièrement la vue d'un côté, il faudra donc peut-être effectuer un recadrage pour supprimer les éléments non réfléchis.
 
 Les meilleurs miroirs pour cela ont du verre fin. D'une part, ils sont légers, donc plus faciles à tenir pendant de longues périodes. L'autre chose importante est que lorsque vous utilisez le miroir, vous dirigerez probablement le miroir sur le côté plutôt que de le regarder directement comme les miroirs sont généralement utilisés. Lorsqu’ils sont orientés ainsi, les miroirs à verre épais peuvent présenter un certain flou. Plus le verre est fin, moins ce flou sera apparent. Ces types de miroirs peuvent également être de mauvaise qualité à d’autres égards, il est donc important de trouver un bon équilibre.
 
 Il existe quelques autres compromis qui doivent être acceptés lors de l'utilisation de la capture miroir et qui ne peuvent pas être corrigés lors des modifications par CrossCam :
- • Étant donné que la vue des deux côtés parcourt des distances légèrement différentes, la mise au point nécessaire pour chaque côté sera légèrement différente, donc un côté sera toujours légèrement flou. Cet effet sera plus ou moins perceptible en fonction de la distance au sujet et de la profondeur de champ de l'objectif.
- • Aucun miroir n'est vraiment efficace à 100 %, le côté qui utilise le miroir peut donc être légèrement plus sombre. Cela variera en fonction de la qualité du miroir.</value>
+• Étant donné que la vue des deux côtés parcourt des distances légèrement différentes, la mise au point nécessaire pour chaque côté sera légèrement différente, donc un côté sera toujours légèrement flou. Cet effet sera plus ou moins perceptible en fonction de la distance au sujet et de la profondeur de champ de l'objectif.
+• Aucun miroir n'est vraiment efficace à 100 %, le côté qui utilise le miroir peut donc être légèrement plus sombre. Cela variera en fonction de la qualité du miroir.</value>
   </data>
   <data name="Page.Faq.Moving" xml:space="preserve">
     <value>Mon sujet bouge, comment le prendre en photo 3D ?</value>
@@ -607,158 +508,76 @@ Pour utiliser la méthode miroir, consultez l'autre question de la FAQ à ce suj
     <value>Comment puis-je tester les versions préliminaires de CrossCam ?</value>
   </data>
   <data name="Page.Faq.Test.Body" xml:space="preserve">
-    <value>Consultez cet article Reddit</value>
+    <value>Appuyez ici pour rejoindre l'équipe !</value>
   </data>
   <data name="Page.Faq.Why" xml:space="preserve">
     <value>Pourquoi avez-vous créé CrossCam ?</value>
   </data>
   <data name="Page.Faq.Why.Body" xml:space="preserve">
-    <value>Alors que je commençais à m'intéresser à la stéréoscopie, il m'est arrivé de faire un voyage à Yellowstone. Pendant que j'étais là-bas, j'ai réalisé qu'il pourrait être amusant d'essayer d'utiliser une application mobile d'appareil photo 3D pour capturer des choses en 3D. J'ai été très déçu par les options existantes. J'ai découvert qu'ils exigeaient tous que vous fassiez deux captures, puis que vous découvriez si elles étaient bonnes. Ce n’était souvent pas le cas, car je devais à plusieurs reprises faire des suppositions complètes sur ma distance de séparation, ainsi que sur la qualité du sujet.
+    <value>Alors que je commençais à m'intéresser à la stéréoscopie, il m'est arrivé de faire un voyage à Yellowstone. Pendant que j'étais là-bas, j'ai réalisé qu'il pourrait être amusant d'essayer d'utiliser une application mobile de caméra 3D pour capturer des choses en 3D. J'ai été très déçu par les options existantes. J'ai découvert qu'ils exigeaient tous que vous fassiez deux captures, puis que vous découvriez si elles étaient bonnes. Ce n’était souvent pas le cas, car je devais à plusieurs reprises faire des suppositions complètes sur ma distance de séparation, ainsi que sur la qualité du sujet.
 
-Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer simplement fournir un aperçu en direct de la deuxième capture aux côtés de la première. J'avais déjà une formation en développement mobile, alors c'était juste une question d'y consacrer du temps. CrossCam a été génial pour moi de l'utiliser juste pour moi afin de préserver mes souvenirs, et je suis également heureux de le partager avec vous.</value>
+Au cours des semaines suivantes, ma frustration latente m'a amené à imaginer simplement fournir un aperçu en direct de la deuxième capture aux côtés de la première. J'avais déjà une formation en développement mobile, donc c'était juste une question d'y consacrer du temps. CrossCam a été génial pour moi de l'utiliser juste pour moi afin de préserver mes souvenirs, et je suis également heureux de le partager avec vous.</value>
   </data>
   <data name="Page.Faq.Wiggle" xml:space="preserve">
     <value>Que sont les wigglegrams ?</value>
   </data>
   <data name="Page.Faq.Wiggle.Body" xml:space="preserve">
-    <value>Les wigglegrammes sont un moyen de visualiser des stéréogrammes qui ne repose pas sur la vision binoculaire. Il s'agit généralement d'un gif qui alterne entre les deux perspectives, montrant chacune dans son intégralité au même endroit. CrossCam ne prend pas en charge leur création pour le moment, mais envoyez-moi un e-mail si cela vous intéresse vraiment et je le ferai.</value>
+    <value>Les wigglegrammes sont un moyen de visualiser des stéréogrammes qui ne repose pas sur la vision binoculaire. Il s'agit généralement d'un gif qui alterne entre les deux perspectives, montrant chacune dans son intégralité au même endroit. CrossCam ne prend pas en charge leur création pour le moment, mais je travaille sur l'ajout de cette fonctionnalité. L'un des inconvénients des wigglegrams dans CrossCam est qu'il n'y a que deux perspectives, mais les wigglegrams sont beaucoup plus agréables s'ils ont plus de perspectives ou même un mouvement fluide et continu.</value>
   </data>
-  <data name="Page.Tips.AlignAfter" xml:space="preserve">
-    <value>Faites attention aux lignes horizontales, mais vous pouvez également vous aligner après.</value>
+  <data name="Page.Faq.Zooming" xml:space="preserve">
+    <value>Pourquoi ne pouvez-vous pas zoomer dans CrossCam ?</value>
   </data>
-  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
-    <value>Si vous constatez qu'en prenant des photos, il est impossible d'aligner les lignes de guidage supérieure et inférieure en même temps, vous vous êtes probablement déplacé dans une direction autre que simplement sur le côté. Essayez de résoudre ce problème avant de prendre les photos, mais un alignement après coup peut beaucoup aider.</value>
-  </data>
-  <data name="Page.Tips.Alignment" xml:space="preserve">
-    <value>Vous pouvez désactiver l'alignement automatique.</value>
-  </data>
-  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
-    <value>Si vous n'aimez pas les résultats de l'alignement automatique, désactivez-le simplement sur la page Paramètres ou en appuyant sur la petite icône du robot et vos images capturées d'origine seront restaurées.</value>
-  </data>
-  <data name="Page.Tips.Donut" xml:space="preserve">
-    <value>Le guide des beignets peut aider votre fenêtre.</value>
-  </data>
-  <data name="Page.Tips.Donut.Body" xml:space="preserve">
-    <value>Il existe un guide expérimental sur la page Paramètres que vous pouvez activer et qui peut vous aider à préserver votre fenêtre stéréo tout en maximisant la largeur utilisable. En tournant à gauche et à droite, la profondeur du beignet changera par rapport au reste de la scène. Réglez la profondeur du beignet pour qu'il soit sur ou derrière le point le plus éloigné de votre scène. Attention, l'utiliser sur des scènes plus petites peut rendre les choses pénibles (voir l'astuce Keystone ci-dessus).</value>
-  </data>
-  <data name="Page.Tips.Keystone" xml:space="preserve">
-    <value>Une correction trapézoïdale est nécessaire si vous pincez.</value>
-  </data>
-  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
-    <value>Si vous vous tournez vers l'intérieur à chaque prise de vue, il est très utile d'effectuer des corrections trapézoïdales. En règle générale, vous souhaiterez réduire les bords intérieurs des photos, puis en recadrer une partie en haut et en bas pour les niveler. Vous accédez au menu d'édition Keystone en appuyant sur le bouton qui ressemble à ceci :</value>
-  </data>
-  <data name="Page.Tips.Lean" xml:space="preserve">
-    <value>Vous pouvez simplement vous pencher.</value>
-  </data>
-  <data name="Page.Tips.Lean.Body" xml:space="preserve">
-    <value>Parfois, au lieu de bouger complètement vos pieds vers la gauche ou la droite pour prendre des photos, il peut être plus facile de simplement vous tenir les pieds écartés et de vous pencher dans chaque direction, mais veillez à garder le téléphone de niveau et à la même hauteur. Le simple fait de vous pencher au lieu de bouger peut vous aider à ne pas aller trop loin et à garder votre objectif droit plus facilement.</value>
-  </data>
-  <data name="Page.Tips.Lines" xml:space="preserve">
-    <value>Les lignes d'alignement peuvent bouger.</value>
-  </data>
-  <data name="Page.Tips.Lines.Body" xml:space="preserve">
-    <value>Vous pouvez faire glisser les lignes d’alignement si vous le souhaitez. Ceci est particulièrement utile lors de l’alignement des images lors de l’édition.</value>
-  </data>
-  <data name="Page.Tips.Old" xml:space="preserve">
-    <value>Vous pouvez ouvrir d'anciennes photos dans CrossCam.</value>
-  </data>
-  <data name="Page.Tips.Old.Body" xml:space="preserve">
-    <value>Vous pouvez charger des photos prises précédemment en appuyant sur l'icône de dossier en bas de la page de l'appareil photo, mais si vous travaillez avec un gros lot de photos, vous pouvez également les partager sur CrossCam directement depuis votre application Photos, qui peut garder une trace de votre mieux placer dans vos photos.</value>
-  </data>
-  <data name="Page.Tips.Quick" xml:space="preserve">
-    <value>Activez le mode rapide lorsque vous êtes avec d'autres personnes.</value>
-  </data>
-  <data name="Page.Tips.Quick.Body" xml:space="preserve">
-    <value>Si vous explorez avec d'autres personnes, c'est une bonne idée de passer en mode rapide en désactivant l'alignement automatique et les bordures et en enregistrant simplement une fois que vous avez capturé sans effectuer aucune modification. Vous pouvez toujours charger, aligner automatiquement et modifier les images plus tard. De cette façon, vos compagnons n'auront pas à attendre que vous perfectionniez vos photos sur place, mais vous pouvez toujours être sûr que la profondeur que vous souhaitez est bien là. Faites juste attention à ne pas faire de modifications hâtives avant la première sauvegarde ! Vous pouvez également activer la sauvegarde latérale séparée qui ignorera toutes les modifications que vous effectuez.</value>
-  </data>
-  <data name="Page.Tips.Sick" xml:space="preserve">
-    <value>Si le mouvement vous rend malade, restez immobile.</value>
-  </data>
-  <data name="Page.Tips.Sick.Body" xml:space="preserve">
-    <value>Si tous les mouvements vous rendent malade ou rendent la visualisation en 3D trop difficile, ne commencez pas à essayer de le voir en 3D avant de vous être déplacé un peu. Comparez ensuite les images les unes aux autres et alignez les images à l'aide des lignes horizontales sans visualisation 3D, puis démarrez la visualisation 3D une fois alignées et immobiles.</value>
-  </data>
-  <data name="Page.Tips.Space" xml:space="preserve">
-    <value>Ces images peuvent occuper beaucoup d’espace de stockage – vous pouvez les réduire.</value>
-  </data>
-  <data name="Page.Tips.Space.Body" xml:space="preserve">
-    <value>La page Paramètres propose une option permettant de diminuer proportionnellement la résolution de l'image finale - cela peut être utile si vous souhaitez économiser de l'espace. Si votre photo n'est pas recadrée, le résultat final est deux images en pleine résolution réunies pour en faire une en double résolution, ce qui signifie que vous pouvez souvent vous en sortir avec une réduction importante de la résolution sans affecter sensiblement la qualité.</value>
-  </data>
-  <data name="Page.Tips.Turn" xml:space="preserve">
-    <value>Ne te retourne pas.</value>
-  </data>
-  <data name="Page.Tips.Turn.Body" xml:space="preserve">
-    <value>Lorsque vous vous déplacez, essayez de ne faire pivoter votre téléphone dans aucune direction, y compris la tendance naturelle à vous tourner vers le sujet lorsque vous vous déplacez sur le côté. Une certaine rotation sera nécessaire (parfois), mais essayez de la minimiser. Imaginez que le téléphone soit monté sur un rail horizontal droit et ne puisse que glisser. Se tourner vers l’intérieur peut provoquer un effet de raccourci qui rend les coins difficiles à fusionner.</value>
-  </data>
-  <data name="Page.Tips.Window" xml:space="preserve">
-    <value>Ajoutez une bordure et un recadrage pour créer une fenêtre stéréo solide.</value>
-  </data>
-  <data name="Page.Tips.Window.Body" xml:space="preserve">
-    <value>Un effet de fenêtre stéréo intéressant peut être créé en faisant deux choses : 1) activer la bordure (sur la page Paramètres) et 2) pour une visualisation croisée, recadrer les bords intérieurs des images jusqu'à ce que le bord extérieur lui-même devienne 3D dans l'image (recadrer les bords EXTÉRIEURS si vous regardez en parallèle). La clé est de recadrer le bord droit de l’image de gauche légèrement au-delà de ce que le bord droit de l’image de droite montre de la scène et vice versa. L'ajout d'une bordure est activé sur la page Paramètres. Si cela prête à confusion, coupez simplement un peu des bords intérieurs et cela commencera à être clair. Le bouton de recadrage pour les bords intérieurs ressemble à ceci :</value>
-  </data>
-  <data name="Button.Code" xml:space="preserve">
-    <value>Voir le code</value>
-  </data>
-  <data name="Button.Developer" xml:space="preserve">
-    <value>À propos du développeur</value>
-  </data>
-  <data name="Button.EmailMe" xml:space="preserve">
-    <value>Envoyez moi un email</value>
-  </data>
-  <data name="Button.GitHub" xml:space="preserve">
-    <value>Ajouter un problème sur GitHub</value>
-  </data>
-  <data name="Button.Press" xml:space="preserve">
-    <value>Revenez à l'écran de la caméra sur les deux appareils et appuyez sur le bouton de couplage dans le coin inférieur</value>
-  </data>
-  <data name="Button.Primary" xml:space="preserve">
-    <value>APPUYEZ ICI SUR LE PRIMAIRE</value>
-  </data>
-  <data name="Button.Privacy" xml:space="preserve">
-    <value>politique de confidentialité</value>
-  </data>
-  <data name="Button.Secondary" xml:space="preserve">
-    <value>APPUYEZ ICI SUR LE SECONDAIRE</value>
-  </data>
-  <data name="Button.Test" xml:space="preserve">
-    <value>Tester les versions préliminaires</value>
-  </data>
-  <data name="Button.Wi-Fi" xml:space="preserve">
-    <value>Assurez-vous que le Wi-Fi est activé sur les deux appareils (mais il n'est pas nécessaire qu'il soit connecté à quoi que ce soit)</value>
-  </data>
-  <data name="Page.Pairing.1" xml:space="preserve">
-    <value>Si vous disposez de deux appareils sur lesquels CrossCam est installé, vous pouvez les connecter afin de prendre des photos simultanées sous deux perspectives. Prendre deux photos en même temps permet d'obtenir les meilleurs stéréogrammes possibles.
+  <data name="Page.Faq.Zooming.Body" xml:space="preserve">
+    <value>Vous pouvez zoomer dans CrossCam ! Cela ne fonctionnera peut-être pas exactement comme vous le pensez. Très peu d'appareils photo de téléphone disposent d'objectifs mobiles qui vous permettent d'effectuer des zooms avant et arrière en douceur à l'aide de véritables optiques. Vous avez peut-être un appareil photo qui semble vous permettre d'effectuer un zoom optique dans votre application d'appareil photo native, mais ce n'est probablement pas le cas (ils sont rares). Au lieu de cela, ce que vous avez probablement est un téléphone avec plusieurs caméras/objectifs qui ont chacun un zoom fixe, puis un logiciel est utilisé pour basculer entre ces objectifs et également effectuer un zoom/recadrage numérique pour une transition en douceur entre eux afin que cela ressemble à un zoom optique. Le zoom numérique consiste simplement à agrandir une image et à couper les bits supplémentaires. CrossCam vous permet de basculer entre tous les appareils photo/objectifs de votre téléphone lors de la capture afin que vous puissiez toujours capturer les mêmes informations que vous captureriez avec votre appareil photo natif. CrossCam vous permet ensuite d'effectuer le zoom numérique à l'aide de la fonctionnalité de recadrage (à laquelle vous accédez en appuyant sur l'icône en forme de crayon, puis sur l'icône qui ressemble à deux angles droits qui se chevauchent). De cette façon, la scène entière est capturée dans son intégralité et vous pouvez faire des choix plus judicieux en matière de zoom/recadrage après coup.
 
-Veuillez noter que cette fonctionnalité est encore expérimentale et peut rencontrer des problèmes. Il se peut que cela ne fonctionne pas parfaitement tout le temps et que cela puisse épuiser votre batterie. Veuillez également noter qu'à l'heure actuelle, les appareils doivent être sur la même plate-forme pour pouvoir se connecter (Android ou iOS).
+CrossCam vous permet également de zoomer en effectuant un zoom et un panoramique en mode d'affichage après avoir capturé les deux côtés. Vous pouvez accéder au mode d'affichage en appuyant sur l'icône en forme d'œil après avoir capturé les deux côtés. Une fois en mode d'affichage, vous pouvez pincer pour zoomer ou appuyer et faire glisser pour effectuer un panoramique à l'intérieur d'un stéréogramme tout en conservant l'effet 3D.</value>
+  </data>
+  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
+    <value>Impossible d'ouvrir le lien</value>
+  </data>
+  <data name="Page.Footer.OpenError" xml:space="preserve">
+    <value>Le lien mailto n'a pas pu être ouvert. Cela peut être dû au fait que votre client de messagerie n'est pas configuré ou pour une autre raison.</value>
+  </data>
+  <data name="Page.FovCorrection" xml:space="preserve">
+    <value>Correction du champ de vision</value>
+  </data>
+  <data name="Page.FovCorrectionExplain" xml:space="preserve">
+    <value>Différents modèles d'appareils peuvent avoir différents champs de vision. CrossCam vous aidera à corriger cela après avoir effectué votre première capture. Cadrez et capturez quelque chose avec des points distinctifs en haut et en bas du cadre, en vous assurant que les points sont visibles sur les deux appareils.</value>
+  </data>
+  <data name="Page.HowToUse.2anaglyph" xml:space="preserve">
+    <value>2) Démarrez l'anaglyphe en visualisant la première image avec l'aperçu qui apparaît à côté.</value>
+  </data>
+  <data name="Page.HowToUse.2cardboard" xml:space="preserve">
+    <value>2) Commencez le carton en regardant la première image avec l'aperçu qui apparaît à côté.</value>
+  </data>
+  <data name="Page.HowToUse.2cross" xml:space="preserve">
+    <value>2) Lancez la visualisation croisée de la première image avec l'aperçu qui apparaît à côté.</value>
+  </data>
+  <data name="Page.HowToUse.2parallel" xml:space="preserve">
+    <value>2) Commencez à visualiser en parallèle la première image avec l'aperçu qui apparaît à côté.</value>
+  </data>
+  <data name="Page.HowToUse.P1" xml:space="preserve">
+    <value>Si vous souhaitez revoir cela, appuyez sur l'icône hamburger (trois lignes) en haut à gauche de l'écran de l'appareil photo et appuyez sur « Aide ».
 
-Une façon d'obtenir une synchronisation *parfaite* en utilisant un seul appareil et CrossCam consiste à utiliser la méthode du « miroir à prise unique ». Vous pouvez l'activer sur la page Paramètres et vous pouvez en savoir plus sur la page FAQ.
 
-Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent être attribués. L'appareil PRIMAIRE est celui qui affichera les deux aperçus, déclenchera la capture et conservera/enregistrera les captures finales. Pour attribuer des rôles, accédez aux deux appareils jusqu'à cette page, puis suivez les étapes ci-dessous :</value>
+1) Cadrez et prenez la première photo.</value>
   </data>
-  <data name="Page.Pairing.2" xml:space="preserve">
-    <value>Si vous rencontrez des problèmes, VEUILLEZ NOTER :
- • Après avoir commencé le processus d'appairage, vous pouvez appuyer à nouveau sur le bouton d'appairage à tout moment pour l'arrêter ou le déconnecter.
- • Il peut être utile d'arrêter le couplage sur les deux appareils et de le redémarrer en même temps.
- • Il peut être utile de vous déconnecter de vos réseaux Wi-Fi ou de données au cas où ils fonctionneraient mal.
- • Chaque caméra est différente. Ces différences peuvent inclure le champ de vision angulaire, la mise au point, l'exposition et le comportement de la balance des blancs, la synchronisation, etc. Même deux modèles de téléphone identiques se comporteront légèrement différemment. Je préfère utiliser une paire d'anciens téléphones identiques (dans mon cas, une paire d'iPhone 6).
- • CrossCam est un logiciel et non un matériel, donc la capture des photos peut être légèrement désynchronisée en fonction de ce que font les processeurs et la mémoire au moment précis où la capture est déclenchée. De ce fait, la synchronisation peut parfois ne pas être parfaite, mais elle doit généralement être très proche.</value>
-  </data>
-  <data name="Page.Pairing.Again" xml:space="preserve">
-    <value>Pour vous reconnecter plus tard, assurez-vous que le Wi-Fi est activé, puis appuyez simplement sur le bouton de connexion sur l'écran d'accueil des deux appareils.</value>
-  </data>
-  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
-    <value>CrossCam nécessite une autorisation d'accès au réseau local. CrossCam n'utilise pas réellement le réseau local, mais iOS exige que CrossCam obtienne cette autorisation afin d'utiliser l'antenne Wi-Fi pour rechercher des appareils. CrossCam demandera cette autorisation une fois. Si l'autorisation est refusée, vous devrez appuyer vous-même sur le commutateur dans l'application Paramètres.</value>
-  </data>
-  <data name="Page.Pairing.Location" xml:space="preserve">
-    <value>CrossCam demandera des autorisations et allumera les composants si nécessaire afin de connecter vos appareils. Remarque : CrossCam nécessite une autorisation de localisation et que les services de localisation soient activés sur l'appareil principal afin de se connecter à l'appareil secondaire. Il s’agit simplement d’une exigence Android et cela échappe totalement à mon contrôle. CrossCam n'UTILISE en réalité pas votre position, mais comme le fait de rechercher (et de trouver) des appareils à proximité pourrait théoriquement être utilisé pour vous localiser approximativement, CrossCam nécessite une autorisation pour accéder à votre position.</value>
-  </data>
-  <data name="Page.Pairing.Permissions" xml:space="preserve">
-    <value>Une note sur les autorisations :</value>
-  </data>
-  <data name="Page.Pairing.Title" xml:space="preserve">
-    <value>Couplage</value>
-  </data>
-  <data name="Button.Back" xml:space="preserve">
-    <value>&lt; Retour</value>
+  <data name="Page.HowToUse.P2" xml:space="preserve">
+    <value>3) Gardez votre téléphone stable devant vous et déplacez-vous lentement sur le côté dans la direction que CrossCam vous indique. Ne vous éloignez pas trop – un pouce ou moins pour chaque pied de votre cible. De plus, ne vous tournez pas du tout, glissez simplement sur le côté ou peut-être même penchez-vous simplement.
+
+4) Alignez la première photo avec l'aperçu de la deuxième photo et prenez la deuxième photo lorsque vous aimez ce que vous voyez.
+
+5) CrossCam alignera automatiquement vos images après les avoir capturées, mais ce n'est pas parfait. Si vous n'aimez pas la façon dont elles ont été alignées, vous pouvez désactiver l'alignement automatique en appuyant sur la petite icône du robot. CrossCam propose également de nombreuses options d'édition manuelle auxquelles vous pouvez accéder en appuyant sur l'icône en forme de crayon.
+
+6) Appuyez sur la coche lorsque vous êtes prêt à enregistrer.
+
+
+Autres choses que vous pouvez faire :
+• Appuyez une fois pour faire la mise au point sur un point, appuyez deux fois pour revenir à la mise au point automatique continue.
+• Appuyez sur l'icône d'engrenage en haut à droite de l'écran de l'appareil photo pour ouvrir la page Paramètres. C'est plein de choses intéressantes.
+• Il existe une belle page de conseils à laquelle vous pouvez accéder en appuyant sur l'icône de hamburger en haut à gauche de l'écran de l'appareil photo qui peut vous aider à rendre vos photos superbes.
+• Si vous préférez vous déplacer dans l'autre direction pour votre deuxième prise de vue ou si vous souhaitez échanger les côtés, faites simplement un balayage.
+• Appuyez sur la petite icône de dossier en bas pour charger une image en tant que côté ou pour charger une image stéréo complète.</value>
   </data>
   <data name="Page.MorePictures.CrossViewSubreddit" xml:space="preserve">
     <value>Sous-reddit Cross View</value>
@@ -778,6 +597,75 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   <data name="Page.MorePictures.ParallelViewSubreddit" xml:space="preserve">
     <value>Sous-reddit à vue parallèle</value>
   </data>
+  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
+    <value>Les autorisations nécessaires au couplage n'ont pas été accordées. Exception:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
+    <value>L'appareil n'a pas réussi à allumer Bluetooth. Exception:</value>
+  </data>
+  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
+    <value>L'appareil n'a pas réussi à rechercher des appareils. Exception:</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
+    <value>Services de localisation non activés. Impossible de rechercher des appareils. Voir la page d'appariement pour plus de détails.</value>
+  </data>
+  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
+    <value>Autorisation de localisation non accordée. Impossible de rechercher des appareils. Voir la page d'appariement pour plus de détails.</value>
+  </data>
+  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
+    <value>Le couplage n'est pas pris en charge sur cet appareil. Exception:</value>
+  </data>
+  <data name="Page.Pair.Errors.Title" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
+    <value>Le Wi-Fi est désactivé. Veuillez activer le Wi-Fi.</value>
+  </data>
+  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
+    <value>Cet appareil est désormais défini comme appareil principal.</value>
+  </data>
+  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
+    <value>Rôle principal sélectionné</value>
+  </data>
+  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
+    <value>Cet appareil est désormais défini comme secondaire.</value>
+  </data>
+  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
+    <value>Rôle secondaire sélectionné</value>
+  </data>
+  <data name="Page.Pairing.1" xml:space="preserve">
+    <value>Si vous disposez de deux appareils sur lesquels CrossCam est installé, vous pouvez les connecter afin de prendre des photos simultanées sous deux perspectives. Prendre deux photos en même temps permet d'obtenir les meilleurs stéréogrammes possibles.
+
+Veuillez noter que cette fonctionnalité est encore expérimentale et peut rencontrer des problèmes. Cela peut ne pas fonctionner parfaitement tout le temps et cela peut épuiser votre batterie. Veuillez également noter qu'à l'heure actuelle, les appareils doivent être sur la même plate-forme pour pouvoir se connecter (les deux Android ou les deux iOS).
+
+Une façon d'obtenir une synchronisation *parfaite* en utilisant un seul appareil et CrossCam consiste à utiliser la méthode du « miroir à un coup », mais c'est assez délicat. Vous pouvez l'activer sur la page Paramètres et vous pouvez en savoir plus sur la page FAQ.
+
+Avant que deux appareils puissent être couplés et utilisés ensemble, leurs rôles doivent être attribués. L'appareil PRIMAIRE est celui qui affichera les deux aperçus, déclenchera la capture et conservera/enregistrera les captures finales. Pour attribuer des rôles, accédez aux deux appareils jusqu'à cette page, puis suivez les étapes ci-dessous :</value>
+  </data>
+  <data name="Page.Pairing.2" xml:space="preserve">
+    <value>Si vous rencontrez des problèmes, VEUILLEZ NOTER :
+• Après avoir commencé le processus d'appairage, vous pouvez appuyer à nouveau sur le bouton d'appairage à tout moment pour l'arrêter ou le déconnecter.
+• Il peut être utile d'arrêter le couplage sur les deux appareils et de le redémarrer en même temps.
+• Il peut être utile de vous déconnecter de vos réseaux Wi-Fi ou de données au cas où ils fonctionneraient mal.
+• Chaque caméra est différente. Ces différences peuvent inclure le champ de vision angulaire, la mise au point, l'exposition et le comportement de la balance des blancs, la synchronisation, etc. Même deux modèles de téléphone identiques se comporteront légèrement différemment. Je préfère utiliser une paire d'anciens téléphones identiques (dans mon cas, une paire d'iPhone 6).
+• CrossCam est un logiciel et non un matériel, donc la capture des photos peut être légèrement désynchronisée en fonction de ce que font les processeurs et la mémoire au moment précis où la capture est déclenchée. De ce fait, la synchronisation peut parfois ne pas être parfaite, mais elle doit généralement être très proche.
+• Si vous souhaitez prendre une photo de quelque chose de très petit ou de très près, vous devrez peut-être respecter une très petite distance de séparation. Vous pourrez peut-être obtenir une distance de séparation encore plus petite en retournant un ou les deux téléphones sur le côté ou même à l'envers (car les caméras ne sont pas centrées à l'arrière du téléphone). L'interface de capture de CrossCam pivotera selon les besoins et corrigera l'orientation des captures.</value>
+  </data>
+  <data name="Page.Pairing.Again" xml:space="preserve">
+    <value>Pour vous reconnecter plus tard, assurez-vous que le Wi-Fi est activé, puis appuyez simplement sur le bouton de connexion sur l'écran d'accueil des deux appareils.</value>
+  </data>
+  <data name="Page.Pairing.LocalNetworkAccess" xml:space="preserve">
+    <value>CrossCam nécessite une autorisation d'accès au réseau local. CrossCam n'utilise pas réellement le réseau local, mais iOS exige que CrossCam obtienne cette autorisation afin d'utiliser l'antenne Wi-Fi pour rechercher des appareils. CrossCam demandera cette autorisation une fois. Si l'autorisation est refusée, vous devrez appuyer vous-même sur le commutateur dans l'application Paramètres.</value>
+  </data>
+  <data name="Page.Pairing.Location" xml:space="preserve">
+    <value>CrossCam demandera des autorisations et allumera les composants si nécessaire afin de connecter vos appareils. Remarque : CrossCam nécessite une autorisation de localisation et que les services de localisation soient activés sur l'appareil principal afin de se connecter à l'appareil secondaire. Il s’agit simplement d’une exigence Android et cela échappe totalement à mon contrôle. CrossCam n'UTILISE en réalité pas votre position, mais comme le fait de rechercher (et de trouver) des appareils à proximité pourrait théoriquement être utilisé pour vous localiser approximativement, CrossCam nécessite une autorisation pour accéder à votre position.</value>
+  </data>
+  <data name="Page.Pairing.Permissions" xml:space="preserve">
+    <value>Une note sur les autorisations :</value>
+  </data>
+  <data name="Page.Pairing.Title" xml:space="preserve">
+    <value>Couplage</value>
+  </data>
   <data name="Page.Settings.Alignment" xml:space="preserve">
     <value>Alignement automatique</value>
   </data>
@@ -791,13 +679,16 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Caméra</value>
   </data>
   <data name="Page.Settings.Defaults" xml:space="preserve">
-    <value>Réinitialiser les paramètres par défaut</value>
+    <value>Réinitialiser aux valeurs par défaut</value>
   </data>
   <data name="Page.Settings.Editing" xml:space="preserve">
     <value>Édition</value>
   </data>
   <data name="Page.Settings.ErrorEmail" xml:space="preserve">
     <value>Invite à envoyer un e-mail lorsque des erreurs se produisent</value>
+  </data>
+  <data name="Page.Settings.Fullscreen" xml:space="preserve">
+    <value>Utiliser des fantômes/superposition transparente/plein écran</value>
   </data>
   <data name="Page.Settings.Guides" xml:space="preserve">
     <value>Guides de capture</value>
@@ -810,6 +701,83 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   </data>
   <data name="Page.Settings.Saving" xml:space="preserve">
     <value>Enregistrement d'images</value>
+  </data>
+  <data name="Page.Technique.AdditionalTutorials" xml:space="preserve">
+    <value>Tutoriels supplémentaires :</value>
+  </data>
+  <data name="Page.Technique.Cross1" xml:space="preserve">
+    <value>Croisez soigneusement les yeux en regardant la paire de photos ci-dessus. Lorsque vous croisez les yeux, les choses deviennent floues et transparentes et vous commencez à voir 4 images au lieu de 2 (2 paires). Plus vous croisez les yeux, plus les paires d'images s'éloigneront - cela ressemblera un peu à ceci :</value>
+  </data>
+  <data name="Page.Technique.Cross2" xml:space="preserve">
+    <value>Décroisez soigneusement les yeux, afin que les images à l’intérieur de chaque paire commencent à se chevaucher. Vous aurez l'impression qu'il n'y a que 3 images au lieu de 4. Elles seront toujours floues et transparentes et ressembleront à ceci :</value>
+  </data>
+  <data name="Page.Technique.Cross3" xml:space="preserve">
+    <value>Une fois que le chevauchement central fonctionne, il vous suffit de détendre vos yeux et de leur permettre de concentrer l'image. À ce stade, vous aurez une image 3D nette au milieu avec une image transparente flottant de chaque côté qui ressemblera à ceci (sauf que le milieu sera en 3D) :</value>
+  </data>
+  <data name="Page.Technique.Cross4" xml:space="preserve">
+    <value>Si vous avez du mal à croiser les yeux, vous pouvez également essayer de fixer votre doigt pendant que vous le tenez à mi-chemin entre vos yeux et l'écran. Vous devriez voir les images commencer à se séparer et à se chevaucher derrière votre doigt.</value>
+  </data>
+  <data name="Page.Technique.CrossViewing" xml:space="preserve">
+    <value>VISION CROISÉE</value>
+  </data>
+  <data name="Page.Technique.Mode" xml:space="preserve">
+    <value>mode.</value>
+  </data>
+  <data name="Page.Technique.P1" xml:space="preserve">
+    <value>Si vous souhaitez revoir cela, appuyez sur l'icône hamburger (trois lignes) en haut à gauche de l'écran de l'appareil photo et appuyez sur « Aide ».
+
+Pour voir la 3D dans CrossCam (appelée « stéréogrammes »), vous pouvez utiliser des lunettes 3D rouges/cyan, une visionneuse Google Cardboard, ou vous pouvez effectuer une « visualisation gratuite » en utilisant uniquement vos yeux et votre écran. Il existe deux manières de visualiser gratuitement, et CrossCam peut vous aider à les apprendre toutes les deux. Vous devez indiquer à CrossCam comment vous allez afficher les images, sinon cela ne fonctionnera pas correctement. Ne vous inquiétez pas, vous pouvez toujours modifier cela à nouveau dans les paramètres.
+
+Si vous êtes capable de croiser confortablement les yeux, vous devriez d'abord essayer la méthode croisée, sinon vous devriez essayer la méthode parallèle. Si vous êtes habitué aux livres Magic Eye™, vous êtes probablement déjà capable de faire la méthode parallèle, mais vous pourrez peut-être aussi faire la méthode croisée. Appuyez sur une méthode ci-dessous pour l'apprendre et assurez-vous d'indiquer à CrossCam laquelle fonctionne pour vous en appuyant sur le bouton CHOISIR correspondant.
+
+Si vous préférez utiliser des lunettes 3D ou une visionneuse Cardboard, vous pouvez configurer CrossCam pour qu'il les utilise sur la page Paramètres.
+
+
+</value>
+  </data>
+  <data name="Page.Technique.Parallel1" xml:space="preserve">
+    <value>Si l'image ci-dessus ne tient pas sur votre écran, mettez votre téléphone en mode paysage - CrossCam essaie de créer la paire d'images au-dessus de la taille la plus simple pour cela. Vous n'êtes pas toujours obligé d'utiliser CrossCam en mode paysage, mais une image parfaitement dimensionnée facilite l'apprentissage de la technique.</value>
+  </data>
+  <data name="Page.Technique.Parallel2" xml:space="preserve">
+    <value>Détendez vos yeux et regardez « à travers » la paire d’images ci-dessus comme si vous étiez en train de zoner avec vos yeux pointés vers les images. Vous devriez commencer à voir 3 images avec une image 3D au milieu, un peu comme ceci :</value>
+  </data>
+  <data name="Page.Technique.Parallel3" xml:space="preserve">
+    <value>Si vous commencez à voir 4 images, vous êtes allé trop loin. Essayez de bouger un tout petit peu vos yeux si vous vous retrouvez à nouveau à ce stade. Se détendre trop loin ressemblera un peu à ceci :</value>
+  </data>
+  <data name="Page.Technique.Parallel4" xml:space="preserve">
+    <value>Si vous rencontrez des difficultés, essayez de placer votre écran contre votre visage avec les deux images juste devant vos yeux. Détendez-vous et regardez « à travers » l’écran, puis éloignez lentement votre écran de votre visage tout en gardant les yeux détendus. Finalement, l'image devrait « cliquer » pour être mise au point.</value>
+  </data>
+  <data name="Page.Technique.Parallel5" xml:space="preserve">
+    <value>Si vous continuez à voir quatre images, augmentez la « Largeur maximale de l'image en vue parallèle » sur la page Paramètres.</value>
+  </data>
+  <data name="Page.Technique.ParallelViewing" xml:space="preserve">
+    <value>AFFICHAGE PARALLÈLE</value>
+  </data>
+  <data name="Page.Technique.Practice" xml:space="preserve">
+    <value>Images que j'ai réalisées sur lesquelles vous pouvez vous entraîner</value>
+  </data>
+  <data name="Page.Technique.SetMode" xml:space="preserve">
+    <value>CrossCam est maintenant disponible</value>
+  </data>
+  <data name="Page.Technique.SpotTheDifference" xml:space="preserve">
+    <value>Repérez la différence</value>
+  </data>
+  <data name="Page.Technique.Trouble" xml:space="preserve">
+    <value>
+Si vous rencontrez toujours des problèmes, essayez de placer votre téléphone dans une pièce sombre afin que la seule chose sur laquelle vos yeux puissent bien voir et se concentrer soit l'image.
+
+Une autre chose que vous pouvez essayer est d'utiliser des tubes de papier toilette ou vos mains pour faire en sorte que chaque œil ne puisse voir que le côté de l'image qu'il est censé voir.
+• Pour une vue transversale : placez un seul tube contre l'arête de votre nez (centré entre vos yeux) tout en le pointant vers le centre de l'image devant vous. Déplacez lentement le tube vers l’écran tout en essayant de regarder le tube avec les deux yeux. Lorsque vous atteignez la bonne position avec le tube, l’image devrait se mettre en place. Il peut être utile de se concentrer sur l'observation de l'intérieur de l'extrémité du tube. Si vous ne trouvez pas la bonne position, essayez d'utiliser une image plus grande ou un tube plus petit.
+• Pour une vision parallèle : placez un tube devant chaque œil, mais pointez-les tous les deux latéralement afin de ne presque rien voir. Tournez lentement les tubes vers l’intérieur en même temps pour pouvoir commencer à voir davantage l’image. Au moment où vous pouvez voir la majeure partie de l’image (presque la moitié avec chaque œil), essayez de détendre vos yeux et de rapprocher les moitiés. Il peut être utile d'utiliser une image plus grande ou plus petite.
+
+Il existe un exercice simple que vous pouvez réaliser pour vous entraîner à la fusion avec une visualisation croisée ou parallèle. Prenez un marqueur et dessinez une partie d'un visage souriant sur chacune de vos vignettes (ou une paire de bâtons de glace ou d'abaisse-langue). Par exemple, d'un côté, dessinez un œil et une bouche, et de l'autre côté, dessinez un œil et un nez. Vous pouvez ensuite les tenir devant vous et vous entraîner à fusionner les deux images pour compléter le visage souriant.
+
+Personnellement, je préfère le croisement au parallèle car les images peuvent être plus grandes, mais les deux méthodes fonctionnent. Si vous souhaitez expérimenter des images parallèles plus grandes, vous pouvez contrôler la taille sur la page Paramètres.
+
+Parfois, il est difficile de savoir si vous utilisez la méthode croisée ou parallèle pendant que vous le faites. Vous pouvez demander à quelqu'un d'autre de surveiller vos yeux pendant que vous le faites ou vous pouvez regarder l'image ci-dessous à titre de test :</value>
+  </data>
+  <data name="Page.Technique.VariousTutorials" xml:space="preserve">
+    <value>Divers tutoriels sur différents sujets</value>
   </data>
   <data name="Page.TipMe.1" xml:space="preserve">
     <value>CrossCam est gratuit, sans publicité, open source, ne collecte aucune information personnelle vous concernant et vous donne un accès complet à toutes les fonctionnalités. J'adore travailler sur CrossCam mais cela demande beaucoup de temps et d'efforts. Je ne gagne aucun argent avec CrossCam, à l'exception des pourboires que les gens pourraient décider de m'envoyer.</value>
@@ -824,7 +792,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Patréon</value>
   </data>
   <data name="Page.TipMe.PayPal" xml:space="preserve">
-    <value>Pay Pal</value>
+    <value>Paypal</value>
   </data>
   <data name="Page.TipMe.Tipped" xml:space="preserve">
     <value>j'ai été prévenu</value>
@@ -835,14 +803,125 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   <data name="Page.TipMe.Venmo" xml:space="preserve">
     <value>Venmo</value>
   </data>
-  <data name="Title.MorePictures" xml:space="preserve">
-    <value>Voir plus de photos</value>
+  <data name="Page.Tips.AlignAfter" xml:space="preserve">
+    <value>Faites attention aux lignes horizontales, mais vous pouvez également vous aligner après.</value>
   </data>
-  <data name="Title.Settings" xml:space="preserve">
-    <value>Paramètres</value>
+  <data name="Page.Tips.AlignAfter.Body" xml:space="preserve">
+    <value>Si vous constatez qu'en prenant des photos, il est impossible d'aligner les lignes de guidage supérieure et inférieure en même temps, vous vous êtes probablement déplacé dans une direction autre que simplement sur le côté. Essayez de résoudre ce problème avant de prendre les photos, mais un alignement après coup peut beaucoup aider.</value>
   </data>
-  <data name="Title.TipMe" xml:space="preserve">
-    <value>Les pourboires sont appréciés !</value>
+  <data name="Page.Tips.Alignment" xml:space="preserve">
+    <value>Vous pouvez désactiver l'alignement automatique.</value>
+  </data>
+  <data name="Page.Tips.Alignment.Body" xml:space="preserve">
+    <value>Si vous n'aimez pas les résultats de l'alignement automatique, désactivez-le simplement sur la page Paramètres ou en appuyant sur la petite icône du robot et vos images capturées d'origine seront restaurées.</value>
+  </data>
+  <data name="Page.Tips.Donut" xml:space="preserve">
+    <value>Le guide des beignets peut aider votre fenêtre.</value>
+  </data>
+  <data name="Page.Tips.Donut.Body" xml:space="preserve">
+    <value>Il existe un guide expérimental sur la page Paramètres que vous pouvez activer et qui peut vous aider à préserver votre fenêtre stéréo tout en maximisant la largeur utilisable. En tournant à gauche et à droite, la profondeur du beignet changera par rapport au reste de la scène. Réglez la profondeur du beignet pour qu'il soit sur ou derrière le point le plus éloigné de votre scène. Attention, son utilisation peut rendre certaines choses pénibles à regarder (voir l'astuce Keystone ci-dessus).</value>
+  </data>
+  <data name="Page.Tips.Keystone" xml:space="preserve">
+    <value>Une correction trapézoïdale et une configuration minutieuse de la scène sont nécessaires si vous vous lancez.</value>
+  </data>
+  <data name="Page.Tips.Keystone.Body" xml:space="preserve">
+    <value>Se tourner vers l'intérieur lors de la capture est appelé pincement. Cela devrait généralement être évité. Cela peut faire une bonne chose mineure, mais cela peut aussi faire deux mauvaises choses majeures. La bonne chose qu'il peut faire est de permettre à une plus grande partie de la scène de rester derrière la fenêtre stéréo sans qu'un recadrage ne soit nécessaire (voir l'astuce sur la « fenêtre stéréo » pour plus d'informations). Si vous souhaitez ajouter un pincement, il existe un guide de capture « beignet » que vous pouvez activer sur la page Paramètres et qui peut vous aider à réguler le montant que vous pincez.
+
+La première mauvaise chose que le pincement peut provoquer est un effet de raccourci qui rend difficile la fusion des coins de l’image. L’effet de raccourci peut être observé dans la vraie vie lorsque les choses semblent devenir plus petites à mesure qu’elles s’éloignent de vous. Si vous imaginez regarder directement la porte d'entrée fermée de quelqu'un, les deux côtés ont la même hauteur, mais une fois la porte ouverte, le côté le plus éloigné de vous est légèrement plus petit que le côté le plus proche de vous. Cet effet de raccourci peut également provoquer la convergence de lignes parallèles lorsqu'elles s'éloignent de vous (par exemple des voies ferrées). Si vous pincez, vous ajoutez un effet de raccourci au côté vers lequel vous vous tournez, mais c'est différent pour chaque moitié du stéréogramme, donc ils ne correspondent pas.
+
+La deuxième mauvaise chose que le pincement peut causer est qu'elle peut rendre la parallaxe des objets situés loin en arrière-plan trop importante pour fusionner confortablement. Pour imaginer cela, imaginez tourner autour de quelqu’un tout en lui faisant face à tout moment. La personne elle-même semblera tourner lentement, mais les objets éloignés en arrière-plan seront petits et se déplaceront très rapidement dans la direction opposée à votre rotation. Ces objets peuvent même ne pas apparaître dans les deux perspectives si vous vous approchez trop loin, et ceux qui apparaissent peuvent être inconfortables à voir.
+
+Le moyen le plus simple d'atténuer l'effet du pincement sur la parallaxe des objets d'arrière-plan consiste simplement à configurer la scène de manière à ce qu'il n'y ait pas d'objets d'arrière-plan distants. Cela signifierait utiliser uniquement le pincement lorsque vous capturez des sujets qui se trouvent devant des murs ou d'autres objets qui empêchent votre vue de s'étendre trop loin vers l'arrière-plan. Le moyen le plus simple d'atténuer l'effet de raccourci provoqué par le pincement est d'effectuer des corrections trapézoïdales pendant l'édition. Si vous effectuez une visualisation croisée, vous souhaiterez réduire verticalement les bords intérieurs des photos, puis en recadrer une partie en haut et en bas pour les niveler (bords extérieurs si vous effectuez une visualisation parallèle). Vous pouvez le faire dans CrossCam. Vous accédez au menu d'édition Keystone en appuyant sur le bouton qui ressemble à ceci :</value>
+  </data>
+  <data name="Page.Tips.Lean" xml:space="preserve">
+    <value>Vous pouvez simplement vous pencher.</value>
+  </data>
+  <data name="Page.Tips.Lean.Body" xml:space="preserve">
+    <value>Parfois, au lieu de bouger complètement vos pieds vers la gauche ou la droite pour prendre des photos, il peut être plus facile de simplement vous tenir les pieds écartés et de vous pencher dans chaque direction, mais veillez à garder le téléphone de niveau et à la même hauteur. Le simple fait de vous pencher au lieu de bouger peut vous aider à ne pas aller trop loin et à garder votre objectif droit plus facilement.</value>
+  </data>
+  <data name="Page.Tips.Lines" xml:space="preserve">
+    <value>Les lignes d'alignement peuvent bouger.</value>
+  </data>
+  <data name="Page.Tips.Lines.Body" xml:space="preserve">
+    <value>Vous pouvez faire glisser les lignes d’alignement si vous le souhaitez. Ceci est particulièrement utile lors de l’alignement des images lors de l’édition.</value>
+  </data>
+  <data name="Page.Tips.Moving" xml:space="preserve">
+    <value>Si votre sujet bouge, vous pouvez toujours le capturer avec CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old" xml:space="preserve">
+    <value>Vous pouvez ouvrir d'anciennes photos dans CrossCam.</value>
+  </data>
+  <data name="Page.Tips.Old.Body" xml:space="preserve">
+    <value>Vous pouvez charger des photos prises précédemment en appuyant sur l'icône de dossier en bas de la page de l'appareil photo, mais si vous travaillez avec un grand nombre de photos, vous pouvez également les partager sur CrossCam directement depuis votre application photos, ce qui peut mieux suivre votre place dans vos photos.</value>
+  </data>
+  <data name="Page.Tips.PanAndZoom" xml:space="preserve">
+    <value>Vous pouvez effectuer un panoramique et un zoom pour explorer les stéréogrammes en 3D.</value>
+  </data>
+  <data name="Page.Tips.PanAndZoom.Body" xml:space="preserve">
+    <value>Vous pouvez effectuer un panoramique et un zoom avant et arrière sur un stéréogramme tout en conservant l'effet 3D en appuyant sur l'icône qui ressemble à un œil qui apparaît après avoir capturé les deux côtés. Après avoir touché l'œil, pincez pour zoomer ou appuyez et faites glisser pour effectuer un panoramique.</value>
+  </data>
+  <data name="Page.Tips.Quick" xml:space="preserve">
+    <value>Activez le mode rapide lorsque vous êtes avec d'autres personnes.</value>
+  </data>
+  <data name="Page.Tips.Quick.Body" xml:space="preserve">
+    <value>Si vous sortez avec d'autres personnes, c'est une bonne idée de passer en mode rapide en : désactivant l'alignement automatique, désactivant les bordures et le guide des fusibles, activant la sauvegarde automatique et activant la connexion automatique (si vous utilisez deux téléphones). Vous pouvez toujours charger, aligner automatiquement et modifier les images ultérieurement. De cette façon, vos compagnons n'auront pas à attendre que vous perfectionniez vos photos sur place, mais vous pouvez toujours être sûr que la profondeur que vous souhaitez est bien là. Faites juste attention à ne pas faire de modifications hâtives avant la première sauvegarde ! Vous pouvez également activer la sauvegarde latérale séparée qui ignorera toutes les modifications que vous effectuez.</value>
+  </data>
+  <data name="Page.Tips.Sick" xml:space="preserve">
+    <value>Si le mouvement vous rend malade, restez immobile.</value>
+  </data>
+  <data name="Page.Tips.Sick.Body" xml:space="preserve">
+    <value>Si tous les mouvements vous rendent malade ou rendent la visualisation en 3D trop difficile, ne commencez pas à essayer de le voir en 3D avant de vous être déplacé un peu. Comparez ensuite les images les unes aux autres et alignez les images à l'aide des lignes horizontales sans visualisation 3D, puis démarrez la visualisation 3D une fois alignées et immobiles.</value>
+  </data>
+  <data name="Page.Tips.Space" xml:space="preserve">
+    <value>Ces images peuvent occuper beaucoup d’espace de stockage – vous pouvez les réduire.</value>
+  </data>
+  <data name="Page.Tips.Space.Body" xml:space="preserve">
+    <value>La page Paramètres propose une option permettant de diminuer proportionnellement la résolution de l'image finale - cela peut être utile si vous souhaitez économiser de l'espace. Si votre photo n'est pas recadrée, le résultat final est deux images en pleine résolution réunies pour en faire une en double résolution, ce qui signifie que vous pouvez souvent vous en sortir avec une réduction importante de la résolution sans affecter sensiblement la qualité.</value>
+  </data>
+  <data name="Page.Tips.Turn" xml:space="preserve">
+    <value>Ne te retourne pas.</value>
+  </data>
+  <data name="Page.Tips.Turn.Body" xml:space="preserve">
+    <value>Lorsque vous vous déplacez, essayez de ne faire pivoter votre téléphone dans aucune direction, y compris la tendance naturelle à vous tourner vers le sujet lorsque vous vous déplacez sur le côté. Une certaine rotation sera nécessaire (parfois), mais essayez de la minimiser. Imaginez que le téléphone soit monté sur un rail horizontal droit et ne puisse que glisser. Se tourner vers l'intérieur peut poser deux problèmes : cela peut provoquer un effet de raccourci dans les coins qui les rend difficiles à fusionner et cela peut rendre la parallaxe des objets en arrière-plan trop importante pour être visualisée confortablement. Voir les conseils sur la « correction trapézoïdale » et le « pincement » pour plus d'informations.</value>
+  </data>
+  <data name="Page.Tips.Window" xml:space="preserve">
+    <value>Ajoutez une bordure et un recadrage pour créer une fenêtre stéréo solide.</value>
+  </data>
+  <data name="Page.Tips.Window.Body" xml:space="preserve">
+    <value>Un effet de fenêtre stéréo intéressant peut être créé en faisant deux choses : 1) activez la bordure (sur la page Paramètres) et 2) pour une visualisation croisée, recadrez les bords intérieurs des images jusqu'à ce que le bord extérieur lui-même devienne 3D dans l'image (recadrez les bords EXTÉRIEURS si vous regardez en parallèle). La clé est de recadrer le bord droit de l’image de gauche légèrement au-delà de ce que le bord droit de l’image de droite montre de la scène et vice versa. L'ajout d'une bordure est activé sur la page Paramètres. Si cela prête à confusion, coupez simplement un peu des bords intérieurs et cela commencera à être clair. Le bouton de recadrage pour les bords intérieurs ressemble à ceci :</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="SaveModes.Anaglyph" xml:space="preserve">
+    <value>Anaglyphe</value>
+  </data>
+  <data name="SaveModes.Cardboard" xml:space="preserve">
+    <value>Carton</value>
+  </data>
+  <data name="SaveModes.Cross" xml:space="preserve">
+    <value>Croix</value>
+  </data>
+  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
+    <value>Anaglyphe de Dubois</value>
+  </data>
+  <data name="SaveModes.GrayscaleAnaglyph" xml:space="preserve">
+    <value>Anaglyphe en niveaux de gris</value>
+  </data>
+  <data name="SaveModes.Parallel" xml:space="preserve">
+    <value>Parallèle</value>
+  </data>
+  <data name="SaveModes.Quad" xml:space="preserve">
+    <value>Quad</value>
+  </data>
+  <data name="SaveModes.Separate" xml:space="preserve">
+    <value>Séparée</value>
+  </data>
+  <data name="SaveModes.Single" xml:space="preserve">
+    <value>Célibataire</value>
+  </data>
+  <data name="SaveModes.Triple" xml:space="preserve">
+    <value>Tripler</value>
   </data>
   <data name="Settings.Alignment.Advanced" xml:space="preserve">
     <value>Afficher les paramètres d'alignement avancés</value>
@@ -872,7 +951,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Épaisseur de la bordure (dixièmes de pourcentage de largeur)</value>
   </data>
   <data name="Settings.Camera.Camera1" xml:space="preserve">
-    <value>Forcer l'API de la caméra 1 (peut être utile si vous rencontrez des problèmes, mais cela entraînera des fonctionnalités limitées, nécessite un arrêt/redémarrage forcé pour prendre effet)</value>
+    <value>Forcer l'API de la caméra 1 (peut être utile si vous rencontrez des problèmes étranges, mais cela entraînera des fonctionnalités limitées, nécessite un arrêt/redémarrage forcé pour prendre effet)</value>
   </data>
   <data name="Settings.Camera.Camera2" xml:space="preserve">
     <value>Forcer l'API Camera2 (doit être sur Android 6 ou supérieur, peut être utile si vous rencontrez des erreurs mais peut en créer davantage, nécessite un arrêt/redémarrage forcé pour prendre effet)</value>
@@ -928,6 +1007,9 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   <data name="Settings.Guides.Roll" xml:space="preserve">
     <value>Guide-rouleau visible</value>
   </data>
+  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
+    <value>Se connecter automatiquement lorsque la page de la caméra s'ouvre</value>
+  </data>
   <data name="Settings.Pair.CaptureDelay" xml:space="preserve">
     <value>Délai supplémentaire du moment de capture (ms) (ajoute un délai supplémentaire au moment de capture cible sur cet appareil uniquement)</value>
   </data>
@@ -971,7 +1053,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Délai d'expiration de la connexion (secondes) (0 signifie aucun délai d'attente)</value>
   </data>
   <data name="Settings.Preview.Barrel" xml:space="preserve">
-    <value>Ajouter une correction d'objectif/distorsion en barillet (peut réduire la fréquence d'images)</value>
+    <value>Ajouter une correction d'objectif/une distorsion en barillet (peut réduire la fréquence d'images)</value>
   </data>
   <data name="Settings.Preview.BarrelFinal" xml:space="preserve">
     <value>Ajoutez une correction d'objectif/une distorsion en barillet aux images finales uniquement (peut ralentir l'affichage final mais accélérera la capture)</value>
@@ -983,7 +1065,7 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Réduire la taille de l'image (peut augmenter la fréquence d'images)</value>
   </data>
   <data name="Settings.Preview.DownsizePercent" xml:space="preserve">
-    <value>Pourcentage de réduction de l'image</value>
+    <value>Pourcentage de redimensionnement de l'image</value>
   </data>
   <data name="Settings.Preview.Immersive" xml:space="preserve">
     <value>Visualisation finale immersive</value>
@@ -992,13 +1074,13 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Force de correction de l'objectif</value>
   </data>
   <data name="Settings.Preview.Mirror" xml:space="preserve">
-    <value>Capturez à l'aide de la méthode de division miroir en un seul coup</value>
+    <value>Capturer à l'aide de la méthode de division miroir en un seul coup</value>
   </data>
   <data name="Settings.Preview.Width" xml:space="preserve">
     <value>Largeur maximale de l'image en vue parallèle (points)</value>
   </data>
   <data name="Settings.Reset" xml:space="preserve">
-    <value>Réinitialiser les paramètres par défaut</value>
+    <value>Réinitialiser aux valeurs par défaut</value>
   </data>
   <data name="Settings.Saving.Alone" xml:space="preserve">
     <value>Enregistrez le premier côté seul (sans modifications ni bordure) (pour un partage facile d'une photo à plat avec des personnes à vue plate)</value>
@@ -1018,17 +1100,26 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
   <data name="Settings.Saving.Cross" xml:space="preserve">
     <value>Enregistrer la version jointe en vue croisée (avec modifications et bordure)</value>
   </data>
+  <data name="Settings.Saving.Dubois" xml:space="preserve">
+    <value>Enregistrer la version anaglyphe Dubois rouge/cyan (avec modifications mais sans bordure)</value>
+  </data>
   <data name="Settings.Saving.ExternalDirectory" xml:space="preserve">
     <value>Enregistrez dans le répertoire CrossCam externe à l'adresse :</value>
   </data>
   <data name="Settings.Saving.ExternalWarning" xml:space="preserve">
     <value>(attention : les photos seront supprimées si CrossCam est désinstallé)</value>
   </data>
+  <data name="Settings.Saving.FilenameLabels" xml:space="preserve">
+    <value>Enregistrer les images avec la méthode d'affichage dans le nom de fichier</value>
+  </data>
   <data name="Settings.Saving.Folder" xml:space="preserve">
     <value>Enregistrez dans le sous-dossier/album dédié "CrossCam"</value>
   </data>
   <data name="Settings.Saving.Grayscale" xml:space="preserve">
     <value>Enregistrer la version anaglyphe rouge/cyan en niveaux de gris (avec modifications mais sans bordure)</value>
+  </data>
+  <data name="Settings.Saving.InstantSave" xml:space="preserve">
+    <value>Enregistrer automatiquement après la capture</value>
   </data>
   <data name="Settings.Saving.Order" xml:space="preserve">
     <value>(La sauvegarde se fera dans l'ordre de haut en bas)</value>
@@ -1052,84 +1143,36 @@ Avant que deux appareils puissent être utilisés ensemble, leurs rôles doivent
     <value>Enregistrez chaque côté séparément (sans modifications ni bordure pour un post-traitement plus facile, le côté gauche est enregistré en premier)</value>
   </data>
   <data name="Settings.Saving.Subfolder" xml:space="preserve">
-    <value>Enregistrez dans des sous-dossiers/albums dédiés « CrossCam {View Method} »</value>
+    <value>Enregistrez dans les sous-dossiers/albums dédiés « CrossCam {View Method} »</value>
   </data>
   <data name="Settings.Saving.Triple" xml:space="preserve">
-    <value>Enregistrer la combinaison triple (avec modifications et bordure)</value>
+    <value>Enregistrer la triple combinaison (avec modifications et bordure)</value>
   </data>
-  <data name="Button.Pair.Accept" xml:space="preserve">
-    <value>Accepter</value>
+  <data name="Title.Contact" xml:space="preserve">
+    <value>Contact</value>
   </data>
-  <data name="Button.Pair.Cancel" xml:space="preserve">
-    <value>Annuler</value>
+  <data name="Title.Faq" xml:space="preserve">
+    <value>FAQ</value>
   </data>
-  <data name="Page.Camera.AcceptConnection" xml:space="preserve">
-    <value>Accepter la connexion à</value>
+  <data name="Title.Help" xml:space="preserve">
+    <value>Aide</value>
   </data>
-  <data name="Page.Camera.Confirm" xml:space="preserve">
-    <value>Confirmez que les codes correspondent sur les deux appareils :</value>
+  <data name="Title.HowToUse" xml:space="preserve">
+    <value>Comment utiliser CrossCam</value>
   </data>
-  <data name="Page.Footer.CouldntOpen" xml:space="preserve">
-    <value>Impossible d'ouvrir le lien</value>
+  <data name="Title.MorePictures" xml:space="preserve">
+    <value>Voir plus de photos</value>
   </data>
-  <data name="Page.Footer.OpenError" xml:space="preserve">
-    <value>Le lien mailto n'a pas pu être ouvert. Cela peut être dû au fait que votre client de messagerie n'est pas configuré ou pour une autre raison.</value>
+  <data name="Title.Settings" xml:space="preserve">
+    <value>Paramètres</value>
   </data>
-  <data name="Page.Pair.Errors.Denied" xml:space="preserve">
-    <value>Les autorisations nécessaires au couplage n'ont pas été accordées. Exception:</value>
+  <data name="Title.Technique" xml:space="preserve">
+    <value>Technique de visualisation 3D</value>
   </data>
-  <data name="Page.Pair.Errors.FailedBluetooth" xml:space="preserve">
-    <value>L'appareil n'a pas réussi à allumer Bluetooth. Exception:</value>
+  <data name="Title.TipMe" xml:space="preserve">
+    <value>Les pourboires sont appréciés !</value>
   </data>
-  <data name="Page.Pair.Errors.FailedSearch" xml:space="preserve">
-    <value>L'appareil n'a pas réussi à rechercher des appareils. Exception:</value>
-  </data>
-  <data name="Page.Pair.Errors.LocationOff" xml:space="preserve">
-    <value>Services de localisation non activés. Impossible de rechercher des appareils. Voir la page d'appariement pour plus de détails.</value>
-  </data>
-  <data name="Page.Pair.Errors.LocationScan" xml:space="preserve">
-    <value>Autorisation de localisation non accordée. Impossible de rechercher des appareils. Voir la page d'appariement pour plus de détails.</value>
-  </data>
-  <data name="Page.Pair.Errors.NotSupported" xml:space="preserve">
-    <value>Le couplage n'est pas pris en charge sur cet appareil. Exception:</value>
-  </data>
-  <data name="Page.Pair.Errors.Title" xml:space="preserve">
-    <value>Erreur</value>
-  </data>
-  <data name="Page.Pair.Errors.WifiOff" xml:space="preserve">
-    <value>Le Wi-Fi est désactivé. Veuillez activer le Wi-Fi.</value>
-  </data>
-  <data name="Page.Pair.PrimaryExplanation" xml:space="preserve">
-    <value>Cet appareil est désormais défini comme appareil principal.</value>
-  </data>
-  <data name="Page.Pair.PrimarySelected" xml:space="preserve">
-    <value>Rôle principal sélectionné</value>
-  </data>
-  <data name="Page.Pair.SecondaryExplanation" xml:space="preserve">
-    <value>Cet appareil est désormais défini comme secondaire.</value>
-  </data>
-  <data name="Page.Pair.SecondarySelected" xml:space="preserve">
-    <value>Rôle secondaire sélectionné</value>
-  </data>
-  <data name="Page.Technique.Mode" xml:space="preserve">
-    <value>mode.</value>
-  </data>
-  <data name="Page.Technique.SetMode" xml:space="preserve">
-    <value>CrossCam est maintenant disponible</value>
-  </data>
-  <data name="Settings.Saving.InstantSave" xml:space="preserve">
-    <value>Enregistrer automatiquement après la capture</value>
-  </data>
-  <data name="Settings.Pair.Autoconnect" xml:space="preserve">
-    <value>Se connecter automatiquement lorsque la page de l'appareil photo s'ouvre</value>
-  </data>
-  <data name="Page.Settings.Fullscreen" xml:space="preserve">
-    <value>Utiliser des fantômes/superposition transparente/plein écran</value>
-  </data>
-  <data name="SaveModes.DuboisAnaglyph" xml:space="preserve">
-    <value>Anaglyphe de Dubois</value>
-  </data>
-  <data name="Settings.Saving.Dubois" xml:space="preserve">
-    <value>Enregistrer la version anaglyphe rouge/cyan de Dubois (avec modifications mais sans bordure)</value>
+  <data name="Title.Tips" xml:space="preserve">
+    <value>Conseils</value>
   </data>
 </root>
